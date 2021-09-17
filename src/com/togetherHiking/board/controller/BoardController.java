@@ -36,8 +36,8 @@ public class BoardController extends HttpServlet {
 		case "board-form":
 			  boardForm(request,response);
 			break;
-		case "detail":
-			  detail(request,response);
+		case "board-detail":
+			  boardDetail(request,response);
 			break;
 		case "upload":
 			upload(request,response);
@@ -49,13 +49,13 @@ public class BoardController extends HttpServlet {
 	}
 
 
-	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/board/board-detail").forward(request, response);
 		
 	}
 
 	private void boardForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/board/board-form").forward(request, response);
 		
 	}
 
