@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-
+     
   <section class="container">   
    <form id="search_mountain"> 지역 또는 산 이름 검색 
     	<div>
@@ -29,18 +29,18 @@
 	    </div>        <%-- 여쭤보고 수정 --%>
 	   <div class = mountain_wrapper>							
 		    <div class="mountain_group">
-			  <a class="mountain" href="mountain_detail_page.html">가학산</a>  
-			  <a class="mountain" href="mountain_detail_page.html">각골산</a>
-			  <a class="mountain" href="mountain_detail_page.html">각흘산</a>
+			  <a class="mountain" href="/mountain/detail">가학산</a>  
+			  <a class="mountain" href="/mountain/detail">각골산</a>
+			  <a class="mountain" href="/mountain/detail">각흘산</a>
 		    </div>
 		    <div class="mountain_group">
-			  <a class="mountain" href="mountain_detail_page.html">갈기산</a>
-			  <a class="mountain" href="mountain_detail_page.html">갑악산</a>
-			  <a class="mountain" href="mountain_detail_page.html">갑산</a>
+			  <a class="mountain" href="/mountain/detail">갈기산</a>
+			  <a class="mountain" href="/mountain/detail">갑악산</a>
+			  <a class="mountain" href="/mountain/detail">갑산</a>
 		    </div>
 		    <div class="mountain_group">
-			  <a class="mountain" href="mountain_detail_page.html">개명산</a>
-			  <a class="mountain" href="mountain_detail_page.html">강씨봉</a>
+			  <a class="mountain" href="/mountain/detail">개명산</a>
+			  <a class="mountain" href="/mountain/detail">강씨봉</a>
 	   		</div>
 	    </div>			
 	</div>
@@ -52,10 +52,10 @@
 		</div>        <%-- 여쭤보고 수정 --%>
 	    <div class = mountain_wrapper >							
 		    <div class="mountain_group">
-			  <a class="mountain" href="mountain_detail_page.html">개화산</a>  
-			  <a class="mountain" href="mountain_detail_page.html">고은산</a>
-			  <a class="mountain" href="mountain_detail_page.html">관악산</a>
-			  <a class="mountain" href="mountain_detail_page.html">구룡산</a>
+			  <a class="mountain" href="/mountain/detail">개화산</a>  
+			  <a class="mountain" href="/mountain/detail">고은산</a>
+			  <a class="mountain" href="/mountain/detail">관악산</a>
+			  <a class="mountain" href="/mountain/detail">구룡산</a>
 	   		</div>
 	    </div>	
     </div>

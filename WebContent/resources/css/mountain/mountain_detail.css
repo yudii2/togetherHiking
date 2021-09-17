@@ -3,7 +3,7 @@
 .container{
 		position:relative;
 		margin : auto;
-	}
+}	
 	
 #search_mountain{
 	background-color : var(--point-color);
@@ -12,7 +12,7 @@
 	color : white;
 	font-size: 30px;
 	line-height: 50px;
-}
+}  
 
 .search_bar{
 	width:600px;
@@ -34,11 +34,12 @@
   outline:none;
   border-radius:20px;
 }
+
 .loc_bnt:hover{
   background:#fff;
   color:var(--point-color);
-}
-	
+}	
+
 #weather{
 	border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
 	height: 50px;
@@ -61,7 +62,6 @@
     border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
     float: left;
 }
-
 
 #mountain_info{
 	border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */

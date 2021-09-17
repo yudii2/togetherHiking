@@ -49,12 +49,12 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
 		
 	}
 
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/mountain/search").forward(request, response);
+		request.getRequestDispatcher("/mountain/mountain-search").forward(request, response);
 		
 	}
 
