@@ -60,6 +60,27 @@
 	    </div>	
     </div>
     
+<script type="text/javascript">
+let $ = (selector, text) =>{
+	if(text){
+		document.querySelector(selector).innerHTML += `${text}<br>`
+	}
+	return document.querySelector(selector);
+}
+
+document.querySelectorAll('a[type=button]').forEach(e => {
+	
+	e.addEventListener('click',event =>{
+		document.querySelectorAll('.loc').forEach(e =>{
+			e.style.display ='none';
+			//모두 none으로 두고, 라디오버튼에 선택 된 항목만 디스플레이값을 block으로 설정해서 나타나게함
+			$(event.target.dataset.divId).style.display='block';
+		})
+	})
+})
+
+</script>
+    
 </section>
 </body>
 </html>
