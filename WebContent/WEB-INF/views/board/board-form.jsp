@@ -11,7 +11,11 @@
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
   <section>
+<<<<<<< HEAD
     <div class="container">
+=======
+    <div class="container con_sec01">
+>>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
 	
 		<div class='section'>
 			<form class='frm_post'>

@@ -58,7 +58,7 @@
 .comment_cnt{
   margin-left: 80px;
 }
-.self_intro{
+.info{
   font-size: 14px;
 }
 .wrap_tab{
@@ -76,10 +76,17 @@
 }
 
 .my_posts{
-  /* border: 1px solid #000; */
+  position: relative;
+  overflow: hidden;
+}
+#filter{
+	position: absolute;
+	right: 0;
+	margin-top: 10px;
+	
 }
 .wrap_post{
-  margin-top: 20px;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
@@ -87,7 +94,9 @@
 .post{
   border: 1px solid #000;
   padding-bottom: 100%;
+  
 }
+
 
 
 
