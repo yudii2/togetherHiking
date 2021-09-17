@@ -20,7 +20,7 @@
             <input type="password" required placeholder="비밀번호를 입력하세요.">
         </P>
         </div>
-    
+    ㅇㅇㅇㅇㅇ
         <class class="caption"></class>
         <a href="#">회원가입</a>
         <a href="#">아이디찾기</a>     
