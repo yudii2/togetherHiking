@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-     
+       
   <section class="container">   
    <form id="search_mountain"> 지역 또는 산 이름 검색 
     	<div>
