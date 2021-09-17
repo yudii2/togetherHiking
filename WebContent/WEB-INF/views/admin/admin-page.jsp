@@ -256,7 +256,7 @@
           <div class="col-lg-6">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title" style="font-size:16px; font-weight:600; color:#555555">모임 신청 현황</h5>
 
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the card's
