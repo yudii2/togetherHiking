@@ -8,7 +8,7 @@
 <%@ include file = "/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href = "/resources/css/mountain/mountain_detail.css">
 </head>
-  
+   
   <body>
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
   <section class="container">  
