@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+:root{
+  --point-color:rgb(39, 174, 96);
+}
+
+body{
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #555555;
+  width: 100%;
+  font-size:15px;
+}
+a {
+  color: #555555;
+}
+header{
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  z-index:999;
+}
+.container{
+  margin: auto;
+  width: 1200px;
+}
+.con_header{
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.logo{
+  width: 200px;
+  height: inherit;
+  position: relative;
+  box-sizing: border-box;
+  
+}
+.logo img{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 70%;
+}
+.gnb{
+  display: flex;
+}
+.gnb li{
+  padding: 60px 40px 20px 40px;
+}
+.gnb li:hover a{
+  color: rgb(39, 174, 96);
+}
+.login, .join{
+  display: inline-block;
+  padding: 60px 0 0 15px;
+  font-size: 13px;
+}
+.header_profile{
+	margin-top: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+	width:50px;
+	height:50px;
+	position: relative;
+	border: 1px solid #000;
+}
+.header_profile img{
+	position: absolute;
+	width:100%;
+	height:100%;
+	top: 0;
+	left: 0;
+}
+/* 헤더 끝 */
+
+/* 콘텐츠 시작 - 섹션코드는 건들지 말아주세요! */
+section{
+  position: absolute;
+  width: 100%;
+  top: 100px;
+}
+
+/* container에는 1200px로 고정되도록 header.css 안에 잡아놨습니다. 
+따라서 콘텐츠를 전체적으로 묶어줄 영역을 설정하신다면 class명에 container를 입력해주세요 
+아래 코드는 브라우저에 어떻게 나타나는지 보여주는 코드이므로 지우시고 사용하세요 
+또, 헤더가 아닌 콘텐츠 시작 부분은 css를 파일을 따로 만들어 작성 부탁드려요~ 헤더.css 코드를 분리하기 위함입니다*/
+.con_sec01{
+  background-color: gold;
+  
+}

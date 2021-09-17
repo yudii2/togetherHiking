@@ -1,0 +1,140 @@
+@charset "UTF-8";
+.con_mypage{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.wrap_mypage_side_menu{
+  grid-column: 1 / span 2;
+}
+.tit_side_menu{
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mypage_side_menu{
+  padding: 20px;
+  background-color: #eee;
+  height: 90%;
+  box-sizing: border-box;
+}
+.mypage_side_menu li{
+  padding: 15px 0;
+}
+.tit_mypage_gnb{
+  font-size: 16px;
+}
+.tit_sub_gnb{
+  display: block;
+  padding: 10px 0 0 15px;
+  font-size: 14px;
+}
+.wrap_my_contents{
+  grid-column: 3 / -1;
+  padding: 80px;
+}
+.profile{
+  width: 100%;
+  /* border: 1px solid #000; */
+  display: flex;
+}
+.profile_img{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-right: 70px;
+}
+.profile_desc{
+  padding-top: 10px;
+}
+.nickname{
+  padding-bottom: 10px;
+  font-weight: 500;
+}
+.cnt{
+  font-size: 13px;
+  padding-bottom: 25px;
+  display: inline-block;
+  margin-right: 70px;
+}
+.self_intro{
+  font-size: 14px;
+  display: block;
+}
+.tabs{
+  display: flex;
+  margin-top: 30px;
+  border-bottom: 1px solid #555555;
+}
+.tabs li{
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+}
+#tab_post{
+  background-color: var(--point-color);
+  color: #fff;
+}
+#tab_comment{
+  border: 1px solid #bbb;
+  border-bottom: none;
+}
+.my_posts{
+  /* border: 1px solid #000; */
+}
+table{
+  width: 100%;
+}
+.col_my_posts,
+.contents{
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  border-bottom: 1px solid #555555;
+  width: 100%;
+}
+.col_my_posts span, td{
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+}
+td:nth-child(1){
+  grid-column: 1 / span 1;
+}
+td:nth-child(1) span{
+  margin-left: 20px;
+}
+.title,
+td:nth-child(2){
+  grid-column: 2 / 8;
+}
+.date,
+td:nth-child(3){
+  grid-column: 8 / 9;
+}
+.views,
+td:nth-child(4){
+  grid-column: 10 / -1;
+}
+.btns{
+  display: flex;
+  justify-content: space-between;
+}
+.select_all{
+  padding: 10px;
+  font-size: 13px;
+}
+.btn button{
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-left: 10px;
+  font-size: 13px;
+}
+#btn_edit{
+  background-color: #ccc;
+}
+#btn_del{
+  background-color: crimson;
+  color: #fff;
+}
