@@ -73,7 +73,7 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void scheduleForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/schedule/schedule-form").forward(request, response);
 		
 	}
 

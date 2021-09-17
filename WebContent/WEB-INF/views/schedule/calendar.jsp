@@ -61,7 +61,7 @@
                       text : "산행동행 모임 만들기",  // 버튼 내용
                       click : function(){ // 버튼 클릭 시 이벤트 추가
                          
-                         location.href = 'schedule-form.html';
+                         location.href = 'schedule-form';
 
                       }
                   }
