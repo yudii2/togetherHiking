@@ -3,16 +3,16 @@
 .container{
 		position:relative;
 		margin : auto;
-	}
+	} 
 	
 #search_mountain{
 	background-color : var(--point-color);
 	height:200px;
 	text-align:center;
-	color : white;
+	color : white;  
 	font-size: 30px;
 	line-height: 50px;
-}
+} 
   
 .search_bar{
 	width:600px;
