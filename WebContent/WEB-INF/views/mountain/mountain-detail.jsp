@@ -18,7 +18,7 @@
     		<input type="text" class="search_bar">  
     	</div> 	    
     	<div id="loc_bnt_wrap">
-    		<a class="loc_bnt" onClick="location = 'mountain_search_page.html'">지역 선택하러 가기</a>
+    		<a class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
 		</div>  
     </form>
     
