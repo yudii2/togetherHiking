@@ -4,7 +4,6 @@
 		position:relative;
 		margin : auto;
 	} 
-	
 #search_mountain{
 	background-color : var(--point-color);
 	height:200px;
@@ -13,14 +12,12 @@
 	font-size: 30px;
 	line-height: 50px;
 } 
-  
 .search_bar{
 	width:600px;
 	text-align:center;
 	height: 30px;
 	margin-top: 30px;
 }
-
 .loc_bnt{
   background:green;
   color:white;
@@ -38,7 +35,6 @@
   background:#fff;
   color:var(--point-color);
 }
-
 #loc_map{
 	width:500px;
 	height:500px;
@@ -47,7 +43,6 @@
     float: left;
     margin-top: 40px;
 }
-
 .mountain_wrapper{
 	width:500px;
 	height:500px;
