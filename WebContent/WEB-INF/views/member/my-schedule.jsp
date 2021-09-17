@@ -29,13 +29,18 @@
           <div class="profile_desc">
             <h1 class="nickname">마운틴러너</h1>
             <h1 class="post_cnt">내 게시글 수<span class="comment_cnt">내 댓글 수</span></h1>
-            <span class="self_intro">등산, 여행, 맛집여행 동행해요~</span>
+            <span class="info">등산, 여행, 맛집여행 동행해요~</span>
           </div>
         </div>
         <div class="wrap_tab">
           <span class="tab_my_schedule">내 모임</span>
         </div>
         <div class="my_posts">
+          <select name="schedule_filter" id="filter">
+          	<option value="">전체</option>
+          	<option value="ing">예정</option>
+          	<option value="end">완료</option>
+          </select>
           <div class="wrap_post">
             <div class="post"></div>
             <div class="post"></div>
