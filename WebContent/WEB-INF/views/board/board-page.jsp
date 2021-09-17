@@ -5,12 +5,13 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/board/board-page.css">
+<script type="text/javascript" src="/resources/js/board/board-page.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 
   <section>
-    <div class="container con_sec01">
+    <div class="container">
     
 		<div class='section'>
 			<div class='wrapper'>
@@ -37,11 +38,11 @@
 							<%-- <c:if test="${not empty board}" == true> --%>
 								<%-- <c:forEach items="${board}" var="board"> --%>
 									<tr style="height: 30px; line-height: 30px;">
-										<td class="post_num">글번호${board.bdIdx}</td>
-										<td class="post_category">말머리${board.category}</td>
-										<td class="post_title">게시글 제목${board.title}</td>
-										<td class="post_user">유저명${board.userId}</td>
-										<td class="post_date">날짜${board.regDate}</td>
+										<td>글번호${board.bdIdx}</td>
+										<td><a href="/board/board-page?subject=${board.subject }">말머리${board.subject}</a></td>
+										<td><a href="/board/board-detail?boardIdx=${board.bdIdx }">게시글 제목${board.title}</a></td>
+										<td><a href="/board/board-page?nickName=${board.userName }">유저명${board.userId}</a></td>
+										<td>날짜${board.regDate}</td>
 									</tr>
 								<%-- </c:forEach> --%>
 							<%-- </c:if> --%>
@@ -51,12 +52,13 @@
 				
 				<div class="footer">
 					<div class="search_bar_wrap">
-						<select class='search_subject' name='search-subject'>
+						<select class='search_subject' name='subject'>
 							<option value='none' selected disabled hidden>말머리</option>
-							<option value='잡담'>잡담</option>
-							<option value='후기'>후기</option>
+							<option value='subject'>말머리</option>
+							<option value='title'>제목</option>
+							<option value='nickName'>닉네임</option>
 						</select>
-						<input name="search-word" type="text" placeholder="검색어를 입력하세요."/>
+						<input name="word" type="text" placeholder="검색어를 입력하세요."/>
 						<button>검색</button>
 					</div>
 					<div class="selectPage_area">

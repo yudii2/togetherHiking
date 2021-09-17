@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 
   <section>
-    <div class="container con_sec01">
+    <div class="container">
 		
 		<div class='section'>
 			<div class='section_wrap'>
@@ -25,8 +25,8 @@
 				<div class="section_content_box">
 					<div class="section_header">
 						<div class="section_title">
-							<div class="category_btn">
-								<a href="/board/board-page?search-subject=${board.category}">말머리</a>
+							<div class="subject_btn">
+								<a href="/board/board-page?subject=${board.subject}">말머리</a>
 							</div>
 							<h3>글제목${board.title }</h3>
 						</div>
