@@ -1,5 +1,4 @@
 @charset "UTF-8";
-<<<<<<< HEAD
 .tit_form{
   display: inline-block;
   width: 80px;
@@ -13,34 +12,6 @@ input{
 }
 button{
   width: 15%;
-=======
-
-
-
-.container{
-text-align: center;
-}
-
-.schedule_form{
-
-}
-
-.schedule_form div{
-  margin: 25px 0;
-}
-
-textarea{
-  width: 300px;
-}
-
-input{
-  padding: 5px;
-  width: 200px;
-}
-
-button{
-  width: 20%;
->>>>>>> dev
   background-color: var(--point-color);
   padding: 10px;
   color: #fff;
