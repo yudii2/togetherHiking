@@ -40,6 +40,10 @@
         calendar.render();
       });
     
+/* 모달 */
+
+
+    
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -49,19 +53,24 @@
           events: [
                {
                  title: '북한산',
-                 start: '2021-09-16'
-                    ,
-                     url: 'http://google.com/'//클릭시 팝업
+                 start: '2021-09-16',
+                 url: "https://www.naver.com"
+                     //클릭시 팝업
+				
+               
                }
                // other events here
-             ], headerToolbar: {
+             
+               
+               
+               ], headerToolbar: {
                   center: 'addEventButton' // headerToolbar에 버튼을 추가
               }, customButtons: {
                   addEventButton: { // 추가한 버튼 설정
                       text : "산행동행 모임 만들기",  // 버튼 내용
                       click : function(){ // 버튼 클릭 시 이벤트 추가
                          
-                         location.href = 'schedule-form';
+                         location.href = "schedule-form";
 
                       }
                   }
@@ -81,7 +90,9 @@
          <div id='calendar'></div>
     </div>
     
-     <!-- modal 추가 -->
+
+    
+<!--      modal 추가
     <div class="modal fade" id=calendarModal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -110,7 +121,10 @@
     
             </div>
         </div>
-    </div>
+    </div> -->
+    
+    
+    
     </section>
   </body>
 </html>

@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+.container{
+		position:relative;
+		margin : auto;
+}	
+	
+#search_mountain{
+	background-color : var(--point-color);
+	height:200px;
+	text-align:center;
+	color : white;
+	font-size: 30px;
+	line-height: 50px;
+}  
+
+.search_bar{
+	width:600px;
+	text-align:center;
+	height: 30px;
+	margin-top: 30px;
+}
+
+.loc_bnt{
+  background:green;
+  color:white;
+  border:none;
+  position:relative;
+  height:30px;
+  font-size:0.7em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  border-radius:20px;
+}
+
+.loc_bnt:hover{
+  background:#fff;
+  color:var(--point-color);
+}	
+
+#weather{
+	border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
+	height: 50px;
+	text-align : right;
+	color: red;				/* api연결 */
+	
+}
+
+
+#mountain_detail{
+	margin-left: 40px;
+	display: flex;
+
+}
+#mountain_loc-map{
+	width:500px;
+	height:500px;
+	border: 1px solid #bcbcbc;
+}
+.desc_mountain h2{
+	padding-bottom: 10px;
+	
+}
+
+#mountain_info{
+	/* border: 1px solid #bcbcbc; */    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
+	width:500px;
+	height:470px;
+	position: absolute;
+	margin-left: 620px;
+	padding: 20px;
+}
+#mountain_info p{
+	padding: 15px 0;
+}
+
+.tit_mountain{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom:40px;
+}
+.mountain_name{
+	font-weight:500;
+	font-size:18px;
+	padding-top: 20px 0;
+}
+
+.mountain_trail{
+	padding: 5px;
+}
+
+
+  /* Layer Popup */
+  .modal {
+    position: fixed;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    transition: 0.5s;
+
+  }
+
+  .modal_inner {
+    background-color: #fff;
+    min-width: 800px;
+    min-width: 800px;
+    height: 500px;
+    padding: 15px;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .modal_inner>div {
+    padding: 10px;
+  }
+  .click_img{
+      grid-column: 1 / span 2;
+      box-sizing: border-box;
+      position: relative;
+      border: 1px solid #000;
+  }
+
+  .desc{
+      grid-column: 3 / -1;
+      line-height: 1.6em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+  }
+  .profile{}
+  .tit_course span{
+      font-weight: 700;
+      padding: 20px;
+      display: block;
+      position: relative;
+      min-height: 30%;
+  }
+
+  .close_modal{
+      position: absolute;
+      top: 0;         
+      right: 0;
+      margin: 15px;
+      cursor: pointer;
+      background-color: transparent;
+      font-size: 25px;
+      color: #999;
+      border: none;
+  }
+  .close_modal:hover{
+      color: #000;
+  }
+
+  .desc_content{
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 70%;
+    display: flex;
+    align-items: center;
+  }
+  .wrap_text{
+
+  }
+  .desc_content h2{
+    display: inline-block;
+    width: 50%;
+    padding: 10px 0;
+  }
+  .desc_content span{
+    font-size: 14px;
+  }
+
+  .overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.082);
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+  }
+
+
+

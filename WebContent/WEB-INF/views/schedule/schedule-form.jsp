@@ -16,7 +16,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 <link rel="stylesheet" href="/resources/css/schedule/schedule-form.css">
     <section>
-     <form action="schedule-form.jsp" method="get">
+     <form action="calendar" method="post">
     <div class="container">
     	<h2>산행동행 모임 만들기</h2><br/><br/>
     		
@@ -59,11 +59,13 @@
     				    		
     		    		   		
 		<button type="button" onclick="location.href='calendar'">캘린더로 돌아가기</button >
-		<button type="submit" onclick="upload()">모임글 등록하기</button >
+		<button type="submit" onclick="upload(); move();">모임글 등록하기</button >
     	<script type="text/javascript">
     	function upload(){
     		alert('신청이 완료되었습니다.\n검토를 거쳐 24시간 이내에 결과를 안내해 드리겠습니다.');
-    		location.href='/calendar';
+    	}
+    	function move(){
+    		window.location = 'calendar';
     	}
     	</script>
     	

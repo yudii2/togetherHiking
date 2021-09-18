@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+.container{
+		position:relative;
+		margin : auto;
+} 
+
+#search_mountain{
+	background-color : var(--point-color);
+	height:200px;
+	text-align:center;
+	color : white;  
+	font-size: 30px;
+	line-height: 50px;
+} 
+
+.search_bar{
+	width:600px;
+	text-align:center;
+	height: 30px;
+	margin-top: 30px;
+}
+
+.loc_bnt{
+  background:green;
+  color:white;
+  border:none;
+  position:relative;
+  height:30px;
+  font-size:0.7em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  border-radius:20px;
+}
+
+.loc_bnt:hover{
+  background:#fff;
+  color:var(--point-color);
+}
+
+#loc_map{
+	width:500px;
+	height:500px;
+	margin-left: 40px;
+    border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
+    float: left;
+    margin-top: 40px;
+}
+
+.mountain_wrapper{
+	width:500px;
+	height:500px;
+	display: flex;
+    justify-content: space-between;
+	line-height:120px;
+	float: right;
+	margin-right: 40px;
+	margin-top: 100px;
+}
+
+.mountain { 
+  display:inline-block;
+  width:50px;
+  height:110px; 
+  background-color : var(--point-color);
+  color:white;
+  border:none;
+  position:relative;
+  font-size:1em;
+  padding:0 2em;
+  border-radius:75px;
+  text-align:center;
+}
+
+/* .mountain:hover{
+	border: solid;
+}  */
+
