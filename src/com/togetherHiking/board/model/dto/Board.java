@@ -7,13 +7,15 @@ public class Board {
 	private String bdIdx;
 	private String userId;
 	private String title;
-	private String category;
+	private String subject;
 	private String content;
-	private String flIdx;
 	private Date regDate;
 	private String grade;
 	private String isDel;
 	
+	public Board() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getBdIdx() {
 		return bdIdx;
@@ -39,12 +41,12 @@ public class Board {
 		this.title = title;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getContent() {
@@ -53,14 +55,6 @@ public class Board {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getFlIdx() {
-		return flIdx;
-	}
-
-	public void setFlIdx(String flIdx) {
-		this.flIdx = flIdx;
 	}
 
 	public Date getRegDate() {
@@ -89,9 +83,8 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", category=" + category
-				+ ", content=" + content + ", flIdx=" + flIdx + ", regDate=" + regDate + ", grade=" + grade + ", isDel="
-				+ isDel + "]";
+		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", subject=" + subject
+				+ ", content=" + content + ", regDate=" + regDate + ", grade=" + grade + ", isDel=" + isDel + "]";
 	}
 	
 	
