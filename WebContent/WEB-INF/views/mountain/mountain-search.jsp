@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-<link rel="stylesheet" href="/resources/css/mountain/mountain_search.css">
+<link rel="stylesheet" href="/resources/css/mountain/mountain-search.css">
 <link rel="styleseet" href = "/resources/js/mountain/mountain-search.js">
 </head>
 <body>
