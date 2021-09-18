@@ -29,7 +29,8 @@
 		<div id="mountain_info">
 			<div class="tit_mountain">
 				<span class="mountain_name">관악산</span>
-				<form action="mountain/detail" id="mountain_trail">
+				<!-- 요청을 보내 모달창에 데이터 호출 필요...세션에 mountain객체를 저장? -->
+				<form action="mountain/detail/course" id="mountain_trail">
 					<select name="mountain_trail" class="mountain_trail">
 						<option value="" selected disabled>등산로를 선택하세요</option>
 						<option value="1">등산로1</option>
@@ -49,7 +50,6 @@
 				<h2>교통편 : <span>${mountain.transport}</span></h2>
 				<h2>칼로리 : <span>${mountain.calories}</span></h2>
 			</div>
-
 		</div>                      <%-- api로 꾸려와야 할 정보임! 디자인 보려고 넣음 --%>
     </div>
     
@@ -69,7 +69,7 @@
           </div>
           <div class="desc_content">
             <div class="wrap_text">
-              <h2>등산로 거리</h2><span>947km</span>
+              <h2>등산로 거리</h2><span>${mountain.course[idx].distance}947km</span>
               <h2>난이도</h2><span>상</span>
               <h2>상행시간</h2><span>2시간 22분 소요</span>
               <h2>하행시간</h2><span>1시간 43분 소요</span>

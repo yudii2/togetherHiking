@@ -44,7 +44,10 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void course(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+//		의논 필요! 분리하는게 팝업창 띄우기에 적합하지 않은 느낌! mountain-detial jsp파일 내에서 자바스크립트 작동으로 팝업을 띄우므로 자체를 분리할 수 없음
+//		비동기 통신으로 뿌려주는 것도 괜찮을 듯?
+		
+		request.getRequestDispatcher("/mountain/mountain-course").forward(request, response);
 		
 	}
 
