@@ -30,7 +30,7 @@ public class JDBCTemplate {
            
            Connection conn = null;
 
-             PoolDataSource pds = PoolDataSourceFactory.getPoolDataSource();
+              pds = PoolDataSourceFactory.getPoolDataSource();
               pds.setConnectionFactoryClassName(CONN_FACTORY_CLASS_NAME);
               pds.setURL(DB_URL);
               pds.setUser(DB_USER);

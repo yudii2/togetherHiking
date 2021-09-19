@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <%@ include file = "/WEB-INF/views/include/head.jsp"%>
-<link rel="stylesheet" href = "/resources/css/mountain/mountain_detail.css">
+<link rel="stylesheet" href = "/resources/css/mountain/mountain-detail.css">
 </head>
    
   <body>
@@ -47,7 +47,6 @@
 				<h2>높이 : <span>${mountain.mHeight} 632.2m</span></h2>
 				<h2>위치 : <span>${mountain.mLoc}서울 관악구 신림동, 경기 안양·과천의 경계</span></h2>
 				<h2>교통편 : <span>${mountain.transport}</span></h2>
-				<h2>칼로리 : <span>${mountain.calories}</span></h2>
 			</div>
 		</div>                      <%-- api로 꾸려와야 할 정보임! 디자인 보려고 넣음 --%>
     </div>
@@ -73,6 +72,7 @@
               <h2>상행시간</h2><span>2시간 22분 소요</span>
               <h2>하행시간</h2><span>1시간 43분 소요</span>
               <h2>총소요시간</h2><span>4시간 5분 예상</span>
+              <h2>칼로리 : </h2><span>칼로리</span>   
             </div>
           </div>
         </div>
@@ -96,6 +96,5 @@
     
     
     </script>
->>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
 </body>
 </html>
