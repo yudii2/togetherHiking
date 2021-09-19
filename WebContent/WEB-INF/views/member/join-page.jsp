@@ -8,5 +8,10 @@
 </head>
 <body>
 <h1>안녕하세</h1>
+<<<<<<< HEAD
+=======
+안녕하세요
+
+>>>>>>> refs/heads/dev
 </body>
 </html>

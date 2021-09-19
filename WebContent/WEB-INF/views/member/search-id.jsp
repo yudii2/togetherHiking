@@ -9,8 +9,12 @@
 <body>
 ㅗㅗㅗㅓㅗㅗ
 <<<<<<< HEAD
+<<<<<<< HEAD
 ddddd
 </body>
+=======
+</body>ㅇㅇㅇㅇ
+>>>>>>> refs/heads/dev
 =======
 </body>ㅇㅇㅇㅇ
 >>>>>>> refs/heads/dev
