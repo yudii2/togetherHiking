@@ -89,7 +89,7 @@
    <script>
      $('#target_img').click(function (e) {
          e.preventDefault();
-       document.profile.target_url.value = "http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54";
+       document.profile.target_url.value = "http://localhost:7070/upload/${profile.savePath}${profile.renameFileName}";
        $('#file').click();
      });
 

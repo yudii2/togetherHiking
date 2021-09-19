@@ -2,6 +2,7 @@ package com.togetherHiking.member.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -102,21 +103,23 @@ public class MemberController extends HttpServlet {
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		FileUtil util = new FileUtil();
-		MultiPartParams params = util.fileUpload(request);
+		Map<String,FileDTO> param = util.profileUpload(request);
+		System.out.println(param.toString());
 		
 		//로그인한 사용자만 profile등록 가능
 		//Member member = (Member) request.getSession().getAttribute("authentication");
 		//String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
 		
 		String userId = "USER2";
-		//board.setTitle(params.getParameter("title"));
-		//board.setContent(params.getParameter("content"));
 		
 		//file정보 가져오기
-		FileDTO fileDTO = params.getProfile();
+		FileDTO fileDTO = param.get("com.togetherHiking.common.file");
+		System.out.println("여긴 컨트롤러 : " + fileDTO.toString());
 		
+		//파일을 테이블에 저장
 		memberService.insertProfile(userId, fileDTO);
-		response.sendRedirect("/");	
+		request.setAttribute("profile", memberService.selectProfile(userId));
+		request.getRequestDispatcher("/member/mypage").forward(request, response);
 			
 	}
 

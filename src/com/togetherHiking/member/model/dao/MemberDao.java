@@ -17,7 +17,7 @@ public class MemberDao {
 	public void insertProfile(String userId, FileDTO file, Connection conn) {
 		String sql = "insert into file_info "
 				+ "(fl_idx,type_idx,origin_file_name,rename_file_name,save_path) "
-				+ "values(sc_fl_idx,?,?,?,?)";
+				+ "values(sc_fl_idx.nextval,?,?,?,?)";
 		
 		PreparedStatement pstm = null;
 		try {
@@ -26,6 +26,7 @@ public class MemberDao {
 			pstm.setString(2, file.getOriginFileName());
 			pstm.setString(3, file.getRenameFileName());
 			pstm.setString(4, file.getSavePath());
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);

@@ -58,6 +58,35 @@ public class FileUtil {
 		return new MultiPartParams(res);
 	}
 	
+	public Map<String,FileDTO> profileUpload(HttpServletRequest request){
+		
+		Map<String,FileDTO> res = new HashMap<String, FileDTO>();
+		FileDTO fileDTO = new FileDTO();
+		
+		try {
+			MultipartParser parser = new MultipartParser(request, MAX_SIZE);
+			parser.setEncoding("UTF-8");
+			Part part = null;
+			
+			while((part = parser.readNextPart()) != null) {
+				if(part.isFile()) {
+					FilePart filePart = (FilePart) part;
+					fileDTO = createFileDTO(filePart);
+					filePart.writeTo(new File(getSavePath() + fileDTO.getRenameFileName())); //파일저장
+				}
+			}
+					
+			res.put("com.togetherHiking.common.file",fileDTO);
+			
+		} catch (IOException e) {
+			throw new HandleableException(ErrorCode.FAILED_FILE_UPLOAD_ERROR,e);
+		}
+		
+		return res;
+	}
+	
+
+
 	private String getSavePath() {
 		
 		//2. 저장경로를 웹어플리케이션 외부로 지정
@@ -105,7 +134,7 @@ public class FileUtil {
 		}
 	}
 	
-	
+
 	
 	
 	
