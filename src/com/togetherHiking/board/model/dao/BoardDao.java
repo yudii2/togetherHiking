@@ -22,7 +22,7 @@ public class BoardDao {
 		List<Board> boardList = new ArrayList<Board>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from board where is_del = 'N'";
+		String sql = "select * from board where is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -45,12 +45,11 @@ public class BoardDao {
 		Board board = new Board();
 		board.setBdIdx(rset.getString("bd_idx"));
 		board.setContent(rset.getString("content"));
-		board.setGrade(rset.getString("grade"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setSubject(rset.getString("subject"));
 		board.setTitle(rset.getString("title"));
 		board.setUserId(rset.getString("user_id"));
-		board.setIsDel(rset.getString("is_del"));
+		board.setIsDel(rset.getInt("is_del"));
 		
 		return board;
 	}
@@ -59,7 +58,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		int res = 0;
-		String sql = "select count(*) from board where is_del = 'n'";
+		String sql = "select count(*) from board where is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -81,7 +80,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		int res = 0;
-		String sql = "select count(*) from board where title like '%'||?||'%' and is_del = 'n'";
+		String sql = "select count(*) from board where title like '%'||?||'%' and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -105,7 +104,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		Board board = null;
 		String sql = "select bd_idx, title, user_id, subject, content, reg_date, grade, is_del "
-				+ "from board where bd_idx = ? and is_del = 'N'";
+				+ "from board where bd_idx = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);

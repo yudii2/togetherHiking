@@ -10,8 +10,7 @@ public class Board {
 	private String subject;
 	private String content;
 	private Date regDate;
-	private String grade;
-	private String isDel;
+	private int isDel;
 	
 	public Board() {
 		// TODO Auto-generated constructor stub
@@ -65,27 +64,20 @@ public class Board {
 		this.regDate = regDate;
 	}
 
-	public String getGrade() {
-		return grade;
-	}
-
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
-
-	public String getIsDel() {
+	public int getIsDel() {
 		return isDel;
 	}
 
-	public void setIsDel(String isDel) {
+	public void setIsDel(int isDel) {
 		this.isDel = isDel;
 	}
 
 	@Override
 	public String toString() {
 		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", subject=" + subject
-				+ ", content=" + content + ", regDate=" + regDate + ", grade=" + grade + ", isDel=" + isDel + "]";
+				+ ", content=" + content + ", regDate=" + regDate + ", isDel=" + isDel + "]";
 	}
+
 	
 	
 }
