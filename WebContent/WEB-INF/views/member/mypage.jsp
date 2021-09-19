@@ -26,7 +26,14 @@
       <div class="wrap_my_contents">
         <div class="profile">
           <!-- 비동기통신으로 받아오기 필요 -->
-          <div class="profile_img"></div>
+          <div class="profile_img">
+            <img id="target_img" src="http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54">
+          </div>
+          <form name="signform" method="POST" enctype="multipart/form-data" action="/">
+            <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
+            <input type="hidden" name="target_url">
+          </form>
+
           <div class="profile_desc">
             <h1 class="nickname">마운틴러너</h1>
             <h2 class="cnt">내 게시글 수 ${postCnt} 개</h2>
@@ -51,6 +58,14 @@
               <td>2021.09.01</td>
               <td>10</td>
             </tr>
+            <c:forEach items="${datas.myPosts}" var="myPost">
+	            <tr class="contents">
+	              <td><input type="checkbox"><span>${myPost.idx}94</span></td>
+	              <td>${myPost.title}계양산 등산 가실 분??</td>
+	              <td>${myPost.regDate}2021.09.01</td>
+	              <td>${myPost.views}10</td>
+	            </tr>
+			</c:forEach>
           </table>
           <div class="btns">
             <div class="select_all">
@@ -66,5 +81,17 @@
       </div>
     </div>
   </section>
+
+
+   <script>
+     $('#target_img').click(function (e) {
+       document.signform.target_url.value = document.getElementById('target_img').src;
+       e.preventDefault();
+       $('#file').click();
+     });
+
+     let changeValue = (obj) => document.signform.submit();
+   </script>
+
 </body>
 </html>
