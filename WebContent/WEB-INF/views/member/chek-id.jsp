@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>안녕하세</h1>
-안녕하세요
-ㅇㅇㅇㅇㅇㅇ
+
 </body>
 </html>

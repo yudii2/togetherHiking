@@ -38,10 +38,12 @@ public class MemberController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] uriArr = request.getRequestURI().split("/");
-		
+
+		//localhost:7070/member/login-form
+		//array -> [member, login-form]
 		switch (uriArr[uriArr.length-1]) {
-		case "login-form":
-			  loginForm(request,response);
+		case "login-page":
+			  loginPage(request,response);
 			break;
 		case "login":
 			  login(request,response);
@@ -49,8 +51,8 @@ public class MemberController extends HttpServlet {
 		case "logout":
 			  logout(request,response);
 			break;
-		case "join-form":
-			  joinForm(request,response);
+		case "join-page":
+			  joinPage(request,response);
 			break;
 		case "join":
 			  join(request,response);
@@ -76,9 +78,25 @@ public class MemberController extends HttpServlet {
 		case "my-schedule":
 			  mySchedule(request,response);
 			break;
+		case "search-id":
+			searchId(request,response);
+			break;
+		case "search-password":
+			searchPassword(request,response);
+			break;
 		default:/* throw new PageNotFoundException(); */
 		
 		}
+	}
+
+	private void searchPassword(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		request.getRequestDispatcher("/member/search-password").forward(request, response);
+		
+	}
+
+	private void searchId(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		request.getRequestDispatcher("/member/search-id").forward(request, response);
+		
 	}
 
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -122,12 +140,12 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/member/check-id").forward(request, response);
 		
 	}
 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubs
 		
 	}
 
@@ -136,23 +154,29 @@ public class MemberController extends HttpServlet {
 		
 	}
 
-	private void joinForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private void joinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/member/join-page").forward(request, response);
 		
 	}
 
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getSession().removeAttribute("authentication");
+		response.sendRedirect("/");
 		
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String userId =  request.getParameter("useId");
+		String password = request.getParameter("password");
+		
+		request.getSession().setAttribute("authentication", "test");
+		response.sendRedirect("/");
+		
 		
 	}
 
-	private void loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private void loginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/member/login-page").forward(request, response);
 		
 	}
 
