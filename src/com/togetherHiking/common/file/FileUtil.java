@@ -45,6 +45,7 @@ public class FileUtil {
 				}else {
 					ParamPart paramPart = (ParamPart) part;
 					setParameterMap(paramPart, res);
+					
 				}
 			}
 			
@@ -88,6 +89,9 @@ public class FileUtil {
 		fileDTO.setOriginFileName(filePart.getFileName());
 		fileDTO.setRenameFileName(renameFileName);
 		fileDTO.setSavePath(savePath);
+		
+		System.out.println(fileDTO.toString());
+		
 		return fileDTO;
 	}
 	

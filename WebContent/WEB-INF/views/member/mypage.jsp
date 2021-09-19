@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/member/mypage.css">
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -27,9 +28,11 @@
         <div class="profile">
           <!-- 비동기통신으로 받아오기 필요 -->
           <div class="profile_img">
-            <img id="target_img" src="http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54">
+          <!-- 사용자 아이디와 일치하는 typeIdx가 존재하면 file_info에서 꺼내 출력 -->
+          <!-- 존재하지 않으면 기본 프로필이미지 출력 -->
+            <img id="target_img" src="/resources/img/user.png">
           </div>
-          <form name="signform" method="POST" enctype="multipart/form-data" action="/">
+          <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
             <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
             <input type="hidden" name="target_url">
           </form>
@@ -85,12 +88,15 @@
 
    <script>
      $('#target_img').click(function (e) {
-       document.signform.target_url.value = document.getElementById('target_img').src;
-       e.preventDefault();
+         e.preventDefault();
+       document.profile.target_url.value = "http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54";
        $('#file').click();
      });
 
-     let changeValue = (obj) => document.signform.submit();
+     let changeValue = function(obj) {
+    	 document.profile.submit();
+     	
+     }
    </script>
 
 </body>
