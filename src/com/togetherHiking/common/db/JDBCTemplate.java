@@ -28,37 +28,38 @@ public class JDBCTemplate {
            final String DB_PASSWORD = "Qweasdzxc123";
            final String CONN_FACTORY_CLASS_NAME="oracle.jdbc.pool.OracleDataSource";
            
-           Connection conn = null;
+			
+			pds = PoolDataSourceFactory.getPoolDataSource();
+		
+			pds.setConnectionFactoryClassName(CONN_FACTORY_CLASS_NAME);
+			pds.setURL(DB_URL);
+			pds.setUser(DB_USER);
+			pds.setPassword(DB_PASSWORD);
+			pds.setConnectionPoolName("JDBC_UCP_POOL");
+			
+			 // Default is 0. Set the initial number of connections to be created
+		    // when UCP is started.
+		    pds.setInitialPoolSize(5);
 
-             PoolDataSource pds = PoolDataSourceFactory.getPoolDataSource();
-              pds.setConnectionFactoryClassName(CONN_FACTORY_CLASS_NAME);
-              pds.setURL(DB_URL);
-              pds.setUser(DB_USER);
-              pds.setPassword(DB_PASSWORD);
-              pds.setConnectionPoolName("JDBC_UCP_POOL");
-              
-                // Default is 0. Set the initial number of connections to be created
-                // when UCP is started.
-                pds.setInitialPoolSize(5);
+		    // Default is 0. Set the minimum number of connections
+		    // that is maintained by UCP at runtime.
+		    pds.setMinPoolSize(5);
 
-                // Default is 0. Set the minimum number of connections
-                // that is maintained by UCP at runtime.
-                pds.setMinPoolSize(5);
+		    // Default is Integer.MAX_VALUE (2147483647). Set the maximum number of
+		    // connections allowed on the connection pool.
+		    pds.setMaxPoolSize(20);
 
-                // Default is Integer.MAX_VALUE (2147483647). Set the maximum number of
-                // connections allowed on the connection pool.
-                pds.setMaxPoolSize(20);
+		    // Default is 30secs. Set the frequency in seconds to enforce the timeout
+		    // properties. Applies to inactiveConnectionTimeout(int secs),
+		    // AbandonedConnectionTimeout(secs)& TimeToLiveConnectionTimeout(int secs).
+		    // Range of valid values is 0 to Integer.MAX_VALUE. .
+		    pds.setTimeoutCheckInterval(5);
 
-                // Default is 30secs. Set the frequency in seconds to enforce the timeout
-                // properties. Applies to inactiveConnectionTimeout(int secs),
-                // AbandonedConnectionTimeout(secs)& TimeToLiveConnectionTimeout(int secs).
-                // Range of valid values is 0 to Integer.MAX_VALUE. .
-                pds.setTimeoutCheckInterval(5);
+		    // Default is 0. Set the maximum time, in seconds, that a
+		    // connection remains available in the connection pool.
+			pds.setInactiveConnectionTimeout(10);
 
-                // Default is 0. Set the maximum time, in seconds, that a
-                // connection remains available in the connection pool.
-                pds.setInactiveConnectionTimeout(10);
-      
+     
          
       } catch (ClassNotFoundException | SQLException e) {
          // TODO Auto-generated catch block

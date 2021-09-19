@@ -14,7 +14,7 @@ public class Member {
 	private String email;
 	private String grade;
 	private String isHost;
-	private String flIdx;
+	private String isLeave;
 	
 	public String getUserId() {
 		return userId;
@@ -116,13 +116,13 @@ public class Member {
 	}
 
 
-	public String getFlIdx() {
-		return flIdx;
+	public String getIsLeave() {
+		return isLeave;
 	}
 
 
-	public void setFlIdx(String flIdx) {
-		this.flIdx = flIdx;
+	public void setIsLeave(String isLeave) {
+		this.isLeave = isLeave;
 	}
 
 
@@ -130,9 +130,9 @@ public class Member {
 	public String toString() {
 		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", birth=" + birth
 				+ ", info=" + info + ", nickname=" + nickname + ", joinDate=" + joinDate + ", email=" + email
-				+ ", grade=" + grade + ", isHost=" + isHost + ", flIdx=" + flIdx + "]";
+				+ ", grade=" + grade + ", isHost=" + isHost + ", isLeave=" + isLeave + "]";
 	}
-	
+
 
 
 
