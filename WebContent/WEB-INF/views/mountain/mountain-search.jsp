@@ -30,11 +30,11 @@
 	   <div class = mountain_wrapper>							
 		    <div class="mountain_group">
 			  <a class="mountain" href="/mountain/detail">가학산</a>  
-			  <a class="mountain" href="/mountain/detail">각골산</a>
 			  <a class="mountain" href="/mountain/detail">각흘산</a>
+			  <a class="mountain" href="/mountain/detail">갈기산(양평)</a>
 		    </div>
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">갈기산</a>
+			  <a class="mountain" href="/mountain/detail">갈기산(의왕)</a>
 			  <a class="mountain" href="/mountain/detail">갑악산</a>
 			  <a class="mountain" href="/mountain/detail">갑산</a>
 		    </div>
@@ -53,7 +53,6 @@
 	    <div class = mountain_wrapper >							
 		    <div class="mountain_group">
 			  <a class="mountain" href="/mountain/detail">개화산</a>  
-			  <a class="mountain" href="/mountain/detail">고은산</a>
 			  <a class="mountain" href="/mountain/detail">관악산</a>
 			  <a class="mountain" href="/mountain/detail">구룡산</a>
 	   		</div>
