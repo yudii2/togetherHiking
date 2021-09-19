@@ -1,6 +1,7 @@
 package com.togetherHiking.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,12 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.common.file.FileDTO;
+import com.togetherHiking.common.file.FileUtil;
+import com.togetherHiking.common.file.MultiPartParams;
+import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.member.model.service.MemberService;
+
 /**
  * Servlet implementation class MemberController
  */
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private MemberService memberService = new MemberService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -54,6 +64,9 @@ public class MemberController extends HttpServlet {
 		case "mypage":
 			  mypage(request,response);
 			break;
+		case "profile-upload":
+			profileUpload(request,response);
+			break;
 		case "modify-page":
 			  modifyPage(request,response);
 			break;
@@ -66,6 +79,30 @@ public class MemberController extends HttpServlet {
 		default:/* throw new PageNotFoundException(); */
 		
 		}
+	}
+
+	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		FileUtil util = new FileUtil();
+		MultiPartParams params = util.fileUpload(request);
+		
+		//로그인한 사용자만 profile등록 가능
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		
+		//fileDAO에 저장?
+		String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
+		
+		//board.setTitle(params.getParameter("title"));
+		//board.setContent(params.getParameter("content"));
+		
+		
+		
+		//file정보 가져오기
+		FileDTO fileDTO = params.getProfile();
+		
+		memberService.insertProfile(userId, fileDTO);
+		response.sendRedirect("/");	//index
+			
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

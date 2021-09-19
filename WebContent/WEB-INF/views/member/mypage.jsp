@@ -27,9 +27,9 @@
         <div class="profile">
           <!-- 비동기통신으로 받아오기 필요 -->
           <div class="profile_img">
-            <img id="target_img" src="http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54">
+            <img id="target_img" src="/resources/img/user.png">
           </div>
-          <form name="signform" method="POST" enctype="multipart/form-data" action="/">
+          <form action="member/upload" name="signform" method="POST" enctype="multipart/form-data" >
             <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
             <input type="hidden" name="target_url">
           </form>

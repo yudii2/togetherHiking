@@ -15,11 +15,11 @@ public class MemberService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	private MemberDao memberDao = new MemberDao();
 	
-	public void insertProfile(Member member, FileDTO profile) {
+	public void insertProfile(String userId, FileDTO profile) {
 		Connection conn = template.getConnection();
 		
 		try {
-			memberDao.insertProfile(profile, conn);
+			memberDao.insertProfile(userId, profile, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
