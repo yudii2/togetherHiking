@@ -8,7 +8,7 @@ public enum Config {
 	SMTP_AUTHENTICATION_PASSWORD("1234"),
 	COMPANY_EMAIL("togetherHiking@gmail.com"),
 	//UPLOAD_PATH("C:\\CODE\\after\\upload\\"); 운영서버
-	UPLOAD_PATH("C:\\CODE\\after\\upload\\"); //개발서버
+	UPLOAD_PATH("C:\\SEMI\\upload\\"); //개발서버
 	
 	
 	public final String DESC;
