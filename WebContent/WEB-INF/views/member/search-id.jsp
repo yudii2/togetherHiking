@@ -8,6 +8,10 @@
 </head>
 <body>
 ㅗㅗㅗㅓㅗㅗ
+<<<<<<< HEAD
 ddddd
 </body>
+=======
+</body>ㅇㅇㅇㅇ
+>>>>>>> refs/heads/dev
 </html>
