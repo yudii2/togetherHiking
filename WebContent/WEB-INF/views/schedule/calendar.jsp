@@ -1,3 +1,5 @@
+수정 중인 스크립트
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,57 +12,57 @@
 <!-- fullcalendar.css -->
 <link href='/resources/css/schedule/main.css' rel='stylesheet' />
 
+<link rel="stylesheet" href="/resources/css/schedule/calendar.css">
 <!-- popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <!-- head.jsp -->
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-
-<style type="text/css">
-  #calendarBox{
-	   margin-top: 30px;
-   }
-   .fc-event-title.fc-sticky{
-   		padding:30px;
-   }
-
-</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
   
     <script>
 
+
+    
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-    
-/* 모달 */
-
-
-    
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-           height: 650,
-          initialView: 'dayGridMonth',
           locale: 'ko',
+       	  // 캘린더 view 타입
+	      initialView: 'dayGridMonth',
+	      
           events: [
                {
                  title: '북한산',
                  start: '2021-09-16',
                  url: "https://www.naver.com"
-                     //클릭시 팝업
-				
-               
-               }
-               // other events here
-             
+                 },
+              
+                 // other events here
+
+/* 	              {
+	                title: '아차산',
+	                 start: '2021-09-20',
+	                 url: "https://www.naver.com"
+	               },
+	              {
+		               title: '구룡산',
+		                start: '2021-09-20',
+		                url: "https://www.naver.com"
+	                },
+	                {
+		                title: '남산',
+		                start: '2021-09-20',
+		                 url: "https://www.naver.com"
+	                 },
+	                 {
+			             title: '인왕산',
+			             start: '2021-09-20',
+			             url: "https://www.naver.com"
+		                 }, */
                
                
                ], headerToolbar: {
@@ -80,12 +82,18 @@
        
         calendar.render();
       });
+    
+    
+/* 모달 */
+
+
+    
+
       
         
 
     </script>
-
-  <section>
+     <section>
     <div class="container" id="calendarBox">
          <div id='calendar'></div>
     </div>
