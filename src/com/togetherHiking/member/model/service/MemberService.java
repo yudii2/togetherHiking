@@ -15,6 +15,7 @@ public class MemberService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	private MemberDao memberDao = new MemberDao();
 	
+	//사용자가 프로필 이미지 등록시 dao호출해 info테이블에 등록하도록
 	public void insertProfile(String userId, FileDTO profile) {
 		Connection conn = template.getConnection();
 		
@@ -29,6 +30,7 @@ public class MemberService {
 		
 	}
 	
+	//프로필 저장경로 조회 목적 --> 프로필이미지 화면출력
 	public Map<String, FileDTO> selectProfile(String userId) {
 		Connection conn = template.getConnection();
 		Map<String, FileDTO> res = new HashMap<String, FileDTO>();

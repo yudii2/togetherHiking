@@ -87,15 +87,12 @@ public class MemberController extends HttpServlet {
 		MultiPartParams params = util.fileUpload(request);
 		
 		//로그인한 사용자만 profile등록 가능
-		Member member = (Member) request.getSession().getAttribute("authentication");
+		//Member member = (Member) request.getSession().getAttribute("authentication");
+		//String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
 		
-		//fileDAO에 저장?
-		String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
-		
+		String userId = "yujinTestUser";
 		//board.setTitle(params.getParameter("title"));
 		//board.setContent(params.getParameter("content"));
-		
-		
 		
 		//file정보 가져오기
 		FileDTO fileDTO = params.getProfile();
