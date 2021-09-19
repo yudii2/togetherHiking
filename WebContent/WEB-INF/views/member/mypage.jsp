@@ -32,7 +32,7 @@
           <!-- 존재하지 않으면 기본 프로필이미지 출력 -->
             <img id="target_img" src="/resources/img/user.png">
           </div>
-          <form action="/member/upload" name="profile" method="POST" enctype="multipart/form-data" >
+          <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
             <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
             <input type="hidden" name="target_url">
           </form>
@@ -88,12 +88,15 @@
 
    <script>
      $('#target_img').click(function (e) {
+         e.preventDefault();
        document.profile.target_url.value = "http://localhost:7070/file/2021/9/10/9234567b-2df3-4ee1-a6c1-c0c86f77cc54";
-       e.preventDefault();
        $('#file').click();
      });
 
-     let changeValue = (obj) => document.profile.submit();
+     let changeValue = function(obj) {
+    	 document.profile.submit();
+     	
+     }
    </script>
 
 </body>

@@ -90,7 +90,7 @@ public class MemberController extends HttpServlet {
 		//Member member = (Member) request.getSession().getAttribute("authentication");
 		//String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
 		
-		String userId = "yujinTestUser";
+		String userId = "USER2";
 		//board.setTitle(params.getParameter("title"));
 		//board.setContent(params.getParameter("content"));
 		
@@ -98,7 +98,7 @@ public class MemberController extends HttpServlet {
 		FileDTO fileDTO = params.getProfile();
 		
 		memberService.insertProfile(userId, fileDTO);
-		response.sendRedirect("/");	//index
+		response.sendRedirect("/");	
 			
 	}
 
