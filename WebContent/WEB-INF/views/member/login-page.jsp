@@ -20,21 +20,6 @@
             <input type="password" required placeholder="비밀번호를 입력하세요.">
         </P>
         </div>
-<<<<<<< HEAD
-    ㅇㅇㅇㅇㅇ
-        <class class="caption"></class>
-        <a href="#">회원가입</a>
-        <a href="#">아이디찾기</a>     
-        <a href="#">비밀번호 찾기</a>
-        </div>
-        <div></div>
-`       <br>
-       
-            <button type="submit">로그인</button>
-       
-        
-ddddd
-=======
     
         <class class="caption"></class>
         <a href="#">회원가입</a>
@@ -48,7 +33,6 @@ ddddd
        
         
 
->>>>>>> refs/heads/dev
     </br>
     <br>
         <a href=""><img src="kakao_login_large_wide.png" width="300px"></a>

@@ -9,7 +9,7 @@
    
   <body>
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
-  <section class="container">  
+  <section class="container">       
    <form id="search_mountain"> 지역 또는 산 이름 검색 
     	<div>
     		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
@@ -72,7 +72,7 @@
               <h2>상행시간</h2><span>2시간 22분 소요</span>
               <h2>하행시간</h2><span>1시간 43분 소요</span>
               <h2>총소요시간</h2><span>4시간 5분 예상</span>
-              <h2>칼로리 : </h2><span>칼로리</span>   
+              <h2>칼로리 </h2><span>${mountain.calories}</span>
             </div>
           </div>
         </div>
