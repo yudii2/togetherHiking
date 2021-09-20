@@ -34,7 +34,7 @@
           </div>
           <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
             <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
-            <input type="hidden" name="target_url">
+            <input type="hidden" name="target_url">	<!-- 보이지않지만 서버로 submit발생 -->
           </form>
 
           <div class="profile_desc">
@@ -89,7 +89,8 @@
    <script>
      $('#target_img').click(function (e) {
          e.preventDefault();
-       document.profile.target_url.value = "http://localhost:7070/upload/${profile.savePath}${profile.renameFileName}";
+         console.dir(document.profile.target_url);
+       	document.profile.target_url.value = `http://localhost:7070/upload/${profile.savePath}${profile.renameFileName}`;
        $('#file').click();
      });
 

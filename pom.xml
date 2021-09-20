@@ -46,15 +46,30 @@
       <version>1.2.5</version>
     </dependency>
     
-    <dependency>
-	    <groupId>oracle</groupId>
-	    <artifactId>ojdbc6</artifactId>
-	    <version>11.2.0.3</version>
+    <!-- oracle db연결을 위한 jar파일 -->
+	<dependency>
+	    <groupId>com.oracle.database.jdbc</groupId>
+	    <artifactId>ojdbc8</artifactId>
+	    <version>19.8.0.0</version>
 	</dependency>
-	
 	<dependency>
 	    <groupId>com.oracle.database.jdbc</groupId>
 	    <artifactId>ucp</artifactId>
+	    <version>19.8.0.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.oracle.database.security</groupId>
+	    <artifactId>oraclepki</artifactId>
+	    <version>19.8.0.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.oracle.database.security</groupId>
+	    <artifactId>osdt_cert</artifactId>
+	    <version>19.8.0.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.oracle.database.security</groupId>
+	    <artifactId>osdt_core</artifactId>
 	    <version>19.8.0.0</version>
 	</dependency>
 	
