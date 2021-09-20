@@ -118,7 +118,8 @@ public class MemberController extends HttpServlet {
 		
 		//파일을 테이블에 저장
 		memberService.insertProfile(userId, fileDTO);
-		request.setAttribute("profile", memberService.selectProfile(userId));
+		//프로필정보 조회해 request객체에 전달
+		request.setAttribute("profile", memberService.selectProfile(userId).get("profile"));
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 			
 	}
