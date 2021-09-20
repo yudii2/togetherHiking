@@ -18,7 +18,7 @@
     <section>
      
     <div class="container">
-    	<form action="/member/admin/home" method="post" class="schedule_form">
+    	<form action="/member/mypage" method="post" class="schedule_form">
     		<h3>[산행동행 모임 만들기]</h3><br/><br/>
 
     		
@@ -26,11 +26,8 @@
     		
     		 <div>
     			<span class="tit_form">산 이름</span>
-				<input type="text" name="name" value="${mountainName}" placeholder="북한산" required="required">    		</div>
-    		<div>
-    			<span class="tit_form">모임 설명</span>
-    			<textarea rows="5" minlength="15" maxlength="50" placeholder="자세한 설명을 입력해주세요." required="required">${info}</textarea>
-    		</div>
+				<input type="text" name="name" value="${mountainName}" placeholder="북한산" required="required">
+			</div>
     		<div>
     			<span class="tit_form">모임 설명</span>
     			<textarea name="intro" rows="5" minlength="15" maxlength="50" placeholder="자세한 설명을 입력해주세요" required="required">${info}</textarea>
@@ -55,7 +52,7 @@
     		</div>		 	
 		 	<div>
     			<span class="tit_form">참가비</span>
-    			<input type="number" min="0" max="50000" step="5000" placeholder="0" required="required">
+    			<input type="number" min="0" max="50000" step="5000" value="0" required="required">
     		</div>		   		
 
     		<div>
