@@ -4,9 +4,6 @@
 <html>
 <head>
   <link rel="stylesheet" href="/resources/css/schedule/schedule-form.css">
-  <!-- fullcalendar.css -->
-  <link href='resources/fullcalendar/css/main.css' rel='stylesheet' />
-  <script src='resources/fullcalendar/js/main.js'></script>
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script defer src="js/main/gnb.js"></script>
@@ -26,38 +23,38 @@
     		
     		 <div>
     			<span class="tit_form">산 이름</span>
-				<input type="text" name="name" value="${mountainName}" placeholder="북한산" required="required">
+				<input type="text" name="name" id="mountainName" placeholder="북한산" >
 			</div>
     		<div>
     			<span class="tit_form">모임 설명</span>
-    			<textarea name="intro" rows="5" minlength="15" maxlength="50" placeholder="자세한 설명을 입력해주세요" required="required">${info}</textarea>
+    			<textarea id="info" rows="5" minlength="15" maxlength="50" placeholder="자세한 설명을 입력해주세요" ></textarea>
 
     		</div>
     		<div>
     			<span class="tit_form">날짜</span>
-    			<input type="date" min="2021-07-20" value="${date}" required="required">
+    			<input type="date" min="2021-07-20" id="date" >
     		</div>
     		<div class="time">
     			<span class="tit_form">시간</span>
-    			<input type="time" value="time" required="required">
+    			<input type="time" value="time" id="time">
     		</div>		 	
 		 	<div class="member-number">
     			<span class="tit_form">모집 인원</span>
-    			<input type="number" min="2" max="5" step="1" placeholder="최소 2명이상 입력해주세요" required="required">
+    			<input type="number" id="number" min="2" max="5" step="1" placeholder="최소 2명이상 입력해주세요" >
 
     		</div>		
 		 	<div class="open-chat">
     			<span class="tit_form">오픈 채팅방 링크</span>
-    			<input type="url" placeholder="https://open.kakao.com/">
+    			<input type="url" id="url" placeholder="https://open.kakao.com/">
     		</div>		 	
 		 	<div>
     			<span class="tit_form">참가비</span>
-    			<input type="number" min="0" max="50000" step="5000" value="0" required="required">
+    			<input type="number" id="money" min="0" max="50000" step="5000" value="0" >
     		</div>		   		
 
     		<div>
     			<span class="member-age">모집 연령대</span>
-    			<input type="number" min="10" max="80" step="10" placeholder="10 단위로 입력해주세요">
+    			<input type="number"  id="age" min="10" max="80" step="10" placeholder="10 단위로 입력해주세요">
     		</div>
     				    		
     		    		   		
