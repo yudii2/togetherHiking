@@ -1,7 +1,5 @@
 package com.togetherHiking.mountain.model.dto;
 
-import java.sql.Date;
-
 public class MountainCourse {
 		private String courseIdx;
 		private String mountainIdx;
