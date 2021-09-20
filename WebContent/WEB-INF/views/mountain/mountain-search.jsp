@@ -15,6 +15,7 @@
     	<div>
     		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
     		<input type="text" class="search_bar">  
+    		<button type="submit" class="search_button">검색</button>
     	</div> 	     
     	<div id="loc_bnt_wrap">
   			 <a type="button" class="loc_bnt" data-div-id='#Gyeonggi'>경기도</a>  
@@ -24,17 +25,15 @@
      
  	 <%-- 경기도 산  --%>
    <div class = loc id= "Gyeonggi">
-	    <div id="loc_map" style="background-image: url('img/경기도지도.PNG'); background-size: cover;">
-	    	이게 api로 올 수 있는지.. 일단 지역 지도 넣어둠
-	    </div>        <%-- 여쭤보고 수정 --%>
+	    <img id="loc_map" src ="https://blogfiles.pstatic.net/MjAyMTA5MTdfMTcw/MDAxNjMxODc3ODM5MjIz.57-bm-LMspYMLmYYKFu8MloXugKGbdMA8bOcQ-W30YAg.5scsakRs8ktTCCfKyUpNNpyIsbyVRljFfSQ5dVqcKuYg.PNG.lyrmt0320/%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%A7%80%EB%8F%84.PNG"/>
 	   <div class = mountain_wrapper>							
 		    <div class="mountain_group">
 			  <a class="mountain" href="/mountain/detail">가학산</a>  
 			  <a class="mountain" href="/mountain/detail">각흘산</a>
-			  <a class="mountain" href="/mountain/detail">갈기산(양평)</a>
+			  <a class="mountain" href="/mountain/detail">갈기산</a>
 		    </div>
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">갈기산(의왕)</a>
+			  <a class="mountain" href="/mountain/detail">갈기산</a>
 			  <a class="mountain" href="/mountain/detail">갑악산</a>
 			  <a class="mountain" href="/mountain/detail">갑산</a>
 		    </div>
@@ -47,9 +46,7 @@
     
      <%--  서울 산 --%>
     <div class = loc id= "seoul">
-	    <div id="loc_map" style="background-image: url('img/서울지도.PNG'); background-size: cover;">
-		    	이게 api로 올 수 있는지.. 일단 지역 지도 넣어둠
-		</div>        <%-- 여쭤보고 수정 --%>
+	    <img id="loc_map" src ="https://blogfiles.pstatic.net/MjAyMTA5MTdfMjMx/MDAxNjMxODc3ODMzNTQz.nEDibuUED7s2a0pdCrG5ckMUYvgDqmwiW2VxbWjPLGEg.M4KCtSms16oopNtzj3Uresd3Ys12BpuuvNsv_6-fMDYg.PNG.lyrmt0320/%EC%84%9C%EC%9A%B8%EC%A7%80%EB%8F%84.PNG"/>
 	    <div class = mountain_wrapper >							
 		    <div class="mountain_group">
 			  <a class="mountain" href="/mountain/detail">개화산</a>  
