@@ -24,7 +24,7 @@
      
  	 <%-- 경기도 산  --%>
    <div class = loc id= "Gyeonggi">
-	    <img id="loc_map" src ="https://blogfiles.pstatic.net/MjAyMTA5MTdfMTcw/MDAxNjMxODc3ODM5MjIz.57-bm-LMspYMLmYYKFu8MloXugKGbdMA8bOcQ-W30YAg.5scsakRs8ktTCCfKyUpNNpyIsbyVRljFfSQ5dVqcKuYg.PNG.lyrmt0320/%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%A7%80%EB%8F%84.PNG"/>
+	    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>
 	   <div class = mountain_wrapper>							
 		    <div class="mountain_group">
 			  <a class="mountain" href="/mountain/detail">가학산</a>  
@@ -45,10 +45,10 @@
     
      <%--  서울 산 --%>
     <div class = loc id= "seoul">
-	    <img id="loc_map" src ="https://blogfiles.pstatic.net/MjAyMTA5MTdfMjMx/MDAxNjMxODc3ODMzNTQz.nEDibuUED7s2a0pdCrG5ckMUYvgDqmwiW2VxbWjPLGEg.M4KCtSms16oopNtzj3Uresd3Ys12BpuuvNsv_6-fMDYg.PNG.lyrmt0320/%EC%84%9C%EC%9A%B8%EC%A7%80%EB%8F%84.PNG"/>
-	    <div class = mountain_wrapper >							
+	    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>
+	    <div class = mountain_wrapper>							
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">개화산</a>  
+			  <a class="mountain" href="/mountain/detail">개화산</a> 
 			  <a class="mountain" href="/mountain/detail">관악산</a>
 			  <a class="mountain" href="/mountain/detail">구룡산</a>
 	   		</div>
@@ -57,10 +57,11 @@
     
 <script type="text/javascript">
 
+//경기 서울 넘어가는 코드 
 let $ = (selector, text) =>{
 	if(text){
 		document.querySelector(selector).innerHTML += `${text}<br>`
-	}
+	};
 	return document.querySelector(selector);
 }
 
@@ -71,11 +72,12 @@ document.querySelectorAll('a[type=button]').forEach(e => {
 			e.style.display ='none';
 			//모두 none으로 두고, 라디오버튼에 선택 된 항목만 디스플레이값을 block으로 설정해서 나타나게함
 			$(event.target.dataset.divId).style.display='block';
-		})
-	})
+		});
+	});
 });
 
 
+//서치바 코드
 function keyword_check(){
   if(document.search.mName.value==''){
   alert('산이름을 입력하세요'); 
