@@ -27,34 +27,21 @@ public class BoardService {
 		
 		return boardList;
 	}
-	
-	public int getCount() {
+
+	public List<Board> selectBoardList(String field, String query) {
+		List<Board> boardList = null;
 		Connection conn = template.getConnection();
-		int cnt = 0;
 		
 		try {
-			cnt = boardDao.getCount(conn);
+			boardList = boardDao.selectBoardList(conn,field,query);
 		} finally {
 			template.close(conn);
 		}
 		
-		return cnt;
+		return boardList;
 	}
 
-	public int getCount(String kwd) {
-		Connection conn = template.getConnection();
-		int cnt = 0;
-		
-		try {
-			cnt = boardDao.getCount(conn, kwd);
-		} finally {
-			template.close(conn);
-		}
-		
-		return cnt;
-	}
-
-	public Board selectBoard(String bdIdx) {
+	public Board selectBoardByBdIdx(String bdIdx) {
 		Connection conn = template.getConnection();
 		Board board = null;
 		

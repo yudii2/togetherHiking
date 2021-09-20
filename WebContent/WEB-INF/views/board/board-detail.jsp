@@ -17,34 +17,53 @@
 				<div class="section_top">
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
-						<a href="#">이전글</a>
-						<a href="#">다음글</a>
-						<a href="/board/board-page">목록</a>
+						<%-- 
+						<c:if test="">
+							<a class="btn" href="/board/board-detail?bd_idx=">이전글</a>
+						</c:if>
+						<c:if test="${param.p <= 1 }">
+							<span onclick="alert('이전글이 없습니다.');"><div></div></span>
+						</c:if>
+						
+						<c:if test="">
+							<a class="btn" href="/board/board-detail?bd_idx=">다음글</a>
+						</c:if>
+						<c:if test="${param.p >= ${lastNum } }">
+							<span onclick="alert('다음글이 없습니다.');"><div></div></span>
+						</c:if>
+						 --%>
+						<a class="btn" href="/board/board-page">목록</a>
 					</div>
 				</div>
 				<div class="section_content_box">
 					<div class="section_header">
 						<div class="section_title">
-							<div class="subject_btn">
-								<a href="/board/board-page?subject=${board.subject}">말머리</a>
-							</div>
-							<h3>글제목${board.title }</h3>
+							<div>${board.subject}</div>
+							<p>${board.title }</p>
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">사진</div>
 							<div class="writer_profile">
-								<div><span>작성자${board.userId }</span><span>회원등급${board.grade }</span></div>
-								<div>${board.regDate }작성일</div>
+								<div>${board.userId }</div>
+								<div>${board.regDate }</div>
 							</div>
-							<div class="comment_number">
-								댓글수
+							<div class="view_cnt">
+								<div><p>조회수</p><span><%-- ${board.count} --%></span></div>
+								<div><p>첨부파일</p>
+									<span>
+									<c:if test="${datas.files != null }">
+										<c:forEach items="${datas.files }" var="file">
+										<a class="" href="${file.downloadURL }">${file.originFileName }</a>
+										</c:forEach>
+									</c:if>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="section_container">
-						<div class="content_area">
-							게시글 내용${board.content }
-						</div>
+						<div class="content_area">${board.content }</div>
+						
 						<div class="comment_area">
 							<div class="line_btns">
 								<span>댓글</span>
@@ -52,31 +71,29 @@
 								<span>최신순</span>
 							</div>
 							
-							<%-- <c:if test="${not empty comment}" == ture> --%>
+							<c:if test="${not empty comment}">
 								<c:forEach items="${comment}" var="comment">
-									<div class="comment_wrap">
-										<div class="commenter_box">
-											<div class="commenter_thumb"><!-- 프로필사진 -->${comment.profile }</div>
-												<div class="commenter">
-													<div><!-- 작성자 -->id${comment.userId }</div>
-													<div><!-- 내용 -->${comment.content }</div>
+									<div class="cmt_wrap">
+										<div class="cmt_box">
+											<div class="cmt_thumb">프로필사진${comment.profile }</div>
+												<div class="cmt_info">
+													<div>id${comment.userId }</div>
+													<div>${comment.content }</div>
 												</div>
 											</div>
-										<div class="comment_date"><!-- 댓글 등록일 -->${comment.regDate }</div>
+										<div class="cmt_date">${comment.regDate }</div>
 									</div>
 								</c:forEach>
-							<%-- </c:if> --%>
+							</c:if>
 							
 						</div>
-						<div class="writing_comment">
-							<div class="comment_write_box">
-								<div><!-- 댓글작성자id --> ${authentication.userId }</div>
+						<form class="frm_write_cmt">
+							<div class="cmt_write_box">
+								<div class="cmt_writer_id">아이디${authentication.userId }</div>
 								<textarea placeholder="댓글을 입력하세요"></textarea>
 							</div>
-							<div class="comment_btn">
-								<button>등록</button>
-							</div>
-						</div>
+							<button class="cmt_write_btn">등록</button>
+						</form>
 					</div>
 				</div>
 			</div>

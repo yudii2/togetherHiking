@@ -18,8 +18,8 @@
 				<div class='frm_header_area'>
 					<h2 class='sub_title'>게시판 글쓰기</h2>
 					<div class='btn_area'>
-						<a href="/board/board-page">목록</a>
-						<button type="button" onclick="location.href='#'">등록</button>
+						<a href="/board/board-page" class="btn">목록</a>
+						<button type="button" onclick="location.href='#'" class="btn">등록</button>
 					</div>
 				</div>
 			

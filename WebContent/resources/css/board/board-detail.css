@@ -32,13 +32,13 @@
 .btn_area>a{
 	width: 70px;
 	height: 30px;
-	line-height: 30px;
 	font-size: 18px;
-	text-align: center;
 	border-style: solid;
 	border-width: 1px;
-	margin-left: 10px;
 	background-color: #eeeeee;
+	line-height: 30px;
+	text-align: center;
+	margin-left: 10px;
 }
 .section_content_box{
 	padding: 0px 20px 0 20px;
@@ -60,6 +60,10 @@
 .section_title *{
 	padding-right: 5px;
 }
+.section_title>p{
+	font-size: 18px;
+	padding-left: 25px;
+}
 .writer_info{
 	width: 100%;
 	height: 50px;
@@ -70,14 +74,13 @@
 	height: 50px;
 }
 .writer_profile{
-	width: 500px;
+	width: 200px;
 	height: 50px;
 	margin-left: 10px;
 }
-.comment_number{
-	width: 100px;
-	height: 50px;
-	margin-left: auto;
+.view_cnt{
+	 width: 100px;
+	 height: 19.4px;
 }
 .section_container{
 	width: 100%;
@@ -90,7 +93,7 @@
 }
 .comment_area{
 	width: 100%;
-	min-height: 100px;
+	min-height: 30px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -101,40 +104,45 @@
 	width: 70px;
 	margin-right: 10px;
 }
-.comment_wrap{
+.cmt_wrap{
 	border-top: 1px solid #dddddd;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding-top: 10px;
 }
-.commenter_box{
+.cmt_box{
 	display: flex;
 }
-.commenter_thumb{
+.cmt_thumb{
 	width: 50px;
 	height: 50px;
 }
-.commenter{
+.cmt_info{
 	height: 50px;
 	margin-left: 10px;
 }
-.comment_date{
+.cmt_date{
 	height: 10px;
 	font-size: 5px;
 }
-.writing_comment{
-	height: 120px;
-	border: 1px solid #dddddd;
+.frm_write_cmt{
+	height: 98px;
 }
-.writing_comment>div{
+.write_box{
 	width: 100%;
 }
-.comment_write_box>textarea{
+.cmt_writer_id{
+	height: 13px;
+}
+.cmt_write_box>textarea{
 	width: 99.4%;
 	resize: none;
 	height: 50px;
-	border: 0;
+	border: 1px solid #dddddd;
 }
-.comment_btn{
-	text-align: right;
+.cmt_write_btn{
+	float: right;
+}
+.btn{
+	border-color: transparent;
 }

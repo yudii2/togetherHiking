@@ -6,7 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/board/board-page.css">
-<script type="text/javascript" src="/resources/js/board/board-page.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -19,8 +18,8 @@
 				<div class="sub_title">
 					<h2>자유게시판</h2>
 					<div class='btn_area'>
-						<a href="/board/board-page">목록</a>
-						<a href="/board/board-form">글쓰기</a>
+						<a href="/board/board-page" class="btn">목록</a>
+						<a href="/board/board-form" class="btn">글쓰기</a>
 					</div>
 				</div>
 				
@@ -37,27 +36,25 @@
 						</thead>
 						<tbody>
 							<c:if test="${not empty boardList}">
-								<c:forEach items="${boardList}" var="board" varStatus="status">
-									<c:if test="${status.count < 11 }">
-										<tr style="height: 30px; line-height: 30px;">
-											<td>${board.bdIdx}</td>
-											<td><a href="/board/board-page?searchTag=subject&keyword=${board.subject }">${board.subject}</a></td>
-											<td><a href="/board/board-detail?searchTag=title&keyword=${board.title }">${board.title}</a></td>
-											<td><a href="/board/board-page?searchTag=userId&keyword=${board.userId }">${board.userId}</a></td>
-											<td>${board.regDate}</td>
-										</tr>
-									</c:if>
+								<c:forEach items="${boardList}" var="board">
+								<tr style="height: 30px; line-height: 30px;">
+									<td>${board.bdIdx}</td>
+									<td>${board.subject}</td>
+									<td><a href="/board/board-detail?bdIdx=${board.bdIdx }">${board.title}</a></td>
+									<td>${board.userId}</td>
+									<td>${board.regDate}</td>
+								</tr>
 								</c:forEach>
 							</c:if>
 							
 							<c:if test="${empty boardList }">
-								<tr style="height: 30px; line-height: 30px;">
-									<td/>
-									<td/>
-									<td rowspan="3" style="text-align: center;">
-										게시글이 없습니다.
-									</td>
-								</tr>
+							<tr style="height: 30px; line-height: 30px;">
+								<td/>
+								<td/>
+								<td rowspan="3" style="text-align: center;">
+									게시글이 없습니다.
+								</td>
+							</tr>
 							</c:if>
 							
 						</tbody>
@@ -65,24 +62,40 @@
 				</div>
 				
 				<div class="footer">
-					<div class="search_bar_wrap">
-						<select class='search_subject' name='searchTag'>
-							<option value='none' selected disabled hidden="true">검색조건</option>
-							<option value='subject'>말머리</option>
-							<option value='title'>제목</option>
-							<option value='userId'>유저명</option>
+					<form class="search_bar_wrap">
+						<select class='search_subject' name='f'>
+							<option ${(param.f == "title")? "selected" : "" } value='title'>제목</option>
+							<option ${(param.f == "user_id")? "selected" : "" } value='user_id'>작성자</option>
 						</select>
-						<input type="text" name="keyword" placeholder="검색어를 입력하세요."/>
-						<button type="button" onclick="search();">검색</button>
-					</div>
+						<input type="text" name="q" value="${param.q }" placeholder="검색어를 입력하세요."/>
+						<button type="button" onclick="submit">검색</button>
+					</form>
 
 					<!-- 페이징 처리 코드 도움 필요 -->
-					<div class='todo-list' style="text-align: center;">
-						<p>
-							<i class="fas fa-angle-double-left" id='leftArrow' data-dir='-1'></i>
-							<span id='currentPage'>1</span>
-							<i class="fas fa-angle-double-right" id='rightArrow' data-dir='1'></i>
-						</p>
+					<c:set var="page" value="${(param.p == null)? 1 : param.p}"/>
+					<c:set var="startNum" value="${page - (page-1)%5 }"/>
+					<c:set var="lastNum" value="${lastNum }"/>
+					
+					<div class="paging_box">
+						<c:if test="${startNum > 1 }">
+							<a href="?p=${startNum-1 }"><i class="far fa-caret-square-left"></i></a>
+						</c:if>
+						<c:if test="${startNum <= 1 }">
+							<span onclick="alert('이전 페이지가 없습니다.');"><i class="far fa-caret-square-left"></i></span>
+						</c:if>
+						
+						<ul>
+							<c:forEach var="i" begin="0" end="4">
+							<li><a href="/board/board-page?p=${startNum+i }t=&q=">${startNum+i }</a></li>
+							</c:forEach>
+						</ul>
+						
+						<c:if test="${startNum+5 < lastNum }">
+							<a href="?p=${startNum+5 }"><i class="far fa-caret-square-right"></i></a>
+						</c:if>
+						<c:if test="${startNum+5 >= lastNum }">
+							<span onclick="alert('다음 페이지가 없습니다.');"><i class="far fa-caret-square-right"></i></span>
+						</c:if>
 					</div>
 					
 					
@@ -94,80 +107,7 @@
 	</div>
   </section>
 
-<script type="text/javascript">
-let renderBoard = (boardList)=>{
-	// 이미 그려졌던 div를 초기화
-	document.querySelectorAll('tbody>tr').forEach(e=>{
-		e.remove();
-	});
-	
-	// 배열의 값을 div에 다시 그려주기
-	boardList.forEach(board=>{
-		let tr = document.createElement('tr'); // CSS 스타일 적용을 위해 div 사용
-		tr.style.height= 30px;
-		tr.style.lineHeight= 30px;
-		
-		let td = document.createElement('td');
-		td.innerHTML = ${board.bdIdx};
-		tr.append(td);
-		
-		td.innerHTML = ${board.subject};
-		tr.append(td);
-		
-		td.innerHTML = ${board.title};
-		});
-		tr.append(td);
-		
-		td.innerHTML = ${board.userId};
-		});
-		tr.append(td);
 
-		td.innerHTML = ${board.regDate};
-		tr.append(td);
-		
-	});
-	
-}
-
-let renderPagination = (event)=>{
-	let dir = Number(event.target.dataset.dir);
-	let curPage = Number(document.querySelector('#currentPage').textContent);
-	let lastPage = 1;
-	let renderPage = curPage + dir;
-	
-	let boardList = ${boardList};
-	
-	if(boardList != null){
-		let boardCnt = boardList.size;
-		lastPage = Math.ceil(boardCnt/10); // ceil: 올림처리
-	}
-	
-	if(renderPage > lastPage){
-		alert('마지막 페이지입니다.');
-		return;
-	}
-	
-	if(renderPage < 1){
-		alert('첫 페이지입니다.');
-		return;
-	}
-	
-	let end = renderPage * 10;
-	let begin = end - 10;
-	
-	renderBoard(boardList.slice(begin,end));
-	document.querySelector('#currentPage').textContent = renderPage;
-}
-
-(()=>{
-	let boardList = ${boardList};
-	
-	if(boardList){
-		renderBoard(boardList.slice(0,10));
-	}
-	
-})();
-</script>
-
+<!-- <script type="text/javascript" src="/resources/js/board/board-page.js"></script> -->
 </body>
 </html>

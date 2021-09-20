@@ -60,7 +60,8 @@ public class BoardController extends HttpServlet {
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bdIdx");
-		Board board = boardService.selectBoard(bdIdx);
+		
+		Board board = boardService.selectBoardByBdIdx(bdIdx);
 		
 		if(board == null) {
 			throw new PageNotFoundException();
@@ -76,20 +77,27 @@ public class BoardController extends HttpServlet {
 	}
 
 	private void boardPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> boardList = new ArrayList<Board>();
 		
-		for (int i = 0; i < 15; i++) {
-			Board board = new Board();
-			board.setBdIdx("idx"+ i);
-			board.setContent("임시 게시글입니다.");
-			board.setIsDel(0);
-			board.setRegDate(new Date(2021-9-19));
-			board.setSubject("후기");
-			board.setTitle("임시제목입니다.");
-			board.setUserId("유저1");
-			boardList.add(board);
+		String field_ = request.getParameter("f");
+		String query_ = request.getParameter("q");
+		
+		String field = "title";
+		if(field_ != null) {
+			field = field_;
 		}
 		
+		String query = "";
+		if(query_ != null) {
+			query = query_;
+		}
+		
+		
+		
+		List<Board> boardList = new ArrayList<Board>();
+		boardList = boardService.selectBoardList(field,query);
+		int lastNum = boardList.size();
+		
+		request.setAttribute("lastNum", lastNum);
 		request.setAttribute("boardList", boardList);
 		
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
