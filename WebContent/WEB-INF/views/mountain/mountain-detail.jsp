@@ -10,11 +10,11 @@
   <body>
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
   <section class="container">       
-   <form id="search_mountain"> 지역 또는 산 이름 검색 
-    	<div>
-    		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
-    		<input type="text" class="search_bar">  
-    	</div> 	    
+    <form id="search_mountain" name="search" method = "get"  action ="/mountain/detail" onsubmit="return keyword_check()">
+		지역 또는 산 이름 검색 <br>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
+		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
+		<input type="text" class="search_bar" name="mName" >  
+		
     	<div id="loc_bnt_wrap">
     		<a class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
 		</div>  
@@ -72,7 +72,7 @@
               <h2>상행시간</h2><span>2시간 22분 소요</span>
               <h2>하행시간</h2><span>1시간 43분 소요</span>
               <h2>총소요시간</h2><span>4시간 5분 예상</span>
-              <h2>칼로리 </h2><span>${mountain.calories}</span>
+              <h2>칼로리 </h2><span> kcal 소모</span>
             </div>
           </div>
         </div>
@@ -94,6 +94,15 @@
     });
     	
     
+    function keyword_check(){
+    	  if(document.search.mName.value==''){
+    	  alert('산이름을 입력하세요'); 
+    	  document.search.mName.focus();
+    	  return false; 
+    	  }
+    	  else return true;
+    	 };
+    	 
     
     </script>
 </body>

@@ -11,17 +11,16 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
        
   <section class="container">   
-   <form id="search_mountain"> 지역 또는 산 이름 검색 
-    	<div>
-    		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
-    		<input type="text" class="search_bar">  
-    		<button type="submit" class="search_button">검색</button>
-    	</div> 	     
+    <form id="search_mountain" name="search" method = "get"  action ="/mountain/detail" onsubmit="return keyword_check()">
+		지역 또는 산 이름 검색 <br>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
+		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
+		<input type="text" class="search_bar" name="mName" >  
+
     	<div id="loc_bnt_wrap">
   			 <a type="button" class="loc_bnt" data-div-id='#Gyeonggi'>경기도</a>  
   			 <a type="button" class="loc_bnt" data-div-id='#seoul'>서울</a>  
 		</div>  
-    </form>
+	</form>	 
      
  	 <%-- 경기도 산  --%>
    <div class = loc id= "Gyeonggi">
@@ -57,6 +56,7 @@
     </div>
     
 <script type="text/javascript">
+
 let $ = (selector, text) =>{
 	if(text){
 		document.querySelector(selector).innerHTML += `${text}<br>`
@@ -73,8 +73,18 @@ document.querySelectorAll('a[type=button]').forEach(e => {
 			$(event.target.dataset.divId).style.display='block';
 		})
 	})
-})
+});
 
+
+function keyword_check(){
+  if(document.search.mName.value==''){
+  alert('산이름을 입력하세요'); 
+  document.search.mName.focus();
+  return false; 
+  }else return true;
+ };
+
+ 
 </script>
     
 </section>
