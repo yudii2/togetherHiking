@@ -33,40 +33,55 @@
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
+						<c:if test="${authentication.userId == datas.board.userId }">
+						<a class="btn" href="/board/board-form?bd_idx=${datas.board.bdIdx }">수정하기</a>
+						</c:if>
 					</div>
 				</div>
+				<%-- 해당 게시글이 존재하지 않을 경우 --%>
+				<c:if test="${empty datas.board.bdIdx }">
+				<script type="text/javascript">
+					alert("해당 게시글이 존재하지 않습니다.");
+					(()=>{
+						location.href="/board/board-page";
+					})(); 
+				</script>
+				</c:if>
+				
+				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<div class="section_content_box">
 					<div class="section_header">
 						<div class="section_title">
-							<div>${board.subject}</div>
-							<p>${board.title }</p>
+							<div>${datas.board.subject}</div>
+							<p>${datas.board.title }</p>
 						</div>
 						<div class="writer_info">
-							<div class="writer_thumb">사진</div>
+							<div class="writer_thumb">
+								<img alt="프로필이미지" src="${datas.profile}">
+							</div>
 							<div class="writer_profile">
-								<div>${board.userId }</div>
-								<div>${board.regDate }</div>
+								<div>작성자: ${datas.board.userId }</div>
+								<div>작성일: ${datas.board.regDate }</div>
 							</div>
 							<div class="view_cnt">
 								<div>
-									<div>조회수</div>
-									<div>111<%-- ${board.count} --%></div>
+									<div>조회수: <%-- ${board.count} --%></div>
 								</div>
 								<div>
-									<div>첨부파일</div>
-									<div>1111
-									<c:if test="${datas.files != null }">
-										<c:forEach items="${datas.files }" var="file">
-										<a class="" href="${file.downloadURL }">${file.originFileName }</a>
-										</c:forEach>
-									</c:if>
+									<c:if test="${not empty datas.files}">
+									<div>첨부파일: 
+									<c:forEach items="${datas.files }" var="file" varStatus="status">
+										<a href="${file.downloadURL }" style="color: blue;">${file.originFileName }</a>
+										<c:if test="${!status.last }">/</c:if>
+									</c:forEach>
 									</div>
+									</c:if>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="section_container">
-						<div class="content_area">${board.content }</div>
+						<div class="content_area">${datas.board.content }</div>
 						
 						<div class="comment_area">
 							<div class="line_btns">
@@ -75,28 +90,33 @@
 								<span>최신순</span>
 							</div>
 							
-							<c:if test="${not empty comment}">
-								<c:forEach items="${comment}" var="comment">
-									<div class="cmt_wrap">
-										<div class="cmt_box">
-											<div class="cmt_thumb">프로필사진${comment.profile }</div>
-												<div class="cmt_info">
-													<div>id${comment.userId }</div>
-													<div>${comment.content }</div>
-												</div>
-											</div>
-										<div class="cmt_date">${comment.regDate }</div>
+							<%-- 댓글이 존재할 경우 --%>
+							<c:if test="${not empty datas.replys}">
+							<c:forEach items="${datas.replys}" var="reply">
+								<div class="cmt_wrap">
+									<div class="cmt_info">
+										<div>${reply.userId }</div>
+										<div>${reply.regDate }</div>
 									</div>
-								</c:forEach>
+									<div>${reply.content }</div>
+								</div>
+							</c:forEach>
 							</c:if>
 							
 						</div>
+						
+						<%-- 로그인했을 경우에만 댓글을 쓸 수 있어야함 --%>
 						<form class="frm_write_cmt">
 							<div class="cmt_write_box">
-								<div class="cmt_writer_id">아이디${authentication.userId }</div>
-								<textarea placeholder="댓글을 입력하세요"></textarea>
+								<c:if test="${not empty authentication.userId }">
+									<div class="cmt_writer_id">${authentication.userId }</div>
+									<textarea placeholder="댓글을 입력하세요"></textarea>
+									<button class="cmt_write_btn">등록</button>
+								</c:if>
+								<c:if test="${empty authentication.userId }">
+									<div>로그인해야 댓글을 작성할 수 있습니다.</div>
+								</c:if>
 							</div>
-							<button class="cmt_write_btn">등록</button>
 						</form>
 					</div>
 				</div>

@@ -3,7 +3,9 @@ package com.togetherHiking.board.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.exception.PageNotFoundException;
 
@@ -60,15 +63,14 @@ public class BoardController extends HttpServlet {
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bdIdx");
+		Board board = boardService.getBoard(bdIdx);
 		
-		Board board = boardService.selectBoardByBdIdx(bdIdx);
+		Map<String,Object> datas = new HashMap<String, Object>();
+		datas.put("board", board);
 		
-		if(board == null) {
-			throw new PageNotFoundException();
-		}
-		request.setAttribute("board", board);
+		
+		request.setAttribute("datas", datas);
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);
-		
 	}
 
 	private void boardForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,6 +82,7 @@ public class BoardController extends HttpServlet {
 		
 		String field_ = request.getParameter("f");
 		String query_ = request.getParameter("q");
+		String page_ = request.getParameter("p");
 		
 		String field = "title";
 		if(field_ != null) {
@@ -91,14 +94,17 @@ public class BoardController extends HttpServlet {
 			query = query_;
 		}
 		
-		
+		int page = 1;
+		if(page_ != null) {
+			page = Integer.parseInt(page_);
+		}
 		
 		List<Board> boardList = new ArrayList<Board>();
-		boardList = boardService.selectBoardList();
+		boardList = boardService.getBoardList(field, query, page);
 		int lastNum = boardList.size();
 		
-		request.setAttribute("lastNum", lastNum);
 		request.setAttribute("boardList", boardList);
+		request.setAttribute("lastNum", lastNum);
 		
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
 		

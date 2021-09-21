@@ -78,7 +78,7 @@
 					
 					<div class="paging_box">
 						<c:if test="${startNum > 1 }">
-							<a href="?p=${startNum-1 }"><i class="far fa-caret-square-left"></i></a>
+							<a href="/board/board-page?p=${startNum-1 }&f=&q="><i class="far fa-caret-square-left"></i></a>
 						</c:if>
 						<c:if test="${startNum <= 1 }">
 							<span onclick="alert('이전 페이지가 없습니다.');"><i class="far fa-caret-square-left"></i></span>
@@ -86,12 +86,12 @@
 						
 						<ul>
 							<c:forEach var="i" begin="0" end="4">
-							<li><a href="/board/board-page?p=${startNum+i }t=&q=">${startNum+i }</a></li>
+							<li><a href="/board/board-page?p=${startNum+i }&f=&q=">${startNum+i }</a></li>
 							</c:forEach>
 						</ul>
 						
 						<c:if test="${startNum+5 < lastNum }">
-							<a href="?p=${startNum+5 }"><i class="far fa-caret-square-right"></i></a>
+							<a href="/board/board-page?p=${startNum+5 }&f=&q="><i class="far fa-caret-square-right"></i></a>
 						</c:if>
 						<c:if test="${startNum+5 >= lastNum }">
 							<span onclick="alert('다음 페이지가 없습니다.');"><i class="far fa-caret-square-right"></i></span>

@@ -25,9 +25,8 @@
 			
 				<div class='frm_title_area'>
 					<div>
-						<select class='select_subject' name='post_subject'>
-							<option value='none' selected disabled hidden>분류</option>
-							<option value='잡담'>잡담</option>
+						<select class='select_subject' name='subject'>
+							<option selected value='잡담'>잡담</option>
 							<option value='후기'>후기</option>
 						</select>
 						<input type='text' class="post_title" name="title" placeholder='제목을 입력하세요'>
@@ -40,7 +39,7 @@
 					 	CKEDITOR.replace("content");
 					 	CKEDITOR.config.removePlugins = 'resize';
 					 	CKEDITOR.config.width = '100%';
-					 	CKEDITOR.config.height = '495';
+					 	CKEDITOR.config.height = '300';
 					</script>
 				</div>
 			</form>
