@@ -1,15 +1,10 @@
 @charset "UTF-8";
-.tit_form{
-  display: inline-block;
-  width: 80px;
+
+table{
+	border: 1px solid #000;
+	
 }
-textarea{
-  width: 300px;
-}
-input{
-  padding: 5px;
-  width: 300px;
-}
+
 button{
   width: 15%;
   background-color: var(--point-color);
