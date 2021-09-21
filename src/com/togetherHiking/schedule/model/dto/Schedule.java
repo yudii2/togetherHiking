@@ -14,6 +14,8 @@ public class Schedule {
 	private String info;
 	private int capacity;
 	private String isDel;
+	private int money;
+	private String openChat;
 
 	public String getScIdx() {
 		return scIdx;
@@ -94,14 +96,30 @@ public class Schedule {
 	public void setIsDel(String isDel) {
 		this.isDel = isDel;
 	}
+	
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public String getOpenChat() {
+		return openChat;
+	}
+
+	public void setOpenChat(String openChat) {
+		this.openChat = openChat;
+	}
 
 	@Override
 	public String toString() {
 		return "Schedule [scIdx=" + scIdx + ", userId=" + userId + ", meetingDate=" + meetingDate + ", place=" + place
 				+ ", expDate=" + expDate + ", plIdx=" + plIdx + ", regDate=" + regDate + ", info=" + info
-				+ ", capacity=" + capacity + ", isDel=" + isDel + "]";
+				+ ", capacity=" + capacity + ", isDel=" + isDel + ", money=" + money + ", openChat=" + openChat + "]";
 	}
-	
-	
+
+
 	
 }

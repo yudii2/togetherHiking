@@ -1,15 +1,38 @@
 @charset "UTF-8";
 
 table{
-	border: 1px solid #000;
+	/* margin: auto; */
+	margin-top: 30px;
+	margin-left: 410px;
+	width: 750px;
+}
+
+.table{
+	
+	/* border-collapse:collapse; */
+	/* border-collapse: separate; */
+}
+
+.table th, .table td{
+	border:1px solid black;
+}
+
+th, td{
+	vertical-align: middle;
+}
+
+div{
 	
 }
 
-button{
-  width: 15%;
+button{ 
+  width: 50%;
   background-color: var(--point-color);
   padding: 10px;
   color: #fff;
   border-radius: 10px;
   margin-top: 20px;
+  margin-left: 400px;
+	/* margin: auto; */
+	
 }

@@ -14,9 +14,9 @@
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 	<section>
-		<h2>[산행동행 모임 만들기]</h2>
+		
 		<form  action="/member/mypage" method="post" class="schedule_form">
-		<table width="500" border="1">
+		<table class="table">
 		<tr height="50">
 			<td width="150" align="center"> 산 이름 </td>
 			<td width="350" align="center"> <input type="text" name="mountainName" size="40" placeholder="북한산" >
@@ -67,9 +67,14 @@
 			</td>
 		</tr>
 		</table>
-		<button type="button" onclick="location.href='calendar'">캘린더로 돌아가기</button >
-		<button type="submit" onclick="alert('신청이 완료되었습니다.\n검토를 거쳐 24시간 이내에 결과를 안내해 드리겠습니다.')">모임글 등록하기</button >
-
+		
+			<button type="button" onclick="location.href='calendar'">캘린더로 돌아가기</button >
+			
+			
+			<button type="submit" onclick="alert('신청이 완료되었습니다.\n검토를 거쳐 24시간 이내에 결과를 안내해 드리겠습니다.')">모임글 등록하기</button >
+			
+		
+	
 		</form>
 	</section>
 

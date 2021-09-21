@@ -90,6 +90,7 @@ public class ScheduleController extends HttpServlet {
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//post메서드로 upload url요청을 통해 받아온 사용자 작성게시글 정보 받아와
 		
+		
 		//최종적으로 schedule 페이지로 redirect
 		
 	}
