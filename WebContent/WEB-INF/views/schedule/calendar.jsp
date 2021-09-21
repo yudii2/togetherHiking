@@ -11,14 +11,13 @@
 
 <!-- fullcalendar.css -->
 <link href='/resources/css/schedule/main.css' rel='stylesheet' />
-
-<link rel="stylesheet" href="/resources/css/schedule/calendar.css">
 <!-- popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <!-- head.jsp -->
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+<link rel="stylesheet" href="/resources/css/schedule/calendar.css">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -36,7 +35,7 @@
                {
                  title: '북한산',
                  start: '2021-09-16',
-                 url: "https://www.naver.com"
+                 /* url: "/schedule/calendar" */
                  },
               
                  // other events here
@@ -74,7 +73,11 @@
 
                       }
                   }
-              },
+              }, eventClick : () => {
+          	    document.querySelector('.modal').style.display='flex';
+        	    document.querySelector('.overlay').style.display='flex';
+              }
+              
        
         });
        
@@ -132,6 +135,42 @@
     
     
     </section>
+    
+        <!-- Layer Popup -->
+    <div class="modal">
+      <div class="modal_inner">
+        <div class="click_img">맵(등산로)이 들어갈 자리입니다.</div>
+        <div class="desc">
+          <div class="desc_header">
+            <div class="tit_course"><span>북한산 코스1</span></div>
+            <button class="close_modal">&times;</button>
+          </div>
+          <div class="desc_content">
+            <div class="wrap_text">
+              <h2>등산로 거리</h2><span>${mountain.course[idx].distance}947km</span>
+              <h2>난이도</h2><span>상</span>
+              <h2>상행시간</h2><span>2시간 22분 소요</span>
+              <h2>하행시간</h2><span>1시간 43분 소요</span>
+              <h2>총소요시간</h2><span>4시간 5분 예상</span>
+              <h2>칼로리 </h2><span> kcal 소모</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
+    
+    <script type="text/javascript">
+    
+
+   	document.querySelector('.close_modal').addEventListener('click',function() {
+   	  document.querySelector('.modal').style.display='none';
+   	  document.querySelector('.overlay').style.display='none';
+   	});
+    
+    
+    </script>
+    
   </body>
 </html>
 
