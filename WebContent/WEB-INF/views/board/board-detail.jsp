@@ -48,15 +48,19 @@
 								<div>${board.regDate }</div>
 							</div>
 							<div class="view_cnt">
-								<div><p>조회수</p><span><%-- ${board.count} --%></span></div>
-								<div><p>첨부파일</p>
-									<span>
+								<div>
+									<div>조회수</div>
+									<div>111<%-- ${board.count} --%></div>
+								</div>
+								<div>
+									<div>첨부파일</div>
+									<div>1111
 									<c:if test="${datas.files != null }">
 										<c:forEach items="${datas.files }" var="file">
 										<a class="" href="${file.downloadURL }">${file.originFileName }</a>
 										</c:forEach>
 									</c:if>
-									</span>
+									</div>
 								</div>
 							</div>
 						</div>
