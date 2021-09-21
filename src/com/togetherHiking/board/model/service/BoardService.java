@@ -1,9 +1,7 @@
 package com.togetherHiking.board.model.service;
 
 import java.sql.Connection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.board.model.dto.Board;
@@ -17,6 +15,19 @@ public class BoardService {
 	
 	public BoardService() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public List<Reply> getReplyList(String bdIdx){
+		List<Reply> replyList = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			replyList = boardDao.selectReplyList(conn, bdIdx);
+		} finally {
+			template.close(conn);
+		}
+		
+		return replyList;
 	}
 
 	public List<Board> getBoardList() {
@@ -39,44 +50,7 @@ public class BoardService {
 		}
 		
 		return boardList;
-		
 	}
-	
-	public int getBoardCount() {
-		return getBoardCount("title","");
-		
-	}
-	
-	public int getBoardCount(String field, String query) {
-		return 0;
-		
-	}
-
-//	public Map<String,Object> getBoard(String bdIdx) {
-//		Map<String,Object> datas = new HashMap<String, Object>();
-//		Connection conn = template.getConnection();
-//		
-//		Board board = null;
-//		List<Reply> replys = null;
-//		List<FileDTO> files = null;
-//		FileDTO profile = null;
-//		
-//		try {
-//			board = boardDao.selectBoard(conn, bdIdx);
-//			replys = boardDao.selectReplyList(conn,bdIdx);
-//			files = boardDao.selectFileDTOs(conn,bdIdx);
-//			profile = boardDao.getProfile(conn, board.getUserId());
-//			
-//			datas.put("board", board);
-//			datas.put("replys", replys);
-//			datas.put("files", files);
-//			datas.put("profile", profile);
-//		} finally {
-//			template.close(conn);
-//		}
-//		
-//		return datas;
-//	}
 
 	public Board getBoard(String bdIdx) {
 		Board board = null;
@@ -87,17 +61,47 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
+		
 		return board;
 	}
-	
-	public Board getNextBoard(String bdIdx){
-		return null;
+
+	public int getBoardCount(String field, String query) {
+		int res = 0;
+		Connection conn = template.getConnection();
 		
+		try {
+			res = boardDao.getBoardCount(conn, field, query);
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
 	}
-	
-	public Board getPrevBoard(String bdIdx){
-		return null;
+
+	public List<FileDTO> getFileDTOs(String bdIdx) {
+		List<FileDTO> fileDTOs = null;
+		Connection conn = template.getConnection();
 		
+		try {
+			fileDTOs = boardDao.selectFileDTOs(conn, bdIdx);
+		} finally {
+			template.close(conn);
+		}
+		
+		return fileDTOs;
+	}
+
+	public FileDTO getUserProfile(String userId) {
+		FileDTO fileDto = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			fileDto = boardDao.selectFileDTO(conn,userId);
+		} finally {
+			template.close(conn);
+		}
+		
+		return fileDto;
 	}
 
 }

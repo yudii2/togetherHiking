@@ -17,6 +17,7 @@ import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.exception.PageNotFoundException;
+import com.togetherHiking.common.file.FileDTO;
 
 /**
  * Servlet implementation class BoardController
@@ -62,12 +63,19 @@ public class BoardController extends HttpServlet {
 
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bdIdx = request.getParameter("bdIdx");
+		String bdIdx = request.getParameter("bd_idx");
 		Board board = boardService.getBoard(bdIdx);
+		
+		List<Reply> replyList = boardService.getReplyList(bdIdx);
+		List<FileDTO> fileDTOs = boardService.getFileDTOs(bdIdx);
+		//String userId = board.getUserId();
+		//FileDTO profile = boardService.getUserProfile(userId);
 		
 		Map<String,Object> datas = new HashMap<String, Object>();
 		datas.put("board", board);
-		
+		datas.put("replyList", replyList);
+		datas.put("fileDTOs", fileDTOs);
+		//datas.put("profile", profile);
 		
 		request.setAttribute("datas", datas);
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);
@@ -85,26 +93,27 @@ public class BoardController extends HttpServlet {
 		String page_ = request.getParameter("p");
 		
 		String field = "title";
-		if(field_ != null) {
+		if(field_ != null && !field_.equals("")) {
 			field = field_;
 		}
 		
 		String query = "";
-		if(query_ != null) {
+		if(query_ != null && !query_.equals("")) {
 			query = query_;
 		}
 		
 		int page = 1;
-		if(page_ != null) {
+		if(page_ != null && !page_.equals("")) {
 			page = Integer.parseInt(page_);
 		}
 		
 		List<Board> boardList = new ArrayList<Board>();
 		boardList = boardService.getBoardList(field, query, page);
-		int lastNum = boardList.size();
+		
+		int count = boardService.getBoardCount(field, query);
 		
 		request.setAttribute("boardList", boardList);
-		request.setAttribute("lastNum", lastNum);
+		request.setAttribute("count", count);
 		
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
 		

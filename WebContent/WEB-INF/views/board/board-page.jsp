@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/board/board-page.css">
 </head>
@@ -40,7 +41,7 @@
 								<tr style="height: 30px; line-height: 30px;">
 									<td>${board.bdIdx}</td>
 									<td>${board.subject}</td>
-									<td><a href="/board/board-detail?bdIdx=${board.bdIdx }">${board.title}</a></td>
+									<td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${board.bdIdx }">${board.title}</a></td>
 									<td>${board.userId}</td>
 									<td>${board.regDate}</td>
 								</tr>
@@ -61,24 +62,27 @@
 					</table>
 				</div>
 				
+				<c:set var="page" value="${(empty param.p)? 1 : param.p}"/>
+				<c:set var="startNum" value="${page - (page-1)%5 }"/>
+				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(count/10),'.')}"/>
+					
 				<div class="footer">
+					<div class="total_page_info">
+						<span class="orange bold">${(empty param.p)? 1 : param.p }</span>/${lastNum } pages
+					</div>
 					<form class="search_bar_wrap">
 						<select class='search_subject' name='f'>
 							<option ${(param.f == "title")? "selected" : "" } value='title'>제목</option>
 							<option ${(param.f == "user_id")? "selected" : "" } value='user_id'>작성자</option>
 						</select>
 						<input type="text" name="q" value="${param.q }" placeholder="검색어를 입력하세요."/>
-						<button type="button" onclick="submit">검색</button>
+						<button onclick="location.href='?p=${param.p }&f=${param.f}&q=${param.q }'">검색</button>
 					</form>
 
-					<!-- 페이징 처리 코드 도움 필요 -->
-					<c:set var="page" value="${(param.p == null)? 1 : param.p}"/>
-					<c:set var="startNum" value="${page - (page-1)%5 }"/>
-					<c:set var="lastNum" value="${lastNum }"/>
 					
 					<div class="paging_box">
 						<c:if test="${startNum > 1 }">
-							<a href="/board/board-page?p=${startNum-1 }&f=&q="><i class="far fa-caret-square-left"></i></a>
+							<a href="?p=${startNum-1 }&f=${param.f }&q=${param.q }"><i class="far fa-caret-square-left"></i></a>
 						</c:if>
 						<c:if test="${startNum <= 1 }">
 							<span onclick="alert('이전 페이지가 없습니다.');"><i class="far fa-caret-square-left"></i></span>
@@ -86,14 +90,16 @@
 						
 						<ul>
 							<c:forEach var="i" begin="0" end="4">
-							<li><a href="/board/board-page?p=${startNum+i }&f=&q=">${startNum+i }</a></li>
+							<c:if test="${(startNum+i) <= lastNum }">
+							<li><a class=" ${(page == (startNum+i))? 'orange' : '' } bold" href="?p=${startNum+i }&f=${param.f }&q=${param.q }">${startNum+i }</a></li>
+							</c:if>
 							</c:forEach>
 						</ul>
 						
-						<c:if test="${startNum+5 < lastNum }">
-							<a href="/board/board-page?p=${startNum+5 }&f=&q="><i class="far fa-caret-square-right"></i></a>
+						<c:if test="${startNum+4 < lastNum }">
+							<a href="?p=${startNum+5 }&f=${param.f }&q=${param.q }"><i class="far fa-caret-square-right"></i></a>
 						</c:if>
-						<c:if test="${startNum+5 >= lastNum }">
+						<c:if test="${startNum+4 >= lastNum }">
 							<span onclick="alert('다음 페이지가 없습니다.');"><i class="far fa-caret-square-right"></i></span>
 						</c:if>
 					</div>
@@ -108,6 +114,5 @@
   </section>
 
 
-<!-- <script type="text/javascript" src="/resources/js/board/board-page.js"></script> -->
 </body>
 </html>

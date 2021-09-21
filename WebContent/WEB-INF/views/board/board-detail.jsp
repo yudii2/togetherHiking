@@ -19,27 +19,27 @@
 					<div class='btn_area'>
 						<%-- 
 						<c:if test="">
-							<a class="btn" href="/board/board-detail?bd_idx=">이전글</a>
+							<a class="btn" href="#">이전글</a>
 						</c:if>
-						<c:if test="${param.p <= 1 }">
+						<c:if test="#">
 							<span onclick="alert('이전글이 없습니다.');"><div></div></span>
 						</c:if>
 						
 						<c:if test="">
-							<a class="btn" href="/board/board-detail?bd_idx=">다음글</a>
+							<a class="btn" href="#">다음글</a>
 						</c:if>
-						<c:if test="${param.p >= ${lastNum } }">
+						<c:if test="#">
 							<span onclick="alert('다음글이 없습니다.');"><div></div></span>
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
 						<c:if test="${authentication.userId == datas.board.userId }">
-						<a class="btn" href="/board/board-form?bd_idx=${datas.board.bdIdx }">수정하기</a>
+						<a class="btn" href="/board/board-form?">수정하기</a>
 						</c:if>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>
-				<c:if test="${empty datas.board.bdIdx }">
+				<c:if test="${empty datas }">
 				<script type="text/javascript">
 					alert("해당 게시글이 존재하지 않습니다.");
 					(()=>{
@@ -49,28 +49,31 @@
 				</c:if>
 				
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
+				<c:set var="board" value="${datas.board }"/>
+				<c:set var="files" value="${datas.files }"/>
+				<c:set var="profile" value="${datas.profile }"/>
 				<div class="section_content_box">
 					<div class="section_header">
 						<div class="section_title">
-							<div>${datas.board.subject}</div>
-							<p>${datas.board.title }</p>
+							<div>${board.subject}</div>
+							<p>${board.title }</p>
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">
-								<img alt="프로필이미지" src="${datas.profile}">
+								<img alt="프로필이미지" src="${profile}">
 							</div>
 							<div class="writer_profile">
-								<div>작성자: ${datas.board.userId }</div>
-								<div>작성일: ${datas.board.regDate }</div>
+								<div>작성자: ${board.userId }</div>
+								<div>작성일: ${board.regDate }</div>
 							</div>
 							<div class="view_cnt">
 								<div>
 									<div>조회수: <%-- ${board.count} --%></div>
 								</div>
 								<div>
-									<c:if test="${not empty datas.files}">
+									<c:if test="${not empty files}">
 									<div>첨부파일: 
-									<c:forEach items="${datas.files }" var="file" varStatus="status">
+									<c:forEach items="${files }" var="file" varStatus="status">
 										<a href="${file.downloadURL }" style="color: blue;">${file.originFileName }</a>
 										<c:if test="${!status.last }">/</c:if>
 									</c:forEach>
@@ -81,7 +84,7 @@
 						</div>
 					</div>
 					<div class="section_container">
-						<div class="content_area">${datas.board.content }</div>
+						<div class="content_area">${board.content }</div>
 						
 						<div class="comment_area">
 							<div class="line_btns">
@@ -91,8 +94,8 @@
 							</div>
 							
 							<%-- 댓글이 존재할 경우 --%>
-							<c:if test="${not empty datas.replys}">
-							<c:forEach items="${datas.replys}" var="reply">
+							<c:if test="${not empty datas.replyList}">
+							<c:forEach items="${datas.replyList}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmt_info">
 										<div>${reply.userId }</div>
