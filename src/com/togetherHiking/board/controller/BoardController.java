@@ -94,7 +94,7 @@ public class BoardController extends HttpServlet {
 		
 		
 		List<Board> boardList = new ArrayList<Board>();
-		boardList = boardService.selectBoardList(field,query);
+		boardList = boardService.selectBoardList();
 		int lastNum = boardList.size();
 		
 		request.setAttribute("lastNum", lastNum);

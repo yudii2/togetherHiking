@@ -74,13 +74,22 @@
 	height: 50px;
 }
 .writer_profile{
-	width: 200px;
+	width: 250px;
 	height: 50px;
 	margin-left: 10px;
 }
+.writer_profile>div{
+	margin-bottom: 6px;
+}
 .view_cnt{
-	 width: 100px;
-	 height: 19.4px;
+	 height: 50px;
+}
+.view_cnt>div{
+	display: flex;
+}
+.view_cnt>div>div{
+	width: 60px;
+	margin-right: 10px;
 }
 .section_container{
 	width: 100%;
