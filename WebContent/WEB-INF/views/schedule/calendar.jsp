@@ -1,5 +1,3 @@
-수정 중인 스크립트
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -135,30 +133,86 @@
     
     
     </section>
-    
-        <!-- Layer Popup -->
-    <div class="modal">
+   
+    <!-- Layer Popup -->
+  <div class="modal">
       <div class="modal_inner">
-        <div class="click_img">맵(등산로)이 들어갈 자리입니다.</div>
-        <div class="desc">
-          <div class="desc_header">
-            <div class="tit_course"><span>북한산 코스1</span></div>
-            <button class="close_modal">&times;</button>
+        <div class="tit_schedule">이번주 일욜 불암산 가실 등린이 모집</div>
+        <button class="close_modal">&times;</button>
+        <div class="participants">
+          <div class="parti">
+            <img src="/resources/img/mail-template/img_travel_01.png" alt="">
+            <span>닉넴1</span>
           </div>
-          <div class="desc_content">
-            <div class="wrap_text">
-              <h2>등산로 거리</h2><span>${mountain.course[idx].distance}947km</span>
-              <h2>난이도</h2><span>상</span>
-              <h2>상행시간</h2><span>2시간 22분 소요</span>
-              <h2>하행시간</h2><span>1시간 43분 소요</span>
-              <h2>총소요시간</h2><span>4시간 5분 예상</span>
-              <h2>칼로리 </h2><span> kcal 소모</span>
-            </div>
+          <div class="parti">
+            <img src="/resources/img/mail-template/img_travel_02.png" alt="">
+            <span>닉넴2</span>
+          </div>
+          <div class="parti">
+            <img src="/resources/img/mail-template/img_travel_03.png" alt="">
+            <span>닉넴3</span>
+          </div>
+          <div class="parti">
+            <img src="/resources/img/user.png" alt="">
+            <a href="동행하러가기 버튼과 같은 요청">+</a>
+            <span></span>
           </div>
         </div>
+        <div class="desc">
+          <div class="desc_content">
+            <h1 class="tit_content">모임내용</h1>
+            <!-- 테이블에서 info가져오기 -->
+            <p>
+              일요일 불암산 가실 분 구합니다. 내려와서 간단히 식사할 계획입니다.
+            </p>
+          </div>
+          <div class="desc_content">
+            <h1 class="tit_content">안내사항</h1>
+            <h2>모임 날짜</h2><span>2021-09-28 ${schedule.dDay}</span>
+            <h2>모임 장소</h2><span>불암산 버스정류장</span>
+            <h2>인원수</h2><span>4</span>
+            <h2>오픈채팅방 링크</h2><span>dsfjlsfjlfj454</span>
+          </div>
+          <div class="desc_content">
+            <h1 class="tit_content">함께 동행할 유저 소개</h1>
+            <div class="desc_user">
+              <img src="/resources/img/mail-template/img_travel_01.png" alt="">
+              <div class="info">
+                <h1>닉넴1</h1>
+                <h2>29살</h2>
+                <span>등산을 좋아하는 1인입니다.</span>
+              </div>
+            </div>
+            <div class="desc_user">
+              <img src="/resources/img/mail-template/img_travel_02.png" alt="">
+              <div class="info">
+                <h1>닉넴2</h1>
+                <h2>29살</h2>
+                <span>등산을 좋아하는 1인입니다.</span>
+              </div>
+            </div>
+            <div class="desc_user">
+              <img src="/resources/img/mail-template/img_travel_03.png" alt="">
+              <div class="info">
+                <h1>닉넴3</h1>
+                <h2>29살</h2>
+                <span>등산을 좋아하는 1인입니다.</span>
+              </div>
+            </div>
+          </div>
+          <!-- host가 아닐 때 -->
+          <input type="submit" id="btn_parti" value="동행하러가기">
+          <!-- host일 때 -->
+          <div class="btn">
+          	<input type="submit" id="btn_edit" value="수정">
+          	<input type="submit" id="btn_del" value="삭제">      
+          </div>
+
+        </div>
       </div>
-    </div>
-    <div class="overlay"></div>
+  </div>
+
+  <div class="overlay"></div>
     
     <script type="text/javascript">
     
