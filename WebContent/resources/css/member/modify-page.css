@@ -1,0 +1,69 @@
+@charset "UTF-8";
+.con_mypage{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+.wrap_mypage_side_menu{
+  grid-column: 1 / span 2;
+}
+.tit_side_menu{
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mypage_side_menu{
+  padding: 20px;
+  background-color: #eee;
+  height: 90%;
+  box-sizing: border-box;
+}
+.mypage_side_menu li{
+  padding: 15px 0;
+}
+.tit_mypage_gnb{
+  font-size: 16px;
+}
+.tit_sub_gnb{
+  display: block;
+  padding: 10px 0 0 15px;
+  font-size: 14px;
+}
+.modify_form{
+  grid-column: 4 / span 4;
+  border: 1px solid #bbb;
+  margin-top:50px;
+  padding: 50px;
+}
+.tit_form{
+  display: inline-block;
+  width: 80px;
+}
+.tit_new_pw{
+  margin-left: 80px;
+}
+.tit_pw_label{
+	font-size:13px;
+}
+.modify_form div{
+  margin: 25px 0;
+}
+
+textarea{
+  width: 300px;
+}
+input{
+  padding: 5px;
+  width: 300px;
+}
+input[type=password]{
+  display: block;
+  margin: 5px 0 10px 80px;
+}
+button{
+  width: 100%;
+  background-color: var(--point-color);
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+}

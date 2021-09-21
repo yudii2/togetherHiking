@@ -1,0 +1,103 @@
+@charset "UTF-8";
+.con_mypage{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.wrap_mypage_side_menu{
+  grid-column: 1 / span 2;
+}
+.tit_side_menu{
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mypage_side_menu{
+  padding: 20px;
+  background-color: #eee;
+  height: 90%;
+  box-sizing: border-box;
+}
+.mypage_side_menu li{
+  padding: 15px 0;
+}
+.tit_mypage_gnb{
+  font-size: 16px;
+}
+.tit_sub_gnb{
+  display: block;
+  padding: 10px 0 0 15px;
+  font-size: 14px;
+}
+.wrap_my_contents{
+  grid-column: 3 / -1;
+  padding: 80px;
+}
+.profile{
+  width: 100%;
+  display: flex;
+}
+.profile_img{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-right: 70px;
+}
+.profile_desc{
+  padding-top: 10px;
+}
+.nickname{
+  padding-bottom: 10px;
+  font-weight: 500;
+}
+.post_cnt, .comment_cnt{
+  font-size: 13px;
+  padding-bottom: 25px;
+}
+.comment_cnt{
+  margin-left: 80px;
+}
+.info{
+  font-size: 14px;
+}
+.wrap_tab{
+  /* display: flex; */
+  margin-top: 30px;
+  border-bottom: 1px solid #555555;
+}
+.tab_my_schedule{
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+  background-color: var(--point-color);
+  color: #fff;
+}
+
+.my_posts{
+  position: relative;
+  overflow: hidden;
+}
+#filter{
+	position: absolute;
+	right: 0;
+	margin-top: 10px;
+	
+}
+.wrap_post{
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+.post{
+  border: 1px solid #000;
+  padding-bottom: 100%;
+  
+}
+
+
+
+
+
