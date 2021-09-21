@@ -38,8 +38,10 @@ public class MemberDao {
 	}
 	//profile img 조회 메서드
 	public FileDTO selectProfile(String userId, Connection conn) {
-		String sql = "select type_idx, origin_file_name, rename_file_name, save_path "
-				+ "from file_info where type_idx = ?";
+		String sql = "select rownum,type_idx, origin_file_name, rename_file_name, save_path "
+				+ "from (select type_idx, origin_file_name, rename_file_name, save_path "
+				+ "from file_info where type_idx = ? "
+				+ "order by reg_date desc) where rownum = 1";
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		FileDTO profile = new FileDTO();

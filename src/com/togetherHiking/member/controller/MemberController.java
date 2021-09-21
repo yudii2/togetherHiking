@@ -119,9 +119,12 @@ public class MemberController extends HttpServlet {
 		//파일을 테이블에 저장
 		memberService.insertProfile(userId, fileDTO);
 		//프로필정보 조회해 request객체에 전달
-		request.setAttribute("profile", memberService.selectProfile(userId).get("profile"));
+		FileDTO profile = memberService.selectProfile(userId).get("profile");
+		request.setAttribute("profile", profile);
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 			
+		//profile객체는 jsp에서 전달되고 있는반면..file폴더에서 찾지못함
+		//mypage.jsp로 넘어가지 않는 문제
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

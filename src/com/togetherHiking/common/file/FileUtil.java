@@ -119,8 +119,6 @@ public class FileUtil {
 		fileDTO.setRenameFileName(renameFileName);
 		fileDTO.setSavePath(savePath);
 		
-		System.out.println(fileDTO.toString());
-		
 		return fileDTO;
 	}
 	
