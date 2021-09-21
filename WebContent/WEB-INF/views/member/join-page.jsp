@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/resources/css/member/join-page.css" />
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
  <form name="login" action="index.html" method="post">
       <h1 style="color: #008840">산행동행 회원가입</h1>
       
@@ -35,14 +36,8 @@
         <label for="wr_1">개인정보수집이용에 동의합니다.</label>
         <input type="checkbox" name="wr_3" value="3"<?php echo ($write['wr_1'] == "1") ? " checked" : "";?>
     </div> -->
-</div>
-
-
-
-
     
-
-      <br>
+          <br>
       아이디<br />
       <input type="text" id="userId" name="userId" placeholder="아이디 입력" />
       <input type="button" name="user_IDcheck" value="아이디 중복검사" />

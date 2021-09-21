@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+body{
+    margin: 0; padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: white;
+}
+
+.login-form{
+    text-align: center;
+    align-content: center;
+}
+.int-area{width: 300px;
+}
+
+.int-area input {
+    width: 100%;
+    margin: 0px 100px;
+    padding: 10px 10px 10px;
+
+}
+.email input{
+    padding: 10px 10px 10px;
+    width: 100%;
+}
+    
+    button{
+        width: 300px;
+        height: 43px;
+        background-color:#008840;
+        color : #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        outline: 0px;
+            
+    }
+
+    .selectoption{
+        width: 100%;
+        margin: 0px 95px;
+        padding: 10px 10px 10px;
+        align-content: center;
+
+    }
