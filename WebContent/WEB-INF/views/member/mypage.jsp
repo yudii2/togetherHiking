@@ -95,15 +95,8 @@
      $('#target_img').click(function (e) {
     	 document.profile.target_url.value = document.getElementById( 'target_img' ).src;
          e.preventDefault();
-<<<<<<< HEAD
          console.dir(document.profile.target_url.value);
-         
        	 $('#file').click();	//changeValue메서드 호출
-=======
-         console.dir(document.profile.target_url);
-       	document.profile.target_url.value = `http://localhost:7070/upload/${profile.savePath}${profile.renameFileName}`;
-       $('#file').click();
->>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
      });
 
      let changeValue = function(obj) {
