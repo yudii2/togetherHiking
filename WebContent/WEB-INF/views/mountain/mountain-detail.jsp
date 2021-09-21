@@ -23,7 +23,7 @@
     <div id="weather">날씨api</div>			<%-- 등산호 api로 가져 온 산의 주소에 해당하는 날씨 반환 --%>
 		
     <div id="mountain_detail">
-	    <div id="mountain_loc-map"  style="background-image: url('img/관악산.jpg'); background-size: cover;">등산로지도 끌어오기api</div>
+	    <div id="mountain_loc-map">등산로지도 끌어오기api</div>
 	    <!-- 등산로 관련 정보 끌어오기api  -->
 		<div id="mountain_info">
 			<div class="tit_mountain">
