@@ -73,15 +73,13 @@ public class JoinForm {
 		}
 	}
 	
-	
+	//마이페이지 회원정보 수정 validating
 	public boolean modifyTest() {
 		boolean isFailed = false;
 
 		//String userId = request.getSession().getAttribute("authentication").getUserId();
 
-		String userId = "USER1";
-		System.out.println(userId);
-		System.out.println(memberService.selectMemberById(userId).toString());
+		String userId = "USER1";	//테스트 종료 후 삭제
 		//현재세션객체에 담긴 userId로 받아온 member의 비밀번호와 동일한지 확인
 		if(password.equals("") || !password.equals(memberService.selectMemberById(userId).getPassword())) {
 			failedAttrubute.put("password",password);
@@ -95,13 +93,21 @@ public class JoinForm {
 		}
 		
 		//새 비밀번호와 일치하는지 확인
-		if(confirmPw.equals(newPw)) {
+		if(!confirmPw.equals(newPw)) {
 			failedAttrubute.put("confirmPw",confirmPw);
 			isFailed = true;
 		}
 		
-		//닉네임 검증
-		if(nickname.equals("") || memberService.selectByNickname(nickname) != null) {
+		// **** 닉네임 검증
+		//null이면 기존 닉네임 대입(authentication속성 만들어진 후 테스트할 것)
+		if(nickname.equals("")) {
+			//nickname = request.getSession().getAttribute("authentication").getNickname();
+			nickname = "기존닉넴";
+		}
+		
+		//기존 세션객체 닉네임과 동일하지 않으면서 다른 유저닉네임과 중복된다면 fail
+		//if(!nickname.equals(request.getSession().getAttribute("authentication").getNickname()) && memberService.selectByNickname(nickname) != null) {
+		if(memberService.selectByNickname(nickname) != null) {
 			failedAttrubute.put("nickname",nickname);
 			isFailed = true;
 		}

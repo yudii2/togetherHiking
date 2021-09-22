@@ -123,8 +123,10 @@ public class MemberDao {
 		int res = 0;
 		PreparedStatement pstm = null;
 		
-		String sql = "update member set (nickname, password, info) = (?,?,?) "
-				+ "where userId = ?";
+		String sql = "update member set nickname = ? "
+				+ ", password = ?"
+				+ ", info = ? "
+				+ "where user_id = ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);

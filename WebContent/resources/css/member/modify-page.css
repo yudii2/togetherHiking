@@ -28,7 +28,7 @@
   padding: 10px 0 0 15px;
   font-size: 14px;
 }
-.modify_form{
+#modify_form{
   grid-column: 4 / span 4;
   border: 1px solid #bbb;
   margin-top:50px;
@@ -44,7 +44,7 @@
 .tit_pw_label{
 	font-size:13px;
 }
-.modify_form div{
+#modify_form div{
   margin: 25px 0;
 }
 
@@ -71,11 +71,7 @@ input[type=password]{
 	border-radius: 7px;
 	color:#fff;
 }
-#alert_nick{
-	display: block;
-	margin-left: 83px;
-	margin-top: 3px;
-}
+
 button{
   width: 100%;
   background-color: var(--point-color);
@@ -89,4 +85,9 @@ button{
 	font-size:11px;
 	color:crimson;
 	margin-left:10px;
+}
+#alert_nick, #alert_info{
+	display: block;
+	margin-left: 83px;
+	margin-top: 3px;
 }

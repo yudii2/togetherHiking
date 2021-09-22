@@ -142,10 +142,12 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("user_id");
+		//String userId = request.getParameter("user_id");
 		String password = request.getParameter("new_pw");
 		String nickname = request.getParameter("nickname");
 		String info = request.getParameter("info");
+		
+		String userId = "USER1";	//테스트용
 		
 		Member member = new Member();
 		member.setUserId(userId);
@@ -154,9 +156,9 @@ public class MemberController extends HttpServlet {
 		member.setInfo(info);
 		
 		//서비스단에게 멤버정보수정 요청
-		if(memberService.updateMember(member) == 0) {
+		if(memberService.updateMember(member) != 0) {
 			request.setAttribute("msg", "회원정보 수정을 완료하였습니다.");
-			request.setAttribute("url", "/index");
+			request.setAttribute("url", "/member/mypage");
 		}else {
 			request.setAttribute("msg", "회원정보 수정에 실패하였습니다.");
 			request.setAttribute("back", "1");
