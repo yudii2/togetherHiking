@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="/resources/css/board/board-detail.css">
 </head>
 <body>
@@ -17,9 +18,6 @@
 				<div class="section_top">
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
-						<c:if test="${authentication.userId == datas.board.userId }">
-						<a class="btn" href="/board/board-form?">수정하기</a>
-						</c:if>
 						<%-- 
 						<c:if test="">
 							<a class="btn" href="#">이전글</a>
@@ -36,10 +34,13 @@
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
+						<c:if test="${authentication.userId == datas.board.userId }">
+						<a class="btn" href="/board/board-form?">수정하기</a>
+						</c:if>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>
-				<c:if test="${empty datas }">
+				<c:if test="${empty datas.board.bdIdx }">
 				<script type="text/javascript">
 					alert("해당 게시글이 존재하지 않습니다.");
 					(()=>{
@@ -52,6 +53,7 @@
 				<c:set var="board" value="${datas.board }"/>
 				<c:set var="fileDTOs" value="${datas.fileDTOs }"/>
 				<c:set var="profile" value="${datas.profile }"/>
+				<c:set var="replys" value="${datas.replyList }"/>
 				
 				<div class="section_content_box">
 					<div class="section_header">
@@ -69,7 +71,7 @@
 							</div>
 							<div class="view_cnt">
 								<div>
-									<div>조회수: <%-- ${board.viewCnt} --%></div>
+									<div>조회수: ${board.viewCnt}</div>
 								</div>
 								<div>
 									<c:if test="${not empty files}">
@@ -89,14 +91,16 @@
 						
 						<div class="comment_area">
 							<div class="line_btns">
-								<span>${board.replyCnt }개의 댓글</span>
+								<span>
+									${(fn:length(replys) == null)? 0 : fn:length(replys) }개의 댓글
+								</span>
 								<span>등록순</span>
 								<span>최신순</span>
 							</div>
 							
 							<%-- 댓글이 존재할 경우 --%>
-							<c:if test="${not empty datas.replyList}">
-							<c:forEach items="${datas.replyList}" var="reply">
+							<c:if test="${not empty replys}">
+							<c:forEach items="${replys}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmt_info">
 										<div>${reply.userId }</div>
@@ -110,16 +114,16 @@
 						</div>
 						
 						<%-- 로그인했을 경우에만 댓글을 쓸 수 있어야함 --%>
-						<form class="frm_write_cmt">
+						<form class="frm_write_cmt" action="/board/addReply">
 							<div class="cmt_write_box">
-								<c:if test="${not empty authentication.userId }">
+								<%-- <c:if test="${not empty authentication.userId }"> --%>
 									<div class="cmt_writer_id">${authentication.userId }</div>
-									<textarea placeholder="댓글을 입력하세요"></textarea>
+									<textarea name="content" placeholder="댓글을 입력하세요"></textarea>
 									<button class="cmt_write_btn">등록</button>
-								</c:if>
+								<%-- </c:if>
 								<c:if test="${empty authentication.userId }">
 									<div>로그인해야 댓글을 작성할 수 있습니다.</div>
-								</c:if>
+								</c:if> --%>
 							</div>
 						</form>
 					</div>

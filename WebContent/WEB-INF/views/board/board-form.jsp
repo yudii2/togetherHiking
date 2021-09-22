@@ -8,18 +8,18 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 
   <section>
     <div class="container">
 	
 		<div class='section'>
-			<form class='frm_post'>
+			<form class='frm_post' action="/board/upload" method="post" enctype="multipart/form-data">
 				<div class='frm_header_area'>
 					<h2 class='sub_title'>게시판 글쓰기</h2>
 					<div class='btn_area'>
 						<a href="/board/board-page" class="btn">목록</a>
-						<button type="button" onclick="location.href='#'" class="btn">등록</button>
+						<button class="btn">등록</button>
 					</div>
 				</div>
 			
@@ -39,9 +39,10 @@
 					 	CKEDITOR.replace("content");
 					 	CKEDITOR.config.removePlugins = 'resize';
 					 	CKEDITOR.config.width = '100%';
-					 	CKEDITOR.config.height = '300';
+					 	CKEDITOR.config.height = '250';
 					</script>
 				</div>
+				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>
 		</div>
 	

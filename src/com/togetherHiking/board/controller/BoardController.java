@@ -1,7 +1,6 @@
 package com.togetherHiking.board.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
-import com.togetherHiking.common.exception.PageNotFoundException;
 import com.togetherHiking.common.file.FileDTO;
+import com.togetherHiking.common.file.FileUtil;
+import com.togetherHiking.common.file.MultiPartParams;
+import com.togetherHiking.member.model.dto.Member;
 
 /**
  * Servlet implementation class BoardController
@@ -55,12 +57,36 @@ public class BoardController extends HttpServlet {
 		case "upload":
 			upload(request,response);
 			break;
-
+		case "addReply":
+			addReply(request,response);
+			break;
+		case "nextBoard":
+			nextBoard(request,response);
+			break;
+		case "prevBoard":
+			prevBoard(request,response);
+			break;
+		
 		default:/* throw new PageNotFoundException(); */
 		
 		}
 	}
 
+
+	private void prevBoard(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void nextBoard(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addReply(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bd_idx");
@@ -107,7 +133,7 @@ public class BoardController extends HttpServlet {
 			page = Integer.parseInt(page_);
 		}
 		
-		List<Board> boardList = new ArrayList<Board>();
+		List<BoardView> boardList = new ArrayList<BoardView>();
 		boardList = boardService.getBoardList(field, query, page);
 		
 		int count = boardService.getBoardCount(field, query);
@@ -123,8 +149,20 @@ public class BoardController extends HttpServlet {
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//post메서드로 받아온 사용자 작성게시글 정보 받아와
 		
-		//최종적으로 detail 페이지로 redirect
+		FileUtil util = new FileUtil();
+		MultiPartParams params = util.fileUpload(request);
+		//Member member = (Member) request.getSession().getAttribute("authentication");
+
+		Board board = new Board();
+		board.setUserId("GUEST");
+		board.setTitle(params.getParameter("title"));
+		board.setSubject(params.getParameter("subject"));
+		board.setContent(params.getParameter("content"));
 		
+		List<FileDTO> fileDTOs = params.getFilesInfo();
+		boardService.insertBoard(board,fileDTOs);
+		
+		response.sendRedirect("/board/board-page");
 	}
 
 	/**

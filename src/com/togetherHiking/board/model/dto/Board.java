@@ -11,13 +11,12 @@ public class Board {
 	private String content;
 	private Date regDate;
 	private int isDel;
-	private int replyCnt;
 	private int viewCnt;
 	
 	public Board() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public String getBdIdx() {
 		return bdIdx;
 	}
@@ -74,14 +73,6 @@ public class Board {
 		this.isDel = isDel;
 	}
 
-	public int getReplyCnt() {
-		return replyCnt;
-	}
-
-	public void setReplyCnt(int replyCnt) {
-		this.replyCnt = replyCnt;
-	}
-
 	public int getViewCnt() {
 		return viewCnt;
 	}
@@ -93,8 +84,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", subject=" + subject
-				+ ", content=" + content + ", regDate=" + regDate + ", isDel=" + isDel + ", replyCnt=" + replyCnt
-				+ ", viewCnt=" + viewCnt + "]";
+				+ ", content=" + content + ", regDate=" + regDate + ", isDel=" + isDel + ", viewCnt=" + viewCnt + "]";
 	}
 
 	

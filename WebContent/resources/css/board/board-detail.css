@@ -33,12 +33,11 @@
 	width: 70px;
 	height: 30px;
 	font-size: 18px;
-	border-style: solid;
-	border-width: 1px;
 	background-color: #eeeeee;
 	line-height: 28px;
 	text-align: center;
 	margin-left: 10px;
+	color: black;
 }
 .section_content_box{
 	padding: 0px 20px 0 20px;
@@ -142,6 +141,7 @@
 }
 .cmt_write_btn{
 	float: right;
+	background-color: #eeeeee;
 }
 .btn{
 	border-color: transparent;

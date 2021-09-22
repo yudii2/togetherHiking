@@ -39,10 +39,14 @@ public class FileUtil {
 			while((part = parser.readNextPart()) != null) {
 				if(part.isFile()) {
 					FilePart filePart = (FilePart) part;
-					FileDTO fileDTO = createFileDTO(filePart);
-					filePart.writeTo(new File(getSavePath() + fileDTO.getRenameFileName())); //파일저장
-					fileDTOs.add(fileDTO);
-				}else {
+					
+					if(filePart.getFileName() != null) {
+						FileDTO fileDTO = createFileDTO(filePart);
+						filePart.writeTo(new File(getSavePath() + fileDTO.getRenameFileName()));
+						fileDTOs.add(fileDTO);
+					}
+					
+				}else if(part.isParam()) {
 					ParamPart paramPart = (ParamPart) part;
 					setParameterMap(paramPart, res);
 					

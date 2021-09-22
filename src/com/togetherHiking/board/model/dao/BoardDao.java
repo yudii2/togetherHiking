@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
@@ -20,13 +21,13 @@ public class BoardDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Board> selectBoardList(Connection conn, String field, String query, int page) {
-		List<Board> boardList = new ArrayList<Board>();
+	public List<BoardView> selectBoardList(Connection conn, String field, String query, int page) {
+		List<BoardView> boardList = new ArrayList<BoardView>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select * from"
 				+ " (select rownum NUM, N.* from"
-				+ " (select * from board where " + field + " like ? order by reg_date desc) N)"
+				+ " (select * from board_view where " + field + " like ? order by reg_date desc) N)"
 				+ " where NUM between ? and ?";
 		
 		// ? 사용시 'field' (앞.뒤로 싱글쿼테이션 잡힘)
@@ -40,11 +41,11 @@ public class BoardDao {
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				Board board = convertRowToBoard(rset);
-				int replyCnt = selectReplyCount(conn,board.getBdIdx());
-				board.setReplyCnt(replyCnt);
+				BoardView boardView = convertRowToBoardView(rset);
+//				int replyCnt = selectReplyCount(conn,board.getBdIdx());
+//				board.setReplyCnt(replyCnt);
 				
-				boardList.add(board);
+				boardList.add(boardView);
 			}
 		} catch (Exception e) {
 			throw new DataAccessException(e);
@@ -54,32 +55,32 @@ public class BoardDao {
 		
 		return boardList;
 	}
-	// board 테이블에 컬럼으로 추가? 메서드로 처리?
-	public int selectReplyCount(Connection conn, String bdIdx) {
-		int res = 0;
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-		String sql = "SELECT BD_IDX, COUNT(CO_IDX) REPLY_CNT"
-				+ " FROM BOARD JOIN REPLY USING(BD_IDX)"
-				+ " WHERE BD_IDX = ?"
-				+ " GROUP BY BD_IDX";
-		
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, bdIdx);
-			rset = pstm.executeQuery();
-			
-			if(rset.next()) {
-				res = rset.getInt("reply_cnt");
-			}
-		} catch (Exception e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(rset, pstm);
-		}
-		
-		return res;
-	}
+	// board 테이블에 컬럼으로 추가? 메서드로 처리? - board_view 생성완료
+//	public int selectReplyCount(Connection conn, String bdIdx) {
+//		int res = 0;
+//		PreparedStatement pstm = null;
+//		ResultSet rset = null;
+//		String sql = "SELECT BD_IDX, COUNT(CO_IDX) REPLY_CNT"
+//				+ " FROM BOARD JOIN REPLY USING(BD_IDX)"
+//				+ " WHERE BD_IDX = ?"
+//				+ " GROUP BY BD_IDX";
+//		
+//		try {
+//			pstm = conn.prepareStatement(sql);
+//			pstm.setString(1, bdIdx);
+//			rset = pstm.executeQuery();
+//			
+//			if(rset.next()) {
+//				res = rset.getInt("reply_cnt");
+//			}
+//		} catch (Exception e) {
+//			throw new DataAccessException(e);
+//		} finally {
+//			template.close(rset, pstm);
+//		}
+//		
+//		return res;
+//	}
 	
 	public int getBoardCount(Connection conn, String field, String query) {
 		int count = 0;
@@ -122,6 +123,7 @@ public class BoardDao {
 			if(rset.next()) {
 				board = convertRowToBoard(rset);
 			}
+			
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -201,6 +203,7 @@ public class BoardDao {
 				Reply reply = convertRowToReply(rset);
 				replyList.add(reply);
 			}
+			
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -225,6 +228,7 @@ public class BoardDao {
 				FileDTO fileDTO = convertRowToFileDTO(rset);
 				files.add(fileDTO);
 			}
+			
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -250,6 +254,7 @@ public class BoardDao {
 			if(rset.next()) {
 				fileDTO = convertRowToFileDTO(rset);
 			}
+			
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -258,20 +263,73 @@ public class BoardDao {
 		
 		return fileDTO;
 	}
+	
+	public void insertBoard(Board board, Connection conn) {
+		String sql = "insert into board(bd_idx,user_id,title,content,subject) "
+				+ "values(sc_board_idx.nextval,?,?,?,?)";
+		PreparedStatement pstm = null;
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, board.getUserId());
+			pstm.setString(2, board.getTitle());
+			pstm.setString(3, board.getContent());
+			pstm.setString(4, board.getSubject());
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+	}
+	
+	public void insertFile(FileDTO fileDTO, Connection conn) {
+		// conn.close()를 아직 하지 않아서 세션이 살아있기 때문에
+		// currval를 사용할 수 있다.
+		String sql = "insert into file_info(fl_idx,type_idx,origin_file_name,rename_file_name,save_path)"
+				+ " values(sc_file_idx.nextval,sc_board_idx.currval,?,?,?)";
+		PreparedStatement pstm = null;
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, fileDTO.getOriginFileName());
+			pstm.setString(2, fileDTO.getRenameFileName());
+			pstm.setString(3, fileDTO.getSavePath());
+			pstm.executeUpdate();
+			
+		} catch (Exception e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+	}
 
 	private Board convertRowToBoard(ResultSet rset) throws SQLException {
 		Board board = new Board();
 		board.setBdIdx(rset.getString("bd_idx"));
-		board.setContent(rset.getString("content"));
-		board.setRegDate(rset.getDate("reg_date"));
+		board.setUserId(rset.getString("user_id"));
 		board.setSubject(rset.getString("subject"));
 		board.setTitle(rset.getString("title"));
-		board.setUserId(rset.getString("user_id"));
+		board.setContent(rset.getString("content"));
+		board.setRegDate(rset.getDate("reg_date"));
 		board.setIsDel(rset.getInt("is_del"));
-		//board.setReplyCnt(rset.getInt("reply_cnt")); 컬럼으로 추가? 메서드로 처리?
-		//board.setViewCnt(rset.getInt("view_cnt")); db에 컬럼 추가 필요
+		board.setViewCnt(rset.getInt("view_cnt"));
 		
 		return board;
+	}
+	
+	private BoardView convertRowToBoardView(ResultSet rset) throws SQLException {
+		BoardView boardView = new BoardView();
+		boardView.setBdIdx(rset.getString("bd_idx"));
+		boardView.setUserId(rset.getString("user_id"));
+		boardView.setSubject(rset.getString("subject"));
+		boardView.setTitle(rset.getString("title"));
+		boardView.setRegDate(rset.getDate("reg_date"));
+		boardView.setViewCnt(rset.getInt("view_cnt"));
+		boardView.setReplyCnt(rset.getInt("reply_cnt"));
+		
+		return boardView;
 	}
 
 	private Reply convertRowToReply(ResultSet rset) throws SQLException {

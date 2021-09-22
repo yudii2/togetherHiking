@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.db.JDBCTemplate;
+import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
 
 public class BoardService {
@@ -23,6 +25,7 @@ public class BoardService {
 		
 		try {
 			replyList = boardDao.selectReplyList(conn, bdIdx);
+			
 		} finally {
 			template.close(conn);
 		}
@@ -30,21 +33,22 @@ public class BoardService {
 		return replyList;
 	}
 
-	public List<Board> getBoardList() {
+	public List<BoardView> getBoardList() {
 		return getBoardList("title","",1);
 	}
 	
-	public List<Board> getBoardList(int page){
+	public List<BoardView> getBoardList(int page){
 		return getBoardList("title","",page);
 		
 	}
 	
-	public List<Board> getBoardList(String field, String query, int page){
-		List<Board> boardList = null;
+	public List<BoardView> getBoardList(String field, String query, int page){
+		List<BoardView> boardList = null;
 		Connection conn = template.getConnection();
 		
 		try {
 			boardList = boardDao.selectBoardList(conn, field, query, page);
+			
 		} finally {
 			template.close(conn);
 		}
@@ -58,6 +62,7 @@ public class BoardService {
 		
 		try {
 			board = boardDao.selectBoard(conn, bdIdx);
+			
 		} finally {
 			template.close(conn);
 		}
@@ -76,6 +81,7 @@ public class BoardService {
 		
 		try {
 			res = boardDao.getBoardCount(conn, field, query);
+			
 		} finally {
 			template.close(conn);
 		}
@@ -89,6 +95,7 @@ public class BoardService {
 		
 		try {
 			fileDTOs = boardDao.selectFileDTOs(conn, bdIdx);
+			
 		} finally {
 			template.close(conn);
 		}
@@ -102,11 +109,32 @@ public class BoardService {
 		
 		try {
 			fileDTO = boardDao.selectFileDTO(conn,userId);
+			
 		} finally {
 			template.close(conn);
 		}
 		
 		return fileDTO;
+	}
+
+	public void insertBoard(Board board, List<FileDTO> fileDTOs) {
+		Connection conn = template.getConnection();
+		
+		try {
+			boardDao.insertBoard(board, conn);
+			
+			for (FileDTO fileDTO : fileDTOs) {
+				boardDao.insertFile(fileDTO, conn);
+			}
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
 	}
 
 }
