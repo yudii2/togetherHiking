@@ -26,7 +26,7 @@ public class MountainService {
 	}
 	
 	
-	public int insertMember(Mountain mountain) {
+	public int insertMountain(Mountain mountain) {
 		Connection conn = template.getConnection();
 		int res = 0;
 		
