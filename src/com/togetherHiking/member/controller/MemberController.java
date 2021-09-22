@@ -61,7 +61,7 @@ public class MemberController extends HttpServlet {
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
-		case "id-check":
+		case "check-id":
 			  checkID(request,response);
 			break;
 		case "mypage":
@@ -157,7 +157,6 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 	}
 

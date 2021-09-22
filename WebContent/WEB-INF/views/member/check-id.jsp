@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/member/chek-id.css" />
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
+<link rel="stylesheet" href="/resources/css/member/check-id.css" />
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
