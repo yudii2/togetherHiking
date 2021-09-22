@@ -39,7 +39,7 @@ public class MountainDao {
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
 		mountain.setContentCnt(rset.getInt("content_cnt"));
-		mountain.setmHight(rset.getInt("m_hight"));
+		mountain.setmHight(rset.getString("m_hight"));
 		mountain.setmInfo(rset.getString("m_info"));
 		mountain.setmLoc(rset.getString("m_loc"));
 		mountain.setmName(rset.getString("m_name"));
@@ -59,7 +59,7 @@ public class MountainDao {
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setInt(1, mountain.getContentCnt());
-			pstm.setInt(2, mountain.getmHight());
+			pstm.setString(2, mountain.getmHight());
 			pstm.setString(3, mountain.getmInfo());
 			pstm.setString(4, mountain.getmLoc());
 			pstm.setString(5, mountain.getmName());

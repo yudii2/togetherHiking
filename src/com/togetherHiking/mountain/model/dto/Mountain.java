@@ -7,8 +7,9 @@ public class Mountain {
 	private String mLoc;
 	private String mInfo;
 	private int ContentCnt;
-	private int mHight;
+	private String mHight;
 	private String Transport;
+	
 	public String getMountainIdx() {
 		return mountainIdx;
 	}
@@ -39,10 +40,10 @@ public class Mountain {
 	public void setContentCnt(int contentCnt) {
 		ContentCnt = contentCnt;
 	}
-	public int getmHight() {
+	public String getmHight() {
 		return mHight;
 	}
-	public void setmHight(int mHight) {
+	public void setmHight(String mHight) {
 		this.mHight = mHight;
 	}
 	public String getTransport() {
