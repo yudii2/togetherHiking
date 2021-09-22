@@ -45,9 +45,16 @@ public class MemberService {
 		return res;
 	}
 
-	public Object selectMemberById(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Member selectMemberById(String userId) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			member = memberDao.selectMemberById(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
 	}
 
 
@@ -83,5 +90,6 @@ public class MemberService {
 		return res;
 		
 	}
+
 
 }

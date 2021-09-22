@@ -13,6 +13,30 @@ import com.togetherHiking.member.model.dto.Member;
 public class MemberDao {
 	
 	JDBCTemplate template = JDBCTemplate.getInstance();
+	
+	public Member selectMemberById(String userId, Connection conn) {
+		Member member = null;			
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String query = "select * from member where user_Id = ?";
+		
+		try {			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
 
 	//profile img 등록 메서드
 	public void insertProfile(String userId, FileDTO file, Connection conn) {
@@ -93,6 +117,8 @@ public class MemberDao {
 		return member;
 	}
 	
+
+	
 	public int updateMember(Member member, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
@@ -157,6 +183,7 @@ public class MemberDao {
 		}
 		return member;
 	}
+
 
 	
 }

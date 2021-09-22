@@ -1,6 +1,7 @@
 package com.togetherHiking.common.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -118,11 +119,11 @@ public class ValidatorFilter implements Filter {
 
 	private String memberValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		String redirectURI = null;
-		
+		JoinForm joinForm = new JoinForm(httpRequest);
+
 		switch (uriArr[2]) {
 		//member/join
 		case "join":
-			JoinForm joinForm = new JoinForm(httpRequest);
 			if(!joinForm.test()) {
 				redirectURI = "/member/join-form?err=1";	//err파라미터 전달(왜? 이때만 validation출력)
 			}break;
@@ -136,7 +137,10 @@ public class ValidatorFilter implements Filter {
 				throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 			}
 			break;
-
+		case "modify":
+			if(!joinForm.modifyTest()) {
+				redirectURI = "/member/modify-page?err=1";
+			}break;
 		default:
 			break;
 		}
