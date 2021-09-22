@@ -9,7 +9,6 @@ public class Reply {
 	private String content;
 	private String codeIdx;
 	private Date regDate;
-	private int isDel;
 	
 	public String getCoIdx() {
 		return coIdx;
@@ -47,16 +46,10 @@ public class Reply {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public int getIsDel() {
-		return isDel;
-	}
-	public void setIsDel(int isDel) {
-		this.isDel = isDel;
-	}
 	@Override
 	public String toString() {
 		return "Reply [coIdx=" + coIdx + ", bdIdx=" + bdIdx + ", userId=" + userId + ", content=" + content
-				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + ", isDel=" + isDel + "]";
+				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + "]";
 	}
 	
 	
