@@ -51,9 +51,9 @@
 				
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<c:set var="board" value="${datas.board }"/>
-				<c:set var="fileDTOs" value="${datas.fileDTOs }"/>
+				<c:set var="fileList" value="${datas.fileList }"/>
 				<c:set var="profile" value="${datas.profile }"/>
-				<c:set var="replys" value="${datas.replyList }"/>
+				<c:set var="replyList" value="${datas.replyList }"/>
 				
 				<div class="section_content_box">
 					<div class="section_header">
@@ -74,9 +74,9 @@
 									<div>조회수: ${board.viewCnt}</div>
 								</div>
 								<div>
-									<c:if test="${not empty files}">
+									<c:if test="${not empty fileList}">
 									<div>첨부파일: 
-									<c:forEach items="${fileDTOs }" var="file" varStatus="status">
+									<c:forEach items="${fileList }" var="file" varStatus="status">
 										<a href="${file.downloadURL }" style="color: blue;">${file.originFileName }</a>
 										<c:if test="${!status.last }">/</c:if>
 									</c:forEach>
@@ -92,15 +92,15 @@
 						<div class="comment_area">
 							<div class="line_btns">
 								<span>
-									${(fn:length(replys) == null)? 0 : fn:length(replys) }개의 댓글
+									${(fn:length(replyList) == null)? 0 : fn:length(replyList) }개의 댓글
 								</span>
 								<span>등록순</span>
 								<span>최신순</span>
 							</div>
 							
 							<%-- 댓글이 존재할 경우 --%>
-							<c:if test="${not empty replys}">
-							<c:forEach items="${replys}" var="reply">
+							<c:if test="${not empty replyList}">
+							<c:forEach items="${replyList}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmt_info">
 										<div>${reply.userId }</div>

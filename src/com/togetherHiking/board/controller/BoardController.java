@@ -100,7 +100,7 @@ public class BoardController extends HttpServlet {
 		Map<String,Object> datas = new HashMap<String, Object>();
 		datas.put("board", board);
 		datas.put("replyList", replyList);
-		datas.put("fileDTOs", fileDTOs);
+		datas.put("fileList", fileDTOs);
 		datas.put("profile", profile);
 		
 		request.setAttribute("datas", datas);
