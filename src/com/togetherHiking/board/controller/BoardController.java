@@ -68,14 +68,14 @@ public class BoardController extends HttpServlet {
 		
 		List<Reply> replyList = boardService.getReplyList(bdIdx);
 		List<FileDTO> fileDTOs = boardService.getFileDTOs(bdIdx);
-		//String userId = board.getUserId();
-		//FileDTO profile = boardService.getUserProfile(userId);
+		String userId = board.getUserId();
+		FileDTO profile = boardService.getUserProfile(userId);
 		
 		Map<String,Object> datas = new HashMap<String, Object>();
 		datas.put("board", board);
 		datas.put("replyList", replyList);
 		datas.put("fileDTOs", fileDTOs);
-		//datas.put("profile", profile);
+		datas.put("profile", profile);
 		
 		request.setAttribute("datas", datas);
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);

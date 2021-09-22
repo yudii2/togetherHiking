@@ -65,6 +65,11 @@ public class BoardService {
 		return board;
 	}
 
+	public int getBoardCount() {
+		return getBoardCount("title","");
+		
+	}
+	
 	public int getBoardCount(String field, String query) {
 		int res = 0;
 		Connection conn = template.getConnection();
@@ -92,16 +97,16 @@ public class BoardService {
 	}
 
 	public FileDTO getUserProfile(String userId) {
-		FileDTO fileDto = null;
+		FileDTO fileDTO = null;
 		Connection conn = template.getConnection();
 		
 		try {
-			fileDto = boardDao.selectFileDTO(conn,userId);
+			fileDTO = boardDao.selectFileDTO(conn,userId);
 		} finally {
 			template.close(conn);
 		}
 		
-		return fileDto;
+		return fileDTO;
 	}
 
 }

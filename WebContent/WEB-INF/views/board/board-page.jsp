@@ -41,7 +41,9 @@
 								<tr style="height: 30px; line-height: 30px;">
 									<td>${board.bdIdx}</td>
 									<td>${board.subject}</td>
-									<td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${board.bdIdx }">${board.title}</a></td>
+									<td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${board.bdIdx }">${board.title}</a>
+										<span>[${board.replyCnt }]</span>
+									</td>
 									<td>${board.userId}</td>
 									<td>${board.regDate}</td>
 								</tr>

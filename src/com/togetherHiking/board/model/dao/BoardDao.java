@@ -41,6 +41,9 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				Board board = convertRowToBoard(rset);
+				int replyCnt = selectReplyCount(conn,board.getBdIdx());
+				board.setReplyCnt(replyCnt);
+				
 				boardList.add(board);
 			}
 		} catch (Exception e) {
@@ -51,19 +54,40 @@ public class BoardDao {
 		
 		return boardList;
 	}
-	
-	public int getBoardCount(Connection conn) {
-		return getBoardCount(conn,"title","");
+	// board 테이블에 컬럼으로 추가? 메서드로 처리?
+	public int selectReplyCount(Connection conn, String bdIdx) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String sql = "SELECT BD_IDX, COUNT(CO_IDX) REPLY_CNT"
+				+ " FROM BOARD JOIN REPLY USING(BD_IDX)"
+				+ " WHERE BD_IDX = ?"
+				+ " GROUP BY BD_IDX";
 		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, bdIdx);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				res = rset.getInt("reply_cnt");
+			}
+		} catch (Exception e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return res;
 	}
 	
 	public int getBoardCount(Connection conn, String field, String query) {
 		int count = 0;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select count(bd_idx) as count from"
+		String sql = "select count(bd_idx) COUNT from"
 				+ " (select rownum NUM, N.* from"
-				+ " (select * from board where " + field + " like ? order by reg_date desc) N) ";
+				+ " (select * from board where " + field + " like ? order by reg_date desc) N)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -108,7 +132,7 @@ public class BoardDao {
 	}
 	
 	public Board getNextBoard(Connection conn, String bdIdx){
-		Board board = null;
+		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select * from"
@@ -136,7 +160,7 @@ public class BoardDao {
 	}
 	
 	public Board getPrevBoard(Connection conn, String bdIdx){
-		Board board = null;
+		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select * from"
@@ -166,7 +190,7 @@ public class BoardDao {
 		List<Reply> replyList = new ArrayList<Reply>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from REPLY where bd_idx = ?";
+		String sql = "select * from REPLY where bd_idx = ? order by reg_date desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -190,7 +214,7 @@ public class BoardDao {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from (select * from file_info where type_idx= ? order by reg_date desc) where rownum = 1";
+		String sql = "select * from file_info where type_idx= ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -214,7 +238,9 @@ public class BoardDao {
 		FileDTO fileDTO = new FileDTO();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from file_info where type_idx = ?";
+		String sql = "select * from"
+				+ " (select * from file_info where type_idx = ? order by reg_date desc)"
+				+ " where rownum = 1";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -242,7 +268,9 @@ public class BoardDao {
 		board.setTitle(rset.getString("title"));
 		board.setUserId(rset.getString("user_id"));
 		board.setIsDel(rset.getInt("is_del"));
-
+		//board.setReplyCnt(rset.getInt("reply_cnt")); 컬럼으로 추가? 메서드로 처리?
+		//board.setViewCnt(rset.getInt("view_cnt")); db에 컬럼 추가 필요
+		
 		return board;
 	}
 

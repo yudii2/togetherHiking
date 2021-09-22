@@ -17,6 +17,9 @@
 				<div class="section_top">
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
+						<c:if test="${authentication.userId == datas.board.userId }">
+						<a class="btn" href="/board/board-form?">수정하기</a>
+						</c:if>
 						<%-- 
 						<c:if test="">
 							<a class="btn" href="#">이전글</a>
@@ -33,9 +36,6 @@
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
-						<c:if test="${authentication.userId == datas.board.userId }">
-						<a class="btn" href="/board/board-form?">수정하기</a>
-						</c:if>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>
@@ -50,8 +50,9 @@
 				
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<c:set var="board" value="${datas.board }"/>
-				<c:set var="files" value="${datas.files }"/>
+				<c:set var="fileDTOs" value="${datas.fileDTOs }"/>
 				<c:set var="profile" value="${datas.profile }"/>
+				
 				<div class="section_content_box">
 					<div class="section_header">
 						<div class="section_title">
@@ -68,12 +69,12 @@
 							</div>
 							<div class="view_cnt">
 								<div>
-									<div>조회수: <%-- ${board.count} --%></div>
+									<div>조회수: <%-- ${board.viewCnt} --%></div>
 								</div>
 								<div>
 									<c:if test="${not empty files}">
 									<div>첨부파일: 
-									<c:forEach items="${files }" var="file" varStatus="status">
+									<c:forEach items="${fileDTOs }" var="file" varStatus="status">
 										<a href="${file.downloadURL }" style="color: blue;">${file.originFileName }</a>
 										<c:if test="${!status.last }">/</c:if>
 									</c:forEach>
@@ -88,7 +89,7 @@
 						
 						<div class="comment_area">
 							<div class="line_btns">
-								<span>댓글</span>
+								<span>${board.replyCnt }개의 댓글</span>
 								<span>등록순</span>
 								<span>최신순</span>
 							</div>
