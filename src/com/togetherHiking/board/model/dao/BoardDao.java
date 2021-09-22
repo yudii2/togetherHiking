@@ -217,7 +217,8 @@ public class BoardDao {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from file_info where type_idx= ?";
+		String sql = "select fl_idx,type_idx,origin_file_name,rename_file_name,save_path,reg_date"
+				+ " from file_info where type_idx=? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -225,8 +226,8 @@ public class BoardDao {
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				FileDTO fileDTO = convertRowToFileDTO(rset);
-				files.add(fileDTO);
+				FileDTO file = convertRowToFileDTO(rset);
+				files.add(file);
 			}
 			
 		} catch (Exception e) {
@@ -313,7 +314,6 @@ public class BoardDao {
 		board.setTitle(rset.getString("title"));
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
-		board.setIsDel(rset.getInt("is_del"));
 		board.setViewCnt(rset.getInt("view_cnt"));
 		
 		return board;
@@ -338,7 +338,6 @@ public class BoardDao {
 		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setCoIdx(rset.getString("co_idx"));
 		reply.setContent(rset.getString("content"));
-		reply.setIsDel(rset.getInt("is_del"));
 		reply.setRegDate(rset.getDate("reg_date"));
 		reply.setUserId(rset.getString("user_id"));
 		
@@ -353,7 +352,6 @@ public class BoardDao {
 		fileDTO.setRenameFileName(rset.getString("rename_file_name"));
 		fileDTO.setRegDate(rset.getDate("reg_date"));
 		fileDTO.setSavePath(rset.getString("save_path"));
-		fileDTO.setIsDel(rset.getInt("is_del"));
 		
 		return fileDTO;
 	}

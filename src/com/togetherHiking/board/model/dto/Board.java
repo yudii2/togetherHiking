@@ -10,13 +10,12 @@ public class Board {
 	private String subject;
 	private String content;
 	private Date regDate;
-	private int isDel;
 	private int viewCnt;
 	
 	public Board() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String getBdIdx() {
 		return bdIdx;
 	}
@@ -65,14 +64,6 @@ public class Board {
 		this.regDate = regDate;
 	}
 
-	public int getIsDel() {
-		return isDel;
-	}
-
-	public void setIsDel(int isDel) {
-		this.isDel = isDel;
-	}
-
 	public int getViewCnt() {
 		return viewCnt;
 	}
@@ -84,8 +75,8 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", subject=" + subject
-				+ ", content=" + content + ", regDate=" + regDate + ", isDel=" + isDel + ", viewCnt=" + viewCnt + "]";
+				+ ", content=" + content + ", regDate=" + regDate + ", viewCnt=" + viewCnt + "]";
 	}
-
+	
 	
 }
