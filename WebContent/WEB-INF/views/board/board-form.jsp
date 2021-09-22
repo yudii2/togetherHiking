@@ -29,12 +29,12 @@
 							<option selected value='잡담'>잡담</option>
 							<option value='후기'>후기</option>
 						</select>
-						<input type='text' class="post_title" name="title" placeholder='제목을 입력하세요'>
+						<input type='text' class="post_title" name="title" required="required" placeholder='제목을 입력하세요'>
 					</div>
 				</div>
 				
 				<div class='frm_content_area'>
-					<textarea name="content" placeholder="내용을 입력하세요"></textarea>
+					<textarea name="content" required="required" placeholder="내용을 입력하세요"></textarea>
 					<script type="text/javascript">
 					 	CKEDITOR.replace("content");
 					 	CKEDITOR.config.removePlugins = 'resize';

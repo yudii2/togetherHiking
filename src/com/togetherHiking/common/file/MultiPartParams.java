@@ -10,12 +10,11 @@ public class MultiPartParams {
 	public MultiPartParams(Map<String,List> params) {
 		this.params = params;
 	}
-
 	
 	public String getParameter(String name) {
 		
-		if(name.equals("com.togetherHiking.common.file")) {
-			throw new RuntimeException("com.togetherHiking.common.file는 사용할 수 없는 파라미터 명입니다.");
+		if(name.equals("com.togetherHiking.files")) {
+			throw new RuntimeException("com.togetherHiking.files는 사용할 수 없는 파라미터 명입니다.");
 		}
 		
 		return (String) params.get(name).get(0);
@@ -23,8 +22,8 @@ public class MultiPartParams {
 	
 	public String[] getParameterValues(String name) {
 		
-		if(name.equals("com.togetherHiking.common.file")) {
-			throw new RuntimeException("com.togetherHiking.common.file는 사용할 수 없는 파라미터 명입니다.");
+		if(name.equals("com.togetherHiking.files")) {
+			throw new RuntimeException("com.togetherHiking.files는 사용할 수 없는 파라미터 명입니다.");
 		}
 		
 		List<String> res = params.get(name);
@@ -32,7 +31,7 @@ public class MultiPartParams {
 	}
 
 	public List<FileDTO> getFilesInfo(){
-		return params.get("com.togetherHiking.common.file");
+		return params.get("com.togetherHiking.files");
 	}
 	
 

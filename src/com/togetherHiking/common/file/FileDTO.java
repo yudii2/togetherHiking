@@ -96,8 +96,8 @@ public class FileDTO {
 		this.isDel = isDel;
 	}
 	
-	public String getDownloadURL() {
-		return "/file/" + savePath + renameFileName + "?originName=" + originFileName;
+	public String getDownloadURL(String savePath, String renameFileName,String originFileName) {
+		return "/file/" + savePath + renameFileName + "?originName" + originFileName;
 	}
 	
 	@Override
