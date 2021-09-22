@@ -50,4 +50,38 @@ public class MemberService {
 		return null;
 	}
 
+
+	public Member selectByNickname(String nickname) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			member = memberDao.selectByNickname(nickname, conn);
+		} finally {
+			template.close(conn);	
+		}
+		
+		return member;
+		
+	}
+
+
+	public int updateMember(Member member) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = memberDao.updateMember(member, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		}finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+	}
+
 }

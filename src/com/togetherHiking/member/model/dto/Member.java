@@ -14,7 +14,7 @@ public class Member {
 	private String email;
 	private String grade;
 	private String isHost;
-	private String isLeave;
+	private int isLeave;
 	
 	public String getUserId() {
 		return userId;
@@ -116,12 +116,12 @@ public class Member {
 	}
 
 
-	public String getIsLeave() {
+	public int getIsLeave() {
 		return isLeave;
 	}
 
 
-	public void setIsLeave(String isLeave) {
+	public void setIsLeave(int isLeave) {
 		this.isLeave = isLeave;
 	}
 

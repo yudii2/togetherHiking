@@ -59,6 +59,23 @@ input[type=password]{
   display: block;
   margin: 5px 0 10px 80px;
 }
+#nickname{
+	width: 240px;
+}
+#check_nick{
+	width: 60px;
+	font-size:12px;
+	border:none;
+	background-color: #ff8080;
+	padding:7px 5px;
+	border-radius: 7px;
+	color:#fff;
+}
+#alert_nick{
+	display: block;
+	margin-left: 83px;
+	margin-top: 3px;
+}
 button{
   width: 100%;
   background-color: var(--point-color);
@@ -66,4 +83,10 @@ button{
   color: #fff;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+.alert_auth{
+	font-size:11px;
+	color:crimson;
+	margin-left:10px;
 }

@@ -60,13 +60,8 @@
             <span class="views">조회</span>
           </div>
           <table>
-            <tr class="contents">
-              <td><input type="checkbox"><span>94</span></td>
-              <td>계양산 등산 가실 분??</td>
-              <td>2021.09.01</td>
-              <td>10</td>
-            </tr>
-            <c:forEach items="${datas.myPosts}" var="myPost">
+          <!-- board패키지 접근 필요 -->
+            <c:forEach items="${myPosts}" var="myPost">
 	            <tr class="contents">
 	              <td><input type="checkbox"><span>${myPost.idx}94</span></td>
 	              <td>${myPost.title}계양산 등산 가실 분??</td>

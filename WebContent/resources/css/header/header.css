@@ -20,6 +20,10 @@ header{
   border-bottom: 1px solid #eee;
   z-index:999;
 }
+input[type=submit]{
+	cursor: pointer;
+	border:none;
+}
 .container{
   margin: auto;
   width: 1200px;

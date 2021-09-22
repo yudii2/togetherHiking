@@ -64,6 +64,9 @@ public class MemberController extends HttpServlet {
 		case "check-id":
 			  checkID(request,response);
 			break;
+		case "check-nickname":
+			  checkNickname(request,response);
+			break;
 		case "mypage":
 			  mypage(request,response);
 			break;
@@ -87,6 +90,17 @@ public class MemberController extends HttpServlet {
 			break;
 		default:/* throw new PageNotFoundException(); */
 		
+		}
+	}
+
+	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String nickname = request.getParameter("nickname");
+		System.out.println(nickname);
+		Member member = memberService.selectByNickname(nickname);
+		if(member == null) {
+			response.getWriter().print("available");	//js에게 전달
+		}else {
+			response.getWriter().print("disable");
 		}
 	}
 
@@ -128,7 +142,26 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String userId = request.getParameter("user_id");
+		String password = request.getParameter("new_pw");
+		String nickname = request.getParameter("nickname");
+		String info = request.getParameter("info");
+		
+		Member member = new Member();
+		member.setUserId(userId);
+		member.setPassword(password);
+		member.setNickname(nickname);
+		member.setInfo(info);
+		
+		//서비스단에게 멤버정보수정 요청
+		if(memberService.updateMember(member) == 0) {
+			request.setAttribute("msg", "회원정보 수정을 완료하였습니다.");
+			request.setAttribute("url", "/index");
+		}else {
+			request.setAttribute("msg", "회원정보 수정에 실패하였습니다.");
+			request.setAttribute("back", "1");
+		}
+		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 	}
 
