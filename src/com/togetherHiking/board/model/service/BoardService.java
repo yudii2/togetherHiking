@@ -106,7 +106,7 @@ public class BoardService {
 		FileDTO profile = null;
 		String prevIdx = null;
 		String nextIdx = null;
-		System.out.println("prev실행");
+		
 		try {
 			board = boardDao.selectBoard(conn, bdIdx);
 			replys = boardDao.selectReplyList(conn, bdIdx);
@@ -163,62 +163,5 @@ public class BoardService {
 		return getBoardCount("title","");
 		
 	}
-	
-//	public Board getBoard(String bdIdx) {
-//	Board board = null;
-//	Connection conn = template.getConnection();
-//	
-//	try {
-//		board = boardDao.selectBoard(conn, bdIdx);
-//		
-//	} finally {
-//		template.close(conn);
-//	}
-//	
-//	return board;
-//	}
-
-//	public List<Reply> getReplyList(String bdIdx){
-//		List<Reply> replyList = null;
-//		Connection conn = template.getConnection();
-//		
-//		try {
-//			replyList = boardDao.selectReplyList(conn, bdIdx);
-//			
-//		} finally {
-//			template.close(conn);
-//		}
-//		
-//		return replyList;
-//	}
-	
-//	public List<FileDTO> getFileDTOs(String bdIdx) {
-//		List<FileDTO> fileDTOs = null;
-//		Connection conn = template.getConnection();
-//		
-//		try {
-//			fileDTOs = boardDao.selectFileDTOs(conn, bdIdx);
-//			
-//		} finally {
-//			template.close(conn);
-//		}
-//		
-//		return fileDTOs;
-//	}
-
-//	public FileDTO getUserProfile(String userId) {
-//		FileDTO fileDTO = null;
-//		Connection conn = template.getConnection();
-//		
-//		try {
-//			fileDTO = boardDao.selectFileDTO(conn,userId);
-//			
-//		} finally {
-//			template.close(conn);
-//		}
-//		
-//		return fileDTO;
-//	}
-
 
 }

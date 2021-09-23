@@ -19,14 +19,14 @@
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
 						<c:if test="${not empty datas.prevIdx }">
-							<a class="btn" href="/board/prev-board">이전글</a>
+							<a class="btn" href="/board/board-detail?bd_idx=${datas.prevIdx }">이전글</a>
 						</c:if>
 						<c:if test="${empty datas.prevIdx }">
 							<span onclick="alert('이전글이 없습니다.');"><div></div></span>
 						</c:if>
 						
 						<c:if test="${not empty datas.nextIdx }">
-							<a class="btn" href="/board/next-board">다음글</a>
+							<a class="btn" href="/board/board-detail?bd_idx=${datas.nextIdx }">다음글</a>
 						</c:if>
 						<c:if test="${empty datas.nextIdx }">
 							<span onclick="alert('다음글이 없습니다.');"><div></div></span>
@@ -34,7 +34,7 @@
 						
 						<a class="btn" href="/board/board-page">목록</a>
 						<%-- <c:if test="${authentication.userId == datas.board.userId }"> --%>
-						<a class="btn" href="/board/edit">수정하기</a>
+						<a class="btn" href="/board/edit?userId=${datas.board.userId }">수정하기</a>
 						<%-- </c:if> --%>
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 						</div>
 						
 						<%-- 로그인했을 경우에만 댓글을 쓸 수 있어야함 --%>
-						<form class="frm_write_cmt" action="/board/addReply">
+						<form class="frm_write_cmt" action="/board/addReply"><%-- ?userId=${authentication.userId } --%>
 							<div class="cmt_write_box">
 								<%-- <c:if test="${not empty authentication.userId }"> --%>
 									<%-- <div class="cmt_writer_id">${authentication.userId }</div> --%>

@@ -2,7 +2,6 @@ package com.togetherHiking.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
-import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.common.file.MultiPartParams;
-import com.togetherHiking.member.model.dto.Member;
 
 /**
  * Servlet implementation class BoardController
@@ -60,12 +57,6 @@ public class BoardController extends HttpServlet {
 		case "addReply":
 			addReply(request,response);
 			break;
-		case "next-board":
-			nextBoard(request,response);
-			break;
-		case "prev-board":
-			prevBoard(request,response);
-			break;
 		case "edit":
 			edit(request,response);
 			break;
@@ -81,28 +72,6 @@ public class BoardController extends HttpServlet {
 		
 		
 		request.getRequestDispatcher("/board/board-form").forward(request, response);
-	}
-
-	private void prevBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bdIdx = request.getParameter("bdIdx");
-		String prevIdx = boardService.getPrevIdx(bdIdx);
-
-		Map<String,Object> datas = null;
-		datas = boardService.getBoardDetail(prevIdx);
-		
-		request.setAttribute("datas", datas);
-		request.getRequestDispatcher("/board/board-detail").forward(request, response);
-	}
-
-	private void nextBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bdIdx = request.getParameter("bdIdx");
-		String nextIdx = boardService.getNextIdx(bdIdx);
-		
-		Map<String,Object> datas = null;
-		datas = boardService.getBoardDetail(nextIdx);
-		
-		request.setAttribute("datas", datas);
-		request.getRequestDispatcher("/board/board-detail").forward(request, response);
 	}
 
 	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

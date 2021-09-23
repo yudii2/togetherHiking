@@ -25,9 +25,9 @@ public class BoardDao {
 		List<BoardView> boardList = new ArrayList<BoardView>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from"
-				+ " (select rownum NUM, N.* from"
-				+ " (select * from board_view where " + field + " like ? order by reg_date desc) N)"
+		String sql = "select *"
+				+ " from (select rownum NUM, N.*"
+				+ " from (select * from board_view where " + field + " like ? order by reg_date desc) N)"
 				+ " where NUM between ? and ?";
 		
 		// ? 사용시 'field' (앞.뒤로 싱글쿼테이션 잡힘)
@@ -58,9 +58,9 @@ public class BoardDao {
 		int count = 0;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select count(bd_idx) COUNT from"
-				+ " (select rownum NUM, N.* from"
-				+ " (select * from board where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
+		String sql = "select count(bd_idx) COUNT"
+				+ " from (select rownum NUM, N.*"
+				+ " from (select * from board where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -111,9 +111,9 @@ public class BoardDao {
 		String nextIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select bd_idx from"
-				+ " (select bd_idx from board where reg_date >"
-				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
+		String sql = "select bd_idx"
+				+ " from (select bd_idx from board where reg_date >"
+				+ " (select reg_date from board where bd_idx = ?) and is_del = 0"
 				+ " order by reg_date asc)"
 				+ " where rownum = 1";
 		
@@ -140,9 +140,9 @@ public class BoardDao {
 		String prevIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select bd_idx from"
-				+ " (select bd_idx from board where reg_date <"
-				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
+		String sql = "select bd_idx"
+				+ " from (select bd_idx from board where reg_date <"
+				+ " (select reg_date from board where bd_idx = ?) and is_del = 0"
 				+ " order by reg_date desc)"
 				+ " where rownum = 1";
 		try {
@@ -169,7 +169,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select rp_idx, bd_idx, user_id, content, code_idx, reg_date"
-				+ " from REPLY"
+				+ " from reply"
 				+ " where bd_idx = ? and is_del = 0"
 				+ " order by reg_date desc";
 		
@@ -223,8 +223,11 @@ public class BoardDao {
 		FileDTO fileDTO = new FileDTO();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from"
-				+ " (select * from file_info where type_idx = ? and is_del = 0 order by reg_date desc)"
+		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
+				+ " from (select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
+				+ " from file_info"
+				+ " where type_idx = ? and is_del = 0"
+				+ " order by reg_date desc)"
 				+ " where rownum = 1";
 		
 		try {
