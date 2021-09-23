@@ -7,7 +7,7 @@ public class Schedule {
 	private String scIdx;
 	private String userId;
 	private Date meetingDate;
-	private String place;
+	private String mountainName;
 	private Date expDate;
 	private String plIdx;
 	private Date regDate;
@@ -16,6 +16,8 @@ public class Schedule {
 	private String isDel;
 	private int money;
 	private String openChat;
+	private Date dDay;
+	
 
 	public String getScIdx() {
 		return scIdx;
@@ -42,11 +44,11 @@ public class Schedule {
 	}
 
 	public String getPlace() {
-		return place;
+		return mountainName;
 	}
 
 	public void setPlace(String place) {
-		this.place = place;
+		this.mountainName = place;
 	}
 
 	public Date getExpDate() {
@@ -113,12 +115,31 @@ public class Schedule {
 		this.openChat = openChat;
 	}
 
+	
+	public String getMountainName() {
+		return mountainName;
+	}
+
+	public void setMountainName(String mountainName) {
+		this.mountainName = mountainName;
+	}
+
+	public Date getdDay() {
+		return dDay;
+	}
+
+	public void setdDay(Date dDay) {
+		this.dDay = dDay;
+	}
+
 	@Override
 	public String toString() {
-		return "Schedule [scIdx=" + scIdx + ", userId=" + userId + ", meetingDate=" + meetingDate + ", place=" + place
-				+ ", expDate=" + expDate + ", plIdx=" + plIdx + ", regDate=" + regDate + ", info=" + info
-				+ ", capacity=" + capacity + ", isDel=" + isDel + ", money=" + money + ", openChat=" + openChat + "]";
+		return "Schedule [scIdx=" + scIdx + ", userId=" + userId + ", meetingDate=" + meetingDate + ", mountainName="
+				+ mountainName + ", expDate=" + expDate + ", plIdx=" + plIdx + ", regDate=" + regDate + ", info=" + info
+				+ ", capacity=" + capacity + ", isDel=" + isDel + ", money=" + money + ", openChat=" + openChat
+				+ ", dDay=" + dDay + "]";
 	}
+
 
 
 	

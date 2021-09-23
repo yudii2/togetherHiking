@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.schedule.model.dto.Schedule;
+import com.togetherHiking.schedule.model.service.ScheduleService;
+
 /**
  * Servlet implementation class ScheduleController
  */
 @WebServlet("/schedule/*")
 public class ScheduleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private ScheduleService scheduleService = new ScheduleService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -78,7 +83,7 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/schedule/schedule-detail").forward(request, response);
+		request.getRequestDispatcher("/schedule/detail").forward(request, response);
 		
 	}
 
@@ -88,6 +93,15 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mountainName = request.getParameter("mountainName");
+		String info = request.getParameter("info");
+		String openChat = request.getParameter("openChat");
+		
+		Schedule schedule = new Schedule();
+		schedule.setPlace(mountainName);
+		schedule.setInfo(info);
+		schedule.setOpenChat(openChat);
+		
 		//post메서드로 upload url요청을 통해 받아온 사용자 작성게시글 정보 받아와
 		
 		
