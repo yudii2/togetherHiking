@@ -3,18 +3,18 @@ package com.togetherHiking.board.model.dto;
 import java.sql.Date;
 
 public class Reply {
-	private String coIdx;
+	private String rpIdx;
 	private String bdIdx;
 	private String userId;
 	private String content;
 	private String codeIdx;
 	private Date regDate;
 	
-	public String getCoIdx() {
-		return coIdx;
+	public String getRpIdx() {
+		return rpIdx;
 	}
-	public void setCoIdx(String coIdx) {
-		this.coIdx = coIdx;
+	public void setRpIdx(String rpIdx) {
+		this.rpIdx = rpIdx;
 	}
 	public String getBdIdx() {
 		return bdIdx;
@@ -48,7 +48,7 @@ public class Reply {
 	}
 	@Override
 	public String toString() {
-		return "Reply [coIdx=" + coIdx + ", bdIdx=" + bdIdx + ", userId=" + userId + ", content=" + content
+		return "Reply [rpIdx=" + rpIdx + ", bdIdx=" + bdIdx + ", userId=" + userId + ", content=" + content
 				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + "]";
 	}
 	

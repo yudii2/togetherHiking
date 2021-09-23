@@ -42,8 +42,6 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				BoardView boardView = convertRowToBoardView(rset);
-//				int replyCnt = selectReplyCount(conn,board.getBdIdx());
-//				board.setReplyCnt(replyCnt);
 				
 				boardList.add(boardView);
 			}
@@ -55,32 +53,6 @@ public class BoardDao {
 		
 		return boardList;
 	}
-	// board 테이블에 컬럼으로 추가? 메서드로 처리? - board_view 생성완료
-//	public int selectReplyCount(Connection conn, String bdIdx) {
-//		int res = 0;
-//		PreparedStatement pstm = null;
-//		ResultSet rset = null;
-//		String sql = "SELECT BD_IDX, COUNT(CO_IDX) REPLY_CNT"
-//				+ " FROM BOARD JOIN REPLY USING(BD_IDX)"
-//				+ " WHERE BD_IDX = ?"
-//				+ " GROUP BY BD_IDX";
-//		
-//		try {
-//			pstm = conn.prepareStatement(sql);
-//			pstm.setString(1, bdIdx);
-//			rset = pstm.executeQuery();
-//			
-//			if(rset.next()) {
-//				res = rset.getInt("reply_cnt");
-//			}
-//		} catch (Exception e) {
-//			throw new DataAccessException(e);
-//		} finally {
-//			template.close(rset, pstm);
-//		}
-//		
-//		return res;
-//	}
 	
 	public int getBoardCount(Connection conn, String field, String query) {
 		int count = 0;
@@ -88,7 +60,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select count(bd_idx) COUNT from"
 				+ " (select rownum NUM, N.* from"
-				+ " (select * from board where " + field + " like ? order by reg_date desc) N)";
+				+ " (select * from board where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -113,7 +85,7 @@ public class BoardDao {
 		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from board where bd_idx = ?";
+		String sql = "select * from board where bd_idx = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -139,7 +111,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select * from"
 				+ " (select * from board where reg_date >"
-				+ " (select reg_date from board where bd_idx = ?)"
+				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
 				+ " order by reg_date asc) where rownum = 1";
 		
 		try {
@@ -167,7 +139,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select * from"
 				+ " (select * from board where reg_date <"
-				+ " (select reg_date from board where bd_idx = ?)"
+				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
 				+ " order by reg_date desc) where rownum = 1";
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -192,7 +164,7 @@ public class BoardDao {
 		List<Reply> replyList = new ArrayList<Reply>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from REPLY where bd_idx = ? order by reg_date desc";
+		String sql = "select * from REPLY where bd_idx = ? and is_del = 0 order by reg_date desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -244,7 +216,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select * from"
-				+ " (select * from file_info where type_idx = ? order by reg_date desc)"
+				+ " (select * from file_info where type_idx = ? and is_del = 0 order by reg_date desc)"
 				+ " where rownum = 1";
 		
 		try {
@@ -336,7 +308,7 @@ public class BoardDao {
 		Reply reply = new Reply();
 		reply.setBdIdx(rset.getString("bd_idx"));
 		reply.setCodeIdx(rset.getString("code_idx"));
-		reply.setCoIdx(rset.getString("co_idx"));
+		reply.setRpIdx(rset.getString("rp_idx"));
 		reply.setContent(rset.getString("content"));
 		reply.setRegDate(rset.getDate("reg_date"));
 		reply.setUserId(rset.getString("user_id"));

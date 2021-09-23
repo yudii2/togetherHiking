@@ -160,7 +160,6 @@ public class BoardController extends HttpServlet {
 		
 		List<FileDTO> fileDTOs = params.getFilesInfo();
 		boardService.insertBoard(board,fileDTOs);
-		
 		response.sendRedirect("/board/board-page");
 	}
 

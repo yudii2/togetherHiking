@@ -129,7 +129,6 @@ public class BoardService {
 				}
 			}
 			
-			
 			template.commit(conn);
 			
 		} catch (DataAccessException e) {
@@ -138,6 +137,34 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
+	}
+	
+	public Board getNextBoard(String bdIdx) {
+		Board board = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			board = boardDao.getNextBoard(conn, bdIdx);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return board;
+	}
+	
+	public Board getPrevBoard(String bdIdx) {
+		Board board = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			board = boardDao.getPrevBoard(conn, bdIdx);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return board;
 	}
 
 }

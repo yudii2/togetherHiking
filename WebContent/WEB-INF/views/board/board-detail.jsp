@@ -63,7 +63,7 @@
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">
-								<img alt="프로필이미지" src="${profile}"> <%-- 이미지 표시 도움 필요 --%>
+								<img alt="프로필이미지" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"> <%-- 이미지 표시 도움 필요 --%>
 							</div>
 							<div class="writer_profile">
 								<div>작성자: ${board.userId }</div>
@@ -73,10 +73,10 @@
 								<div style="margin-bottom: 5px;">조회수: ${board.viewCnt}</div>
 								
 								<c:if test="${not empty fileList}">
-								<div style="display: flex;">
+								<div>
 									첨부파일: <%-- 첨부파일 표시, 다운로드 도움 필요 --%>
 									<c:forEach items="${fileList }" var="file" varStatus="status">
-										<a style="width: 70px; overflow: hidden;" href="${file.downloadURL }">${file.originFileName }</a>
+										<a href="${file.downloadURL }">${file.originFileName }</a>
 										<c:if test="${!status.last }">/</c:if>
 									</c:forEach>
 									
