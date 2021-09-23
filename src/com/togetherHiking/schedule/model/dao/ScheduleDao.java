@@ -27,7 +27,7 @@ public class ScheduleDao {
 		List<Schedule> schedules = new ArrayList<Schedule>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select mountain_name,sc_idx,user_id,d_day,reg_date,exp_date,info,money,openchat,meeting_date"
+		String sql = "select sc_idx,user_id,mountain_name,d_day,info,money,openchat,meeting_date,reg_date,exp_date"
 				+ " from schedule where sc_idx=? and is_del = 0";
 		
 		try {
