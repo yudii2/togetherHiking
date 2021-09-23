@@ -19,28 +19,28 @@
 		<table class="table">
 		<tr height="50">
 			<td width="150" align="center"> 산 이름 </td>
-			<td width="350" align="center"> <input type="text" name="mountainName" id="mountainName" size="40" placeholder="북한산" >
+			<td width="350" align="center"> <input type="text" name="mountainName" id="mountainName" size="40" placeholder="북한산" value="">
 			</td>
 		</tr>
 		<tr height="50">
 			<td width="150" align="center"> 모임 설명 </td>
 			<td width="350" align="center">
-			<textarea name="info" id="info" rows="5" cols="40" placeholder="자세한 설명을 입력해주세요"></textarea>
+			<textarea name="info" id="info" rows="5" cols="40" placeholder="자세한 설명을 입력해주세요" value="info"></textarea>
 			</td>
 		</tr>
 		<tr height="50">
 			<td width="150" align="center"> 날짜 </td>
-			<td width="350" align="center"> <input type="date" min="2021-07-20" name="date" id="date" size="40">
+			<td width="350" align="center"> <input type="date" min="2021-07-20" name="date" id="date" size="40" value="date">
 			</td>
 		</tr>
 		<tr height="50">
 			<td width="150" align="center"> 시간 </td>
-			<td width="350" align="center"> <input type="time" value="time" name="time" id="time" size="40">
+			<td width="350" align="center"> <input type="time" value="time" name="time" id="time" size="40" value="time">
 		</td>
 		<tr height="50">
 			<td width="150" align="center"> 모집 인원 </td>
 			<td width="350" align="center">
-			<select name="people" id=people">
+			<select name="people" id=people" value="people">
 			<option value="2">2명</option>
 			<option value="3">3명</option>
 			<option value="4">4명</option>
@@ -50,11 +50,11 @@
 			</tr>
 		<tr height="50">
 			<td width="150" align="center"> 오픈 채팅방 링크 </td>
-			<td width="350" align="center"><input type="url" name="openChat" id="openChat" placeholder="https://open.kakao.com/" size="40">
+			<td width="350" align="center"><input type="url" name="openChat" id="openChat" placeholder="https://open.kakao.com/" size="40" value="">
 		</td>
 		<tr height="50">
 			<td width="150" align="center"> 참가비 </td>
-			<td width="350" align="center"><input type="number" name="money" id="money" min="0" max="50000" step="5000" value="0" size="40">
+			<td width="350" align="center"><input type="number" name="money" id="money" min="0" max="50000" step="5000" value="0" size="40" value="money">
 			</td>
 		</tr>
 		<tr height="50">
