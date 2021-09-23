@@ -15,7 +15,7 @@
 	    <h1 style="color:#008840;">아이디 찾기</h1>
 	
 	    <span>고객님의 정보와 일차하는 아이디 목록 입니다.</span>
-		
+		<!-- 작업해야됌 -->
 		<form>  
 			<div class="match_id">
 				<h2>kh1234</h2>
