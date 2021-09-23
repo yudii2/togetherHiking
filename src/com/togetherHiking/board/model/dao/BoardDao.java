@@ -85,7 +85,8 @@ public class BoardDao {
 		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from board"
+		String sql = "select bd_idx, user_id, title, subject, content, reg_date, view_cnt"
+				+ " from board"
 				+ " where bd_idx = ? and is_del = 0";
 		
 		try {
@@ -106,8 +107,8 @@ public class BoardDao {
 		return board;
 	}
 	
-	public String getNextBoard(Connection conn, String bdIdx){
-		String nextIdx = "";
+	public String selectNextIdx(Connection conn, String bdIdx){
+		String nextIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select bd_idx from"
@@ -135,8 +136,8 @@ public class BoardDao {
 		
 	}
 	
-	public String getPrevBoard(Connection conn, String bdIdx){
-		String prevIdx = "";
+	public String selectPrevIdx(Connection conn, String bdIdx){
+		String prevIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select bd_idx from"
@@ -167,7 +168,8 @@ public class BoardDao {
 		List<Reply> replyList = new ArrayList<Reply>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from REPLY"
+		String sql = "select rp_idx, bd_idx, user_id, content, code_idx, reg_date"
+				+ " from REPLY"
 				+ " where bd_idx = ? and is_del = 0"
 				+ " order by reg_date desc";
 		
@@ -286,13 +288,13 @@ public class BoardDao {
 			template.close(pstm);
 		}
 	}
-
+	
 	private Board convertRowToBoard(ResultSet rset) throws SQLException {
 		Board board = new Board();
 		board.setBdIdx(rset.getString("bd_idx"));
 		board.setUserId(rset.getString("user_id"));
-		board.setSubject(rset.getString("subject"));
 		board.setTitle(rset.getString("title"));
+		board.setSubject(rset.getString("subject"));
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setViewCnt(rset.getInt("view_cnt"));
@@ -304,8 +306,8 @@ public class BoardDao {
 		BoardView boardView = new BoardView();
 		boardView.setBdIdx(rset.getString("bd_idx"));
 		boardView.setUserId(rset.getString("user_id"));
-		boardView.setSubject(rset.getString("subject"));
 		boardView.setTitle(rset.getString("title"));
+		boardView.setSubject(rset.getString("subject"));
 		boardView.setRegDate(rset.getDate("reg_date"));
 		boardView.setViewCnt(rset.getInt("view_cnt"));
 		boardView.setReplyCnt(rset.getInt("reply_cnt"));
@@ -315,12 +317,12 @@ public class BoardDao {
 
 	private Reply convertRowToReply(ResultSet rset) throws SQLException {
 		Reply reply = new Reply();
-		reply.setBdIdx(rset.getString("bd_idx"));
-		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setRpIdx(rset.getString("rp_idx"));
-		reply.setContent(rset.getString("content"));
-		reply.setRegDate(rset.getDate("reg_date"));
+		reply.setBdIdx(rset.getString("bd_idx"));
 		reply.setUserId(rset.getString("user_id"));
+		reply.setContent(rset.getString("content"));
+		reply.setCodeIdx(rset.getString("code_idx"));
+		reply.setRegDate(rset.getDate("reg_date"));
 		
 		return reply;
 	}

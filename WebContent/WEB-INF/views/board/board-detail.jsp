@@ -18,21 +18,20 @@
 				<div class="section_top">
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
-						<%-- 
-						<c:if test="">
-							<a class="btn" href="#">이전글</a>
+						<c:if test="${not empty datas.prevIdx }">
+							<a class="btn" href="/board/prev-board">이전글</a>
 						</c:if>
-						<c:if test="#">
+						<c:if test="${empty datas.prevIdx }">
 							<span onclick="alert('이전글이 없습니다.');"><div></div></span>
 						</c:if>
 						
-						<c:if test="">
-							<a class="btn" href="#">다음글</a>
+						<c:if test="${not empty datas.nextIdx }">
+							<a class="btn" href="/board/next-board">다음글</a>
 						</c:if>
-						<c:if test="#">
+						<c:if test="${empty datas.nextIdx }">
 							<span onclick="alert('다음글이 없습니다.');"><div></div></span>
 						</c:if>
-						 --%>
+						
 						<a class="btn" href="/board/board-page">목록</a>
 						<%-- <c:if test="${authentication.userId == datas.board.userId }"> --%>
 						<a class="btn" href="/board/edit">수정하기</a>
@@ -51,9 +50,9 @@
 				
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<c:set var="board" value="${datas.board }"/>
-				<c:set var="fileList" value="${datas.fileList }"/>
+				<c:set var="files" value="${datas.files }"/>
 				<c:set var="profile" value="${datas.profile }"/>
-				<c:set var="replyList" value="${datas.replyList }"/>
+				<c:set var="replys" value="${datas.replys }"/>
 				
 				<div class="section_content_box">
 					<div class="section_header">
@@ -72,10 +71,10 @@
 							<div style="width: 500px; height: 50px;">
 								<div style="margin-bottom: 5px;">조회수: ${board.viewCnt}</div>
 								
-								<c:if test="${not empty fileList}">
+								<c:if test="${not empty files}">
 								<div>
 									첨부파일: <%-- 첨부파일 표시, 다운로드 도움 필요 --%>
-									<c:forEach items="${fileList }" var="file" varStatus="status">
+									<c:forEach items="${files }" var="file" varStatus="status">
 										<a href="${file.downloadURL }">${file.originFileName }</a>
 										<c:if test="${!status.last }">/</c:if>
 									</c:forEach>
@@ -91,15 +90,15 @@
 						<div class="comment_area">
 							<div class="line_btns">
 								<span>
-									${(fn:length(replyList) == null)? 0 : fn:length(replyList) }개의 댓글
+									${(fn:length(replys) == null)? 0 : fn:length(replys) }개의 댓글
 								</span>
 								<span>등록순</span>
 								<span>최신순</span>
 							</div>
 							
 							<%-- 댓글이 존재할 경우 --%>
-							<c:if test="${not empty replyList}">
-							<c:forEach items="${replyList}" var="reply">
+							<c:if test="${not empty replys}">
+							<c:forEach items="${replys}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmt_info">
 										<div>${reply.userId }</div>

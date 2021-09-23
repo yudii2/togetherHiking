@@ -60,10 +60,10 @@ public class BoardController extends HttpServlet {
 		case "addReply":
 			addReply(request,response);
 			break;
-		case "nextBoard":
+		case "next-board":
 			nextBoard(request,response);
 			break;
-		case "prevBoard":
+		case "prev-board":
 			prevBoard(request,response);
 			break;
 		case "edit":
@@ -85,8 +85,8 @@ public class BoardController extends HttpServlet {
 
 	private void prevBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bdIdx");
-		String prevIdx = boardService.getPrevBoard(bdIdx);
-		
+		String prevIdx = boardService.getPrevIdx(bdIdx);
+
 		Map<String,Object> datas = null;
 		datas = boardService.getBoardDetail(prevIdx);
 		
@@ -96,7 +96,7 @@ public class BoardController extends HttpServlet {
 
 	private void nextBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bdIdx");
-		String nextIdx = boardService.getNextBoard(bdIdx);
+		String nextIdx = boardService.getNextIdx(bdIdx);
 		
 		Map<String,Object> datas = null;
 		datas = boardService.getBoardDetail(nextIdx);

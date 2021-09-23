@@ -22,8 +22,8 @@ public class BoardService {
 	}
 	
 	public List<BoardView> getBoardList(String field, String query, int page){
-		List<BoardView> boardList = null;
 		Connection conn = template.getConnection();
+		List<BoardView> boardList = null;
 		
 		try {
 			boardList = boardDao.selectBoardList(conn, field, query, page);
@@ -45,8 +45,8 @@ public class BoardService {
 	}
 
 	public int insertBoard(Board board, List<FileDTO> fileDTOs) {
-		int res = 0;
 		Connection conn = template.getConnection();
+		int res = 0;
 		
 		try {
 			res = boardDao.insertBoard(board, conn);
@@ -69,26 +69,12 @@ public class BoardService {
 		return res;
 	}
 	
-	public String getNextBoard(String bdIdx) {
-		String nextIdx = null;
+	public String getPrevIdx(String bdIdx) {
 		Connection conn = template.getConnection();
-		
-		try {
-			nextIdx = boardDao.getNextBoard(conn, bdIdx);
-			
-		} finally {
-			template.close(conn);
-		}
-		
-		return nextIdx;
-	}
-	
-	public String getPrevBoard(String bdIdx) {
 		String prevIdx = null;
-		Connection conn = template.getConnection();
 		
 		try {
-			prevIdx = boardDao.getPrevBoard(conn, bdIdx);
+			prevIdx = boardDao.selectPrevIdx(conn, bdIdx);
 			
 		} finally {
 			template.close(conn);
@@ -97,24 +83,44 @@ public class BoardService {
 		return prevIdx;
 	}
 	
+	public String getNextIdx(String bdIdx) {
+		Connection conn = template.getConnection();
+		String nextIdx = null;
+		
+		try {
+			nextIdx = boardDao.selectNextIdx(conn, bdIdx);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return nextIdx;
+	}
+	
 	public Map<String,Object> getBoardDetail(String bdIdx){
+		Connection conn = template.getConnection();
 		Map<String,Object> datas = new HashMap<String, Object>();
 		Board board = null;
 		List<Reply> replys = null;
 		List<FileDTO> files = null;
 		FileDTO profile = null;
-		Connection conn = template.getConnection();
-		
+		String prevIdx = null;
+		String nextIdx = null;
+		System.out.println("prev실행");
 		try {
 			board = boardDao.selectBoard(conn, bdIdx);
 			replys = boardDao.selectReplyList(conn, bdIdx);
 			files = boardDao.selectFileDTOs(conn, bdIdx);
 			profile = boardDao.selectFileDTO(conn, board.getUserId());
+			prevIdx = boardDao.selectPrevIdx(conn, bdIdx);
+			nextIdx = boardDao.selectNextIdx(conn, bdIdx);
 			
 			datas.put("board", board);
 			datas.put("replys", replys);
 			datas.put("files", files);
 			datas.put("profile", profile);
+			datas.put("prevIdx", prevIdx);
+			datas.put("nextIdx", nextIdx);
 			
 		} finally {
 			template.close(conn);
@@ -124,10 +130,10 @@ public class BoardService {
 	}
 	
 	public Map<String,Object> editBoard(String bdIdx){
+		Connection conn = template.getConnection();
 		Map<String,Object> datas = new HashMap<String, Object>();
 		Board board = null;
 		List<FileDTO> files = null;
-		Connection conn = template.getConnection();
 		
 		try {
 			board = boardDao.selectBoard(conn, bdIdx);
@@ -140,8 +146,8 @@ public class BoardService {
 	}
 	
 	public int getBoardCount(String field, String query) {
-		int res = 0;
 		Connection conn = template.getConnection();
+		int res = 0;
 		
 		try {
 			res = boardDao.getBoardCount(conn, field, query);
