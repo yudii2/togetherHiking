@@ -127,7 +127,7 @@ public class MemberController extends HttpServlet {
 		String userId = "USER2";
 		
 		//file정보 가져오기
-		FileDTO fileDTO = param.get("com.togetherHiking.common.file");
+		FileDTO fileDTO = param.get("com.togetherHiking.files");
 		System.out.println("여긴 컨트롤러 : " + fileDTO.toString());
 		
 		//파일을 테이블에 저장

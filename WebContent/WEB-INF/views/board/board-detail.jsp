@@ -34,9 +34,9 @@
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
-						<c:if test="${authentication.userId == datas.board.userId }">
+						<%-- <c:if test="${authentication.userId == datas.board.userId }">
 						<a class="btn" href="/board/board-form?">수정하기</a>
-						</c:if>
+						</c:if> --%>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>
@@ -116,7 +116,7 @@
 						<form class="frm_write_cmt" action="/board/addReply">
 							<div class="cmt_write_box">
 								<%-- <c:if test="${not empty authentication.userId }"> --%>
-									<div class="cmt_writer_id">${authentication.userId }</div>
+									<%-- <div class="cmt_writer_id">${authentication.userId }</div> --%>
 									<textarea name="content" placeholder="댓글을 입력하세요"></textarea>
 									<button class="cmt_write_btn">등록</button>
 								<%-- </c:if>

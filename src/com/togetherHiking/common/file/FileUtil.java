@@ -80,7 +80,7 @@ public class FileUtil {
 				}
 			}
 					
-			res.put("com.togetherHiking.common.file",fileDTO);
+			res.put("com.togetherHiking.files",fileDTO);
 			
 		} catch (IOException e) {
 			throw new HandleableException(ErrorCode.FAILED_FILE_UPLOAD_ERROR,e);

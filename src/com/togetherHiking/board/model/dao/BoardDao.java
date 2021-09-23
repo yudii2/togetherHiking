@@ -267,7 +267,7 @@ public class BoardDao {
 	
 	public void insertBoard(Board board, Connection conn) {
 		String sql = "insert into board(bd_idx,user_id,title,content,subject) "
-				+ "values(sc_board_idx.nextval,?,?,?,?)";
+				+ "values(sc_bd_idx.nextval,?,?,?,?)";
 		PreparedStatement pstm = null;
 		
 		try {
@@ -289,7 +289,7 @@ public class BoardDao {
 		// conn.close()를 아직 하지 않아서 세션이 살아있기 때문에
 		// currval를 사용할 수 있다.
 		String sql = "insert into file_info(fl_idx,type_idx,origin_file_name,rename_file_name,save_path)"
-				+ " values(sc_file_idx.nextval,sc_board_idx.currval,?,?,?)";
+				+ " values(sc_fl_idx.nextval,sc_bd_idx.currval,?,?,?)";
 		PreparedStatement pstm = null;
 		
 		try {
