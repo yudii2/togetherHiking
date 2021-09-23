@@ -1,5 +1,7 @@
-package com.togetherHiking.mountain;
+package com.togetherHiking.mountain.api;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.net.URL;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -8,10 +10,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.togetherHiking.mountain.model.dto.Mountain;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-
-public class api { 
+public class Api { 
    
 public void api() throws XmlPullParserException, IOException {
        
@@ -92,7 +91,7 @@ public void api() throws XmlPullParserException, IOException {
    
     public static void main(String[] args) throws IOException, XmlPullParserException {
        
-       api api = new api();
+       Api api = new Api();
        api.api();
     }
 			

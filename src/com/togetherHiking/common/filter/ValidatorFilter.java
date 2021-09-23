@@ -138,7 +138,7 @@ public class ValidatorFilter implements Filter {
 			}
 			break;
 		case "modify":
-			if(!joinForm.modifyTest()) {
+			if(!joinForm.test()) {
 				redirectURI = "/member/modify-page?err=1";
 			}break;
 		default:
