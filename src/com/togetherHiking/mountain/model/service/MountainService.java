@@ -31,8 +31,7 @@ public class MountainService {
 		int res = 0;
 		
 		try {
-			res = mountainDao.insertMountain(mountain, conn);			
-			//Mountain m = mountainDao.selectMountainByMname(mountain.getmName(), conn);
+			res = mountainDao.insertMountain(mountain, conn);						
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
