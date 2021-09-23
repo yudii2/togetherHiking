@@ -1,24 +1,71 @@
 @charset "UTF-8";
 
-/* body {
-	margin: 100px;
-	padding: 0;
-	font-family: sans-serif;
+.h2 { padding: 20px 0; background: url(../images/bu_tit.gif) no-repeat 0 6px; font-size: 17px; color: #222; line-height: 100%;}
+.agree {width:500px; border: 1px solid #e6e6e6;}
+.agree > div {font-weight: 300; overflow: auto; height: 124px; padding: 24px 19px; font-size: 13px; color: #555; line-height: 16px;}
+.agree > p { height: 43px; background:#f8f8f8; border-top: 1px solid #e6e6e6; line-height: 43px; font-size: 13px; color: #222; text-indent: 19px;}
+
+.con_join_form{
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	overflow: hidden;
-	background: white;
-} */
+	align-items: center; 
+	width: 100%;
+}
 
-button {
+.join_form{
+	box-sizing: border-box;
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+
+	
+}
+h3{
+	padding: 20px 0 5px 0;
+	text-align: left;
+	
+}
+.birth{
+	display: flex;
 	width: 300px;
-	height: 43px;
-	background-color: #008840;
-	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
+	justify-content: space-between;
+	
+}
+select{
+	padding:8px;
+	width: 90px;
+}
+input{
+    width: 300px;
+	padding: 8px;
+	box-sizing: border-box;
+}
+input[type=button]{
+	width: 90px;
+	border: none;
+	background-color: #ff8080;
 	border-radius: 5px;
-	outline: 0px;
+	color:#fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+input[type=checkbox]{
+	width: 20px;
+	font-size:11px;
+
+}
+#userId,#nickname{
+	width: 210px;
+}
+button {
+	display:block;
+    width: 300px;
+    padding: 8px;
+    background-color:var(--point-color);
+    color : #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    border:none;
+    margin:30px 0;
 }
