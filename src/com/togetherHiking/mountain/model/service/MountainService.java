@@ -9,14 +9,14 @@ import com.togetherHiking.mountain.model.dto.Mountain;
 
 
 public class MountainService {
-
+ 
 	private MountainDao mountainDao = new MountainDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
 	public List<Mountain> selectMountainList() {
 		Connection conn = template.getConnection();
 		List<Mountain> mountainList = null;
-		
+		 
 		try {
 			mountainList = mountainDao.selectMountainList(conn);
 		}finally {
