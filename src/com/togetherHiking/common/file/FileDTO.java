@@ -69,8 +69,8 @@ public class FileDTO {
 				+ ", renameFileName=" + renameFileName + ", savePath=" + savePath + ", regDate=" + regDate + "]";
 	}
 
-	public String getDownloadURL() { //수정필요
-		return "/file/" + savePath + renameFileName + "?originName" + originFileName;
+	public String getDownloadURL() { 
+		return "/file/" + savePath + renameFileName + "?originName=" + originFileName;
 	}
 	
 }

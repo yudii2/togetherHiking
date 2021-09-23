@@ -32,8 +32,8 @@ public class ScheduleController extends HttpServlet {
 		case "calendar":
 			calendar(request,response);
 			break;
-		case "schedule-detail":
-			scheduleDetail(request,response);
+		case "detail":
+			detail(request,response);
 			break;
 		case "schedule-form":
 			scheduleForm(request,response);
@@ -77,7 +77,7 @@ public class ScheduleController extends HttpServlet {
 		
 	}
 
-	private void scheduleDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/schedule/schedule-detail").forward(request, response);
 		
 	}
