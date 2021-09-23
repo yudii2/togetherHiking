@@ -11,13 +11,18 @@ body{
     background: white;
 }
 
-.login-form{
-    text-align: center;
-    align-content: center;
-
-}
-
-.int-area{width: 300px;
+    button{
+        width: 300px;
+        height: 43px;
+        background-color:#008840;
+        color : #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        outline: 0px;  
+    }
+    
+    .int-area{width: 300px;
 
 }
 .int-area input {
@@ -27,29 +32,9 @@ body{
    
 }
 
-.email input{
+input{
     padding: 10px 10px 10px;
     width: 100%;
 
 }
-    
 
-    button{
-        width: 300px;
-        height: 43px;
-        background-color:#008840;
-        color : #fff;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        outline: 0px;
-            
-    }
-
-    .selectoption{
-        width: 100%;
-        margin: 0px 95px;
-        padding: 10px 10px 10px;
-        align-content: center;
-
-    }

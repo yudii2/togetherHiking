@@ -14,7 +14,7 @@
    <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
     
     <section class="login-form">
-    <img src="대지 1.png">
+   <img src="/resources/img/대지 1.png">
     <h1 style="color:#008840;">로그인 해주세요.</h1>
 
     <form action="member/login">
@@ -40,7 +40,7 @@
 
     </br>
     <br>
-        <a href=""><img src="kakao_login_large_wide.png" width="300px"></a>
+        <a href=""><img src="resources/img/kakao_login_large_wide.png" width="300px"></a>
         </br>
 
     </div>

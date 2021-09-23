@@ -10,7 +10,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-	<section class="login-form">
+<div>
 		<img src="/resources/img/대지 1.png">
 		<h1 style="color: #008840;">비밀번호찾기 찾기</h1>
 		<h3>아래 정보를 입력하시면 비밀번호를 메일로 발송해 드립니다.</h3>
@@ -33,8 +33,6 @@
 		<br>
 		<button type="submit">확인</button>
 
-
-	</section>
 
 
 

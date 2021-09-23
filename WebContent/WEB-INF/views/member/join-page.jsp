@@ -11,6 +11,8 @@
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
  <form name="login" action="index.html" method="post">
+ <section class="join-form">
+ <img src="/resources/img/대지 1.png">
       <h1 style="color: #008840">산행동행 회원가입</h1>
       
       <!-- 개인약관오류 고치기   -->
@@ -260,6 +262,8 @@
       <p>
         <button type="submit" value="회원가입">가입하기</button>
       </p>
+      
+      </section>
     </form>
 
 

@@ -6,13 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-<link rel="stylesheet" href="/resources/css/member/serch-id.css" />
+<link rel="stylesheet" href="/resources/css/member/search-id.css" />
 
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-	<section class="login-form">
-		<img src="대지 1.png">
+
+		<img src="/resources/img/대지 1.png">
 		<h1 style="color: #008840;">아이디 찾기</h1>
 		<h3>아래 정보를 입력하시면 아이디를 메일로 발송해 드립니다.</h3>
 
@@ -27,7 +27,6 @@
 
 		<button type="submit">확인</button>
 
-	</section>
 
 
 </body>
