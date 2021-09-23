@@ -6,9 +6,7 @@ public class Mountain {
 	private String mName;
 	private String mLoc;
 	private String mInfo;
-	private int contentCnt;
 	private String mHight;
-	private String transport;
 	
 	public Mountain() {
 		// TODO Auto-generated constructor stub
@@ -46,14 +44,6 @@ public class Mountain {
 		this.mInfo = mInfo;
 	}
 
-	public int getContentCnt() {
-		return contentCnt;
-	}
-
-	public void setContentCnt(int contentCnt) {
-		this.contentCnt = contentCnt;
-	}
-
 	public String getmHight() {
 		return mHight;
 	}
@@ -62,18 +52,10 @@ public class Mountain {
 		this.mHight = mHight;
 	}
 
-	public String getTransport() {
-		return transport;
-	}
-
-	public void setTransport(String transport) {
-		this.transport = transport;
-	}
-
 	@Override
 	public String toString() {
 		return "Mountain [mountainIdx=" + mountainIdx + ", mName=" + mName + ", mLoc=" + mLoc + ", mInfo=" + mInfo
-				+ ", contentCnt=" + contentCnt + ", mHight=" + mHight + ", transport=" + transport + "]";
+				+ ", mHight=" + mHight + "]";
 	}
 	
 	

@@ -80,12 +80,13 @@ public void api() throws XmlPullParserException, IOException {
 
                         System.out.println(mountaintext);
                         System.out.println("============================================================================");
-                                     
-                    }
+                             
+                        
+                    } 
                 }
                 event_type = xpp.next();
             } 
-
+            
         }
    }
    

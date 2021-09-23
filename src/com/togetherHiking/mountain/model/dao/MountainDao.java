@@ -38,13 +38,11 @@ public class MountainDao {
 	}
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
-		mountain.setContentCnt(rset.getInt("content_cnt"));
 		mountain.setmHight(rset.getString("m_hight"));
 		mountain.setmInfo(rset.getString("m_info"));
 		mountain.setmLoc(rset.getString("m_loc"));
 		mountain.setmName(rset.getString("m_name"));
 		mountain.setMountainIdx(rset.getString("mountain_idx"));
-		mountain.setTransport(rset.getString("transport"));
 		return mountain;
 	}
 
@@ -53,19 +51,18 @@ public class MountainDao {
 		int res = 0;		
 		PreparedStatement pstm = null;
 		
-		String query = "insert into mountain (content_cnt, m_hight, m_info, "
-					 + "m_loc, m_name, mountain_idx, transport) "
-					 + " values(?,?,?,?,?,?,?) ";
+		String query = "insert into mountain (m_hight, m_info," 
+					 + "m_loc, m_name, mountain_idx)" 
+					 + "values(?,?,?,?,?) ";
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, mountain.getContentCnt());
-			pstm.setString(2, mountain.getmHight());
-			pstm.setString(3, mountain.getmInfo());
-			pstm.setString(4, mountain.getmLoc());
-			pstm.setString(5, mountain.getmName());
-			pstm.setString(6, mountain.getMountainIdx());
-			pstm.setString(7, mountain.getTransport());
+			pstm.setString(1, mountain.getmHight());
+			pstm.setString(2, mountain.getmInfo());
+			pstm.setString(3, mountain.getmLoc());
+			pstm.setString(4, mountain.getmName());
+			pstm.setString(5, mountain.getMountainIdx());
 			res = pstm.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {

@@ -1,11 +1,14 @@
 package com.togetherHiking.mountain.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.togetherHiking.mountain.model.dto.Mountain;
 
 /**
  * Servlet implementation class MountainController
@@ -39,9 +42,13 @@ public class MountainController extends HttpServlet {
 			course(request,response);
 			break;
 		default:/* throw new PageNotFoundException(); */
-		
 		}
+		
+		//INSERT
+		//insert(request,response);
 	}
+
+	
 
 	private void course(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		의논 필요! 분리하는게 팝업창 띄우기에 적합하지 않은 느낌! mountain-detial jsp파일 내에서 자바스크립트 작동으로 팝업을 띄우므로 자체를 분리할 수 없음
@@ -61,6 +68,25 @@ public class MountainController extends HttpServlet {
 		
 	}
 
+//	private void insert(HttpServletRequest request, HttpServletResponse response) {
+//		String mountainIdx = request.getParameter("mountainIdx");
+//		String mName = request.getParameter("mName");
+//		String mLoc = request.getParameter("mLoc");
+//		String mInfo = request.getParameter("mInfo");
+//		String mHight = request.getParameter("mHight");
+//		
+//		Mountain mountain = new Mountain();
+//		mountain.setMountainIdx(mountainIdx);
+//		mountain.setmName(mName);
+//		mountain.setmLoc(mLoc);
+//		mountain.setmInfo(mInfo);
+//		mountain.setmHight(mHight);
+//		
+//		//request.getRequestDispatcher("").forward(request, response);
+//		
+//	}
+
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -69,4 +95,5 @@ public class MountainController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
 }
