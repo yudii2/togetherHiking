@@ -96,20 +96,20 @@ public class ValidatorFilter implements Filter {
 	}
 
 	private String boardValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		BoardForm boardForm = new BoardForm(httpRequest);
 		String redirectURI = null;
 		
 		switch (uriArr[2]) {
-		case "upload":
-			BoardForm boardForm = new BoardForm(httpRequest);
-			if(!BoardForm.test()) {
-				redirectURI = "/board/detail";	
-			}break;
-		case "edit":
-			if(!BoardForm.test()) {
-				redirectURI = "/board/detail";	
-			redirectURI = null;
-			}
-			break;
+//		case "upload":
+//			if(!boardForm.test()) {
+//				redirectURI = "/board/board-form?err=1";
+//				return redirectURI;
+//			}
+//		case "edit":
+//			if(!boardForm.test()) {
+//				redirectURI = "/board/board-form?err=1";
+//				return redirectURI;
+//			}
 
 		default:
 			break;

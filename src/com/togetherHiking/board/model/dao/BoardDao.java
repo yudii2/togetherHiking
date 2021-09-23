@@ -85,7 +85,8 @@ public class BoardDao {
 		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from board where bd_idx = ? and is_del = 0";
+		String sql = "select * from board"
+				+ " where bd_idx = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -105,14 +106,15 @@ public class BoardDao {
 		return board;
 	}
 	
-	public Board getNextBoard(Connection conn, String bdIdx){
-		Board board = new Board();
+	public String getNextBoard(Connection conn, String bdIdx){
+		String nextIdx = "";
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from"
-				+ " (select * from board where reg_date >"
+		String sql = "select bd_idx from"
+				+ " (select bd_idx from board where reg_date >"
 				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
-				+ " order by reg_date asc) where rownum = 1";
+				+ " order by reg_date asc)"
+				+ " where rownum = 1";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -120,7 +122,7 @@ public class BoardDao {
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				board = convertRowToBoard(rset);
+				nextIdx = rset.getString("bd_idx");
 			}
 			
 		} catch (Exception e) {
@@ -129,25 +131,26 @@ public class BoardDao {
 			template.close(rset, pstm);
 		}
 		
-		return board;
+		return nextIdx;
 		
 	}
 	
-	public Board getPrevBoard(Connection conn, String bdIdx){
-		Board board = new Board();
+	public String getPrevBoard(Connection conn, String bdIdx){
+		String prevIdx = "";
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from"
-				+ " (select * from board where reg_date <"
+		String sql = "select bd_idx from"
+				+ " (select bd_idx from board where reg_date <"
 				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
-				+ " order by reg_date desc) where rownum = 1";
+				+ " order by reg_date desc)"
+				+ " where rownum = 1";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, bdIdx);
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				board = convertRowToBoard(rset);
+				prevIdx = rset.getString("bd_idx");
 			}
 			
 		} catch (Exception e) {
@@ -156,7 +159,7 @@ public class BoardDao {
 			template.close(rset, pstm);
 		}
 		
-		return board;
+		return prevIdx;
 		
 	}
 	
@@ -164,7 +167,9 @@ public class BoardDao {
 		List<Reply> replyList = new ArrayList<Reply>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select * from REPLY where bd_idx = ? and is_del = 0 order by reg_date desc";
+		String sql = "select * from REPLY"
+				+ " where bd_idx = ? and is_del = 0"
+				+ " order by reg_date desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -189,8 +194,9 @@ public class BoardDao {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select fl_idx,type_idx,origin_file_name,rename_file_name,save_path,reg_date"
-				+ " from file_info where type_idx=? and is_del = 0";
+		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
+				+ " from file_info"
+				+ " where type_idx = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -237,10 +243,11 @@ public class BoardDao {
 		return fileDTO;
 	}
 	
-	public void insertBoard(Board board, Connection conn) {
+	public int insertBoard(Board board, Connection conn) {
 		String sql = "insert into board(bd_idx,user_id,title,content,subject) "
 				+ "values(sc_bd_idx.nextval,?,?,?,?)";
 		PreparedStatement pstm = null;
+		int res = 0;
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -248,13 +255,15 @@ public class BoardDao {
 			pstm.setString(2, board.getTitle());
 			pstm.setString(3, board.getContent());
 			pstm.setString(4, board.getSubject());
-			pstm.executeUpdate();
+			res = pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(pstm);
 		}
+		
+		return res;
 	}
 	
 	public void insertFile(FileDTO fileDTO, Connection conn) {

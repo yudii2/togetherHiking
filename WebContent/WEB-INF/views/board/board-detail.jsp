@@ -34,9 +34,9 @@
 						</c:if>
 						 --%>
 						<a class="btn" href="/board/board-page">목록</a>
-						<%-- <c:if test="${authentication.userId == datas.board.userId }">
-						<a class="btn" href="/board/board-form?">수정하기</a>
-						</c:if> --%>
+						<%-- <c:if test="${authentication.userId == datas.board.userId }"> --%>
+						<a class="btn" href="/board/edit">수정하기</a>
+						<%-- </c:if> --%>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>

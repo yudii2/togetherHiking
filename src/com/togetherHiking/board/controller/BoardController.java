@@ -66,6 +66,9 @@ public class BoardController extends HttpServlet {
 		case "prevBoard":
 			prevBoard(request,response);
 			break;
+		case "edit":
+			edit(request,response);
+			break;
 		
 		default:/* throw new PageNotFoundException(); */
 		
@@ -73,35 +76,45 @@ public class BoardController extends HttpServlet {
 	}
 
 
-	private void prevBoard(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bdIdx = request.getParameter("bdIdx");
 		
+		
+		request.getRequestDispatcher("/board/board-form").forward(request, response);
 	}
 
-	private void nextBoard(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void prevBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bdIdx = request.getParameter("bdIdx");
+		String prevIdx = boardService.getPrevBoard(bdIdx);
 		
+		Map<String,Object> datas = null;
+		datas = boardService.getBoardDetail(prevIdx);
+		
+		request.setAttribute("datas", datas);
+		request.getRequestDispatcher("/board/board-detail").forward(request, response);
 	}
 
-	private void addReply(HttpServletRequest request, HttpServletResponse response) {
+	private void nextBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bdIdx = request.getParameter("bdIdx");
+		String nextIdx = boardService.getNextBoard(bdIdx);
+		
+		Map<String,Object> datas = null;
+		datas = boardService.getBoardDetail(nextIdx);
+		
+		request.setAttribute("datas", datas);
+		request.getRequestDispatcher("/board/board-detail").forward(request, response);
+	}
+
+	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bd_idx");
-		Board board = boardService.getBoard(bdIdx);
 		
-		List<Reply> replyList = boardService.getReplyList(bdIdx);
-		List<FileDTO> fileDTOs = boardService.getFileDTOs(bdIdx);
-		String userId = board.getUserId();
-		FileDTO profile = boardService.getUserProfile(userId);
-		
-		Map<String,Object> datas = new HashMap<String, Object>();
-		datas.put("board", board);
-		datas.put("replyList", replyList);
-		datas.put("fileList", fileDTOs);
-		datas.put("profile", profile);
+		Map<String,Object> datas = null;
+		datas = boardService.getBoardDetail(bdIdx);
 		
 		request.setAttribute("datas", datas);
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);
@@ -113,7 +126,6 @@ public class BoardController extends HttpServlet {
 	}
 
 	private void boardPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String field_ = request.getParameter("f");
 		String query_ = request.getParameter("q");
 		String page_ = request.getParameter("p");
@@ -140,9 +152,7 @@ public class BoardController extends HttpServlet {
 		
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("count", count);
-		
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
-		
 	}
 
 
@@ -159,7 +169,8 @@ public class BoardController extends HttpServlet {
 		board.setContent(params.getParameter("content"));
 		
 		List<FileDTO> fileDTOs = params.getFilesInfo();
-		boardService.insertBoard(board,fileDTOs);
+		int res = boardService.insertBoard(board,fileDTOs);
+		
 		response.sendRedirect("/board/board-page");
 	}
 
