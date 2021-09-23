@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
@@ -13,6 +16,32 @@ import com.togetherHiking.member.model.dto.Member;
 public class MemberDao {
 	
 	JDBCTemplate template = JDBCTemplate.getInstance();
+	
+	public Member memberAuthenticate(String userId, String password, Connection conn) {
+		Member member = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		try {
+			String query = "select * from member where user_id = ? and password = ? ";			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			pstm.setString(2, password);
+			rset = pstm.executeQuery();
+			
+			String[] fieldArr = {"user_id","password","email","grade","username","is_leave","info","birth","nickname","join_date","is_host"};
+			if(rset.next()) {
+				member =  convertRowToMember(rset,fieldArr);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset,pstm);
+		}
+		
+		return member;
+	}
+
 	
 	public Member selectMemberById(String userId, Connection conn) {
 		Member member = null;			
@@ -93,6 +122,37 @@ public class MemberDao {
 		
 		return profile;
 	}
+	
+	public int updateProfile(String userId, FileDTO fileDTO, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		
+		String sql = "update file_info set origin_file_name = ? "
+				+ ", rename_file_name = ?"
+				+ ", save_path = ? "
+				+ ", reg_date = ?"
+				+ "where type_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, fileDTO.getOriginFileName());
+			pstm.setString(2, fileDTO.getRenameFileName());
+			pstm.setString(3, fileDTO.getSavePath());
+			pstm.setDate(4, fileDTO.getRegDate());
+			pstm.setString(5, userId);
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(pstm);
+		}
+
+		
+		return res;
+	}
+	
+	
+	
 	public Member selectByNickname(String nickname, Connection conn) {
 		Member member = null;
 		PreparedStatement pstm = null;
@@ -145,6 +205,39 @@ public class MemberDao {
 		return res;
 	}
 
+	public List<Board> selectMyPostById(String userId, Connection conn) {
+		List<Board> boardList = new ArrayList<Board>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String sql = "select * from board "
+				+ "where user_id = ? and is_del = 0 "
+				+ "order by reg_date desc";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				Board board = new Board();
+				board.setUserId(rset.getString("user_id"));
+				board.setBdIdx(rset.getString("bd_idx"));
+				board.setContent(rset.getString("content"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setSubject(rset.getString("subject"));
+				board.setTitle(rset.getString("title"));
+				board.setViewCnt(rset.getInt("view_cnt"));
+				boardList.add(board);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset,pstm);
+		}
+
+		return boardList;
+	}
 
 	
 	
@@ -185,6 +278,11 @@ public class MemberDao {
 		}
 		return member;
 	}
+
+
+
+
+
 
 
 	

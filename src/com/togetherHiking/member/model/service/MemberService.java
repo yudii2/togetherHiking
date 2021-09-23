@@ -1,10 +1,12 @@
 package com.togetherHiking.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
@@ -44,6 +46,24 @@ public class MemberService {
 		}
 		return res;
 	}
+	
+	public int updateProfile(String userId, FileDTO fileDTO) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = memberDao.updateProfile(userId,fileDTO, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		}finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+	}
 
 	public Member selectMemberById(String userId) {
 		Connection conn = template.getConnection();
@@ -57,7 +77,7 @@ public class MemberService {
 		return member;
 	}
 
-
+	//닉네임 중복확인용	
 	public Member selectByNickname(String nickname) {
 		Connection conn = template.getConnection();
 		Member member = null;
@@ -70,6 +90,35 @@ public class MemberService {
 		
 		return member;
 		
+	}
+	
+	public List<Board> selectMyPostById(String userId) {
+		Connection conn  = template.getConnection();
+		List<Board> boardList = new ArrayList<Board>();
+		
+		try {
+			boardList = memberDao.selectMyPostById(userId, conn);
+		} finally {
+			template.close(conn);	
+		}
+		
+		return boardList;
+	}
+	
+	public int countMyPost(String userId) {
+		Connection conn  = template.getConnection();
+		List<Board> boardList = new ArrayList<Board>();
+		int cnt = 0;
+		
+		try {
+			boardList = memberDao.selectMyPostById(userId, conn);
+			for (Board board : boardList) {
+				cnt ++;
+			}
+		} finally {
+			template.close(conn);	
+		}
+		return cnt;
 	}
 
 
@@ -90,6 +139,24 @@ public class MemberService {
 		return res;
 		
 	}
+	//로그인시 멤버객체 반환
+	public Member memberAuthenticate(String userId, String password) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			member = memberDao.memberAuthenticate(userId, password, conn);		
+		}finally {
+			template.close(conn);
+		}
+		
+		return member;
+	}
+
+
+	
+	
+
 
 
 }

@@ -64,6 +64,9 @@
   display: inline-block;
   margin-right: 70px;
 }
+.cnt span{
+	margin-left:10px;
+}
 .info{
   font-size: 14px;
   display: block;
@@ -77,14 +80,17 @@
   padding: 8px;
   border-radius: 8px 8px 0 0;
   font-size: 15px;
+  cursor: pointer;
 }
 #tab_post{
-  background-color: var(--point-color);
-  color: #fff;
+  background-color: var(--point-color); 
 }
-#tab_comment{
+#tab_reply{
   border: 1px solid #bbb;
   border-bottom: none;
+}
+#tab_post a{
+	color: #fff;
 }
 .my_posts{
   /* border: 1px solid #000; */

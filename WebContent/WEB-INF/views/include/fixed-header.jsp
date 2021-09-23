@@ -12,14 +12,15 @@
         <li><a href="/board/board-page" class="gnb_menu" data-gnb="4">자유게시판</a></li>
       </ul>
       <div class="user">
-      <c:if test="${empty authenticatio}">
-        <a href="/login-page" class="login">로그인</a>
-        <a href="/join-page" class="join">회원가입</a>
+      <c:if test="${empty authentication}">
+        <a href="/member/login-page" class="login">로그인</a>
+        <a href="/member/join-page" class="join">회원가입</a>
       </c:if>
-      <c:if test="${not empty authenticatio}">
-        <div class="header_profile"><img src="#"></div>
+      <c:if test="${not empty authentication}">
+        <div onclick="location.href='/member/mypage'" class="header_profile"><img src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"></div>
       </c:if>
       </div>
     </div>
   </header>
+
 

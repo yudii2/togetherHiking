@@ -70,6 +70,9 @@ public class MemberController extends HttpServlet {
 		case "mypage":
 			  mypage(request,response);
 			break;
+		case "reply":
+			  myReply(request,response);
+			break;
 		case "profile-upload":
 			profileUpload(request,response);
 			break;
@@ -93,6 +96,8 @@ public class MemberController extends HttpServlet {
 		}
 	}
 
+
+
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nickname = request.getParameter("nickname");
 		System.out.println(nickname);
@@ -115,29 +120,31 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		FileUtil util = new FileUtil();
 		Map<String,FileDTO> param = util.profileUpload(request);
-		System.out.println(param.toString());
 		
 		//로그인한 사용자만 profile등록 가능
-		//Member member = (Member) request.getSession().getAttribute("authentication");
-		//String userId = member.getUserId();	//세션에 인증절차 통과한 사용자 정보 등록
-		
-		String userId = "USER2";
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();	
 		
 		//file정보 가져오기
 		FileDTO fileDTO = param.get("com.togetherHiking.files");
-		System.out.println("여긴 컨트롤러 : " + fileDTO.toString());
 		
-		//파일을 테이블에 저장
-		memberService.insertProfile(userId, fileDTO);
+		//프로필정보 없으면 insert , 이미 존재하면 update
+		if(memberService.selectProfile(userId) == null) {
+			memberService.insertProfile(userId, fileDTO);
+		}else {
+			memberService.updateProfile(userId, fileDTO);
+			System.out.println("프로필업데이트 성공: " + memberService.updateProfile(userId, fileDTO));
+		}
+		
 		//프로필정보 조회해 request객체에 전달
-		FileDTO profile = memberService.selectProfile(userId).get("profile");
-		request.setAttribute("profile", profile);
+		//profile = memberService.selectProfile(userId).get("profile");
+		//request.setAttribute("profile", profile); 이미 로그인시 세션객체로 profile저장되어있지 않나..
+		
+		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 			
-		//profile객체는 jsp에서 전달되고 있는반면..file폴더에서 찾지못함
 		//mypage.jsp로 넘어가지 않는 문제
 	}
 
@@ -178,7 +185,29 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		
+		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
+		int myPostCnt = memberService.countMyPost(member.getUserId());
+		
+		//댓글수 가져오기
+		
+		
+		System.out.println("포스팅 수 :" + myPostCnt);
+		request.setAttribute("myPosts", myPosts);
+		request.setAttribute("postCnt", myPostCnt);
+		
+		//비동기 요청시 성공을 알리는 코드
+		//response.getWriter().print("success");
+		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
+	}
+	
+	//비동기로 통신할 요청
+	private void myReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().print("available");
+		
 	}
 
 	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -207,12 +236,20 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId =  request.getParameter("useId");
+		String userId =  request.getParameter("userId");
 		String password = request.getParameter("password");
 		
-		request.getSession().setAttribute("authentication", "test");
-		response.sendRedirect("/");
+		//유저 정보와 프로필
+		Member member = memberService.memberAuthenticate(userId,password);
+		FileDTO profile = memberService.selectProfile(userId).get("profile");
 		
+		if(member == null) {
+			response.sendRedirect("/member/login-form?err=1");
+			return;
+		}
+		request.getSession().setAttribute("authentication", member);
+		request.getSession().setAttribute("profile", profile);
+		response.sendRedirect("/index");
 		
 	}
 
