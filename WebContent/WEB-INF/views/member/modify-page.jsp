@@ -25,7 +25,7 @@
       <form action="/member/modify" id="modify_form">
         <div class="name">
           <span class="tit_form">이름</span>
-          	<input type="text" name="name" value="${authentication.userName}김이름" disabled>     
+          	<input type="text" name="name" value="<%-- ${authentication.userName} --%>김이름" disabled>     
         </div>
         <div class="user_id">
           <span class="tit_form">아이디</span>
@@ -33,7 +33,7 @@
         </div>
         <div class="nickname">
           <span class="tit_form">닉네임</span>
-          <input type="text" name="nickname" id="nickname" value="${authentication.nickname}기존닉넴"
+          <input type="text" name="nickname" id="nickname" value="기존닉넴"	<%-- ${authentication.nickname} --%>
           <c:if test="${not empty param.err and empty joinValid.nickname}">
           	value = ${joinForm.nickname}
           </c:if>
@@ -47,7 +47,7 @@
         </div>
         <div class="self-intro">
           <span class="tit_form">자기소개</span>
-          <textarea name="info" rows="5" minlength="15" maxlength="50" required>${authentication.info}</textarea>
+          <textarea name="info" rows="5" minlength="15" maxlength="50" required><%-- ${authentication.info} --%></textarea>
           <em id="alert_info" class="alert_auth">
           	<c:if test="${not empty param.err and not empty joinValid.info}">
           		15자 이상 50자 이하로 작성하세요.
@@ -94,7 +94,7 @@
         </div>
         <div class="email">
           <span class="tit_form">이메일</span>
-          <input type="text" name="email" id="email" vlaue="${authentication.email}abc123@gmail.com" disabled>
+          <input type="text" name="email" id="email" vlaue="<%-- ${authentication.email} --%>abc123@gmail.com" disabled>
         </div>
         <button id="btn_modify">수정완료</button>
       </form>
@@ -146,7 +146,7 @@
 
 		  /* 사용자 닉네임이 기존 닉네임과 동일하다면 중복검사 패스 */
 		  /* null인 경우에도 닉네임 변경의도가 없음으로 간주하고 중복검사 패스 */
-		  //if(nickname != ${authentication.nickname} && confirmNick != nickname){
+		  /* if(nickname != ${authentication.nickname} && confirmNick != nickname){ */
 		  if(nickname != null && nickname != '닉넴' && confirmNick != nickname){	  
 			  console.dir(confirmNick);
 			  document.querySelector('#alert_nick').innerHTML = '닉네임 중복 검사를 하지 않았습니다.';

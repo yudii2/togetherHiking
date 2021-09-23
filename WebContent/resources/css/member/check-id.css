@@ -1,32 +1,44 @@
 @charset "UTF-8";
 
-body{
-     margin: ; padding: 0;
-    font-family: sans-serif;
-    height: 100vh;
-    overflow: hidden;
-    background: white;
+.check_id{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;	
+}
+.wrap_match_id{
+	width: 300px;
+	text-align: center;
 }
 
-.login-form{
-   	display:flex;
-    text-align: center;
-    flex-wrap:wrap;
-    flex-direction:column;
-    margin:65px;
-    align-content: center;
+h1{
+	padding :20px;
+	font-size:20px;
+	font-weight: 700;
+	color:var(--point-color);
 }
-
+.match_id{
+	height: 80px;
+	border: 1px solid #ddd;
+	margin:10px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+.match_id h2{
+	font-weight: 700;
+}
     
-    button{
-        width: 300px;
-        height: 43px;
-        background-color:#008840;
-        color : #fff;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        outline: 0px; 
-    }
-
+button{
+    width: 300px;
+    height: 43px;
+    background-color:var(--point-color);
+    color : #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    border:none;
+    margin:5px 0;
+}
 

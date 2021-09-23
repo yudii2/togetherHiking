@@ -11,7 +11,8 @@
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
  <form name="login" action="index.html" method="post">
- <section class="join-form">
+ 
+ <section class="container join-form">
  <img src="/resources/img/대지 1.png">
       <h1 style="color: #008840">산행동행 회원가입</h1>
       
