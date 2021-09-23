@@ -18,6 +18,11 @@ public class Schedule {
 	private String openChat;
 	private Date dDay;
 	
+	
+	public Schedule() {
+		// TODO Auto-generated constructor stub
+	}
+	
 
 	public String getScIdx() {
 		return scIdx;

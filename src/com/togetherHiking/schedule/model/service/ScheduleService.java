@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.togetherHiking.common.db.JDBCTemplate;
-import com.togetherHiking.common.file.FileDTO;
+import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.schedule.model.dao.ScheduleDao;
 import com.togetherHiking.schedule.model.dto.Schedule;
 
@@ -14,17 +14,7 @@ public class ScheduleService {
 	private ScheduleDao scheduleDao = new ScheduleDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
-	public Schedule scheduleAuthenticate(String userId) {
-		Connection conn = template.getConnection();
-		Schedule schedule = null;
-		
-		try {
-			schedule = scheduleDao.scheduleAuthenticate(userId, conn);
-		}finally {
-			template.close(conn);
-		}
-		return schedule;
-	}
+	
 	
 	public List<Schedule> getScheduleDTOs(String scIdx) {
 		List<Schedule> schedules = null;
@@ -40,7 +30,21 @@ public class ScheduleService {
 		return schedules;
 	}
 	
-	
+	public void insertSchedule(Schedule schedule) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.insertSchedule(schedule, conn);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+	}
 	
 	
 	
