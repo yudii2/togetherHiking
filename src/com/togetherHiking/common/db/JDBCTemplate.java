@@ -18,9 +18,6 @@ public class JDBCTemplate {
    //생성자를 private으로 처리해 외부에서 JDBCTemplate을 생성하는 것을 차단.
    private JDBCTemplate() {
       try {
-         //1. oracle jdbc Driver를 JVM에 등록
-         Class.forName("oracle.jdbc.driver.OracleDriver");
-         
           final String DB_URL="jdbc:oracle:thin:@pclassmdb_high?TNS_ADMIN=C:/SEMI/Wallet_PCLASSMDB";
            // Use the TNS Alias name along with the TNS_ADMIN - For ATP and ADW
            // final static String DB_URL="jdbc:oracle:thin:@dbname_alias?TNS_ADMIN=/Users/test/wallet_dbname";
@@ -28,7 +25,6 @@ public class JDBCTemplate {
            final String DB_PASSWORD = "Qweasdzxc123";
            final String CONN_FACTORY_CLASS_NAME="oracle.jdbc.pool.OracleDataSource";
            
-			
 			pds = PoolDataSourceFactory.getPoolDataSource();
 		
 			pds.setConnectionFactoryClassName(CONN_FACTORY_CLASS_NAME);
@@ -48,20 +44,7 @@ public class JDBCTemplate {
 		    // Default is Integer.MAX_VALUE (2147483647). Set the maximum number of
 		    // connections allowed on the connection pool.
 		    pds.setMaxPoolSize(20);
-
-		    // Default is 30secs. Set the frequency in seconds to enforce the timeout
-		    // properties. Applies to inactiveConnectionTimeout(int secs),
-		    // AbandonedConnectionTimeout(secs)& TimeToLiveConnectionTimeout(int secs).
-		    // Range of valid values is 0 to Integer.MAX_VALUE. .
-		    pds.setTimeoutCheckInterval(5);
-
-		    // Default is 0. Set the maximum time, in seconds, that a
-		    // connection remains available in the connection pool.
-			pds.setInactiveConnectionTimeout(10);
-
-     
-         
-      } catch (ClassNotFoundException | SQLException e) {
+      } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
