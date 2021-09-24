@@ -43,14 +43,14 @@
           </form>
 
           <div class="profile_desc">
-            <h1 class="nickname">마운틴러너</h1>
+            <h1 class="nickname">${authentication.nickname}</h1>
             <h2 class="cnt">내 게시글 수 <span>${postCnt} 개</span></h2>
             <h2 class="cnt">내 댓글 수 <span>${commentCnt} 개</span></h2>
-            <span class="info">등산, 여행, 맛집여행 동행해요~</span>
+            <span class="info">${authentication.info }</span>
           </div>
         </div>
         <ul class="tabs">
-          <li id="tab_post"><a href="member/mypage">내가 쓴 글</a></li>
+          <li id="tab_post"><a href="/member/mypage">내가 쓴 글</a></li>
           <li id="tab_reply">내가 쓴 댓글</li>
         </ul>
         <div class="my_posts">
@@ -72,8 +72,8 @@
           <c:if test="${not empty myPosts}">
             <c:forEach items="${myPosts}" var="myPost">
 	            <tr class="contents">
-	              <td><input type="checkbox"><span>${myPost.bdIdx}94</span></td>
-	              <td>${myPost.title}</td>
+	              <td><input type="checkbox" id="checkbox"><span>${myPost.bdIdx}</span></td>
+	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }">${myPost.title}</a></td>
 	              <td>${myPost.regDate}</td>
 	              <td>${myPost.viewCnt}</td>
 	            </tr>
@@ -126,7 +126,7 @@
    
    
    
-     $('#target_img').click(function (e) {
+   document.querySelector('#target_img').addEventListener('click', function (e) {
     	 document.profile.target_url.value = document.getElementById( 'target_img' ).src;
          e.preventDefault();
          console.dir(document.profile.target_url.value);

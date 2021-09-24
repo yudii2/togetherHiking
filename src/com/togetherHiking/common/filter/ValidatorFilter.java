@@ -16,6 +16,7 @@ import com.togetherHiking.board.validator.BoardForm;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.validator.JoinForm;
+import com.togetherHiking.member.validator.ModifyForm;
 import com.togetherHiking.schedule.validator.ScheduleForm;
 
 public class ValidatorFilter implements Filter {
@@ -120,7 +121,8 @@ public class ValidatorFilter implements Filter {
 	private String memberValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		String redirectURI = null;
 		JoinForm joinForm = new JoinForm(httpRequest);
-
+		ModifyForm modifyForm = new ModifyForm(httpRequest);
+		
 		switch (uriArr[2]) {
 		//member/join
 		case "join":
@@ -138,7 +140,7 @@ public class ValidatorFilter implements Filter {
 			}
 			break;
 		case "modify":
-			if(!joinForm.test()) {
+			if(!modifyForm.test()) {
 				redirectURI = "/member/modify-page?err=1";
 			}break;
 		default:

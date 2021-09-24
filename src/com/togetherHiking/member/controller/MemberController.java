@@ -123,40 +123,46 @@ public class MemberController extends HttpServlet {
 		FileUtil util = new FileUtil();
 		Map<String,FileDTO> param = util.profileUpload(request);
 		
-		//로그인한 사용자만 profile등록 가능
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();	
-		
+
 		//file정보 가져오기
 		FileDTO fileDTO = param.get("com.togetherHiking.files");
+		System.out.println(fileDTO);
 		
 		//프로필정보 없으면 insert , 이미 존재하면 update
 		if(memberService.selectProfile(userId) == null) {
 			memberService.insertProfile(userId, fileDTO);
 		}else {
-			memberService.updateProfile(userId, fileDTO);
+			int updateProfile = memberService.updateProfile(userId, fileDTO);
+			
+			if(updateProfile == 0) {
+				request.setAttribute("msg", "프로필 등록에 실패하였습니다.");
+			}
+		
 			FileDTO profile = memberService.selectProfile(userId).get("profile");
-			request.getSession().setAttribute("profile", profile);
-			System.out.println("프로필업데이트 성공: " + memberService.updateProfile(userId, fileDTO));
+			request.getSession().setAttribute("profile", profile);	//세션에 프로필 재등록
+			request.setAttribute("msg", "프로필 등록에 성공하였습니다.");
+
+			
+			request.setAttribute("url", "/member/mypage");
+			request.getRequestDispatcher("/common/result").forward(request, response);
+
 		}
 		
-		//프로필정보 조회해 request객체에 전달
-		//profile = memberService.selectProfile(userId).get("profile");
-		//request.setAttribute("profile", profile); 이미 로그인시 세션객체로 profile저장되어있지 않나..
-		
-		
-		request.getRequestDispatcher("/member/mypage").forward(request, response);
+
+
 			
 		//mypage.jsp로 넘어가지 않는 문제
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String userId = request.getParameter("user_id");
+		Member sessionMember = (Member) request.getSession().getAttribute("authentication");
+		String userId = sessionMember.getUserId();
+		
 		String password = request.getParameter("new_pw");
 		String nickname = request.getParameter("nickname");
 		String info = request.getParameter("info");
-		
-		String userId = "USER1";	//테스트용
 		
 		Member member = new Member();
 		member.setUserId(userId);
@@ -195,15 +201,8 @@ public class MemberController extends HttpServlet {
 		
 		//댓글수 가져오기
 		
-		
-		System.out.println("포스팅 수 :" + myPostCnt);
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("postCnt", myPostCnt);
-		
-		//비동기 요청시 성공을 알리는 코드
-		//response.getWriter().print("success");
-		
-		//mypage로 돌아가면서 객체 정보를 받아오지 못함 왜모태...
 		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}

@@ -29,7 +29,7 @@ public class MemberDao {
 			pstm.setString(2, password);
 			rset = pstm.executeQuery();
 			
-			String[] fieldArr = {"user_id","password","email","grade","username","is_leave","info","birth","nickname","join_date","is_host"};
+			String[] fieldArr = {"user_id","password","email","grade","user_name","is_leave","info","birth","nickname","join_date","is_host"};
 			if(rset.next()) {
 				member =  convertRowToMember(rset,fieldArr);
 			}
@@ -123,6 +123,9 @@ public class MemberDao {
 		return profile;
 	}
 	
+	
+	
+	
 	public int updateProfile(String userId, FileDTO fileDTO, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
@@ -130,7 +133,7 @@ public class MemberDao {
 		String sql = "update file_info set origin_file_name = ? "
 				+ ", rename_file_name = ?"
 				+ ", save_path = ? "
-				+ ", reg_date = sysdate"
+				+ ", reg_date = sysdate "
 				+ "where type_idx = ?";
 		
 		try {
@@ -140,6 +143,7 @@ public class MemberDao {
 			pstm.setString(3, fileDTO.getSavePath());
 			pstm.setString(4, userId);
 			res = pstm.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		}finally {

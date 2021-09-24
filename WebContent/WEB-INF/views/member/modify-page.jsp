@@ -22,18 +22,18 @@
           <li><a href="/member/mypage/my-schedule" class="tit_mypage_gnb">신청내역 관리</a></li>
         </ul>
       </div>
-      <form action="/member/modify" id="modify_form">
+      <form action="/member/modify" id="modify_form" method="post">
         <div class="name">
           <span class="tit_form">이름</span>
-          	<input type="text" name="name" value="<%-- ${authentication.userName} --%>김이름" disabled>     
+          	<input type="text" name="name" value="${authentication.userName}" disabled>     
         </div>
         <div class="user_id">
           <span class="tit_form">아이디</span>
-          	<input type="text" name="user_id" value="USER1" disabled>	<!-- 현재 테스트중 -> authentication.userId로 변경 -->
+          	<input type="text" name="user_id" value="${authentication.userId}" disabled>	<!-- 현재 테스트중 -> authentication.userId로 변경 -->
         </div>
         <div class="nickname">
           <span class="tit_form">닉네임</span>
-          <input type="text" name="nickname" id="nickname" value="기존닉넴"	<%-- ${authentication.nickname} --%>
+          <input type="text" name="nickname" id="nickname" value="${authentication.nickname}"
           <c:if test="${not empty param.err and empty joinValid.nickname}">
           	value = ${joinForm.nickname}
           </c:if>
@@ -94,7 +94,7 @@
         </div>
         <div class="email">
           <span class="tit_form">이메일</span>
-          <input type="text" name="email" id="email" vlaue="<%-- ${authentication.email} --%>abc123@gmail.com" disabled>
+          <input type="text" name="email" id="email" vlaue="${authentication.email}" disabled>
         </div>
         <button id="btn_modify">수정완료</button>
       </form>
@@ -135,6 +135,7 @@
 		  });
 		  
 	  });
+	  
 	  
 	  document.querySelector('#modify_form').addEventListener('submit',(e) => {
 
