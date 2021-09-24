@@ -1,5 +1,6 @@
 package com.togetherHiking.board.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,7 +46,7 @@ public class BoardDao {
 				
 				boardList.add(boardView);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -54,13 +55,17 @@ public class BoardDao {
 		return boardList;
 	}
 	
-	public int getBoardCount(Connection conn, String field, String query) {
+	public int selectBoardCount(Connection conn, String field, String query) {
 		int count = 0;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
+//		String sql = "select count(bd_idx) COUNT"
+//				+ " from (select rownum NUM, N.*"
+//				+ " from (select * from board"
+//				+ " where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
 		String sql = "select count(bd_idx) COUNT"
-				+ " from (select rownum NUM, N.*"
-				+ " from (select * from board where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
+				+ " from (select bd_idx from board"
+				+ " where " + field + " like ? and is_del = 0)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -71,7 +76,7 @@ public class BoardDao {
 				count = rset.getInt("count");
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -98,7 +103,7 @@ public class BoardDao {
 				board = convertRowToBoard(rset);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -113,7 +118,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select bd_idx"
 				+ " from (select bd_idx from board where reg_date >"
-				+ " (select reg_date from board where bd_idx = ?) and is_del = 0"
+				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
 				+ " order by reg_date asc)"
 				+ " where rownum = 1";
 		
@@ -126,7 +131,7 @@ public class BoardDao {
 				nextIdx = rset.getString("bd_idx");
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -142,7 +147,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select bd_idx"
 				+ " from (select bd_idx from board where reg_date <"
-				+ " (select reg_date from board where bd_idx = ?) and is_del = 0"
+				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
 				+ " order by reg_date desc)"
 				+ " where rownum = 1";
 		try {
@@ -154,7 +159,7 @@ public class BoardDao {
 				prevIdx = rset.getString("bd_idx");
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -183,7 +188,7 @@ public class BoardDao {
 				replyList.add(reply);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -192,7 +197,7 @@ public class BoardDao {
 		return replyList;
 	}
 	
-	public List<FileDTO> selectFileDTOs(Connection conn, String bdIdx) {
+	public List<FileDTO> selectFiles(Connection conn, String bdIdx) {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
@@ -210,7 +215,7 @@ public class BoardDao {
 				files.add(file);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -219,7 +224,7 @@ public class BoardDao {
 		return files;
 	}
 
-	public FileDTO selectFileDTO(Connection conn, String userId) {
+	public FileDTO selectFile(Connection conn, String userId) {
 		FileDTO fileDTO = new FileDTO();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
@@ -239,7 +244,7 @@ public class BoardDao {
 				fileDTO = convertRowToFileDTO(rset);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -285,7 +290,7 @@ public class BoardDao {
 			pstm.setString(3, fileDTO.getSavePath());
 			pstm.executeUpdate();
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(pstm);
@@ -342,4 +347,86 @@ public class BoardDao {
 		return fileDTO;
 	}
 
+	public void insertReply(Connection conn, Reply reply) {
+		PreparedStatement pstm = null;
+		String sql = "INSERT INTO REPLY(RP_IDX, BD_IDX, USER_ID, CONTENT)"
+				+ " VALUES(SC_RP_IDX.NEXTVAL, ?, ?, ?)";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, reply.getBdIdx());
+			pstm.setString(2, reply.getUserId());
+			pstm.setString(3, reply.getContent());
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
+
+	public void deleteBoard(Connection conn, String bdIdx) {
+		CallableStatement cstm = null;
+		String sql = "{CALL SP_DELETE_BOARD(?)}";
+		
+		try {
+			cstm = conn.prepareCall(sql);
+			cstm.setString(1,bdIdx);
+			int res = cstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("게시글 삭제 성공");
+			}else {
+				System.out.println("게시글 삭제 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(cstm);
+		}
+		
+	}
+
+	public void deleteReply(Connection conn, String rpIdx) {
+		PreparedStatement pstm = null;
+		String sql = "UPDATE REPLY SET IS_DEL = 1 WHERE RP_IDX = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, rpIdx);
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("댓글 삭제 성공");
+			}else {
+				System.out.println("댓글 삭제 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
+
+	public void updateBoardViewCnt(Connection conn, String bdIdx) {
+		PreparedStatement pstm = null;
+		String sql = "UPDATE BOARD SET VIEW_CNT = VIEW_CNT + 1 WHERE BD_IDX = ? AND IS_DEL = 0";
+		
+		try {
+			pstm = conn.prepareCall(sql);
+			pstm.setString(1, bdIdx);
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+	}
+	
 }

@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
+import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.common.file.MultiPartParams;
+import com.togetherHiking.member.model.dto.Member;
 
 /**
  * Servlet implementation class BoardController
@@ -57,8 +59,11 @@ public class BoardController extends HttpServlet {
 		case "addReply":
 			addReply(request,response);
 			break;
-		case "edit":
-			edit(request,response);
+		case "delete-board":
+			delete(request,response);
+			break;
+		case "delete-reply":
+			deleteReply(request,response);
 			break;
 		
 		default:/* throw new PageNotFoundException(); */
@@ -66,24 +71,40 @@ public class BoardController extends HttpServlet {
 		}
 	}
 
+	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String rpIdx = request.getParameter("rp_idx");
+		String bdIdx = request.getParameter("bd_idx");
+		
+		boardService.deleteReply(rpIdx);
+		
+		response.sendRedirect("/board/board-detail?bd_idx=" + bdIdx);
+	}
 
-	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bdIdx = request.getParameter("bdIdx");
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bdIdx = request.getParameter("bd_idx");
+		boardService.deleteBoard(bdIdx);
 		
-		
-		request.getRequestDispatcher("/board/board-form").forward(request, response);
+		response.sendRedirect("/board/board-page");
 	}
 
 	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
+		String bdIdx = request.getParameter("bd_idx");
+		String content = request.getParameter("content");
 		
+		Reply reply = new Reply();
+		reply.setBdIdx(bdIdx);
+		reply.setUserId(userId);
+		reply.setContent(content);
+		
+		boardService.insertReply(reply);
+		
+		response.sendRedirect("/board/board-detail?bd_idx=" + bdIdx);
 	}
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bd_idx");
-		
-		Map<String,Object> datas = null;
-		datas = boardService.getBoardDetail(bdIdx);
+		Map<String,Object> datas = boardService.getBoardDetail(bdIdx);
 		
 		request.setAttribute("datas", datas);
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);
@@ -116,7 +137,6 @@ public class BoardController extends HttpServlet {
 		
 		List<BoardView> boardList = new ArrayList<BoardView>();
 		boardList = boardService.getBoardList(field, query, page);
-		
 		int count = boardService.getBoardCount(field, query);
 		
 		request.setAttribute("boardList", boardList);
@@ -124,15 +144,14 @@ public class BoardController extends HttpServlet {
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
 	}
 
-
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//post메서드로 받아온 사용자 작성게시글 정보 받아와
+		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 		FileUtil util = new FileUtil();
 		MultiPartParams params = util.fileUpload(request);
-		//Member member = (Member) request.getSession().getAttribute("authentication");
 
 		Board board = new Board();
-		board.setUserId("GUEST");
+		board.setUserId(userId);
 		board.setTitle(params.getParameter("title"));
 		board.setSubject(params.getParameter("subject"));
 		board.setContent(params.getParameter("content"));
@@ -140,7 +159,14 @@ public class BoardController extends HttpServlet {
 		List<FileDTO> fileDTOs = params.getFilesInfo();
 		int res = boardService.insertBoard(board,fileDTOs);
 		
-		response.sendRedirect("/board/board-page");
+		if(res <= 0) {
+			System.out.println("업로드 중 에러 발생");
+		}
+		if(res > 0) {
+			System.out.println("업로드 성공");
+		}
+		
+		response.sendRedirect("/board/board-detail?bd_idx=" + board.getBdIdx());
 	}
 
 	/**

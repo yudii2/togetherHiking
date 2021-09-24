@@ -9,8 +9,10 @@ import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.board.model.dto.Reply;
+import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
+import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.common.file.FileDTO;
 
 public class BoardService {
@@ -58,10 +60,9 @@ public class BoardService {
 			}
 			
 			template.commit(conn);
-			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw e;
+			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -108,10 +109,11 @@ public class BoardService {
 		String nextIdx = null;
 		
 		try {
+			boardDao.updateBoardViewCnt(conn, bdIdx); // 조회수 +1
 			board = boardDao.selectBoard(conn, bdIdx);
 			replys = boardDao.selectReplyList(conn, bdIdx);
-			files = boardDao.selectFileDTOs(conn, bdIdx);
-			profile = boardDao.selectFileDTO(conn, board.getUserId());
+			files = boardDao.selectFiles(conn, bdIdx);
+			profile = boardDao.selectFile(conn, board.getUserId());
 			prevIdx = boardDao.selectPrevIdx(conn, bdIdx);
 			nextIdx = boardDao.selectNextIdx(conn, bdIdx);
 			
@@ -122,22 +124,10 @@ public class BoardService {
 			datas.put("prevIdx", prevIdx);
 			datas.put("nextIdx", nextIdx);
 			
-		} finally {
-			template.close(conn);
-		}
-		
-		return datas;
-	}
-	
-	public Map<String,Object> editBoard(String bdIdx){
-		Connection conn = template.getConnection();
-		Map<String,Object> datas = new HashMap<String, Object>();
-		Board board = null;
-		List<FileDTO> files = null;
-		
-		try {
-			board = boardDao.selectBoard(conn, bdIdx);
-			
+			template.commit(conn);
+		}catch(DataAccessException e){
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.DATABSE_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -150,7 +140,7 @@ public class BoardService {
 		int res = 0;
 		
 		try {
-			res = boardDao.getBoardCount(conn, field, query);
+			res = boardDao.selectBoardCount(conn, field, query);
 			
 		} finally {
 			template.close(conn);
@@ -161,6 +151,54 @@ public class BoardService {
 
 	public int getBoardCount() {
 		return getBoardCount("title","");
+		
+	}
+
+	public void insertReply(Reply reply) {
+		Connection conn = template.getConnection();
+		
+		try {
+			boardDao.insertReply(conn, reply);
+			
+			template.commit(conn);
+		} catch(DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+		} finally {
+			template.close(conn);
+		}
+		
+	}
+
+	public void deleteBoard(String bdIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			boardDao.deleteBoard(conn, bdIdx);
+			
+			template.commit(conn);
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+		} finally {
+			template.close(conn);
+		}
+		
+	}
+
+	public void deleteReply(String rpIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			boardDao.deleteReply(conn, rpIdx);
+			
+			template.commit(conn);
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+		} finally {
+			template.close(conn);
+		}
 		
 	}
 

@@ -18,24 +18,25 @@
 				<div class="section_top">
 					<h2>게시글 상세페이지</h2>
 					<div class='btn_area'>
-						<c:if test="${not empty datas.prevIdx }">
-							<a class="btn" href="/board/board-detail?bd_idx=${datas.prevIdx }">이전글</a>
-						</c:if>
-						<c:if test="${empty datas.prevIdx }">
-							<span onclick="alert('이전글이 없습니다.');"><div></div></span>
+						<c:if test="${authentication.userId == datas.board.userId }">
+						<a class="btn" href="/board/delete-board?bd_idx=${datas.board.bdIdx }">글삭제</a>
 						</c:if>
 						
 						<c:if test="${not empty datas.nextIdx }">
-							<a class="btn" href="/board/board-detail?bd_idx=${datas.nextIdx }">다음글</a>
+							<a class="btn" href="/board/board-detail?bd_idx=${datas.nextIdx }">이전글</a>
 						</c:if>
 						<c:if test="${empty datas.nextIdx }">
-							<span onclick="alert('다음글이 없습니다.');"><div></div></span>
+							<a class="btn"><span class="btn" onclick="alert('이전글이 없습니다.');">이전글</span></a>
+						</c:if>
+						
+						<c:if test="${not empty datas.prevIdx }">
+							<a class="btn" href="/board/board-detail?bd_idx=${datas.prevIdx }">다음글</a>
+						</c:if>
+						<c:if test="${empty datas.prevIdx }">
+							<a class="btn"><span onclick="alert('다음글이 없습니다.');">다음글</span></a>
 						</c:if>
 						
 						<a class="btn" href="/board/board-page">목록</a>
-						<%-- <c:if test="${authentication.userId == datas.board.userId }"> --%>
-						<a class="btn" href="/board/edit?userId=${datas.board.userId }">수정하기</a>
-						<%-- </c:if> --%>
 					</div>
 				</div>
 				<%-- 해당 게시글이 존재하지 않을 경우 --%>
@@ -68,19 +69,23 @@
 								<div>작성자: ${board.userId }</div>
 								<div>작성일: ${board.regDate }</div>
 							</div>
-							<div style="width: 500px; height: 50px;">
-								<div style="margin-bottom: 5px;">조회수: ${board.viewCnt}</div>
+							<div class="writer_board_info">
+								<div>조회수: ${board.viewCnt}</div>
 								
-								<c:if test="${not empty files}">
-								<div>
-									첨부파일: <%-- 첨부파일 표시, 다운로드 도움 필요 --%>
-									<c:forEach items="${files }" var="file" varStatus="status">
-										<a href="${file.downloadURL }">${file.originFileName }</a>
-										<c:if test="${!status.last }">/</c:if>
-									</c:forEach>
+								<div class="">
+									<a>첨부파일</a>
+									
+									<div class="file_div">
+										<c:if test="${not empty files}">
+										<c:forEach items="${files }" var="file" varStatus="status">
+											<a href="${file.downloadURL }">${file.originFileName }</a>
+											<c:if test="${!status.last }">/</c:if>
+										</c:forEach>
+										</c:if>
+									</div>
 									
 								</div>
-								</c:if>
+								
 							</div>
 						</div>
 					</div>
@@ -101,7 +106,11 @@
 							<c:forEach items="${replys}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmt_info">
-										<div>${reply.userId }</div>
+										<div>${reply.userId }
+											<c:if test="${authentication.userId eq reply.userId }">
+											<a href="/board/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
+											</c:if>
+										</div>
 										<div>${reply.regDate }</div>
 									</div>
 									<div>${reply.content }</div>
@@ -112,16 +121,16 @@
 						</div>
 						
 						<%-- 로그인했을 경우에만 댓글을 쓸 수 있어야함 --%>
-						<form class="frm_write_cmt" action="/board/addReply"><%-- ?userId=${authentication.userId } --%>
+						<form class="frm_write_cmt" action="/board/addReply?bd_idx=${board.bdIdx }" method="POST">
 							<div class="cmt_write_box">
-								<%-- <c:if test="${not empty authentication.userId }"> --%>
-									<%-- <div class="cmt_writer_id">${authentication.userId }</div> --%>
-									<textarea name="content" placeholder="댓글을 입력하세요"></textarea>
+								<c:if test="${not empty authentication.userId }">
+									<div class="cmt_writer_id">${authentication.userId }</div>
+									<textarea name="content" placeholder="댓글을 입력하세요" required="required"></textarea>
 									<button class="cmt_write_btn">등록</button>
-								<%-- </c:if>
+								</c:if>
 								<c:if test="${empty authentication.userId }">
 									<div>로그인해야 댓글을 작성할 수 있습니다.</div>
-								</c:if> --%>
+								</c:if>
 							</div>
 						</form>
 					</div>

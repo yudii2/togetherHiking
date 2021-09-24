@@ -28,11 +28,12 @@
 					<table class="table" style="border: 1px solid #dddddd">
 						<thead>
 							<tr style="height: 30px">
-								<th style="width: 8%">글번호</th>
-								<th style="width: 8%">카테고리</th>
-								<th style="width: 60%">제목</th>
-								<th style="width: 12%">작성자</th>
-								<th style="width: 12%">작성일</th>
+								<th style="width: 10%">글번호</th>
+								<th style="width: 10%">말머리</th>
+								<th style="width: 40%">제목</th>
+								<th style="width: 20%">작성자</th>
+								<th style="width: 10%">작성일</th>
+								<th style="width: 10%">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -46,6 +47,7 @@
 									</td>
 									<td>${board.userId}</td>
 									<td>${board.regDate}</td>
+									<td>${board.viewCnt }</td>
 								</tr>
 								</c:forEach>
 							</c:if>
