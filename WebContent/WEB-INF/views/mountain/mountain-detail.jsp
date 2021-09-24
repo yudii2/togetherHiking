@@ -5,8 +5,6 @@
 <head>
 <%@ include file = "/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href = "/resources/css/mountain/mountain-detail.css">
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51b82ad6039b247d66291bb210b4a16d"></script>
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51b82ad6039b247d66291bb210b4a16d&libraries=services,clusterer,drawing"></script>
 </head>
    
   <body>
@@ -31,12 +29,12 @@
 			<div class="tit_mountain">
 				<span class="mountain_name">관악산</span>
 				<!-- 요청을 보내 모달창에 데이터 호출 필요...세션에 mountain객체를 저장? -->
-				<form action="mountain/detail/course" id="mountain_trail">
+				<!-- <form action="mountain/detail/course" id="mountain_trail">
 					<select name="mountain_trail" class="mountain_trail">
 						<option value="" selected disabled>등산로를 선택하세요</option>
 						<option value="1">등산로1</option>
 						<option value="2">등산로2</option>
-					</select>
+					</select> -->
 				</form>
 			</div>
 			<p>
@@ -48,7 +46,6 @@
 			<div class="desc_mountain">
 				<h2>높이 : <span>${mountain.mHeight} 632.2m</span></h2>
 				<h2>위치 : <span>${mountain.mLoc}서울 관악구 신림동, 경기 안양·과천의 경계</span></h2>
-				<h2> : <span>${mountain.transport}</span></h2>
 			</div>
 		</div>                      <%-- api로 꾸려와야 할 정보임! 디자인 보려고 넣음 --%>
     </div>
@@ -57,7 +54,7 @@
     
   </section>
   
-  
+  <%-- 
     <!-- Layer Popup -->
     <div class="modal">
       <div class="modal_inner">
@@ -80,12 +77,12 @@
         </div>
       </div>
     </div>
-    <div class="overlay"></div>
+    <div class="overlay"></div> --%>
     
     <script type="text/javascript">
     
 	//등산로
-   	document.querySelector('.close_modal').addEventListener('click',function() {
+ /*   	document.querySelector('.close_modal').addEventListener('click',function() {
    	  document.querySelector('.modal').style.display='none';
    	  document.querySelector('.overlay').style.display='none';
    	});
@@ -93,7 +90,7 @@
     document.querySelector('.mountain_trail').addEventListener('change',function() {
 	    document.querySelector('.modal').style.display='flex';
 	    document.querySelector('.overlay').style.display='flex';
-    });
+    }); */
     	
     //서치바
     function keyword_check(){
@@ -106,14 +103,9 @@
     	 };
 
   </script>	 
-    //맵	 
-  
-  
+    
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0BynjFSEnK1evu8mQktPf2KwJjkHcvH0&callback=initMap&region=kr"></script>
-  
-  
   <script>
-
     
     var map;
 
@@ -127,12 +119,11 @@
       new google.maps.Marker({
         position: seoul,
         map: map,
-        label: "서울 중심 좌표"
+        label: "산"
       });
     }
     
-    
-    
+        
   </script>	 
 
 </body>
