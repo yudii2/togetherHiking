@@ -21,10 +21,10 @@ public void api() throws XmlPullParserException, IOException {
       String key = "vb7VRvR6GWpXJT1EaIIcYMLIE2wH%2FSLTxeJLj2OZ%2BezJUNWB20DGIYmMKJWFy56abCDff5P21JYKLDslp%2FIKLg%3D%3D";
       int pageNum = 1;
          
-        for(pageNum = 1; pageNum < 2; pageNum++) {
+        for(pageNum = 1; pageNum < 156; pageNum++) {
         
          String urlCode = "http://openapi.forest.go.kr/openapi/service/trailInfoService/getforeststoryservice?"
-               + "ServiceKey=" + key + "&pageNo=" + pageNum;
+               + "ServiceKey=" + key + "&pageNo=" + pageNum + "&mntnInfoAraCd=08";
          
            StringBuilder urlBuilder = new StringBuilder(urlCode); /*URL*/
            
@@ -83,6 +83,13 @@ public void api() throws XmlPullParserException, IOException {
                         System.out.println("============================================================================");
                                                    
                       mountainservice.insertMountain(mountain);	
+                      
+                      //데이터 가공 필요 (공백으로 대체하던가 regex처리)
+                      //1. &lt;br /&gt;   &amp;nbsp;   &amp;ucirc;   &amp;acirc;   &amp;atilde;   &amp;otilde;    <BR>   <br>
+                      //2. 산번호를 sc_mountain_idx(시퀀스)로 사용 --> 동일한 산이 중복
+                      //3.  동일한 산을 데이터에 넣은 후 꺼내 쓸 때 위에것만 꺼내온다고 전제하면 쓸모없는 데이터가 아닌지 확인해야함
+                      // * 애초에 값을 DB에 저장할 때 한개만 저장하는 방법을 구현할 수는 없나? 어렵..
+                    
                     } 
                 }
                 event_type = xpp.next();

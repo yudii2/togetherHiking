@@ -203,6 +203,8 @@ public class MemberController extends HttpServlet {
 		//비동기 요청시 성공을 알리는 코드
 		//response.getWriter().print("success");
 		
+		//mypage로 돌아가면서 객체 정보를 받아오지 못함 왜모태...
+		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
 	

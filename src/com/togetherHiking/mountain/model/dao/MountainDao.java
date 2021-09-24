@@ -50,7 +50,7 @@ public class MountainDao {
 	public void insertMountain(Mountain mountain, Connection conn){	
 		PreparedStatement pstm = null;
 		
-		String query = "insert into mountain (m_hight, m_info," 
+		String query = "insert into mountain (m_height, m_info," 
 					 + "m_loc, m_name, mountain_idx)" 
 					 + "values(?,?,?,?,?) ";
 		try {
