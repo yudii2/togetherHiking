@@ -165,8 +165,8 @@ public class BoardController extends HttpServlet {
 		if(res > 0) {
 			System.out.println("업로드 성공");
 		}
-		
-		response.sendRedirect("/board/board-detail?bd_idx=" + board.getBdIdx());
+		//자신이 작성한 게시글로 리디렉트 하려면 bd_idx가 필요함
+		response.sendRedirect("/board/board-page");
 	}
 
 	/**
