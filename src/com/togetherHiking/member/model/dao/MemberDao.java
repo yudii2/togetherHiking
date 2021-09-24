@@ -130,7 +130,7 @@ public class MemberDao {
 		String sql = "update file_info set origin_file_name = ? "
 				+ ", rename_file_name = ?"
 				+ ", save_path = ? "
-				+ ", reg_date = ?"
+				+ ", reg_date = sysdate"
 				+ "where type_idx = ?";
 		
 		try {
@@ -138,8 +138,7 @@ public class MemberDao {
 			pstm.setString(1, fileDTO.getOriginFileName());
 			pstm.setString(2, fileDTO.getRenameFileName());
 			pstm.setString(3, fileDTO.getSavePath());
-			pstm.setDate(4, fileDTO.getRegDate());
-			pstm.setString(5, userId);
+			pstm.setString(4, userId);
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);

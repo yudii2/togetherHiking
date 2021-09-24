@@ -128,7 +128,7 @@
    
      $('#target_img').click(function (e) {
     	 document.profile.target_url.value = document.getElementById( 'target_img' ).src;
-         /* e.preventDefault(); */
+         e.preventDefault();
          console.dir(document.profile.target_url.value);
        	 $('#file').click();	//changeValue메서드 호출
      });
@@ -136,7 +136,7 @@
      let changeValue = function(obj) {
     	 console.dir(document.profile.target_url.value);
     	 document.profile.submit();
-         
+         obj.preventDefault;
 
      }
    </script>

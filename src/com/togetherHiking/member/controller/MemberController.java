@@ -135,6 +135,8 @@ public class MemberController extends HttpServlet {
 			memberService.insertProfile(userId, fileDTO);
 		}else {
 			memberService.updateProfile(userId, fileDTO);
+			FileDTO profile = memberService.selectProfile(userId).get("profile");
+			request.getSession().setAttribute("profile", profile);
 			System.out.println("프로필업데이트 성공: " + memberService.updateProfile(userId, fileDTO));
 		}
 		
