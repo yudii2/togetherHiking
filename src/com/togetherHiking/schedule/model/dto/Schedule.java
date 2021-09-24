@@ -11,17 +11,11 @@ public class Schedule {
 	private Date regDate;
 	private Date expDate;
 	private int allowedNum;
-	private String plIdx; //참가자 목록 번호
-	
-	private int capacity; // ??
-	
-
+	private int remainNum;
 	private String info;
 	private String isDel;
-	private int money;
-	private String openChat;
-	
-	private int meetingTime; //모임시간
+	private int status;
+	private String openChat;	
 	private int age; //모임연령대
 	
 	public Schedule() {
@@ -84,20 +78,12 @@ public class Schedule {
 		this.allowedNum = allowedNum;
 	}
 
-	public String getPlIdx() {
-		return plIdx;
+	public int getRemainNum() {
+		return remainNum;
 	}
 
-	public void setPlIdx(String plIdx) {
-		this.plIdx = plIdx;
-	}
-
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setRemainNum(int remainNum) {
+		this.remainNum = remainNum;
 	}
 
 	public String getInfo() {
@@ -116,12 +102,12 @@ public class Schedule {
 		this.isDel = isDel;
 	}
 
-	public int getMoney() {
-		return money;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setMoney(int money) {
-		this.money = money;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getOpenChat() {
@@ -130,14 +116,6 @@ public class Schedule {
 
 	public void setOpenChat(String openChat) {
 		this.openChat = openChat;
-	}
-
-	public int getMeetingTime() {
-		return meetingTime;
-	}
-
-	public void setMeetingTime(int meetingTime) {
-		this.meetingTime = meetingTime;
 	}
 
 	public int getAge() {
@@ -151,11 +129,10 @@ public class Schedule {
 	@Override
 	public String toString() {
 		return "Schedule [scIdx=" + scIdx + ", userId=" + userId + ", dDay=" + dDay + ", mountainName=" + mountainName
-				+ ", regDate=" + regDate + ", expDate=" + expDate + ", allowedNum=" + allowedNum + ", plIdx=" + plIdx
-				+ ", capacity=" + capacity + ", info=" + info + ", isDel=" + isDel + ", money=" + money + ", openChat="
-				+ openChat + ", meetingTime=" + meetingTime + ", age=" + age + "]";
+				+ ", regDate=" + regDate + ", expDate=" + expDate + ", allowedNum=" + allowedNum + ", remainNum="
+				+ remainNum + ", info=" + info + ", isDel=" + isDel + ", status=" + status + ", openChat=" + openChat
+				+ ", age=" + age + "]";
 	}
-	
 
 
 	

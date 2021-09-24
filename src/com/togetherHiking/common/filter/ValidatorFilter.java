@@ -79,9 +79,9 @@ public class ValidatorFilter implements Filter {
 		
 		switch (uriArr[2]) {
 		case "upload":
-			if(!scheduleForm.test()) {
-				redirectURI = "/schedule/calendar";	
-			}break;
+			/*
+			 * if(!scheduleForm.test()) { redirectURI = "/schedule/calendar"; }
+			 */break;
 		//edit완료 버튼
 		case "edit":
 			if(!scheduleForm.test()) {

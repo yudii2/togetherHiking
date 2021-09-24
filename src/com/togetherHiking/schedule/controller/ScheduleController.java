@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
 
@@ -102,26 +103,25 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
-		String scIdx = request.getParameter("scIdx");
-		String userId = request.getParameter("userId");
-		Date dDay = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dDay")); //date타입 이렇게 하는게 맞는가?
+
+		Member member = (Member) request.getSession().getAttribute("authentication"); //member 객체
+		String userId = member.getUserId();
+		
+		Date dDay = Date.valueOf(request.getParameter("dDay"));
+		System.out.println("dday"+dDay);
 		String mountainName = request.getParameter("mountainName");
 		int allowedNum = Integer.parseInt(request.getParameter("allowedNum"));
 		String info = request.getParameter("info");
-		int money = Integer.parseInt(request.getParameter("money"));
 		String openChat = request.getParameter("openChat");
-		int meetingTime = Integer.parseInt(request.getParameter("meetingTime"));
 		int age = Integer.parseInt(request.getParameter("age"));
 		Schedule schedule = new Schedule();
-		schedule.setScIdx(scIdx);
+
 		schedule.setUserId(userId);
 		schedule.setdDay(dDay);
 		schedule.setMountainName(mountainName);
 		schedule.setAllowedNum(allowedNum);
 		schedule.setInfo(info);
-		schedule.setMoney(money);
 		schedule.setOpenChat(openChat);
-		schedule.setMeetingTime(meetingTime);
 		schedule.setAge(age);
 		
 		scheduleService.insertSchedule(schedule);
