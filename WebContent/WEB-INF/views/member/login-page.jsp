@@ -15,6 +15,9 @@
 	<div class="wrap_login_form">
 		<img src="/resources/img/대지 1.png">
 	    <h1 style="color:#008840;">로그인 해주세요.</h1>
+	    <c:if test="${not empty param.err}">
+	    	<span class='valid-msg'>아이디나 비밀번호를 잘 못 입력하였습니다.</span>
+	    	   </c:if>
 	
 	    <form action="/member/login" method="post">
 	        <div class="int-area">
