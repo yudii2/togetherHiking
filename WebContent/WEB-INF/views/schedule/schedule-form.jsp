@@ -30,17 +30,17 @@
 		</tr>
 		<tr height="50">
 			<td width="150" align="center"> 날짜 </td>
-			<td width="350" align="center"> <input type="date" min="2021-07-20" name="date" id="date" size="40" value="date">
+			<td width="350" align="center"> <input type="date" min="2021-07-20" name="dDay" id="dDay" size="40" value="date">
 			</td>
 		</tr>
 		<tr height="50">
 			<td width="150" align="center"> 시간 </td>
-			<td width="350" align="center"> <input type="time" value="time" name="time" id="time" size="40" value="time">
+			<td width="350" align="center"> <input type="time" value="time" name="meetingTime" id="meetingTime" size="40" value="time">
 		</td>
 		<tr height="50">
 			<td width="150" align="center"> 모집 인원 </td>
 			<td width="350" align="center">
-			<select name="people" id=people" value="people">
+			<select name="allowedNum" id="allowedNum" value="people">
 			<option value="2">2명</option>
 			<option value="3">3명</option>
 			<option value="4">4명</option>

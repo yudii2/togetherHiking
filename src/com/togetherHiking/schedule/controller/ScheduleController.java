@@ -53,13 +53,7 @@ public class ScheduleController extends HttpServlet {
 		case "upload":
 			try {
 				upload(request,response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParseException e) {
+			} catch (ServletException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -110,20 +104,25 @@ public class ScheduleController extends HttpServlet {
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
 		String scIdx = request.getParameter("scIdx");
 		String userId = request.getParameter("userId");
+		Date dDay = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dDay")); //date타입 이렇게 하는게 맞는가?
 		String mountainName = request.getParameter("mountainName");
-		Date dDay = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dDay"));
+		int allowedNum = Integer.parseInt(request.getParameter("allowedNum"));
 		String info = request.getParameter("info");
+		int money = Integer.parseInt(request.getParameter("money"));
 		String openChat = request.getParameter("openChat");
-		Date meetingDate = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("meetingDate"));
-		
+		int meetingTime = Integer.parseInt(request.getParameter("meetingTime"));
+		int age = Integer.parseInt(request.getParameter("age"));
 		Schedule schedule = new Schedule();
 		schedule.setScIdx(scIdx);
 		schedule.setUserId(userId);
-		schedule.setPlace(mountainName);
 		schedule.setdDay(dDay);
+		schedule.setMountainName(mountainName);
+		schedule.setAllowedNum(allowedNum);
 		schedule.setInfo(info);
+		schedule.setMoney(money);
 		schedule.setOpenChat(openChat);
-		schedule.setMeetingDate(meetingDate);
+		schedule.setMeetingTime(meetingTime);
+		schedule.setAge(age);
 		
 		scheduleService.insertSchedule(schedule);
 		
@@ -131,7 +130,7 @@ public class ScheduleController extends HttpServlet {
 		
 		
 		//최종적으로 schedule 페이지로 redirect
-		
+		response.sendRedirect("/schedule/calendar");
 	}
 
 	/**

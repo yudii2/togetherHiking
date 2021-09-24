@@ -25,8 +25,9 @@ public class ScheduleDao {
 		List<Schedule> schedules = new ArrayList<Schedule>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select sc_idx,user_id,mountain_name,d_day,info,money,openchat,meeting_date,reg_date,exp_date"
+		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,pl_idx,info,money,openchat,meeting_Time,age,reg_date,exp_date"
 				+ " from schedule where sc_idx=? and is_del = 0";
+		
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -51,7 +52,7 @@ public class ScheduleDao {
 		Schedule schedule = new Schedule();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select sc_idx, user_id, mountain_name, d_day, info, money, openchat, meeting_date, reg_date, exp_date"
+		String sql = "select sc_idx, user_id, d_day, mountain_name, allowed_num, pl_idx, info, money, openchat, meeting_Time, age, reg_date, exp_date"
 				+ " from schedule"
 				+ " where sc_idx = ? and is_del = 0";
 		
@@ -78,30 +79,37 @@ public class ScheduleDao {
 		Schedule schedule = new Schedule();
 		schedule.setScIdx(rset.getString("sc_idx"));
 		schedule.setUserId(rset.getString("user_id"));
-		schedule.setMountainName(rset.getString("mountain_name"));
 		schedule.setdDay(rset.getDate("d_day"));
+		schedule.setMountainName(rset.getString("mountain_name"));
+		schedule.setRegDate(rset.getDate("reg_date"));
+		schedule.setExpDate(rset.getDate("exp_date"));
+		schedule.setAllowedNum(rset.getInt("allowed_num"));
+		schedule.setPlIdx(rset.getString("pl_idx"));
+		
 		schedule.setInfo(rset.getString("info"));
 		schedule.setMoney(rset.getInt("money"));
 		schedule.setOpenChat(rset.getString("openchat"));
-		schedule.setMeetingDate(rset.getDate("meeting_date"));
-		schedule.setRegDate(rset.getDate("reg_date"));
-		schedule.setExpDate(rset.getDate("exp_date"));
+		schedule.setMeetingTime(rset.getInt("meeting_Time"));
+		schedule.setAge(rset.getInt("age"));
 		return schedule;
 	}
 
 	public void insertSchedule(Schedule schedule, Connection conn) {
-		String sql = "insert into schedule (sc_idx,user_id,mountain_name,d_day,info,openchat,meeting_date) "
-				+ "values(sc_sc_idx.nextval,?,?,?,?,?,?)";
+		String sql = "insert into schedule (sc_idx,user_id,d_day,mountain_name,allowed_num,info,money,openchat,meeting_Time,age) "
+				+ "values(sc_sc_idx.nextval,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstm = null;
 		
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, schedule.getUserId());
-			pstm.setString(2, schedule.getMountainName());
-			pstm.setDate(3, schedule.getdDay());
-			pstm.setString(4, schedule.getInfo());
-			pstm.setString(5, schedule.getOpenChat());
-			pstm.setDate(6, schedule.getMeetingDate());
+			pstm.setDate(2, schedule.getdDay());
+			pstm.setString(3, schedule.getMountainName());
+			pstm.setInt(4, schedule.getAllowedNum());
+			pstm.setString(5, schedule.getInfo());
+			pstm.setInt(6, schedule.getMoney());
+			pstm.setString(7, schedule.getOpenChat());
+			pstm.setInt(8, schedule.getMeetingTime());
+			pstm.setInt(9, schedule.getAge());
 			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
