@@ -16,7 +16,7 @@
 		<img src="/resources/img/대지 1.png">
 	    <h1 style="color:#008840;">로그인 해주세요.</h1>
 	
-	    <form action="/member/login">
+	    <form action="/member/login" method="post">
 	        <div class="int-area">
 	            <input type="text" id="userId" name="userId" required placeholder="아이디를 입력하세요.">
 	        </div>	

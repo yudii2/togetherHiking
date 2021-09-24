@@ -8,5 +8,6 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
+	<h2><a href='/member/login-page'>login</a></h2>
 </body>
 </html>
