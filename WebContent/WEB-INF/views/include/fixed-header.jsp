@@ -20,7 +20,30 @@
         <div onclick="location.href='/member/mypage'" class="header_profile"><img src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"></div>
       </c:if>
       </div>
+      <div class="tab_mypage">
+      	<em></em>
+		<h1 class="tab_user">USER1 님<span>LOGOUT</span></h1>
+		<div><a href="/member/modify-page">내 정보</a></div>
+		<div><a href="/member/mypage">작성글 관리</a></div>
+		<div><a href="/member/my-schedule">신청내역 관리</a></div>
+      </div>
     </div>
+    
+    <script type="text/javascript">
+    
+    document.querySelector('.header_profile').addEventListener('mouseover', () => {
+    	document.querySelector('.tab_mypage').style.display = 'block';
+    	setTimeout(() => {
+    		document.querySelector('.tab_mypage').style.display = 'none';
+		}, 3000);
+    	
+    })
+
+    
+    
+    </script>
+    
   </header>
+
 
 

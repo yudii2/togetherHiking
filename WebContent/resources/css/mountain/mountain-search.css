@@ -1,29 +1,36 @@
 @charset "UTF-8";
 
-.container{
-		position:relative;
-		margin : auto;
+.con_mountain{
+	
 } 
 
 #search_mountain{
 	background-color : var(--point-color);
-	height:200px;
 	text-align:center;
 	color : white;  
 	font-size: 30px;
-	line-height: 50px;
+	padding: 30px;
+
 } 
+#search_mountain h1{
+	font-size: 25px;
+	font-weight: 500;
+	padding: 15px 0 15px 0;	
+}
 
 .search_bar{
 	width:600px;
 	text-align:center;
 	height: 30px;
-	margin-top: 30px;
+	margin: 10px;
+	border-radius:10px;
+	border: none;
+	outline:none;
 }
 
-/* .search_button{
-	border-radius:35px;
-} */
+.search_bar{
+
+} 
 
 .loc_bnt{
   background:green;
@@ -37,45 +44,51 @@
   transition:800ms ease all;
   outline:none;
   border-radius:20px;
+  margin-bottom: 20px;
+  
 }
 
 .loc_bnt:hover{
   background:#fff;
   color:var(--point-color);
 }
+.loc{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 50px;
+}
 
 #loc_map{
 	width:500px;
-	height:500px;
-	margin-left: 40px;
+	height:500px;	
     border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
     float: left;
-    margin-top: 40px;
+    
 }
-
-.mountain_wrapper{
-	width:500px;
-	height:500px;
+.con_items{
 	display: flex;
-    justify-content: space-between;
-	line-height:120px;
-	float: right;
-	margin-right: 40px;
-	margin-top: 100px;
+	
 }
 
+.mountain_group{
+	width:500px;
+	display: grid;
+	grid-template-columns:1fr 1fr 1fr;
+	justify-content: center;
+	align-items:center;
+
+}
 .mountain { 
-  display:inline-block;
-  width:50px;
-  height:110px; 
-  background-color : var(--point-color);
-  color:white;
-  border:none;
-  position:relative;
+  width:80px;
+  height:80px; 
+  background-color : #fff;
+  box-shadow: 0 0 15px #d4d4d4;  
+  border:none;  
   font-size:1em;
-  padding:0 2em;
+  padding: 20px;
   border-radius:75px;
   text-align:center;
+  line-height: 80px;
 }
 
 /* .mountain:hover{
