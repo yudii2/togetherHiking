@@ -26,12 +26,11 @@ public class MountainService {
 	}
 	
 	
-	public int insertMountain(Mountain mountain) {
+	public void insertMountain(Mountain mountain) {
 		Connection conn = template.getConnection();
-		int res = 0;
 		
 		try {
-			res = mountainDao.insertMountain(mountain, conn);						
+			mountainDao.insertMountain(mountain, conn);					
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -39,8 +38,7 @@ public class MountainService {
 		}finally {
 			template.close(conn);
 		}
-		
-		return res;
+
 	}
 	
 	

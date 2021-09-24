@@ -47,8 +47,7 @@ public class MountainDao {
 	}
 
 	
-	public int insertMountain(Mountain mountain, Connection conn){
-		int res = 0;		
+	public void insertMountain(Mountain mountain, Connection conn){	
 		PreparedStatement pstm = null;
 		
 		String query = "insert into mountain (m_hight, m_info," 
@@ -61,7 +60,7 @@ public class MountainDao {
 			pstm.setString(3, mountain.getmLoc());
 			pstm.setString(4, mountain.getmName());
 			pstm.setString(5, mountain.getMountainIdx());
-			res = pstm.executeUpdate();
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -69,7 +68,7 @@ public class MountainDao {
 			template.close(pstm);
 		}
 		
-		return res;
+
 	}
 	
 	

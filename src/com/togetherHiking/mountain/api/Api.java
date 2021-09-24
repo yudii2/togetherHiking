@@ -9,12 +9,14 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.togetherHiking.mountain.model.dto.Mountain;
+import com.togetherHiking.mountain.model.service.MountainService;
 
 public class Api { 
    
 public void api() throws XmlPullParserException, IOException {
        
       Mountain mountain = new Mountain();
+      MountainService mountainservice = new MountainService();
       
       String key = "vb7VRvR6GWpXJT1EaIIcYMLIE2wH%2FSLTxeJLj2OZ%2BezJUNWB20DGIYmMKJWFy56abCDff5P21JYKLDslp%2FIKLg%3D%3D";
       int pageNum = 1;
@@ -65,7 +67,7 @@ public void api() throws XmlPullParserException, IOException {
                     
                     
                     if (tag.equals("item")) {
-                       System.out.println("pageNum : "+ pageNum + "\n");
+                      // System.out.println("pageNum : "+ pageNum + "\n");
 
                         mountain.setmName(mName);
                         mountain.setMountainIdx(mountainIdx);
@@ -79,8 +81,8 @@ public void api() throws XmlPullParserException, IOException {
 
                         System.out.println(mountaintext);
                         System.out.println("============================================================================");
-                             
-                        
+                                                   
+                      mountainservice.insertMountain(mountain);	
                     } 
                 }
                 event_type = xpp.next();
@@ -94,5 +96,6 @@ public void api() throws XmlPullParserException, IOException {
        Api api = new Api();
        api.api();
     }
+    
 			
 }

@@ -5,6 +5,8 @@
 <head>
 <%@ include file = "/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href = "/resources/css/mountain/mountain-detail.css">
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51b82ad6039b247d66291bb210b4a16d"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51b82ad6039b247d66291bb210b4a16d&libraries=services,clusterer,drawing"></script>
 </head>
    
   <body>
@@ -82,7 +84,7 @@
     
     <script type="text/javascript">
     
-
+	//등산로
    	document.querySelector('.close_modal').addEventListener('click',function() {
    	  document.querySelector('.modal').style.display='none';
    	  document.querySelector('.overlay').style.display='none';
@@ -93,7 +95,7 @@
 	    document.querySelector('.overlay').style.display='flex';
     });
     	
-    
+    //서치바
     function keyword_check(){
     	  if(document.search.mName.value==''){
     	  alert('산이름을 입력하세요'); 
@@ -102,8 +104,28 @@
     	  }
     	  else return true;
     	 };
+
     	 
+    //맵	 
     
+    	let drawMap = (coords, stores) => {
+    		var container = document.getElementById('mountain_loc-map'); 
+    		var options = { 
+    			center: new kakao.maps.LatLng(33.450701, 126.570667), 
+    			level: 3 
+    		};
+
+    		var map = new kakao.maps.Map(container, options); 
+    		
+    		map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+    			
+    		var mapTypeControl = new kakao.maps.MapTypeControl();
+    		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+    		var zoomControl = new kakao.maps.ZoomControl();
+    		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    			   		
+    	}    	 
     </script>
 </body>
 </html>
