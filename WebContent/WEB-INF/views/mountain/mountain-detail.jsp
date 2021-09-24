@@ -48,7 +48,7 @@
 			<div class="desc_mountain">
 				<h2>높이 : <span>${mountain.mHeight} 632.2m</span></h2>
 				<h2>위치 : <span>${mountain.mLoc}서울 관악구 신림동, 경기 안양·과천의 경계</span></h2>
-				<h2>교통편 : <span>${mountain.transport}</span></h2>
+				<h2> : <span>${mountain.transport}</span></h2>
 			</div>
 		</div>                      <%-- api로 꾸려와야 할 정보임! 디자인 보려고 넣음 --%>
     </div>
@@ -105,27 +105,35 @@
     	  else return true;
     	 };
 
-    	 
+  </script>	 
     //맵	 
+  
+  
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0BynjFSEnK1evu8mQktPf2KwJjkHcvH0&callback=initMap&region=kr"></script>
+  
+  
+  <script>
+
     
-    	let drawMap = (coords, stores) => {
-    		var container = document.getElementById('mountain_loc-map'); 
-    		var options = { 
-    			center: new kakao.maps.LatLng(33.450701, 126.570667), 
-    			level: 3 
-    		};
+    var map;
 
-    		var map = new kakao.maps.Map(container, options); 
-    		
-    		map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
-    			
-    		var mapTypeControl = new kakao.maps.MapTypeControl();
-    		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    function initMap() {
+      var seoul = { lat: 37.9417382 ,lng: 126.9689597 };
+      map = new google.maps.Map( document.getElementById('mountain_loc-map'), {
+          zoom: 12,
+          center: seoul
+        });
 
-    		var zoomControl = new kakao.maps.ZoomControl();
-    		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-    			   		
-    	}    	 
-    </script>
+      new google.maps.Marker({
+        position: seoul,
+        map: map,
+        label: "서울 중심 좌표"
+      });
+    }
+    
+    
+    
+  </script>	 
+
 </body>
 </html>

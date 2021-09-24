@@ -136,7 +136,6 @@
      let changeValue = function(obj) {
     	 console.dir(document.profile.target_url.value);
     	 document.profile.submit();
-         obj.preventDefault;
 
      }
    </script>
