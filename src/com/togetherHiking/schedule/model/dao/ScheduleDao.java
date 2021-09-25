@@ -22,7 +22,7 @@ public class ScheduleDao {
 	}
 	
 	public List<Schedule> selectSchedules(Connection conn, String scIdx) {
-		List<Schedule> schedules = new ArrayList<Schedule>();
+		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age,reg_date,exp_date"

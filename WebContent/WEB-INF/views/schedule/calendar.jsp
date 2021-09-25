@@ -26,38 +26,16 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           locale: 'ko',
-       	  // 캘린더 view 타입
-	      initialView: 'dayGridMonth',
+	      initialView: 'dayGridMonth', // 캘린더 view 타입
 	      
           events: [
-               {
+               { /* 임시 데이터 */
                  title: '북한산',
                  start: '2021-09-16',
                  /* url: "/schedule/calendar" */
                  },
               
                  // other events here
-
-/* 	              {
-	                title: '아차산',
-	                 start: '2021-09-20',
-	                 url: "https://www.naver.com"
-	               },
-	              {
-		               title: '구룡산',
-		                start: '2021-09-20',
-		                url: "https://www.naver.com"
-	                },
-	                {
-		                title: '남산',
-		                start: '2021-09-20',
-		                 url: "https://www.naver.com"
-	                 },
-	                 {
-			             title: '인왕산',
-			             start: '2021-09-20',
-			             url: "https://www.naver.com"
-		                 }, */
                
                
                ], headerToolbar: {
@@ -81,57 +59,12 @@
        
         calendar.render();
       });
-    
-    
-/* 모달 */
-
-
-    
-
-      
-        
 
     </script>
      <section>
     <div class="container" id="calendarBox">
          <div id='calendar'></div>
     </div>
-    
-
-    
-<!--      modal 추가
-    <div class="modal fade" id=calendarModal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="taskId" class="col-form-label">일정 내용</label>
-                        <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-                        <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-                        <label for="taskId" class="col-form-label">종료 날짜</label>
-                        <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="sprintSettingModalClose">취소</button>
-                </div>
-    
-            </div>
-        </div>
-    </div> -->
-    
-    
-    
     </section>
    
     <!-- Layer Popup -->
@@ -164,23 +97,25 @@
             <!-- 테이블에서 info가져오기 -->
             <p>
               일요일 불암산 가실 분 구합니다. 내려와서 간단히 식사할 계획입니다.
+               ${schedule.info}
             </p>
           </div>
           <div class="desc_content">
             <h1 class="tit_content">안내사항</h1>
             <h2>모임 날짜</h2><span>2021-09-28 ${schedule.dDay}</span>
-            <h2>모임 장소</h2><span>불암산 버스정류장</span>
-            <h2>인원수</h2><span>4</span>
-            <h2>오픈채팅방 링크</h2><span>dsfjlsfjlfj454</span>
+            <h2>모임 장소</h2><span>불암산 버스정류장 ${schedule.mountainName}</span>
+            <h2>인원수</h2><span>4 ${schedule.allowedNum}</span>
+            <h2>오픈채팅방 링크</h2><span>dsfjlsfjlfj454 ${schedule.openChat}</span>
+            <h2>모집 연령대</h2><span>40대 ${schedule.age}</span>
           </div>
           <div class="desc_content">
             <h1 class="tit_content">함께 동행할 유저 소개</h1>
             <div class="desc_user">
               <img src="/resources/img/mail-template/img_travel_01.png" alt="">
               <div class="info">
-                <h1>닉넴1</h1>
+                <h1>닉넴1 ${member.nickname}</h1>
                 <h2>29살</h2>
-                <span>등산을 좋아하는 1인입니다.</span>
+                <span>등산을 좋아하는 1인입니다. ${member.info}</span>
               </div>
             </div>
             <div class="desc_user">
