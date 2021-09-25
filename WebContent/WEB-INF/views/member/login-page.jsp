@@ -28,7 +28,7 @@
 			</div>
 	    
 	        <div class="caption">
-		        <a href="#">회원가입</a>
+		        <a href="/member/login">회원가입</a>
 		        <a href="#">아이디찾기</a>     
 		        <a href="#">비밀번호 찾기</a>
 	   		</div>

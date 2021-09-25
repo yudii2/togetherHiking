@@ -19,7 +19,7 @@
 		<form>  
 			<div class="match_id">
 				<h2>kh1234</h2>
-			</div>  
+			</div>
 		
 		    <button onclick = "location.href = '#'" type="submit" >로그인하기</button>  
 		    <button onclick = "location.href = '#'" type="submit">비밀번호찾기</button>  

@@ -7,5 +7,6 @@ public class PageNotFoundException extends RuntimeException{
 	public PageNotFoundException() {
 		//stackTrace를 비워준다.
 		this.setStackTrace(new StackTraceElement[0]);
+		
 	}
 }
