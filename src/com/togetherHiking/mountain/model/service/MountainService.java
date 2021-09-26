@@ -25,6 +25,18 @@ public class MountainService {
 		return mountainList;
 	}
 	
+	public Mountain selectMountainByMountainName (String mName) {
+		Connection conn = template.getConnection();
+		Mountain mountain = null;
+		
+		try {
+			mountain = mountainDao.selectMountainByMountainName(mName, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return mountain;
+	}
 	
 	public void insertMountain(Mountain mountain) {
 		Connection conn = template.getConnection();

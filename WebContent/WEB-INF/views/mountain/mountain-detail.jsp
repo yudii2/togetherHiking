@@ -9,7 +9,7 @@
    
   <body>
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
-  <section class="container">       
+  <section class="container">      
     <form id="search_mountain" name="search" method = "get"  action ="/mountain/detail" onsubmit="return keyword_check()">
 		지역 또는 산 이름 검색 <br>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
 		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
@@ -27,7 +27,7 @@
 	    <!-- 등산로 관련 정보 끌어오기api  -->
 		<div id="mountain_info">
 			<div class="tit_mountain">
-				<span class="mountain_name">관악산</span>
+				<span class="mountain_name">${mountain.mName}</span>
 				<!-- 요청을 보내 모달창에 데이터 호출 필요...세션에 mountain객체를 저장? -->
 				<!-- <form action="mountain/detail/course" id="mountain_trail">
 					<select name="mountain_trail" class="mountain_trail">
@@ -39,19 +39,14 @@
 			</div>
 			<p>
 				${mountain.info}
-				서울시 한강 남쪽에 우뚝하게 솟아있는 산이며 높이는 632.2m이다.
-				그 뒤쪽으로는 청계산, 백운산, 광교산으로 연결되는 한남정맥(漢南正脈)이 이어진다. 
-				산 정상부에는 바위로 이루어져 있는데 그 모습이 갓을 쓰고 있는 모습을 닮아 관악산(冠岳山)이라고 부르게 되었다.
 			</p>
 			<div class="desc_mountain">
-				<h2>높이 : <span>${mountain.mHeight} 632.2m</span></h2>
-				<h2>위치 : <span>${mountain.mLoc}서울 관악구 신림동, 경기 안양·과천의 경계</span></h2>
+				<h2>높이 : <span>${mountain.mHeight}</span></h2>
+				<h2>위치 : <span>${mountain.mLoc}</span></h2>
 			</div>
-		</div>                      <%-- api로 꾸려와야 할 정보임! 디자인 보려고 넣음 --%>
+		</div>          
     </div>
-    
-    
-    
+ 
   </section>
   
   <%-- 
@@ -108,9 +103,12 @@
   <script>
     
     var map;
+    var X = ${mountain.xCoor};
+    var Y = ${mountain.yCoor};
+    var 산이름 = ${mountain.mName}
 
     function initMap() {
-      var seoul = { lat: 37.9417382 ,lng: 126.9689597 };
+      var seoul = { lat: X ,lng: Y };
       map = new google.maps.Map( document.getElementById('mountain_loc-map'), {
           zoom: 12,
           center: seoul
@@ -119,7 +117,7 @@
       new google.maps.Marker({
         position: seoul,
         map: map,
-        label: "산"
+        label: 산이름
       });
     }
     

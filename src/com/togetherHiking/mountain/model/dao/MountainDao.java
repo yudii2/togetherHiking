@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
+import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.mountain.model.dto.Mountain;
 
 public class MountainDao {
@@ -36,16 +37,33 @@ public class MountainDao {
 		
 		return mountainList;
 	}
-	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
-		Mountain mountain = new Mountain();
-		mountain.setmHight(rset.getString("m_hight"));
-		mountain.setmInfo(rset.getString("m_info"));
-		mountain.setmLoc(rset.getString("m_loc"));
-		mountain.setmName(rset.getString("m_name"));
-		mountain.setMountainIdx(rset.getString("mountain_idx"));
+	
+	
+	public Mountain selectMountainByMountainName(String mName, Connection conn) {
+		Mountain mountain = null;			
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String query = "select * from mountain where mName = ?";
+		
+		try {			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, mName);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				mountain = convertRowToMountain(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
 		return mountain;
 	}
-
+	
+	
 	
 	public void insertMountain(Mountain mountain, Connection conn){	
 		PreparedStatement pstm = null;
@@ -70,8 +88,15 @@ public class MountainDao {
 
 	}
 	
-	
-	// 어느부분까지 api에서 끌어오고, 받을 수 있는지..? 일단 조회만.+삽입(api데이터를 db에 넣기위해)
+	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
+		Mountain mountain = new Mountain();
+		mountain.setmHight(rset.getString("m_hight"));
+		mountain.setmInfo(rset.getString("m_info"));
+		mountain.setmLoc(rset.getString("m_loc"));
+		mountain.setmName(rset.getString("m_name"));
+		mountain.setMountainIdx(rset.getString("mountain_idx"));
+		return mountain;
+	}
 	
 	
 }

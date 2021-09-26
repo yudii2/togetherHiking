@@ -43,9 +43,6 @@ public class MountainController extends HttpServlet {
 			break;
 		default:/* throw new PageNotFoundException(); */
 		}
-		
-		//INSERT
-		//insert(request,response);
 	}
 
 	
@@ -58,8 +55,9 @@ public class MountainController extends HttpServlet {
 		
 	}
 
-	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
+		
 		
 	}
 
@@ -68,24 +66,8 @@ public class MountainController extends HttpServlet {
 		
 	}
 
-//	private void insert(HttpServletRequest request, HttpServletResponse response) {
-//		String mountainIdx = request.getParameter("mountainIdx");
-//		String mName = request.getParameter("mName");
-//		String mLoc = request.getParameter("mLoc");
-//		String mInfo = request.getParameter("mInfo");
-//		String mHight = request.getParameter("mHight");
-//		
-//		Mountain mountain = new Mountain();
-//		mountain.setMountainIdx(mountainIdx);
-//		mountain.setmName(mName);
-//		mountain.setmLoc(mLoc);
-//		mountain.setmInfo(mInfo);
-//		mountain.setmHight(mHight);
-//		
-//		//request.getRequestDispatcher("").forward(request, response);
-//		
-//	}
 
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
