@@ -35,7 +35,7 @@
 	       
 	        <button type="submit">로그인</button>
 	       
-	        <a href="#"><img src="/resources/img/kakao_login_large_wide.png" width="300px"></a>
+	        <a href="/member/login-kakao"><img src="/resources/img/kakao_login_large_wide.png" width="300px"></a>
 
 
    		</form>

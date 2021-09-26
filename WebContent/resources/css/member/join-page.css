@@ -11,25 +11,20 @@
 	align-items: center; 
 	width: 100%;
 }
-
 .join_form{
 	box-sizing: border-box;
 	display: flex;
 	flex-direction:column;
-	align-items: center;
-
-	
+	align-items: center;	
 }
 h3{
 	padding: 20px 0 5px 0;
 	text-align: left;
-	
 }
 .birth{
 	display: flex;
 	width: 300px;
 	justify-content: space-between;
-	
 }
 select{
 	padding:8px;
@@ -40,22 +35,23 @@ input{
 	padding: 8px;
 	box-sizing: border-box;
 }
-input[type=button]{
-	width: 90px;
+.btn{
+    width: 100px;
 	border: none;
 	background-color: #ff8080;
 	border-radius: 5px;
 	color:#fff;
 	font-weight: 600;
 	cursor: pointer;
+	style="float:right"
 }
 input[type=checkbox]{
 	width: 20px;
 	font-size:11px;
-
 }
 #userId,#nickname{
 	width: 210px;
+	hig	
 }
 button {
 	display:block;

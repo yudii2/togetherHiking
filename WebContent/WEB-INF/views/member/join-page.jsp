@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 <section class="container con_join_form">
  
- <form class="join_form" name="login" action="index.html" method="post">
+ <form class="join_page" name="login" action="/member/join" method="post">
  
 
  <img src="/resources/img/대지 1.png">
@@ -22,7 +22,7 @@
 
    <h2 class="h2">서비스 이용약관</h2>
     <div class="agree">
-        <div tabindex="0">
+        <div tabindex="0"> 
        제1장 총칙<br><br>
        <br>제1조 (목적)<br>
         이 약관은 홈페이지 산행동행이 제공하는 모든 서비스(이하 "서비스"라 합니다)를 이용함에 있어 이용자와 "산행동행"간의 권리·의무 및 책임사항과 기타 필요한 사항을 정하는 데 목적이 있습니다.<br>
@@ -191,24 +191,28 @@
     <div>
     <br><br>
 	    <h3>아이디</h3>
-	    <input type="text" id="userId" name="userId" placeholder="아이디 입력" />
-	    <input type="button" name="user_IDcheck" value="중복확인" />
+	    <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
+	     <button type="button" class="btn" onclick="idCheck()">중복확인</button>
+	     <span class="valid-msg" id="id_check"></span>
     </div>
 
 	<div>
       <h3>비밀번호</h3>
-      <input type="password" id="user_PW1" name="user_PW1"placeholder="비밀번호를 입력하세요."/>
+      <input type="password" id="user_PW1" name="user_PW1" required placeholder="비밀번호를 입력하세요."/>
+      <span id="pw_confirm" class="valid_msg"></span>
 	</div>
 	<div>
       <h3>비밀번호확인</h3>
-      <input type="password"id="user_PM2" name="user_PW2"placeholder="비밀번호를 입력하세요."/>
+      <input type="password" id="user_PM2" name="user_PW2"placeholder="비밀번호를 입력하세요."/>
 	</div>
 
 	<div>
+	
 		<h3>닉네임</h3>
-		<input type="text" name="nickname" id="nickname"/>
-     	<input type="button" name="#" value="닉네임 확인" />
-	</div>
+		<input type="text" name="nickname" id="nickname" />
+		<button type="button" class="btn" onclick="nicknameCheck()">닉네임확인</button>
+		</div>
+
 
 	<div>
       <h3>생년월일</h3>

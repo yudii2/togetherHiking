@@ -117,16 +117,22 @@ public class MemberController extends HttpServlet {
 		// TODO Auto-generated method stubs
 		
 	}
-
-	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 	private void joinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-page").forward(request, response);
 		
 	}
 
+	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId =  request.getParameter("userId");
+		String password = request.getParameter("user_PW1");
+		String passwordcheck = request.getParameter("user_PW1");
+		String nickname = request.getParameter("nickname");
+		String email = request.getParameter("user_email");
+		/* 생년월일 어떻게 하지 */
+		
+		
+	}
+	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");
 		response.sendRedirect("/");
