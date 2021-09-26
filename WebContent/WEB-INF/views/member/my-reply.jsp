@@ -57,9 +57,9 @@
         </ul>
         <div class="my_posts">
           <div class="col_my_posts">
-            <span class="title">제목</span>
+            <span class="title">댓글</span>
             <span class="date">작성일</span>
-            <span class="views">조회</span>
+            <span class="views">답글</span>
           </div>
           <table>
           <!-- board패키지 접근 필요 -->

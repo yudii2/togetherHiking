@@ -22,7 +22,7 @@
           <li>
           	<a href="/member/mypage" class="tit_mypage_gnb">작성글 관리</a>
           	<a href="/member/mypage" class="tit_sub_gnb">내가 쓴 글 보기</a>
-          	<a href="/member/mypage/my-reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
+          	<a href="/member/mypage/reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
           </li>
           <li><a href="/member/mypage/my-schedule" class="tit_mypage_gnb">신청내역 관리</a></li>
         </ul>

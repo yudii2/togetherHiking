@@ -13,11 +13,14 @@
       <div class="wrap_mypage_side_menu">
         <div class="tit_side_menu">마이페이지</div>
         <ul class="mypage_side_menu">
-          <li><a href="/member/mypage/modify-page" class="tit_mypage_gnb">내정보</a>
+          <li>
+          	<a href="/member/mypage/modify-page" class="tit_mypage_gnb">내정보</a>
             <a href="/member/mypage/modify-page" class="tit_sub_gnb">내정보 수정하기</a>
           </li>
           <li>
           	<a href="/member/mypage" class="tit_mypage_gnb">작성글 관리</a>
+          	<a href="/member/mypage" class="tit_sub_gnb">내가 쓴 글 보기</a>
+          	<a href="/member/mypage/reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
           </li>
           <li><a href="/member/mypage/my-schedule" class="tit_mypage_gnb">신청내역 관리</a></li>
         </ul>
@@ -25,11 +28,26 @@
       <div class="wrap_my_contents">
         <div class="profile">
           <!-- 비동기통신으로 받아오기 필요 -->
-          <div class="profile_img"></div>
+          <div class="profile_img">
+          <!-- 사용자 아이디와 일치하는 typeIdx가 존재하면 file_info에서 꺼내 출력 -->
+          <!-- 존재하지 않으면 기본 프로필이미지 출력 -->
+          <c:if test="${not empty authentication}">
+          	<img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
+          </c:if>
+          <c:if test="${empty authentication}">
+            <img id="target_img" src="/resources/img/user.png">
+          </c:if>
+          </div>
+          <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
+            <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
+            <input type="hidden" name="target_url">	<!-- 보이지않지만 서버로 submit발생 -->
+          </form>
+
           <div class="profile_desc">
-            <h1 class="nickname">마운틴러너</h1>
-            <h1 class="post_cnt">내 게시글 수<span class="comment_cnt">내 댓글 수</span></h1>
-            <span class="info">등산, 여행, 맛집여행 동행해요~</span>
+            <h1 class="nickname">${authentication.nickname}</h1>
+            <h2 class="cnt">내 게시글 수 <span>${postCnt} 개</span></h2>
+            <h2 class="cnt">내 댓글 수 <span>${commentCnt} 개</span></h2>
+            <span class="info">${authentication.info }</span>
           </div>
         </div>
         <div class="wrap_tab">

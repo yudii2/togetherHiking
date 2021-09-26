@@ -230,6 +230,21 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		
+		if(member == null) {
+			request.setAttribute("msg", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login-page");
+			request.getRequestDispatcher("/common/result").forward(request, response);
+		}
+		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
+		int myPostCnt = memberService.countMyPost(member.getUserId());
+		
+		//댓글수 가져오기
+		
+		request.setAttribute("myPosts", myPosts);
+		request.setAttribute("postCnt", myPostCnt);
+		
 		request.getRequestDispatcher("/member/my-schedule").forward(request, response);
 		
 	}
@@ -264,7 +279,6 @@ public class MemberController extends HttpServlet {
 	private void myReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
-		Map<String,List> reply = memberService.selectMyReply(member);
 		
 		if(member == null) {
 			request.setAttribute("msg", "로그인이 필요합니다.");
@@ -274,6 +288,8 @@ public class MemberController extends HttpServlet {
 		
 		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
 		int myPostCnt = memberService.countMyPost(member.getUserId());
+		Map<String,List> reply = memberService.selectMyReply(member);
+
 		
 		//댓글수 가져오기
 		

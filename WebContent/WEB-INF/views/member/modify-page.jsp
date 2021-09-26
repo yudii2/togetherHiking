@@ -13,8 +13,10 @@
       <div class="wrap_mypage_side_menu">
         <div class="tit_side_menu">마이페이지</div>
         <ul class="mypage_side_menu">
-          <li><a href="/member/mypage/modify-page" class="tit_mypage_gnb">내정보</a>
-            <a href="/member/mypage/modify-page" class="tit_sub_gnb">내정보 수정하기</a>
+          <li>
+          	<a href="/member/mypage" class="tit_mypage_gnb">작성글 관리</a>
+          	<a href="/member/mypage" class="tit_sub_gnb">내가 쓴 글 보기</a>
+          	<a href="/member/mypage/reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
           </li>
           <li>
           	<a href="/member/mypage" class="tit_mypage_gnb">작성글 관리</a>

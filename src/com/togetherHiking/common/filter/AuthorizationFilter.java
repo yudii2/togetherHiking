@@ -277,13 +277,40 @@ public class AuthorizationFilter implements Filter {
 			break;
 		//비로그인or 세션 유효하지 않은 유저가 마이페이지 요청시
 		case "mypage":
-			//에러메시지 없이 바로 로그인 화면으로 이동
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
-				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
-			}
+			mypageAuthorize(httpRequest,httpResponse,uriArr);
+
 		default:
 			break;
 		}
+		
+	}
+
+	private void mypageAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		
+		switch (uriArr[3]) {
+		case "my-schedule":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		case "reply":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		case "modify-page":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		default:
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		}
+		
+
 		
 	}
 
