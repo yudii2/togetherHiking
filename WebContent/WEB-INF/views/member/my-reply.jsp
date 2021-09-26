@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-<link rel="stylesheet" href="/resources/css/member/mypage.css">
+<link rel="stylesheet" href="/resources/css/member/my-reply.css">
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
@@ -15,14 +15,13 @@
       <div class="wrap_mypage_side_menu">
         <div class="tit_side_menu">마이페이지</div>
         <ul class="mypage_side_menu">
-          <li>
-          	<a href="/member/mypage/modify-page" class="tit_mypage_gnb">내정보</a>
+          <li><a href="/member/mypage/modify-page" class="tit_mypage_gnb">내정보</a>
             <a href="/member/mypage/modify-page" class="tit_sub_gnb">내정보 수정하기</a>
           </li>
           <li>
           	<a href="/member/mypage" class="tit_mypage_gnb">작성글 관리</a>
           	<a href="/member/mypage" class="tit_sub_gnb">내가 쓴 글 보기</a>
-          	<a href="/member/mypage/my-reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
+          	<a href="/member/mypage/reply" class="tit_sub_gnb">내가 쓴 댓글 보기</a>
           </li>
           <li><a href="/member/mypage/my-schedule" class="tit_mypage_gnb">신청내역 관리</a></li>
         </ul>
@@ -54,7 +53,7 @@
         </div>
         <ul class="tabs">
           <li id="tab_post"><a href="/member/mypage">내가 쓴 글</a></li>
-          <li id="tab_reply"><a href="/member/mypage/reply">내가 쓴 댓글</a></li>
+          <li id="tab_reply"><a href="/member/my-reply">내가 쓴 댓글</a></li>
         </ul>
         <div class="my_posts">
           <div class="col_my_posts">
@@ -64,31 +63,21 @@
           </div>
           <table>
           <!-- board패키지 접근 필요 -->
-          <c:if test="${empty myPosts}">
+          <c:if test="${empty myReply}">
 			<tr class="contents">
               <td></td>
-              <td>작성하신 게시글이 존재하지 않습니다.</td>
+              <td>작성하신 댓글이 존재하지 않습니다.</td>
               <td></td>
               <td></td>
             </tr>          	
           </c:if>
-          <c:if test="${not empty myPosts}">
-            <c:forEach items="${myPosts}" var="myPost">
-	            <tr class="contents" id="myPost">
-	              <td><input type="checkbox" id="checkbox"><span class="idx">${myPost.bdIdx}</span></td>
-	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }" id="tit_content">${myPost.title}</a></td>
-	              <td>${myPost.regDate}</td>
-	              <td>${myPost.viewCnt}</td>
-	            </tr>
-			</c:forEach>          
-          </c:if>
           <c:if test="${not empty myReply}">
-            <c:forEach items="${myReply}" var="myReply">
+            <c:forEach items="${myReply.reply}" var="myReply">
 	            <tr class="contents" id="myReply">
-	              <td><input type="checkbox" id="checkbox"><span><c:out value = '${myReply.reply.rpIdx}'/></span></td>
-	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }">${myReply.boardTitle.title}</a></td>
-	              <td>${myReply.reply.regDate}</td>
-	              <td>${myReply.reply.codeIdx}</td>
+	              <td><input type="checkbox" id="checkbox"><span><c:out value = '${myReply.rpIdx}'/></span></td>
+	              <td>${myReply.content}</td>
+	              <td>${myReply.regDate}</td>
+	              <td>${myReply.codeIdx}</td>
 	            </tr>
 			</c:forEach>
           </c:if>
@@ -116,7 +105,9 @@
    
    document.querySelector('#tab_reply').addEventListener('click',(e)=>{
 	   //e.preventDefault();
-  
+	   
+	   //console.dir(e.target);
+	   
 	   document.querySelector('.title').innerHTML = '댓글';
 	   document.querySelector('.views').innerHTML = '답글';
 	   document.querySelector('#tab_post').style.border = '1px solid #bbb'
@@ -126,31 +117,7 @@
 	   document.querySelector('#tab_reply').style.backgroundColor = 'var(--point-color)';
 	   document.querySelector('#tab_reply').style.border = 'none';
 	   document.querySelector('#tab_reply').style.color = '#fff';
-/* 	   
-	   fetch('/member/mypage/reply')
-	   .then(response => {
-		   if(response.ok){
 
-			   
-			   return response.text();	   
-
-		   }else{
-			   throw new Error(response.status);
-		   }
-	   }).then(text => {
-		   if(text == 'null'){
-			   document.querySelector('.tit_content').innerHTML = '작성하신 댓글이 존재하지 않습니다.';
-		   }else{
-				document.querySelectorAll('#myPost').forEach(e => {
-					e.style.display = 'none';
-				});
-				document.querySelctorAll('#myReply').forEach(e => {
-					e.style.display = 'grid';
-				})
-		   }
-		   
-		   
-	   }); */
    });
    
    

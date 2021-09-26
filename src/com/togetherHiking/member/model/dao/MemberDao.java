@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
@@ -242,6 +245,47 @@ public class MemberDao {
 		return boardList;
 	}
 
+	public Map<String,List> selectMyReply(Member member, Connection conn) {
+		List<Reply> replyList = new ArrayList<>();
+		List<Board> boardList = new ArrayList<Board>();
+		Map<String, List> myReply = new HashMap<String, List>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String sql = "select rp_idx, b.title, r.content, code_idx, r.reg_date "
+				+ "from reply r join board b using (bd_idx) "
+				+ "where r.user_id = ? and r.is_del = 0";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, member.getUserId());
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				Reply reply = new Reply();
+				Board board = new Board();
+				reply.setRpIdx(rset.getString("rp_idx"));
+				reply.setContent(rset.getString("content"));
+				reply.setCodeIdx(rset.getString("code_idx"));
+				reply.setRegDate(rset.getDate("reg_date"));
+				board.setTitle(rset.getString("title"));
+				replyList.add(reply);
+				boardList.add(board);
+
+			}
+			
+			myReply.put("reply", replyList);
+			myReply.put("boardTitle", boardList);
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset,pstm);
+		}
+		return myReply;
+	}
+
+
 	
 	
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
@@ -281,6 +325,7 @@ public class MemberDao {
 		}
 		return member;
 	}
+
 
 
 

@@ -81,7 +81,6 @@ input[type=submit]{
 	position: absolute;
 	top: 100px;
 	right: 150px;
-	display:grid;
 	padding: 15px;
 	box-sizing: border-box;
 	border-radius: 10px;

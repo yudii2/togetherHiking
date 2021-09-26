@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
@@ -151,6 +152,20 @@ public class MemberService {
 		}
 		
 		return member;
+	}
+
+
+	public Map<String,List> selectMyReply(Member member) {
+		Connection conn  = template.getConnection();
+		Map<String,List> replyList = new HashMap<String, List>();
+		
+		try {
+			replyList = memberDao.selectMyReply(member,conn);
+		} finally {
+			template.close(conn);	
+		}
+		
+		return replyList;
 	}
 
 
