@@ -73,22 +73,6 @@ public class ScheduleDao {
 		
 		return schedule;
 	}
-	
-
-	private Schedule convertRowToSchedule(ResultSet rset) throws SQLException {
-		Schedule schedule = new Schedule();
-		schedule.setScIdx(rset.getString("sc_idx"));
-		schedule.setUserId(rset.getString("user_id"));
-		schedule.setdDay(rset.getDate("d_day"));
-		schedule.setMountainName(rset.getString("mountain_name"));
-		schedule.setRegDate(rset.getDate("reg_date"));
-		schedule.setExpDate(rset.getDate("exp_date"));
-		schedule.setAllowedNum(rset.getInt("allowed_num"));		
-		schedule.setInfo(rset.getString("info"));
-		schedule.setOpenChat(rset.getString("openchat"));
-		schedule.setAge(rset.getInt("age"));
-		return schedule;
-	}
 
 	public void insertSchedule(Schedule schedule, Connection conn) {
 		String sql = "insert into schedule (sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age) "
@@ -114,7 +98,20 @@ public class ScheduleDao {
 		
 	}
 
-	
+	private Schedule convertRowToSchedule(ResultSet rset) throws SQLException {
+		Schedule schedule = new Schedule();
+		schedule.setScIdx(rset.getString("sc_idx"));
+		schedule.setUserId(rset.getString("user_id"));
+		schedule.setdDay(rset.getDate("d_day"));
+		schedule.setMountainName(rset.getString("mountain_name"));
+		schedule.setRegDate(rset.getDate("reg_date"));
+		schedule.setExpDate(rset.getDate("exp_date"));
+		schedule.setAllowedNum(rset.getInt("allowed_num"));		
+		schedule.setInfo(rset.getString("info"));
+		schedule.setOpenChat(rset.getString("openchat"));
+		schedule.setAge(rset.getInt("age"));
+		return schedule;
+	}
 	
 
 	
