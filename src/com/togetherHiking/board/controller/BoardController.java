@@ -56,7 +56,7 @@ public class BoardController extends HttpServlet {
 		case "upload":
 			upload(request,response);
 			break;
-		case "addReply":
+		case "add-reply":
 			addReply(request,response);
 			break;
 		case "delete-board":

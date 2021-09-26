@@ -11,8 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.togetherHiking.board.controller.BoardController;
-import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.code.member.MemberGrade;
 import com.togetherHiking.common.exception.HandleableException;
@@ -184,55 +183,74 @@ public class AuthorizationFilter implements Filter {
 //		board/upload : 세션이 유효한지 판단
 //		board/edit : 세션이 유효한지 판단
 //		board/delete : 세션이 유효한지 판단
-		
+		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
 
 		switch (uriArr[2]) {
 		case "board-form": 
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
+			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
 			break;
 		//로그인 유저 - upload가능
 		case "upload":
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
+			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
 			break;
+		case "add-reply":
+			if(member == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
 		//로그인 유저 == 작성자 비교 후 edit요청이 들어오는 경우
-		case "edit":
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
+//		case "edit":
+//			if(httpRequest.getSession().getAttribute("authentication") == null) {
+//				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+//			}
+//			authBoardEditor(httpRequest,httpResponse);
+//			break;
+		case "delete-board":
+			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-			boardEditorIsSame(httpRequest,httpResponse);
-			break;
-		case "delete":
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
+			if(authBoardWriter(httpRequest,httpResponse,member)) {
+				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+			}
+		case "delete-reply":
+			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-			boardEditorIsSame(httpRequest,httpResponse);
-		default:
-			break;
-		}		
-		
-		
+			if(authReplyWriter(httpRequest,httpResponse,member)) {
+				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+			}
+		default: throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
 	}
 
-	private void boardEditorIsSame(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+	private boolean authReplyWriter(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Member member) {
+		BoardService boardService = new BoardService();
+		
+		String idx = httpRequest.getParameter("rp_idx");
+		String userId = boardService.getWriterId("reply", idx);
+		
+		if(member.getUserId().equals(userId)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
-		//로그인 유저 == 작성자 비교
-		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
+	private boolean authBoardWriter(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Member member) {
+		BoardService boardService = new BoardService();
 		
-		BoardController boardController = new BoardController();
-		Board board = (Board) httpRequest.getAttribute("board");
+		String idx = httpRequest.getParameter("bd_idx");
+		String userId = boardService.getWriterId("board", idx);
 		
-		if(member.getUserId() != board.getUserId()) {
-			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);
+		if(member.getUserId().equals(userId)) {
+			return true;
+		}else {
+			return false;
 		}
 		
-//		//유저 동일 인물 확인시 board정보를 담아 수정페이지로 보내
-//		httpRequest.setAttribute("board", board);
-//		httpRequest.getRequestDispatcher("/board/board-detail").forward(httpRequest, httpResponse);;
-
 	}
 
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {

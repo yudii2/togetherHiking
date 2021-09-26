@@ -428,5 +428,28 @@ public class BoardDao {
 			template.close(pstm);
 		}
 	}
+
+	public String selectWriter(Connection conn, String table, String idx) {
+		String res = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String sql = "SELECT USER_ID FROM " + table + " WHERE " + (table.equals("board")? "bd_idx" : "rp_idx" ) + " = ? AND IS_DEL = 0";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, idx);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				res = rset.getString("user_id");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
 	
 }

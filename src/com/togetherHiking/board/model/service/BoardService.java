@@ -60,6 +60,7 @@ public class BoardService {
 			}
 			
 			template.commit(conn);
+			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
 			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
@@ -125,6 +126,7 @@ public class BoardService {
 			datas.put("nextIdx", nextIdx);
 			
 			template.commit(conn);
+			
 		}catch(DataAccessException e){
 			template.rollback(conn);
 			throw new HandleableException(ErrorCode.DATABSE_ACCESS_ERROR);
@@ -161,6 +163,7 @@ public class BoardService {
 			boardDao.insertReply(conn, reply);
 			
 			template.commit(conn);
+			
 		} catch(DataAccessException e) {
 			template.rollback(conn);
 			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
@@ -177,9 +180,10 @@ public class BoardService {
 			boardDao.deleteBoard(conn, bdIdx);
 			
 			template.commit(conn);
+			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -193,13 +197,26 @@ public class BoardService {
 			boardDao.deleteReply(conn, rpIdx);
 			
 			template.commit(conn);
+			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 		} finally {
 			template.close(conn);
 		}
 		
 	}
-
+	
+	public String getWriterId(String table, String idx) {
+		Connection conn = template.getConnection();
+		String res = null;
+		
+		try {
+			res = boardDao.selectWriter(conn, table, idx);
+			
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
 }

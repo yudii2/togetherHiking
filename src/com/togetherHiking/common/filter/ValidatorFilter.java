@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.validator.BoardForm;
+import com.togetherHiking.board.validator.ReplyForm;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.validator.JoinForm;
@@ -98,14 +99,21 @@ public class ValidatorFilter implements Filter {
 
 	private String boardValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		BoardForm boardForm = new BoardForm(httpRequest);
+		ReplyForm replyFrom = new ReplyForm(httpRequest);
 		String redirectURI = null;
 		
 		switch (uriArr[2]) {
-//		case "upload":
-//			if(!boardForm.test()) {
-//				redirectURI = "/board/board-form?err=1";
-//				return redirectURI;
-//			}
+		case "upload":
+			if(!boardForm.test()) {
+				redirectURI = "/board/board-form?err=1";
+				return redirectURI;
+			}
+		case "add-reply":
+			if(!replyFrom.test()) {
+				redirectURI = "/board/board-form?err=1";
+				return redirectURI;
+			}
+		
 //		case "edit":
 //			if(!boardForm.test()) {
 //				redirectURI = "/board/board-form?err=1";

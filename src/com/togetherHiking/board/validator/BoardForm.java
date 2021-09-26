@@ -25,17 +25,17 @@ public class BoardForm {
 	public boolean test() {
 		boolean isFailed = false;
 		// 제목이 빈칸이라면
-		if(title.equals("")) {
+		if(title.equals("") || title == null) {
 			faildValidation.put("title", title);
 			isFailed = true;
 		}
 		// 말머리가 "잡담" 또는 "후기" 가 아니라면
-		if(!(subject.equals("chat") || subject.equals("review"))) {
+		if(!(subject.equals("잡담") || subject.equals("후기"))) {
 			faildValidation.put("subject", subject);
 			isFailed = true;
 		}
 		// 내용이 비어있다면
-		if(content.equals("")) {
+		if(content.equals("") || content == null) {
 			faildValidation.put("content", content);
 			isFailed = true;
 		}
