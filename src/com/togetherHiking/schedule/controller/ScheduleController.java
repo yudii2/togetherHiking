@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,8 +43,8 @@ public class ScheduleController extends HttpServlet {
 		case "calendar":
 			calendar(request,response);
 			break;
-		case "detail":
-			detail(request,response);
+		case "schedule-detail":
+			scheduleDetail(request,response);
 			break;
 		case "schedule-form":
 			scheduleForm(request,response);
@@ -92,8 +93,12 @@ public class ScheduleController extends HttpServlet {
 		
 	}
 
-	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/schedule/detail").forward(request, response);
+	private void scheduleDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String scIdx = request.getParameter("sc_idx");
+		Map<String,Object> datas = scheduleService.getScheduleDetail(scIdx);
+		
+		request.setAttribute("datas", datas);
+		request.getRequestDispatcher("/schedule/scheduleDetail").forward(request, response);
 		
 	}
 

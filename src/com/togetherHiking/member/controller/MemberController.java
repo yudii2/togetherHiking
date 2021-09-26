@@ -92,11 +92,9 @@ public class MemberController extends HttpServlet {
 			searchPassword(request,response);
 			break;
 		default:/* throw new PageNotFoundException(); */
-		
+
 		}
 	}
-
-
 
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nickname = request.getParameter("nickname");
@@ -247,7 +245,7 @@ public class MemberController extends HttpServlet {
 		FileDTO profile = memberService.selectProfile(userId).get("profile");
 		
 		if(member == null) {
-			response.sendRedirect("/member/login-form?err=1");
+			response.sendRedirect("/member/login-page?err=1");
 			return;
 		}
 		request.getSession().setAttribute("authentication", member);

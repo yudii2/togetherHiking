@@ -18,12 +18,13 @@
 		<h3>아래 정보를 입력하시면 아이디를 메일로 발송해 드립니다.</h3>
 	
 		<div class="int-area">
-			<input type="text" required placeholder="이름을 입력하세요.">
+			<input type="text" id="username" name="username" required placeholder="이름을 입력하세요.">
+	
 		</div>
 	
 		<p>
 		<div class="int-area">
-			<input type="email" required placeholder="이메일을 입력하세요..">
+			<input type="email"  id="email" name="email" required placeholder="이메일을 입력하세요..">
 		</div>
 	
 		<button type="submit">확인</button>

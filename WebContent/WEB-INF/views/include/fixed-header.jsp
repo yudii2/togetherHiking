@@ -11,12 +11,18 @@
         <li><a href="/schedule/calendar" class="gnb_menu" data-gnb="3">모임캘린더</a></li>
         <li><a href="/board/board-page" class="gnb_menu" data-gnb="4">자유게시판</a></li>
       </ul>
+      
       <div class="user">
       <c:if test="${empty authentication}">
         <a href="/member/login-page" class="login">로그인</a>
         <a href="/member/join-page" class="join">회원가입</a>
-      </c:if>
-      <c:if test="${not empty authentication}">
+        </c:if>
+        <c:if test="${not empty authentication}">
+          <a href="/member/loginout" class="login">로그아웃</a>
+        <a href="/member/-page" class="mypage">마이페이지</a>
+        </c:if>
+        
+      <c:if test="${not empty authentication}">  
         <div onclick="location.href='/member/mypage'" class="header_profile"><img src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"></div>
       </c:if>
       </div>

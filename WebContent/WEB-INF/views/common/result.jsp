@@ -12,8 +12,6 @@
 		<c:if test="${not empty msg}">
 			alert("${msg}");
 		</c:if>
-	
-	
 		<%-- 뒤로 가기 --%>
 		<c:if test="${not empty back}">
 			history.back();
