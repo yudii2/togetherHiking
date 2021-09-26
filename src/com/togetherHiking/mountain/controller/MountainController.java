@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.mountain.model.dto.Mountain;
+import com.togetherHiking.mountain.model.service.MountainService;
 
 /**
  * Servlet implementation class MountainController
@@ -56,6 +57,9 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		String mName = request.getParameter("mName");
+		//MountainService.selectMountainByMountainName(mName);
+		
 		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
 		
 		

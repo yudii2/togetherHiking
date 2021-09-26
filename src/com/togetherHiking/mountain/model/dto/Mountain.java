@@ -7,8 +7,8 @@ public class Mountain {
 	private String mLoc;
 	private String mInfo;
 	private String mHight;
-	private String X_COOR;
-	private String Y_COOR;
+	private String xCoor;
+	private String yCoor;
 	
 	public Mountain() {
 		// TODO Auto-generated constructor stub
@@ -54,27 +54,28 @@ public class Mountain {
 		this.mHight = mHight;
 	}
 
-	public String getX_COOR() {
-		return X_COOR;
+	public String getxCoor() {
+		return xCoor;
 	}
 
-	public void setX_COOR(String x_COOR) {
-		X_COOR = x_COOR;
+	public void setxCoor(String xCoor) {
+		this.xCoor = xCoor;
 	}
 
-	public String getY_COOR() {
-		return Y_COOR;
+	public String getyCoor() {
+		return yCoor;
 	}
 
-	public void setY_COOR(String y_COOR) {
-		Y_COOR = y_COOR;
+	public void setyCoor(String yCoor) {
+		this.yCoor = yCoor;
 	}
 
 	@Override
 	public String toString() {
 		return "Mountain [mountainIdx=" + mountainIdx + ", mName=" + mName + ", mLoc=" + mLoc + ", mInfo=" + mInfo
-				+ ", mHight=" + mHight + ", X_COOR=" + X_COOR + ", Y_COOR=" + Y_COOR + "]";
+				+ ", mHight=" + mHight + ", xCoor=" + xCoor + ", yCoor=" + yCoor + "]";
 	}
+
 	
 	
 	
