@@ -1,4 +1,4 @@
-package com.togetherHiking.admin.member.controller;
+package com.togetherHiking.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdminMemberController
  */
-@WebServlet("/member/admin/*")
+@WebServlet("/admin/*")
 public class AdminMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -24,16 +24,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/admin/adminlte.min.css">
   
-  <!-- 불필요하다고 판단시 삭제! -->
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  
+
+
   
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/6fd6b71dc1.js" crossorigin="anonymous"></script>
