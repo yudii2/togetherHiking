@@ -16,25 +16,21 @@
       <c:if test="${empty authentication}">
         <a href="/member/login-page" class="login">로그인</a>
         <a href="/member/join-page" class="join">회원가입</a>
-        </c:if>
-        <c:if test="${not empty authentication}">
-          <a href="/member/loginout" class="login">로그아웃</a>
-        <a href="/member/-page" class="mypage">마이페이지</a>
-        </c:if>
+      </c:if>
         
       <c:if test="${not empty authentication}">  
         <div onclick="location.href='/member/mypage'" class="header_profile"><img src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"></div>
       </c:if>
       </div>
-      <div class="tab_mypage">
+
+    </div>
+    <div class="tab_mypage">
       	<em></em>
-		<h1 class="tab_user">USER1 님<span>LOGOUT</span></h1>
+		<h1 class="tab_user">USER1 님<a href="/member/logout">LOGOUT</a></h1>
 		<div><a href="/member/modify-page">내 정보</a></div>
 		<div><a href="/member/mypage">작성글 관리</a></div>
 		<div><a href="/member/my-schedule">신청내역 관리</a></div>
-      </div>
     </div>
-    
     <script type="text/javascript">
     
     document.querySelector('.header_profile').addEventListener('mouseover', () => {
