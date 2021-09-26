@@ -21,6 +21,10 @@ public class ScheduleDao {
 		return null;
 	}
 	
+	public interface Calendar {
+		public ArrayList<Calendar> calendar();
+	}
+	
 	public List<Schedule> selectSchedules(Connection conn, String scIdx) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
