@@ -52,14 +52,13 @@ public class MountainDao {
 		
 		String query = "insert into mountain (m_height, m_info," 
 					 + "m_loc, m_name, mountain_idx)" 
-					 + "values(?,?,?,?,?) ";
+					 + "values(?,?,?,?,sc_mountain_idx.nextval) ";
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, mountain.getmHight());
 			pstm.setString(2, mountain.getmInfo());
 			pstm.setString(3, mountain.getmLoc());
 			pstm.setString(4, mountain.getmName());
-			pstm.setString(5, mountain.getMountainIdx());
 			pstm.executeUpdate();
 			
 		} catch (SQLException e) {

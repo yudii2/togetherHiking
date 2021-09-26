@@ -24,7 +24,8 @@ public void api() throws XmlPullParserException, IOException {
         for(pageNum = 1; pageNum < 156; pageNum++) {
         
          String urlCode = "http://openapi.forest.go.kr/openapi/service/trailInfoService/getforeststoryservice?"
-               + "ServiceKey=" + key + "&pageNo=" + pageNum + "&mntnInfoAraCd=08";
+               + "ServiceKey=" + key + "&pageNo=" + pageNum + "&mntnInfoAraCd=08";	//서울 : 01 , 경기 :08
+         
          
            StringBuilder urlBuilder = new StringBuilder(urlCode); /*URL*/
            

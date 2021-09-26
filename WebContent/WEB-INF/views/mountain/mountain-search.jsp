@@ -71,7 +71,7 @@ document.querySelectorAll('a[type=button]').forEach(e => {
 		document.querySelectorAll('.loc').forEach(e =>{
 			e.style.display ='none';
 			//모두 none으로 두고, 라디오버튼에 선택 된 항목만 디스플레이값을 block으로 설정해서 나타나게함
-			$(event.target.dataset.divId).style.display='block';
+			$(event.target.dataset.divId).style.display='flex';
 		});
 	});
 });
