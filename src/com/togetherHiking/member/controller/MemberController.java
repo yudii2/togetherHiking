@@ -162,6 +162,8 @@ public class MemberController extends HttpServlet {
 		
 	}
 
+
+
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FileUtil util = new FileUtil();
 		Map<String,FileDTO> param = util.profileUpload(request);

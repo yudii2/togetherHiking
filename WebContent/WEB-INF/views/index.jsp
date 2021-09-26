@@ -4,19 +4,14 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-
+<link rel="stylesheet" href="/resources/css/index.css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-	
-	<c:if test= "${empty authentication}">
-	<h2><a href='/member/login-page'>login</a></h2>
-	<h2><a href='/member/join-page'>회원가입</a></h2>
-	</c:if>
-	
-	<c:if test= "${not empty authentication}">
-		<h2><a href='/member/loginout'>logout</a></h2>
-	<h2><a href='/member/mypage'>마이페이지</a></h2>
-	</c:if>
+<section class="main">
+	<div class="main_txt">
+		<span><h1>우리는 등산을 통해</h1><h1>바쁜 일상 속에서 여유로움을 찾고</h1><h1> 새로움을 알아가며 새로운 인연들과</h1><h1> 함께하는 법을 배웁니다.</h1></span>
+	</div>
+</section>
 </body>
 </html>

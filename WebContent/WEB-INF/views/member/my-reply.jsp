@@ -88,7 +88,6 @@
               <label for="select_all">전체선택</label>
             </div>
             <div class="btn">
-              <button id="btn_edit">수정하기</button>
               <button id="btn_del">삭제하기</button>
             </div>
           </div>

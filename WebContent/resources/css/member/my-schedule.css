@@ -86,7 +86,8 @@
 
 .my_posts{
   position: relative;
-  overflow: hidden;
+  border:1px solid #fff;
+  
 }
 #filter{
 	position: absolute;
@@ -101,12 +102,57 @@
   grid-gap: 20px;
 }
 .post{
-  border: 1px solid #000;
-  padding-bottom: 100%;
-  
+  min-height:150px;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  box-shadow: 0 0 10px #d3d3d3;
+  box-sizing: border-box;
+  position: relative;
 }
 
+.tit_schedule{
+	text-align: center;
+	grid-row : 1 / span 3;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	background: url('/resources/img/mountain.png') no-repeat 0 0;
+	background-size: 100% 100%;
+	background-color: #eee;
+}
+.tit_schedule h1{
+	color:#fff;
+	font-weight: 700;
+	text-shadow: 1px -1px 2px #000;  	
+}
+.date{
+	text-align: center;
+	grid-row : 4 / span 1;
+	line-height: 1.8em;
+}
+.hiking_info{
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 1.8em;
+}
+.hiking_info span:nth-child(1){
+	float: left;
+	width: 50%;
+}
+/* 등반완료시 적용할 css모습 */
+.post:nth-child(2){
+	background-color: #9d9d9d;
+	
+}
 
-
-
-
+.end{
+	position: absolute;
+	width:100%;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	transform : translate(-50%, -50%);
+	font-size : 30px;
+	font-weight: 800;
+	color: #fff;
+}

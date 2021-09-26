@@ -143,9 +143,7 @@ td:nth-child(4){
   margin-left: 10px;
   font-size: 13px;
 }
-#btn_edit{
-  background-color: #ccc;
-}
+
 #btn_del{
   background-color: crimson;
   color: #fff;

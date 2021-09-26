@@ -60,9 +60,26 @@
           	<option value="end">완료</option>
           </select>
           <div class="wrap_post">
+            <div class="post">
+            	<div class="tit_schedule"><h1>북한산 맛등산</h1></div>
+            	<div class="date">2021.09.04 토</div>
+            	<div class="hiking_info">
+            		<span>해발 : 630m</span>
+            		<span>난이도 : 상</span>
+            	</div>
+            </div>
+            <div class="post">
+            	<div class="tit_schedule"><h1>북한산 맛등산</h1></div>
+            	<div class="date">2021.09.04 토</div>
+            	<div class="hiking_info">
+            		<span>해발 : 630m</span>
+            		<span>난이도 : 상</span>
+            	</div>
+            	<div class="end">등반완료!</div>
+            	
+            </div>
             <div class="post"></div>
-            <div class="post"></div>
-            <div class="post"></div>
+            
           </div>
         </div>
       </div>

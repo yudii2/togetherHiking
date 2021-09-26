@@ -62,6 +62,8 @@
             <span class="date">작성일</span>
             <span class="views">조회</span>
           </div>
+          
+      	<form action="#" method="post" name="deletePost">        
           <table>
           <!-- board패키지 접근 필요 -->
           <c:if test="${empty myPosts}">
@@ -81,28 +83,20 @@
 	              <td>${myPost.viewCnt}</td>
 	            </tr>
 			</c:forEach>          
-          </c:if>
-          <c:if test="${not empty myReply}">
-            <c:forEach items="${myReply}" var="myReply">
-	            <tr class="contents" id="myReply">
-	              <td><input type="checkbox" id="checkbox"><span><c:out value = '${myReply.reply.rpIdx}'/></span></td>
-	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }">${myReply.boardTitle.title}</a></td>
-	              <td>${myReply.reply.regDate}</td>
-	              <td>${myReply.reply.codeIdx}</td>
-	            </tr>
-			</c:forEach>
-          </c:if>
+          </c:if>         
           </table>
           <div class="btns">
             <div class="select_all">
-              <input type="checkbox" id="select_all">
+              <input type="checkbox" id="selectAll">
               <label for="select_all">전체선택</label>
             </div>
             <div class="btn">
-              <button id="btn_edit">수정하기</button>
+              <!-- <button id="btn_edit">수정하기</button> -->
               <button id="btn_del">삭제하기</button>
             </div>
-          </div>
+          </div>            
+        </form>
+
         </div>
       </div>
     </div>
@@ -165,6 +159,39 @@
     	 document.profile.submit();
 
      }
+     
+   document.querySelector('#selectAll').addEventListener('click', (e) => {
+	   if(e.target.checked == true){
+		   document.querySelectorAll('#checkbox').forEach((chk) => {
+			   chk.checked = true;
+		   })
+	   }else{
+		   document.querySelectorAll('#checkbox').forEach((chk) => {
+			   chk.checked = false;
+		   })		   
+	   }
+   });
+  
+
+   
+   document.querySelector('#btn_del').addEventListener('click',(btn)=>{
+	   btn.preventDefault();
+	   
+	   let chkArr = [];
+	   document.querySelectorAll('#checkbox').forEach((chk) => {
+		   if(chk.checked == true){
+			   chkArr.push(chk)
+		   } 
+	   });
+	   if(chkArr.length > 1){
+		   alert("선택하신 게시글을 모두 삭제하시겠습니까?");
+	   }else if(chkArr.length == 0){
+		   alert("선택되지 않았습니다.");   
+	   }
+		document.deletePost.submit();
+	   
+
+   })
    </script>
 
 </body>
