@@ -6,7 +6,6 @@ public class Member {
 	
 	private String userId;
 	private String password;
-	private String userName;
 	private Date birth;
 	private String info;
 	private String nickname;
@@ -35,16 +34,6 @@ public class Member {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 
@@ -128,8 +117,14 @@ public class Member {
 	}
 
 
+
 	public int getPostCnt() {
 		return postCnt;
+	}
+
+
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
 	}
 
 
@@ -138,12 +133,17 @@ public class Member {
 	}
 
 
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", birth=" + birth
-				+ ", info=" + info + ", nickname=" + nickname + ", joinDate=" + joinDate + ", email=" + email
-				+ ", grade=" + grade + ", isHost=" + isHost + ", isLeave=" + isLeave + ", postCnt=" + postCnt
-				+ ", replyCnt=" + replyCnt + "]";
+		return "Member [userId=" + userId + ", password=" + password + ", birth=" + birth + ", info=" + info
+				+ ", nickname=" + nickname + ", joinDate=" + joinDate + ", email=" + email + ", grade=" + grade
+				+ ", isHost=" + isHost + ", isLeave=" + isLeave + ", postCnt=" + postCnt + ", replyCnt=" + replyCnt
+				+ "]";
 	}
 
 

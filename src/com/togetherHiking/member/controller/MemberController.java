@@ -1,6 +1,8 @@
 package com.togetherHiking.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -125,10 +127,29 @@ public class MemberController extends HttpServlet {
 	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId =  request.getParameter("userId");
 		String password = request.getParameter("user_PW1");
-		String passwordcheck = request.getParameter("user_PW1");
+		String passwordcheck = request.getParameter("user_PW2");
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("user_email");
-		/* 생년월일 어떻게 하지 */
+		String year = request.getParameter("birth");
+		String month = request.getParameter("month");
+		String date = request.getParameter("day");
+		String info = request.getParameter("information");
+		System.out.println(info);
+		long temp = Integer.parseInt(date+month+year);
+		
+		
+		Date dat = new Date(temp);
+		
+		Member member = new Member();
+		member.setUserId(userId);
+		member.setPassword(password);
+		member.setNickname(nickname);
+		member.setEmail(email);
+		member.setBirth(dat);
+		member.setInfo(info);
+		
+		
+		int flg = memberService.insertMember(member);
 		
 		
 	}
@@ -239,16 +260,7 @@ public class MemberController extends HttpServlet {
 
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
-
-		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		
-		//댓글수 가져오기
-		Map<String,List> reply = memberService.selectMyReply(member);
-
-		request.setAttribute("myReply", reply.get("reply"));
-		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);
+		String userId = member.getUserId();
 		
 		request.getRequestDispatcher("/member/my-schedule").forward(request, response);
 		
@@ -264,14 +276,8 @@ public class MemberController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
 		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		
-		//댓글수 가져오기
-		Map<String,List> reply = memberService.selectMyReply(member);
-		
-		request.setAttribute("myReply", reply.get("reply"));
+
 		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);
 		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
@@ -280,16 +286,15 @@ public class MemberController extends HttpServlet {
 	private void myReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 		
-		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		Map<String,List> reply = memberService.selectMyReply(member);
+		List<Board> myPosts = memberService.selectMyPostById(userId);	
+		Map<String,List> reply = memberService.selectMyReply(userId);
 
 		
 		//댓글수 가져오기
 		
 		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);	
 		request.setAttribute("myReply",reply);
 		
 		request.getRequestDispatcher("/member/my-reply").forward(request, response);

@@ -47,8 +47,8 @@
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
-            <h2 class="cnt">내 게시글 수 <span>${postCnt} 개</span></h2>
-            <h2 class="cnt">내 댓글 수 <span>${myReply.length} 개</span></h2>
+            <h2 class="cnt">내 게시글 수 <span>${authentication.postCnt} 개</span></h2>
+            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt} 개</span></h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>
@@ -94,10 +94,14 @@
               <!-- <button id="btn_edit">수정하기</button> -->
               <button id="btn_del">삭제하기</button>
             </div>
-          </div>            
+          </div>           
         </form>
-
         </div>
+        <div class="arrows">
+	      <i class="fas fa-chevron-left"></i>
+	      <span id="currPage">1</span>
+	      <i class="fas fa-chevron-right"></i>
+	    </div> 
       </div>
     </div>
   </section>

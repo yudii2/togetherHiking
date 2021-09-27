@@ -25,20 +25,26 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+          
           locale: 'ko',
 	      initialView: 'dayGridMonth', // 캘린더 view 타입
-	      
-          events: [
-               { /* 임시 데이터 */
+	      eventLimit: true,
+          events: /*function(info, successCallback, failureCallback){
+        	  loadEvent(info, successCallback, failureCallback);
+          }*/
+        	  
+        	  [
+               { //임시 데이터
                  title: '북한산',
                  start: '2021-09-16',
-                 /* url: "/schedule/calendar" */
+                 //url: "/schedule/calendar"
                  },
               
                  // other events here
                
                
-               ], headerToolbar: {
+               ] 
+               , headerToolbar: {
                   center: 'addEventButton' // headerToolbar에 버튼을 추가
               }, customButtons: {
                   addEventButton: { // 추가한 버튼 설정
@@ -59,7 +65,36 @@
        
         calendar.render();
       });
+    
+    /*
+    function getEvents(info, successCallback, failureCallback){
 
+    	$ajax({
+    		method: 'GET',
+            url: '/schedule/calendar',
+            success: function (result) {
+                result = JSON.parse(JSON.stringify(result.resData));
+                const events = [];
+                $(result).each(function (index) {
+                    events.push({
+                        id: result[index].user_id,
+                        title: result[index].mountain_name,
+                        start: result[index].d_day,
+                        backgroundColor: result[index].color,
+                        extendedProps: {
+                            allowed_num: result[index].allowed_num,
+                            info: result[index].info,
+                            openchat: result[index].openchat,
+                            age: result[index].age,
+                        },
+                    });
+                });
+                successCallback(events);
+            }
+        });
+    }
+    */
+    
     </script>
      <section>
     <div class="container" id="calendarBox">

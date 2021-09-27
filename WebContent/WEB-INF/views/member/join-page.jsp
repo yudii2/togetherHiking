@@ -203,13 +203,13 @@
 	</div>
 	<div>
       <h3>비밀번호확인</h3>
-      <input type="password" id="user_PM2" name="user_PW2"placeholder="비밀번호를 입력하세요."/>
+      <input type="password" id="user_PM2" name="user_PW2" required placeholder="비밀번호를 입력하세요."/>
 	</div>
 
 	<div>
 	
 		<h3>닉네임</h3>
-		<input type="text" name="nickname" id="nickname" />
+		<input type="text" name="nickname" id="nickname"  required />
 		<button class="btn" onclick="nicknameCheck()">닉네임확인</button>
 		</div>
 
@@ -217,7 +217,7 @@
 	<div>
       <h3>생년월일</h3>
 	  <div class="birth">
-	  	  <select name="year">
+	  	  <select name="birth" id="birth" required>
 	        <option value="">년도</option>
 	
 	        <option value="2021">2021</option>
@@ -322,7 +322,7 @@
 	        <option value="1922">1922</option>
 	        <option value="1921">1921</option>
 	      </select>
-	      <select name="month">
+	      <select name="month" id="morth">
 	        <option value="">-- 선택 --</option>
 	        <option value="1">1</option>
 	        <option value="2">2</option>
@@ -337,7 +337,7 @@
 	        <option value="11">11</option>
 	        <option value="12">12</option>
 	      </select>
-	      <select name="day">
+	      <select name="day" id="day">
 	        <option value="">-- 선택 --</option>
 	        <option value="1">1</option>
 	        <option value="2">2</option>
@@ -383,10 +383,10 @@
 	</div>
 	<div>
 	  <h3>자기소개</h3>
-      <textarea style="margin-left: 0px" cols="40" rows="5"spellcheck="true"></textarea>		
+      <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true"></textarea>		
 	</div>
 
-      <button id="join">가입하기</button>
+      <button id="join" type="submit">가입하기</button>
 
     </form>      
 </section>

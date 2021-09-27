@@ -255,8 +255,10 @@ public class AuthorizationFilter implements Filter {
 
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
-		
+		System.out.println(member);
+		System.out.println(member.getGrade());
 		MemberGrade grade = MemberGrade.valueOf(member.getGrade());
+		
 		if(!grade.ROLE.equals("admin")) {
 			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);
 		}

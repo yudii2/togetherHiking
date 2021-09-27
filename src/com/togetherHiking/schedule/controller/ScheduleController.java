@@ -98,7 +98,7 @@ public class ScheduleController extends HttpServlet {
 		Map<String,Object> datas = scheduleService.getScheduleDetail(scIdx);
 		
 		request.setAttribute("datas", datas);
-		request.getRequestDispatcher("/schedule/scheduleDetail").forward(request, response);
+		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 		
 	}
 

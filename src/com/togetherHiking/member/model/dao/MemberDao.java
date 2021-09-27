@@ -32,7 +32,7 @@ public class MemberDao {
 			pstm.setString(2, password);
 			rset = pstm.executeQuery();
 			
-			String[] fieldArr = {"user_id","password","email","grade","user_name","is_leave","info","birth","nickname","join_date","is_host"};
+			String[] fieldArr = {"user_id","password","email","grade","is_leave","info","birth","nickname","join_date","is_host"};
 			if(rset.next()) {
 				member =  convertRowToMember(rset,fieldArr);
 			}
@@ -92,8 +92,7 @@ public class MemberDao {
 		}finally {
 			template.close(pstm);
 		}
-		
-		
+	
 	}
 	//profile img 조회 메서드
 	public FileDTO selectProfile(String userId, Connection conn) {
@@ -245,7 +244,7 @@ public class MemberDao {
 		return boardList;
 	}
 
-	public Map<String,List> selectMyReply(Member member, Connection conn) {
+	public Map<String,List> selectMyReply(String userId, Connection conn) {
 		List<Reply> replyList = new ArrayList<>();
 		List<Board> boardList = new ArrayList<Board>();
 		Map<String, List> myReply = new HashMap<String, List>();
@@ -258,7 +257,7 @@ public class MemberDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, member.getUserId());
+			pstm.setString(1, userId);
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
@@ -284,8 +283,31 @@ public class MemberDao {
 		}
 		return myReply;
 	}
+	
+	public int insertMember(Member member, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
 
+		try {
+			String query = "insert into member(user_id,password,nickname,birth,email,info) values(?,?,?,?,?,?)";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, member.getUserId());
+			pstm.setString(2, member.getPassword());
+			pstm.setString(3, member.getNickname());
+			pstm.setDate(4, member.getBirth());
+			pstm.setString(5, member.getEmail());
+			pstm.setString(6, member.getInfo());
 
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+	}
+	
 	
 	
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
@@ -297,7 +319,6 @@ public class MemberDao {
 		member.setInfo(rset.getString("info"));
 		member.setBirth(rset.getDate("birth"));
 		member.setNickname(rset.getString("nickname"));
-		member.setUserName(rset.getString("user_name"));
 		member.setJoinDate(rset.getDate("join_date"));
 		member.setIsHost(rset.getString("is_host"));
 		member.setIsLeave(rset.getInt("is_leave"));
@@ -316,7 +337,6 @@ public class MemberDao {
 			case "info":member.setInfo(rset.getString("info"));break;
 			case "birth":member.setBirth(rset.getDate("birth"));break;
 			case "nickname":member.setNickname(rset.getString("nickname"));break;
-			case "user_name":member.setUserName(rset.getString("user_name"));break;
 			case "join_date":member.setJoinDate(rset.getDate("join_date"));break;
 			case "is_host":member.setIsHost(rset.getString("is_host"));
 			case "is_leave":member.setIsLeave(rset.getInt("is_leave"));break;

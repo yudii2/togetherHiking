@@ -45,8 +45,8 @@
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
-            <h2 class="cnt">내 게시글 수 <span>${postCnt} 개</span></h2>
-            <h2 class="cnt">내 댓글 수 <span>${myReply.length} 개</span></h2>
+            <h2 class="cnt">내 게시글 수 <span>${authentication.postCnt} 개</span></h2>
+            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt} 개</span></h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>

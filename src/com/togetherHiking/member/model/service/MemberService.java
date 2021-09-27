@@ -33,6 +33,30 @@ public class MemberService {
 		
 	}
 	
+	public int insertMember(Member member) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		try {
+			// 회원가입 처리
+			res = memberDao.insertMember(member, conn);
+			// 회원가입 이후 자동 로그인 처리
+			// 방금 가입한 회원의 정보를 다시 조회
+			Member m = memberDao.selectMemberById(member.getUserId(), conn);
+			// 다오를 통해 사용자 정보를 받아서 해당 정보로 로그인 처리 진행
+			System.out.println(member.getUserId() + "의 로그인처리 로직이 동작했습니다.");
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			// 예전처럼 예외처리
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
+
+	
+	
 	//프로필 저장경로 조회 목적 --> 프로필이미지 화면출력
 	public Map<String, FileDTO> selectProfile(String userId) {
 		Connection conn = template.getConnection();
@@ -121,6 +145,23 @@ public class MemberService {
 		}
 		return cnt;
 	}
+	
+	private int countMyReply(String userId) {
+		Connection conn  = template.getConnection();
+		Map<String,List> replyList = new HashMap<String, List>();
+		int cnt = 0;
+		
+		try {
+			replyList = memberDao.selectMyReply(userId, conn);
+			List<Reply> myReply = replyList.get("reply");
+			for (Reply reply : myReply) {
+				cnt++;
+			}
+		} finally {
+			template.close(conn);	
+		}
+		return cnt;
+	}
 
 
 	public int updateMember(Member member) {
@@ -143,26 +184,27 @@ public class MemberService {
 	//로그인시 멤버객체 반환
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
-		Map<String,List> replyList = new HashMap<String, List>();
 		Member member = null;
 		
 		try {
 			member = memberDao.memberAuthenticate(userId, password, conn);	
-			replyList = memberDao.selectMyReply(member,conn);
+			member.setReplyCnt(countMyReply(userId));
+			member.setPostCnt(countMyPost(userId));
 		}finally {
 			template.close(conn);
 		}
-		
 		return member;
 	}
 
 
-	public Map<String,List> selectMyReply(Member member) {
+
+
+	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
 		Map<String,List> replyList = new HashMap<String, List>();
 		
 		try {
-			replyList = memberDao.selectMyReply(member,conn);
+			replyList = memberDao.selectMyReply(userId,conn);
 		} finally {
 			template.close(conn);	
 		}
