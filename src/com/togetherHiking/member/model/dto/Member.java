@@ -128,13 +128,24 @@ public class Member {
 	}
 
 
+
 	public int getPostCnt() {
 		return postCnt;
 	}
 
 
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
+	}
+
+
 	public int getReplyCnt() {
 		return replyCnt;
+	}
+
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
 	}
 
 

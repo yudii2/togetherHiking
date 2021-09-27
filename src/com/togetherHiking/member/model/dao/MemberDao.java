@@ -245,7 +245,7 @@ public class MemberDao {
 		return boardList;
 	}
 
-	public Map<String,List> selectMyReply(Member member, Connection conn) {
+	public Map<String,List> selectMyReply(String userId, Connection conn) {
 		List<Reply> replyList = new ArrayList<>();
 		List<Board> boardList = new ArrayList<Board>();
 		Map<String, List> myReply = new HashMap<String, List>();
@@ -258,7 +258,7 @@ public class MemberDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, member.getUserId());
+			pstm.setString(1, userId);
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {

@@ -239,16 +239,7 @@ public class MemberController extends HttpServlet {
 
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
-
-		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		
-		//댓글수 가져오기
-		Map<String,List> reply = memberService.selectMyReply(member);
-
-		request.setAttribute("myReply", reply.get("reply"));
-		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);
+		String userId = member.getUserId();
 		
 		request.getRequestDispatcher("/member/my-schedule").forward(request, response);
 		
@@ -264,14 +255,8 @@ public class MemberController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
 		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		
-		//댓글수 가져오기
-		Map<String,List> reply = memberService.selectMyReply(member);
-		
-		request.setAttribute("myReply", reply.get("reply"));
+
 		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);
 		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
@@ -280,16 +265,15 @@ public class MemberController extends HttpServlet {
 	private void myReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 		
-		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
-		int myPostCnt = memberService.countMyPost(member.getUserId());
-		Map<String,List> reply = memberService.selectMyReply(member);
+		List<Board> myPosts = memberService.selectMyPostById(userId);	
+		Map<String,List> reply = memberService.selectMyReply(userId);
 
 		
 		//댓글수 가져오기
 		
 		request.setAttribute("myPosts", myPosts);
-		request.setAttribute("postCnt", myPostCnt);	
 		request.setAttribute("myReply",reply);
 		
 		request.getRequestDispatcher("/member/my-reply").forward(request, response);

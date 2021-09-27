@@ -121,6 +121,23 @@ public class MemberService {
 		}
 		return cnt;
 	}
+	
+	private int countMyReply(String userId) {
+		Connection conn  = template.getConnection();
+		Map<String,List> replyList = new HashMap<String, List>();
+		int cnt = 0;
+		
+		try {
+			replyList = memberDao.selectMyReply(userId, conn);
+			List<Reply> myReply = replyList.get("reply");
+			for (Reply reply : myReply) {
+				cnt++;
+			}
+		} finally {
+			template.close(conn);	
+		}
+		return cnt;
+	}
 
 
 	public int updateMember(Member member) {
@@ -143,26 +160,27 @@ public class MemberService {
 	//로그인시 멤버객체 반환
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
-		Map<String,List> replyList = new HashMap<String, List>();
 		Member member = null;
 		
 		try {
 			member = memberDao.memberAuthenticate(userId, password, conn);	
-			replyList = memberDao.selectMyReply(member,conn);
+			member.setReplyCnt(countMyReply(userId));
+			member.setPostCnt(countMyPost(userId));
 		}finally {
 			template.close(conn);
 		}
-		
 		return member;
 	}
 
 
-	public Map<String,List> selectMyReply(Member member) {
+
+
+	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
 		Map<String,List> replyList = new HashMap<String, List>();
 		
 		try {
-			replyList = memberDao.selectMyReply(member,conn);
+			replyList = memberDao.selectMyReply(userId,conn);
 		} finally {
 			template.close(conn);	
 		}
