@@ -42,14 +42,14 @@
           </c:if>
           </div>
           <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
-            <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
+            <input type="file" id="file" name="file" style="display: none;" onclick="changeValue(this)">
             <input type="hidden" name="target_url">	<!-- 보이지않지만 서버로 submit발생 -->
           </form>
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
-            <h2 class="cnt" id="postCnt">내 게시글 수 <span>${fn:length(myPosts)} 개</span></h2>
-            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt} 개</span></h2>
+            <h2 class="cnt" >내 게시글 수 <span id="postCnt">${fn:length(myPosts)}</span> 개</h2>
+            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt}</span> 개</h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>
@@ -111,26 +111,29 @@
    <script>
    
    let renderPrev = () => {
-	   let postCnt = Number(document.querySelector('#contents').textContent);
+	   let postCnt = Number(document.querySelector('#postCnt').textContent);
 	   let lastPage;
 	   //1. 현재페이지
 	   let currPage = Number(document.querySelector('#currPage').textContent);
 	   //2. 전체 페이지 수
 	   if(postCnt){
-		   lastPage = Math.ceil(postCnt) / 8);
+		   lastPage = Math.ceil(postCnt / 8);
 	   }
 	    
-	   //3. 페이지당 뿌릴 데이터 수
    }
    
    let renderNext = () => {
-	   let postCnt = Number(document.querySelector('#contents').textContent);
+	   let postCnt = Number(document.querySelector('#postCnt').textContent);
 	   let lastPage;
 	   //1. 현재페이지
 	   let currPage = Number(document.querySelector('#currPage').textContent);
+	   console.dir('curr : '+ currPage);
 	   //2. 전체 페이지 수
 	   if(postCnt){
-		   lastPage = Math.ceil(postCnt) / 8);
+		   lastPage = Math.ceil(postCnt / 8);
+		   console.dir('curr : '+ currPage);
+		   console.dir('last : ' + lastPage);
+
 	   }
 	    
 	   
@@ -166,45 +169,22 @@
 	   document.querySelector('#tab_reply').style.backgroundColor = 'var(--point-color)';
 	   document.querySelector('#tab_reply').style.border = 'none';
 	   document.querySelector('#tab_reply').style.color = '#fff';
-/* 	   
-	   fetch('/member/mypage/reply')
-	   .then(response => {
-		   if(response.ok){
 
-			   
-			   return response.text();	   
-
-		   }else{
-			   throw new Error(response.status);
-		   }
-	   }).then(text => {
-		   if(text == 'null'){
-			   document.querySelector('.tit_content').innerHTML = '작성하신 댓글이 존재하지 않습니다.';
-		   }else{
-				document.querySelectorAll('#myPost').forEach(e => {
-					e.style.display = 'none';
-				});
-				document.querySelctorAll('#myReply').forEach(e => {
-					e.style.display = 'grid';
-				})
-		   }
-		   
-		   
-	   }); */
    });
    
-   
-   
+
+	//현재실행안됨..;   
    document.querySelector('#target_img').addEventListener('click', function (e) {
-    	 document.profile.target_url.value = document.getElementById( 'target_img' ).src;
+    	 document.profile.target_url.value = document.getElementById('target_img').src;
          e.preventDefault();
        	 $('#file').click();	//changeValue메서드 호출
-     });
+   });
 
-     let changeValue = function(obj) {
-    	 document.profile.submit();
+   
+   let changeValue = function(obj) {
+  	 document.profile.submit();
 
-     }
+   }
      
    document.querySelector('#selectAll').addEventListener('click', (e) => {
 	   if(e.target.checked == true){
