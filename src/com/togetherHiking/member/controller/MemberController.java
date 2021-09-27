@@ -150,6 +150,18 @@ public class MemberController extends HttpServlet {
 		
 		
 		int flg = memberService.insertMember(member);
+		if(flg > 0) {
+			response.sendRedirect("/member/login-page");
+		}else { 
+			request.setAttribute("msg", "회원정보를 조회하는 도중 예외가 발생하였습니다.");
+			request.setAttribute("url", "/member/join-form");
+			request.getRequestDispatcher("/error/result").forward(request, response);
+			return;
+			
+			
+			
+		}
+		
 		
 		
 	}
