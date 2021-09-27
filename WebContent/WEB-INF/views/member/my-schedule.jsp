@@ -27,16 +27,13 @@
       </div>
       <div class="wrap_my_contents">
         <div class="profile">
-          <!-- 비동기통신으로 받아오기 필요 -->
           <div class="profile_img">
-          <!-- 사용자 아이디와 일치하는 typeIdx가 존재하면 file_info에서 꺼내 출력 -->
-          <!-- 존재하지 않으면 기본 프로필이미지 출력 -->
-          <c:if test="${not empty authentication}">
-          	<img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
-          </c:if>
-          <c:if test="${empty authentication}">
-            <img id="target_img" src="/resources/img/user.png">
-          </c:if>
+		  <c:if test="${not empty authentication and not empty profile}">
+	      	<img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
+	      </c:if>
+	      <c:if test="${not empty authentication and empty profile}">
+	        <img id="target_img" src="/resources/img/user.png">
+	      </c:if>
           </div>
           <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
             <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">

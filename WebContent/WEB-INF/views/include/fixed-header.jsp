@@ -16,9 +16,18 @@
         <a href="/member/login-page" class="login">로그인</a>
         <a href="/member/join-page" class="join">회원가입</a>
       </c:if>
-      <c:if test="${not empty authentication}">
-        <div onclick="location.href='/member/mypage'" class="header_profile"><img src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"></div>
-      </c:if>
+      <c:if test="${not empty authentication and not empty profile}">     
+      	<div onclick="location.href='/member/mypage'" class="header_profile">
+	      <img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
+	    </div>
+	  </c:if>
+	  <c:if test="${not empty authentication and empty profile}">
+      	<div onclick="location.href='/member/mypage'" class="header_profile">	  
+	        <img id="target_img" src="/resources/img/user.png">
+	    </div>    
+	  </c:if>
+
+
       </div>
 
     </div>

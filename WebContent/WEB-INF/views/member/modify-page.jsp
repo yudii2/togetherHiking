@@ -26,13 +26,9 @@
         </ul>
       </div>
       <form action="/member/modify" id="modify_form" method="post">
-        <div class="name">
-          <span class="tit_form">이름</span>
-          	<input type="text" name="name" value="${authentication.userName}" disabled>     
-        </div>
         <div class="user_id">
           <span class="tit_form">아이디</span>
-          	<input type="text" name="user_id" value="${authentication.userId}" disabled>	<!-- 현재 테스트중 -> authentication.userId로 변경 -->
+          	<input type="text" name="user_id" value="${authentication.userId}" disabled>	
         </div>
         <div class="nickname">
           <span class="tit_form">닉네임</span>
@@ -50,7 +46,7 @@
         </div>
         <div class="self-intro">
           <span class="tit_form">자기소개</span>
-          <textarea name="info" rows="5" minlength="15" maxlength="50" required><%-- ${authentication.info} --%></textarea>
+          <textarea name="info" rows="5" minlength="15" maxlength="50" required>${authentication.info}</textarea>
           <em id="alert_info" class="alert_auth">
           	<c:if test="${not empty param.err and not empty joinValid.info}">
           		15자 이상 50자 이하로 작성하세요.
