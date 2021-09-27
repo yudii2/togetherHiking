@@ -15,6 +15,8 @@ public class Member {
 	private String grade;
 	private String isHost;
 	private int isLeave;
+	private int postCnt;
+	private int replyCnt;
 	
 	public String getUserId() {
 		return userId;
@@ -126,13 +128,23 @@ public class Member {
 	}
 
 
+	public int getPostCnt() {
+		return postCnt;
+	}
+
+
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName + ", birth=" + birth
 				+ ", info=" + info + ", nickname=" + nickname + ", joinDate=" + joinDate + ", email=" + email
-				+ ", grade=" + grade + ", isHost=" + isHost + ", isLeave=" + isLeave + "]";
+				+ ", grade=" + grade + ", isHost=" + isHost + ", isLeave=" + isLeave + ", postCnt=" + postCnt
+				+ ", replyCnt=" + replyCnt + "]";
 	}
-
 
 
 

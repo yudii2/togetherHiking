@@ -143,10 +143,12 @@ public class MemberService {
 	//로그인시 멤버객체 반환
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
+		Map<String,List> replyList = new HashMap<String, List>();
 		Member member = null;
 		
 		try {
-			member = memberDao.memberAuthenticate(userId, password, conn);		
+			member = memberDao.memberAuthenticate(userId, password, conn);	
+			replyList = memberDao.selectMyReply(member,conn);
 		}finally {
 			template.close(conn);
 		}
