@@ -193,6 +193,7 @@ public class MemberService {
 		}finally {
 			template.close(conn);
 		}
+		System.out.println(member);
 		return member;
 	}
 

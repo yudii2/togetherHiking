@@ -33,10 +33,10 @@
           <div class="profile_img">
           <!-- 사용자 아이디와 일치하는 typeIdx가 존재하면 file_info에서 꺼내 출력 -->
           <!-- 존재하지 않으면 기본 프로필이미지 출력 -->
-          <c:if test="${not empty authentication}">
+          <c:if test="${not empty authentication and not empty profile}">
           	<img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
           </c:if>
-          <c:if test="${empty authentication}">
+          <c:if test="${not empty authentication and empty profile}">
             <img id="target_img" src="/resources/img/user.png">
           </c:if>
           </div>

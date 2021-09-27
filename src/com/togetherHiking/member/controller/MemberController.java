@@ -179,13 +179,17 @@ public class MemberController extends HttpServlet {
 		//유저 정보와 프로필
 		Member member = memberService.memberAuthenticate(userId,password);
 		FileDTO profile = memberService.selectProfile(userId).get("profile");
+
+		if(profile.getRenameFileName() != null) {
+			request.getSession().setAttribute("profile", profile);
+		}
 		
 		if(member == null) {
 			response.sendRedirect("/member/login-page?err=1");
 			return;
 		}
 		request.getSession().setAttribute("authentication", member);
-		request.getSession().setAttribute("profile", profile);
+
 		response.sendRedirect("/index");
 		
 	}
@@ -206,7 +210,6 @@ public class MemberController extends HttpServlet {
 
 		//file정보 가져오기
 		FileDTO fileDTO = param.get("com.togetherHiking.files");
-		System.out.println(fileDTO);
 		
 		//프로필정보 없으면 insert , 이미 존재하면 update
 		if(memberService.selectProfile(userId) == null) {
@@ -294,7 +297,7 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
 	
-	//비동기로 통신할 요청
+
 	private void myReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");

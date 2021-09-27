@@ -209,7 +209,11 @@
 	<div>
 	
 		<h3>닉네임</h3>
+<<<<<<< HEAD
+		<input type="text" name="nickname" id="nickname" />
+=======
 		<input type="text" name="nickname" id="nickname"  required />
+>>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
 		<button class="btn" onclick="nicknameCheck()">닉네임확인</button>
 		</div>
 
@@ -386,7 +390,11 @@
       <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true"></textarea>		
 	</div>
 
+<<<<<<< HEAD
+      <button id="join">가입하기</button>
+=======
       <button id="join" type="submit">가입하기</button>
+>>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
 
     </form>      
 </section>
