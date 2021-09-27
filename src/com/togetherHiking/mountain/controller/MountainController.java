@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.mountain.model.dto.Mountain;
 import com.togetherHiking.mountain.model.service.MountainService;
 
 /**
@@ -57,10 +58,18 @@ public class MountainController extends HttpServlet {
 		
 	}
 
-	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String mName = request.getParameter("mName");
-		MountainService.selectMountainByMountainName(mName);
-		// List<Mountain> Mountain = new ArrayList<Mountain>();
+	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
+		String query_ = request.getParameter("query");
+		
+		//쿼리값 전달 안됐으면 공백, 됐으면 그 쿼리 사용하겠다.
+		String query = "";
+		if(query_ != null)
+			query = query_;
+		
+		MountainService mountainService = new MountainService();
+		List<Mountain> mountainInfo = mountainService.getMountainInfo(query);
+		
+		request.setAttribute("MountainInfo", mountainInfo);
 		
 		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
 		
