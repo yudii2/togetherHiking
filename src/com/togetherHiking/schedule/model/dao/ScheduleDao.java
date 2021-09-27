@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import com.togetherHiking.board.model.dto.Board;
+
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.schedule.model.dto.Schedule;
@@ -115,6 +116,12 @@ public class ScheduleDao {
 		schedule.setOpenChat(rset.getString("openchat"));
 		schedule.setAge(rset.getInt("age"));
 		return schedule;
+	}
+
+
+	public HashMap<String, Object> selectSchedule(HashMap<String, Object> selectMap) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

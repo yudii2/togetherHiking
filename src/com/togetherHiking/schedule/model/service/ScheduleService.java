@@ -77,31 +77,27 @@ public class ScheduleService {
 	}
 	
 	
-/*	// 특정 게시글을 보여준다
-	public List<HashMap<String, Object>> selectSample(HashMap<String, Object> selectMap, String contextPath){
-		HashMap<String, Object> sampleMap = sampleDao.selectSample(selectMap);
-		sampleSettings(sampleMap, contextPath);
-		List<HashMap<String, Object>> sampleList = new ArrayList<>();
-		sampleList.add(sampleMap);
-		return sampleList;
+	// 특정 게시글을 보여준다
+	public List<HashMap<String, Object>> selectSchedule(HashMap<String, Object> selectMap, String contextPath){
+		HashMap<String, Object> scheduleMap = scheduleDao.selectSchedule(selectMap);
+		scheduleSettings(scheduleMap, contextPath);
+		List<HashMap<String, Object>> scheduleList = new ArrayList<>();
+		scheduleList.add(scheduleMap);
+		return scheduleList;
+	} 
+	
+	// 스케줄디테일 정보를 풀캘린더에서 바로 읽어들일 수 있도록 세팅한다
+	private void scheduleSettings (HashMap<String, Object> map, String contextPath) {
+		// 풀캘린더에서 데이터를 읽어들일수 있게 값 세팅
+		map.put("userId", map.get("USER_ID"));
+		map.put("info", map.get("INFO"));
+		map.put("dDay", map.get("D_DAY"));
+		map.put("mountainName", map.get("MOUNTAIN_NAME"));
+		map.put("allowedNum", map.get("ALLOWED_NUM"));
+		map.put("openChat", map.get("OPENCHAT"));
+		map.put("age", map.get("AGE"));
 	}
 	
-	// 게시글의 정보를 풀캘린더에서 바로 읽어들일 수 있도록 세팅한다
-	private void sampleSettings (HashMap<String, Object> map, String contextPath) {
-		// 풀캘린더에서 데이터를 읽어들일수 있게 값 세팅
-		map.put("id", map.get("SEQ"));
-		map.put("memberNo", map.get("MEMBER_NO"));
-		map.put("url", contextPath+ "/sample/sampleUpdateView?seq=" + map.get("SEQ"));
-		map.put("textColor", "white");
-		map.put("title", map.get("TITLE"));
-		map.put("content", map.get("CONTENT"));
-		map.put("start", map.get("START_DATE"));
-		map.put("end", map.get("END_DATE"));
-		map.put("name", map.get("NAME"));
-		map.put("type", map.get("TYPE"));
-		
-	}
-	*/
 	
 	
 	
