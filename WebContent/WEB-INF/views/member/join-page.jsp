@@ -192,7 +192,7 @@
     <br><br>
 	    <h3>아이디</h3>
 	    <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
-	     <button type="button" class="btn" onclick="idCheck()">중복확인</button>
+	     <button class="btn" onclick="idCheck()">중복확인</button>
 	     <span class="valid-msg" id="id_check"></span>
     </div>
 
@@ -210,7 +210,7 @@
 	
 		<h3>닉네임</h3>
 		<input type="text" name="nickname" id="nickname" />
-		<button type="button" class="btn" onclick="nicknameCheck()">닉네임확인</button>
+		<button class="btn" onclick="nicknameCheck()">닉네임확인</button>
 		</div>
 
 
@@ -386,7 +386,7 @@
       <textarea style="margin-left: 0px" cols="40" rows="5"spellcheck="true"></textarea>		
 	</div>
 
-      <button>가입하기</button>
+      <button id="join">가입하기</button>
 
     </form>      
 </section>

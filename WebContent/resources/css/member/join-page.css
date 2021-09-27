@@ -11,7 +11,7 @@
 	align-items: center; 
 	width: 100%;
 }
-.join_form{
+.join_page{
 	box-sizing: border-box;
 	display: flex;
 	flex-direction:column;
@@ -36,14 +36,16 @@ input{
 	box-sizing: border-box;
 }
 .btn{
-    width: 100px;
+    width: 85px;
+    padding: 8px;
 	border: none;
 	background-color: #ff8080;
 	border-radius: 5px;
 	color:#fff;
 	font-weight: 600;
 	cursor: pointer;
-	style="float:right"
+	display: inline-block;
+	margin: 0;
 }
 input[type=checkbox]{
 	width: 20px;
@@ -51,9 +53,8 @@ input[type=checkbox]{
 }
 #userId,#nickname{
 	width: 210px;
-	hig	
 }
-button {
+#join {
 	display:block;
     width: 300px;
     padding: 8px;
