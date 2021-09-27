@@ -1,6 +1,8 @@
 package com.togetherHiking.mountain.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.togetherHiking.mountain.model.dto.Mountain;
 import com.togetherHiking.mountain.model.service.MountainService;
 
 /**
@@ -58,7 +59,8 @@ public class MountainController extends HttpServlet {
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String mName = request.getParameter("mName");
-		//MountainService.selectMountainByMountainName(mName);
+		MountainService.selectMountainByMountainName(mName);
+		// List<Mountain> Mountain = new ArrayList<Mountain>();
 		
 		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
 		

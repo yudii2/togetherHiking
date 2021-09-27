@@ -44,7 +44,7 @@ public class MountainDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
-		String query = "select * from mountain where mName = ?";
+		String query = "select * from mountain where m_name = ?";
 		
 		try {			
 			pstm = conn.prepareStatement(query);

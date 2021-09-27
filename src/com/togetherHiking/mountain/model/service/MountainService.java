@@ -10,8 +10,8 @@ import com.togetherHiking.mountain.model.dto.Mountain;
 
 public class MountainService {
  
-	private MountainDao mountainDao = new MountainDao();
-	private JDBCTemplate template = JDBCTemplate.getInstance();
+	private static MountainDao mountainDao = new MountainDao();
+	private static JDBCTemplate template = JDBCTemplate.getInstance();
 	
 	public List<Mountain> selectMountainList() {
 		Connection conn = template.getConnection();
@@ -25,7 +25,7 @@ public class MountainService {
 		return mountainList;
 	}
 	
-	public Mountain selectMountainByMountainName (String mName) {
+	public static Mountain selectMountainByMountainName (String mName) {
 		Connection conn = template.getConnection();
 		Mountain mountain = null;
 		

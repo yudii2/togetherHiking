@@ -9,7 +9,7 @@
    
   <body>
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
-  <section class="container">      
+  <section class="container">      								<!-- location.href? -->
     <form id="search_mountain" name="search" method = "get"  action ="/mountain/detail" onsubmit="return keyword_check()">
 		지역 또는 산 이름 검색 <br>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
 		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
