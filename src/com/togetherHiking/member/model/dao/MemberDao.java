@@ -32,7 +32,7 @@ public class MemberDao {
 			pstm.setString(2, password);
 			rset = pstm.executeQuery();
 			
-			String[] fieldArr = {"user_id","password","email","grade","user_name","is_leave","info","birth","nickname","join_date","is_host"};
+			String[] fieldArr = {"user_id","password","email","grade","is_leave","info","birth","nickname","join_date","is_host"};
 			if(rset.next()) {
 				member =  convertRowToMember(rset,fieldArr);
 			}
@@ -319,7 +319,6 @@ public class MemberDao {
 		member.setInfo(rset.getString("info"));
 		member.setBirth(rset.getDate("birth"));
 		member.setNickname(rset.getString("nickname"));
-		member.setUserName(rset.getString("user_name"));
 		member.setJoinDate(rset.getDate("join_date"));
 		member.setIsHost(rset.getString("is_host"));
 		member.setIsLeave(rset.getInt("is_leave"));
@@ -338,7 +337,6 @@ public class MemberDao {
 			case "info":member.setInfo(rset.getString("info"));break;
 			case "birth":member.setBirth(rset.getDate("birth"));break;
 			case "nickname":member.setNickname(rset.getString("nickname"));break;
-			case "user_name":member.setUserName(rset.getString("user_name"));break;
 			case "join_date":member.setJoinDate(rset.getDate("join_date"));break;
 			case "is_host":member.setIsHost(rset.getString("is_host"));
 			case "is_leave":member.setIsLeave(rset.getInt("is_leave"));break;
