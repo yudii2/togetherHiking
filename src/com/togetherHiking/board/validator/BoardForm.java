@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import com.togetherHiking.common.file.FileUtil;
+import com.togetherHiking.common.file.MultiPartParams;
+
 //filter에서 호출될 게시판 유효성 검증용 클래스
 public class BoardForm {
 	
@@ -14,12 +17,16 @@ public class BoardForm {
 	private String subject;
 	private String content;
 	private Map<String,String> faildValidation = new HashMap<String,String>(); // validation에 실패한 개체 저장
-
+	FileUtil fileUtil = new FileUtil();
+	
 	public BoardForm(ServletRequest request) {
 		this.request = (HttpServletRequest) request;
-		this.title = request.getParameter("title");
-		this.subject = request.getParameter("subject");
-		this.content = request.getParameter("content");
+		
+		MultiPartParams multiPartParams = fileUtil.fileUpload(this.request);
+		this.title = multiPartParams.getParameter("title");
+		this.subject = multiPartParams.getParameter("subject");
+		this.content = multiPartParams.getParameter("content");
+		request.setAttribute("com.kh.file.multipart", multiPartParams);
 	}
 
 	public boolean test() {

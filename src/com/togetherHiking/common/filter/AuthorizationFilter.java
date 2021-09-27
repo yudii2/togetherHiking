@@ -201,6 +201,7 @@ public class AuthorizationFilter implements Filter {
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
+			break;
 		//로그인 유저 == 작성자 비교 후 edit요청이 들어오는 경우
 //		case "edit":
 //			if(httpRequest.getSession().getAttribute("authentication") == null) {
@@ -215,6 +216,7 @@ public class AuthorizationFilter implements Filter {
 			if(authBoardWriter(httpRequest,httpResponse,member)) {
 				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 			}
+			break;
 		case "delete-reply":
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
@@ -222,7 +224,9 @@ public class AuthorizationFilter implements Filter {
 			if(authReplyWriter(httpRequest,httpResponse,member)) {
 				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 			}
-		default: throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			break;
+		default: 
+			break;
 		}
 	}
 
