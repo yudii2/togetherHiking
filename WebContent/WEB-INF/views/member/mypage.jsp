@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,7 +48,7 @@
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
-            <h2 class="cnt">내 게시글 수 <span>${authentication.postCnt} 개</span></h2>
+            <h2 class="cnt" id="postCnt">내 게시글 수 <span>${fn:length(myPosts)} 개</span></h2>
             <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt} 개</span></h2>
             <span class="info">${authentication.info }</span>
           </div>
@@ -98,9 +99,9 @@
         </form>
         </div>
         <div class="arrows">
-	      <i class="fas fa-chevron-left"></i>
+	      <i class="fas fa-chevron-left" id="leftArrow"></i>
 	      <span id="currPage">1</span>
-	      <i class="fas fa-chevron-right"></i>
+	      <i class="fas fa-chevron-right" id="rightArrow"></i>
 	    </div> 
       </div>
     </div>
@@ -109,8 +110,49 @@
 
    <script>
    
+   let renderPrev = () => {
+	   let postCnt = Number(document.querySelector('#contents').textContent);
+	   let lastPage;
+	   //1. 현재페이지
+	   let currPage = Number(document.querySelector('#currPage').textContent);
+	   //2. 전체 페이지 수
+	   if(postCnt){
+		   lastPage = Math.ceil(postCnt) / 8);
+	   }
+	    
+	   //3. 페이지당 뿌릴 데이터 수
+   }
+   
+   let renderNext = () => {
+	   let postCnt = Number(document.querySelector('#contents').textContent);
+	   let lastPage;
+	   //1. 현재페이지
+	   let currPage = Number(document.querySelector('#currPage').textContent);
+	   //2. 전체 페이지 수
+	   if(postCnt){
+		   lastPage = Math.ceil(postCnt) / 8);
+	   }
+	    
+	   
+	   if(currPage == lastPage){
+		   alert('마지막 페이지 입니다.');
+		   return;
+	   }
+	   //3. 페이지당 뿌릴 데이터 수
+	   let renderPage = currPage + 1;
+	   let end = renderPage * 8;
+	   let begin = end - 8;
+	   
+	   //데이터 뿌려주기 boardList.slice(end,begin);
+	   
+	   document.querySelector('#currPage').textContent = renderPage;
+	   
+   }
+   
+	/* Pagination */
+	document.querySelector('#leftArrow').addEventListener('click',renderNext);
+	document.querySelector('#rightArrow').addEventListener('click',renderPrev);
 	
-   //비동기 통신으로 댓글리스트 뿌려주기
    
    document.querySelector('#tab_reply').addEventListener('click',(e)=>{
 	   //e.preventDefault();

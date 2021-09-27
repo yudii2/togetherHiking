@@ -54,7 +54,7 @@
           </em>        
         </div>
         <div class="password">
-          <span class="tit_form">비밀번호</span>
+          <span class="tit_form">비밀번호</span>											<!-- 패스워드가 null이면(카카오회원) disabled처리 -->
           <label for="password" class="tit_pw_label">현재 비밀번호</label>
           <em id="alert_pw" class="alert_auth">
           	<c:if test="${not empty param.err and not empty joinValid.password}">
@@ -65,6 +65,7 @@
           <c:if test="${not empty param.err and empty joinValid.password}">
           	value = ${joinForm.password}
           </c:if>
+          <c:if test="${empty authentication.password}">disabled</c:if>
           required/>
           
           <label for="new_pw" class="tit_pw_label tit_new_pw">새 비밀번호</label>
@@ -77,6 +78,7 @@
           <c:if test="${not empty param.err and empty joinValid.newPw}">
           	value = ${joinForm.newPw}
           </c:if>
+          <c:if test="${empty authentication.password}">disabled</c:if>
           required/>
           
           <label for="new_pw_confirm" class="tit_pw_label tit_new_pw">새 비밀번호 확인</label>
@@ -89,11 +91,12 @@
           <c:if test="${not empty param.err and empty joinValid.confirmPw}">
           	value = ""
           </c:if>          
+          <c:if test="${empty authentication.password}">disabled</c:if>
           required/>
         </div>
         <div class="email">
           <span class="tit_form">이메일</span>
-          <input type="text" name="email" id="email" vlaue="${authentication.email}" disabled>
+          <input type="text" name="email" id="email" value="${authentication.email}" disabled>
         </div>
         <button id="btn_modify">수정완료</button>
       </form>
