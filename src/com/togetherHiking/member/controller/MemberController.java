@@ -1,6 +1,8 @@
 package com.togetherHiking.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -125,10 +127,29 @@ public class MemberController extends HttpServlet {
 	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId =  request.getParameter("userId");
 		String password = request.getParameter("user_PW1");
-		String passwordcheck = request.getParameter("user_PW1");
+		String passwordcheck = request.getParameter("user_PW2");
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("user_email");
-		/* 생년월일 어떻게 하지 */
+		String year = request.getParameter("birth");
+		String month = request.getParameter("month");
+		String date = request.getParameter("day");
+		String info = request.getParameter("information");
+		System.out.println(info);
+		long temp = Integer.parseInt(date+month+year);
+		
+		
+		Date dat = new Date(temp);
+		
+		Member member = new Member();
+		member.setUserId(userId);
+		member.setPassword(password);
+		member.setNickname(nickname);
+		member.setEmail(email);
+		member.setBirth(dat);
+		member.setInfo(info);
+		
+		
+		int flg = memberService.insertMember(member);
 		
 		
 	}

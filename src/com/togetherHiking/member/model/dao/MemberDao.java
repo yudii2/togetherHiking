@@ -92,8 +92,7 @@ public class MemberDao {
 		}finally {
 			template.close(pstm);
 		}
-		
-		
+	
 	}
 	//profile img 조회 메서드
 	public FileDTO selectProfile(String userId, Connection conn) {
@@ -284,8 +283,31 @@ public class MemberDao {
 		}
 		return myReply;
 	}
+	
+	public int insertMember(Member member, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
 
+		try {
+			String query = "insert into member(user_id,password,nickname,birth,email,info) values(?,?,?,?,?,?)";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, member.getUserId());
+			pstm.setString(2, member.getPassword());
+			pstm.setString(3, member.getNickname());
+			pstm.setDate(4, member.getBirth());
+			pstm.setString(5, member.getEmail());
+			pstm.setString(6, member.getInfo());
 
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+	}
+	
 	
 	
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
