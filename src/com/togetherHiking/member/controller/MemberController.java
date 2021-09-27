@@ -168,6 +168,8 @@ public class MemberController extends HttpServlet {
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");
+		request.getSession().removeAttribute("profile");
+		
 		response.sendRedirect("/");
 		
 	}
