@@ -5,10 +5,10 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/board/board-form.css">
+<script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
   <section>
     <div class="container">
@@ -19,7 +19,7 @@
 					<h2 class='sub_title'>게시판 글쓰기</h2>
 					<div class='btn_area'>
 						<a class="btn" href="/board/board-page">목록</a>
-						<button class="btn" type="submit">등록</button>
+						<button id="btnSubmit" class="btn">등록</button>
 					</div>
 				</div>
 			
@@ -34,15 +34,20 @@
 				</div>
 				
 				<div class='frm_content_area'>
-					<textarea name="content" required="required" placeholder="내용을 입력하세요"></textarea>
+					<input type="hidden" name="content" id="content">
+					<textarea name="contentbox" required="required" placeholder="내용을 입력하세요"></textarea>
 					<script type="text/javascript">
-					 	CKEDITOR.replace("content",{
+					 	CKEDITOR.replace("contentbox",{
 					 		removePlugins: "resize",
 					 		width: "100%",
 					 		height: "250"
 					 	});
 					</script>
-					
+					<script type="text/javascript"> /* 에러발생중 */
+						document.querySelector("#btnSubmit").addEventListener("click",()=>{
+							document.querySelector("#content").innerHTML = CKEDITOR.instances.content.getData();
+						});
+					</script>
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>
