@@ -1,15 +1,14 @@
 package com.togetherHiking.schedule.model.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.schedule.model.dto.Schedule;
@@ -23,25 +22,25 @@ public class ScheduleDao {
 		return null;
 	}
 	
-	/*public interface Calendar {
+	public interface Calendar {
 		public ArrayList<Calendar> calendar();
-	}*/
+	}
 	
-	public List<Schedule> selectSchedules(Connection conn, String scIdx) {
+	public List<Schedule> selectSchedules(Connection conn) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age,reg_date,exp_date"
-				+ " from schedule where sc_idx=? and is_del = 0";
+				+ " from schedule where is_del = 0 and status = 1";
 		
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, scIdx);
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				/* Schedule schedule = convertRowToSchedule(rset); */
+				Schedule schedule = convertRowToSchedule(rset);
+				schedules.add(schedule);
 			}
 			
 		} catch (Exception e) {
@@ -51,6 +50,54 @@ public class ScheduleDao {
 		}
 		
 		return schedules;
+	}
+	
+	public List<Schedule> selectNonApproveSchedules(Connection conn) {
+		List<Schedule> schedules = new ArrayList<Schedule> ();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age,reg_date,exp_date"
+				+ " from schedule where is_del = 0 and status = 0";
+		
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				Schedule schedule = convertRowToSchedule(rset);
+				schedules.add(schedule);
+			}
+			
+		} catch (Exception e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return schedules;
+	}
+	public void approveSchedule(Connection conn, String scIdx) {
+		PreparedStatement pstm = null;
+		String sql = "UPDATE schedule SET status = 1 WHERE sc_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, scIdx);
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("승인성공");
+			}else {
+				System.out.println("승인 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
 	}
 
 
@@ -118,38 +165,6 @@ public class ScheduleDao {
 		schedule.setAge(rset.getInt("age"));
 		return schedule;
 	}
-
-
-	/*public HashMap<String, Object> selectSchedule(HashMap<String, Object> selectMap) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public void delete(Connection conn, String scIdx) {
-		CallableStatement cstm = null;
-		String sql = "{CALL (?)}";
-		
-		try {
-			cstm = conn.prepareCall(sql);
-			cstm.setString(1,scIdx);
-			int res = cstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("스케줄 삭제 성공");
-			}else {
-				System.out.println("스케줄 삭제 실패");
-			}
-			
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(cstm);
-		}
-		
-	
-		
-	}*/
 	
 
 	
