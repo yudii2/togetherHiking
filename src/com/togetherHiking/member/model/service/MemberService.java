@@ -130,6 +130,19 @@ public class MemberService {
 		return boardList;
 	}
 	
+	public List<Board> selectPostByPage(String userId, int page) {
+		Connection conn  = template.getConnection();
+		List<Board> boardList = new ArrayList<Board>();
+		
+		try {
+			boardList = memberDao.selectPostByPage(userId, page, conn);
+		} finally {
+			template.close(conn);	
+		}
+		
+		return boardList;
+	}
+	
 	public int countMyPost(String userId) {
 		Connection conn  = template.getConnection();
 		List<Board> boardList = new ArrayList<Board>();
@@ -193,7 +206,6 @@ public class MemberService {
 		}finally {
 			template.close(conn);
 		}
-		System.out.println(member);
 		return member;
 	}
 
@@ -210,6 +222,8 @@ public class MemberService {
 		
 		return replyList;
 	}
+
+
 
 
 	

@@ -320,6 +320,18 @@ public class MemberController extends HttpServlet {
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
 		
+		
+		//Pagination
+		String paramPage = request.getParameter("p");
+		int page = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		
+		if(paramPage != null && !paramPage.equals("")) {
+			page = Integer.parseInt(paramPage);
+		}
+		System.out.println(paramPage);
+
+		List<Board> postByPage = memberService.selectPostByPage(userId, page);
+		request.setAttribute("postByPage", postByPage);
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
 	

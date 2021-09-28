@@ -67,7 +67,7 @@
       	<form action="#" method="post" name="deletePost">        
           <table>
           <!-- board패키지 접근 필요 -->
-          <c:if test="${empty myPosts}">
+          <c:if test="${empty postByPage}">
 			<tr class="contents">
               <td></td>
               <td>작성하신 게시글이 존재하지 않습니다.</td>
@@ -75,8 +75,8 @@
               <td></td>
             </tr>          	
           </c:if>
-          <c:if test="${not empty myPosts}">
-            <c:forEach items="${myPosts}" var="myPost">
+          <c:if test="${not empty postByPage}">
+            <c:forEach items="${postByPage}" var="myPost">
 	            <tr class="contents" id="myPost">
 	              <td><input type="checkbox" id="checkbox"><span class="idx">${myPost.bdIdx}</span></td>
 	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }" id="tit_content">${myPost.title}</a></td>
@@ -98,83 +98,46 @@
           </div>           
         </form>
         </div>
-        <div class="arrows">
-	      <i class="fas fa-chevron-left" id="leftArrow"></i>
-	      <span id="currPage">1</span>
-	      <i class="fas fa-chevron-right" id="rightArrow"></i>
-	    </div> 
+        <c:set var="currPage" value="${(empty param.p)? 1 : param.p}" ></c:set>	<!-- 현재 페이지 -->
+        <c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 첫 페이지 번호(1 or 0) -->
+        <c:set var="lastNum" value="${Math.ceil(fn:length(myPosts)/8)}" ></c:set>	<!-- 총 페이지수 -->
+                
+	    <div class="arrows" style="display: flex; justify-content: center">
+	        <c:if test="${startNum > 1}">
+		      <a href="?p=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+		    </c:if>
+		    <c:if test="${startNum <= 1}">
+		      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
+        	</c:if>
+        	
+			<ul style="display:flex; margin: 0 5px">
+				<c:forEach var="i" begin="0" end="4">
+				<c:if test="${(startNum+i) <= lastNum }">	<!-- 같거나 작을 때만 출력 -->
+				<li><a href="?p=${startNum + i}" style="padding: 0 5px">${startNum + i}</a></li>	<!-- 페이지 넘버링 -->
+				</c:if>
+				</c:forEach> 		
+			</ul>
+
+			<c:if test="${startNum + 4 < lastNum}">
+				<a href="?p=${startNum + 5}"><i class="fas fa-chevron-right rightArrow" ></i></a>
+			</c:if>
+			<c:if test="${startNum + 4 >= lastNum}">
+				<span onclick="alert('더이상 게시글이 존재하지 않습니다.')"><i class="fas fa-chevron-right rightArrow" ></i></span>
+			</c:if>			
+		</div>     
+   
+
       </div>
     </div>
   </section>
 
 
    <script>
-   
-   let renderPrev = () => {
-	   let postCnt = Number(document.querySelector('#postCnt').textContent);
-	   let lastPage;
-	   //1. 현재페이지
-	   let currPage = Number(document.querySelector('#currPage').textContent);
-	   //2. 전체 페이지 수
-	   if(postCnt){
-		   lastPage = Math.ceil(postCnt / 8);
-	   }
-	    
-   }
-   
-   let renderNext = () => {
-	   let postCnt = Number(document.querySelector('#postCnt').textContent);
-	   let lastPage;
-	   //1. 현재페이지
-	   let currPage = Number(document.querySelector('#currPage').textContent);
-	   console.dir('curr : '+ currPage);
-	   //2. 전체 페이지 수
-	   if(postCnt){
-		   lastPage = Math.ceil(postCnt / 8);
-		   console.dir('curr : '+ currPage);
-		   console.dir('last : ' + lastPage);
 
-	   }
-	    
-	   
-	   if(currPage == lastPage){
-		   alert('마지막 페이지 입니다.');
-		   return;
-	   }
-	   //3. 페이지당 뿌릴 데이터 수
-	   let renderPage = currPage + 1;
-	   let end = renderPage * 8;
-	   let begin = end - 8;
-	   
-	   //데이터 뿌려주기 boardList.slice(end,begin);
-	   
-	   document.querySelector('#currPage').textContent = renderPage;
-	   
-   }
-   
-	/* Pagination */
-	document.querySelector('#leftArrow').addEventListener('click',renderNext);
-	document.querySelector('#rightArrow').addEventListener('click',renderPrev);
-	
-   
-   document.querySelector('#tab_reply').addEventListener('click',(e)=>{
-	   //e.preventDefault();
-  
-	   document.querySelector('.title').innerHTML = '댓글';
-	   document.querySelector('.views').innerHTML = '답글';
-	   document.querySelector('#tab_post').style.border = '1px solid #bbb'
-	   document.querySelector('#tab_post').style.backgroundColor = '#fff';
-	   document.querySelector('#tab_post>a').style.color = '#555555';
-
-	   document.querySelector('#tab_reply').style.backgroundColor = 'var(--point-color)';
-	   document.querySelector('#tab_reply').style.border = 'none';
-	   document.querySelector('#tab_reply').style.color = '#fff';
-
-   });
    
 
 	//현재실행안됨..;   
-   document.querySelector('#target_img').addEventListener('click', function (e) {
+   document.querySelector('.profile_img').addEventListener('click', function (e) {
     	 document.profile.target_url.value = document.getElementById('target_img').src;
          e.preventDefault();
        	 $('#file').click();	//changeValue메서드 호출
@@ -186,6 +149,14 @@
 
    }
      
+   
+   
+   
+   
+   
+   
+   
+   
    document.querySelector('#selectAll').addEventListener('click', (e) => {
 	   if(e.target.checked == true){
 		   document.querySelectorAll('#checkbox').forEach((chk) => {
