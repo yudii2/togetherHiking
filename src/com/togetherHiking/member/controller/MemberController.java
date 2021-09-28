@@ -279,6 +279,12 @@ public class MemberController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();
 		
+		List<Board> myPosts = memberService.selectMyPostById(userId);	
+		Map<String,List> reply = memberService.selectMyReply(userId);
+
+		request.setAttribute("myPosts", myPosts);
+		request.setAttribute("myReply",reply);		
+		
 		request.getRequestDispatcher("/member/my-schedule").forward(request, response);
 		
 	}
@@ -291,10 +297,13 @@ public class MemberController extends HttpServlet {
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
-		List<Board> myPosts = memberService.selectMyPostById(member.getUserId());	
+		List<Board> myPosts = memberService.selectMyPostById(userId);	
+		Map<String,List> reply = memberService.selectMyReply(userId);
 
 		request.setAttribute("myPosts", myPosts);
+		request.setAttribute("myReply",reply);
 		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
@@ -308,9 +317,6 @@ public class MemberController extends HttpServlet {
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
 		Map<String,List> reply = memberService.selectMyReply(userId);	//boardList객체와 reply객체가 같이 담김. but, jsp에서는 하나의 객체를 꺼내야만 사용할 수 있다.
 
-		
-		//댓글수 가져오기
-		
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
 
