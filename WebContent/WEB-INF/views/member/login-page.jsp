@@ -14,7 +14,7 @@
 <section class="container login-form">
 	<div class="wrap_login_form">
 		<img src="/resources/img/대지 1.png">
-	    <h1 style="color:#008840;">로그인 해주세요.</h1>
+	    <h1 style="color:#008840;">산행동행 로그인 해주세요.</h1>
 	    <c:if test="${not empty param.err}">
 	    	<span class='valid-msg'>아이디나 비밀번호를 잘 못 입력하였습니다.</span>
 	    	   </c:if>
@@ -26,12 +26,13 @@
 	        <div class="int-area">
 	           <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요.">
 			</div>
-	    
+	    	<br>
 	        <div class="caption">
-		        <a href="/member/login">회원가입</a>
-		        <a href="/member/search-id">아이디찾기</a>     
+		        <a href="/member/join-page">회원가입　</a>
+		        <a href="/member/search-id">아이디찾기　</a>     
 		        <a href="/member/search-password">비밀번호 찾기</a>
 	   		</div>
+	   		<br>
 	       
 	        <button type="submit">로그인</button>
 	       
