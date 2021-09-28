@@ -191,8 +191,10 @@
     <div>
     <br><br>
        <h3>아이디</h3>
+       <div>
        <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
         <button class="btn" onclick="idcheck()">중복확인</button>
+         </div>
         <span class="valid-msg" id="id-check"></span>
     </div>
 
@@ -395,15 +397,15 @@
     
     let idcheck = function(){
     	
-    	let userid = document.querySelector('#userid').value;
+    	let userid = document.querySelector('#userId').value;
     	
     	fetch("/member/id-check?userid=" + userid)
     	.then(response => response.text())
     	.then(text => {
     	 	if(text == 'available'){
-    	 		document.querySelector('#idcheck').innerHTML = '사용이 가능한 아이디 입니다.';
+    	 		document.querySelector('#id-check').innerHTML = '사용이 가능한 아이디 입니다.';
     	 	}else{
-    	 		document.querySelector('#idcheck').innerHTML = '사용이 불가능한 아이디 입니다.';
+    	 		document.querySelector('#id-check').innerHTML = '사용이 불가능한 아이디 입니다.';
     	 	}
     	 	})
     }
