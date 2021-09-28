@@ -198,8 +198,6 @@ public class MemberService {
 	}
 
 
-
-
 	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
 		Map<String,List> replyList = new HashMap<String, List>();

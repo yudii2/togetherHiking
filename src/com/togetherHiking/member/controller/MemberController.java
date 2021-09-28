@@ -94,12 +94,26 @@ public class MemberController extends HttpServlet {
 		case "search-password":
 			searchPassword(request,response);
 			break;
+		case "id-check": //회원가입시 아이디 중복확인
+			 checkId(request,response);
+			break;
 		default:/* throw new PageNotFoundException(); */
 
 		}
 	}
 
 
+	private void checkId(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+			String userid = request.getParameter("userid");
+			Member member = memberService.selectMemberById(userid);
+			//회원가입시 아이디 중복값 확인
+			if(member == null) {
+				response.getWriter().print("available");
+			}else {
+				response.getWriter().print("disable");
+			}	
+		}
+		
 	private void searchPassword(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		request.getRequestDispatcher("/member/search-password").forward(request, response);
 		
@@ -112,6 +126,14 @@ public class MemberController extends HttpServlet {
 
 	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/member/check-id").forward(request, response);
+		String userid = request.getParameter("userid");
+		Member member = memberService.selectMemberById(userid);
+		//회원가입시 아이디 중복값 확인
+		if(member == null) {
+			response.getWriter().print("available");
+		}else {
+			response.getWriter().print("disable");
+		}
 		
 	}
 
@@ -147,24 +169,17 @@ public class MemberController extends HttpServlet {
 		member.setEmail(email);
 		member.setBirth(dat);
 		member.setInfo(info);
+		  
 		
-		
-		int flg = memberService.insertMember(member);
-		if(flg > 0) {
-			response.sendRedirect("/member/login-page");
-		}else { 
-			request.setAttribute("msg", "회원정보를 조회하는 도중 예외가 발생하였습니다.");
-			request.setAttribute("url", "/member/join-form");
-			request.getRequestDispatcher("/error/result").forward(request, response);
-			return;
-			
+		memberService.insertMember(member);
+		response.sendRedirect("/member/login-page");
 			
 			
 		}
 		
 		
 		
-	}
+
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");

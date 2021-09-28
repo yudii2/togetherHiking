@@ -183,7 +183,7 @@
       - 이용자는 "산행동행"에서 수집하는 개인정보 제공에 대한 동의를 거부할 권리가 있습니다. 다만, 산행동행 이용에 필요한 필수 항목의 제공에 대한 동의를 거부하시면 위의 서비스가 제한될 수 있습니다.
         </div>
         <p>
-           <input type="checkbox" id="chk1">
+           <input type="checkbox" id="chk2">
            <label for="chk1">개인정보 수집·이용 동의 이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
@@ -192,8 +192,8 @@
     <br><br>
        <h3>아이디</h3>
        <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
-        <button class="btn" onclick="idCheck()">중복확인</button>
-        <span class="valid-msg" id="id_check"></span>
+        <button class="btn" onclick="idcheck()">중복확인</button>
+        <span class="valid-msg" id="id-check"></span>
     </div>
 
    <div>
@@ -322,7 +322,7 @@
            <option value="1922">1922</option>
            <option value="1921">1921</option>
          </select>
-         <select name="month" id="morth">
+         <select name="month" id="morth" required>
            <option value="">-- 선택 --</option>
            <option value="1">1</option>
            <option value="2">2</option>
@@ -337,7 +337,7 @@
            <option value="11">11</option>
            <option value="12">12</option>
          </select>
-         <select name="day" id="day">
+         <select name="day" id="day" required>
            <option value="">-- 선택 --</option>
            <option value="1">1</option>
            <option value="2">2</option>
@@ -379,16 +379,39 @@
       <c:if test="조건들어갈 곳">
          <span>아이디를 사용할 수 없습니다.</span>
       </c:if>
-      <input type="email" id="user_email" name="user_email" placeholder="이메일을 입력하세요."/>      
+      <input type="email" id="user_email" name="user_email" placeholder="이메일을 입력하세요." required />      
    </div>
    <div>
      <h3>자기소개</h3>
-      <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true"></textarea>      
+      <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true" required></textarea>      
    </div>
 
       <button id="join" type="submit">가입하기</button>
 
     </form>      
+    
+    
+    <script type= "text/javascript">
+    
+    let idcheck = function(){
+    	
+    	let userid = document.querySelector('#userid').value;
+    	
+    	fetch("/member/id-check?userid=" + userid)
+    	.then(response => response.text())
+    	.then(text => {
+    	 	if(text == 'available'){
+    	 		document.querySelector('#idcheck').innerHTML = '사용이 가능한 아이디 입니다.';
+    	 	}else{
+    	 		document.querySelector('#idcheck').innerHTML = '사용이 불가능한 아이디 입니다.';
+    	 	}
+    	 	})
+    }
+
+    
+    </script>
+    
+    
 </section>
 
 
