@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.schedule.model.dto.Schedule;
@@ -25,6 +26,7 @@ public class ScheduleController extends HttpServlet {
 	
 	private ScheduleService scheduleService = new ScheduleService();
        
+	private HttpSession session;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -145,6 +147,17 @@ public class ScheduleController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+	public String scrinDetailView(HttpServletRequest request) {
+		// 비로그인자가 접근할경우 방지
+		if (session.getAttribute("member") == null) return "/member/login-page";
+		
+		
+		// 해당 글작성자 이외의 다른 멤버가 수정권한에 접근할 경우를 방지
+		
+		return "schedule/calendar";
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
