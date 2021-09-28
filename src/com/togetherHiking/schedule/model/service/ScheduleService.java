@@ -100,7 +100,23 @@ public class ScheduleService {
 
 
 	public void delete(String scIdx) {
+
 		// TODO Auto-generated method stub
+
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.delete(conn, scIdx);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+		} finally {
+			template.close(conn);
+		}
+
 		
 	}
 	

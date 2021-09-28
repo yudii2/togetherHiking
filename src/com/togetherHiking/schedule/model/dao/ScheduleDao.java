@@ -1,5 +1,6 @@
 package com.togetherHiking.schedule.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -122,6 +123,32 @@ public class ScheduleDao {
 	public HashMap<String, Object> selectSchedule(HashMap<String, Object> selectMap) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public void delete(Connection conn, String scIdx) {
+		CallableStatement cstm = null;
+		String sql = "{CALL (?)}";
+		
+		try {
+			cstm = conn.prepareCall(sql);
+			cstm.setString(1,scIdx);
+			int res = cstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("스케줄 삭제 성공");
+			}else {
+				System.out.println("스케줄 삭제 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(cstm);
+		}
+		
+	
+		
 	}
 	
 
