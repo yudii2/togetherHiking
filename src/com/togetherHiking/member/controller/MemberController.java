@@ -306,14 +306,14 @@ public class MemberController extends HttpServlet {
 		String userId = member.getUserId();
 		
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
-		Map<String,List> reply = memberService.selectMyReply(userId);
+		Map<String,List> reply = memberService.selectMyReply(userId);	//boardList객체와 reply객체가 같이 담김. but, jsp에서는 하나의 객체를 꺼내야만 사용할 수 있다.
 
 		
 		//댓글수 가져오기
 		
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
-		
+
 		request.getRequestDispatcher("/member/my-reply").forward(request, response);
 	}
 

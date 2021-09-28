@@ -33,7 +33,7 @@
     </div>
     <div class="tab_mypage">
       	<em></em>
-		<h1 class="tab_user">USER1 님<a href="/member/logout">LOGOUT</a></h1>
+		<h1 class="tab_user">${authentication.nickname}<a href="/member/logout">LOGOUT</a></h1>
 		<div><a href="/member/modify-page">내 정보</a></div>
 		<div><a href="/member/mypage">작성글 관리</a></div>
 		<div><a href="/member/my-schedule">신청내역 관리</a></div>

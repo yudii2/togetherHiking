@@ -60,7 +60,7 @@
           </div>
           <table>
           <!-- board패키지 접근 필요 -->
-          <c:if test="${empty myReply}">
+          <c:if test="${empty myReply.reply}">
 			<tr class="contents">
               <td></td>
               <td>작성하신 댓글이 존재하지 않습니다.</td>
@@ -68,7 +68,7 @@
               <td></td>
             </tr>          	
           </c:if>
-          <c:if test="${not empty myReply}">
+          <c:if test="${not empty myReply.reply}">
             <c:forEach items="${myReply.reply}" var="myReply">
 	            <tr class="contents" id="myReply">
 	              <td><input type="checkbox" id="checkbox"><span><c:out value = '${myReply.rpIdx}'/></span></td>
