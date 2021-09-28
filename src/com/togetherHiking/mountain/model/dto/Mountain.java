@@ -6,7 +6,7 @@ public class Mountain {
 	private String mName;
 	private String mLoc;
 	private String mInfo;
-	private String mHight;
+	private String mHeight;
 	private String xCoor;
 	private String yCoor;
 	
@@ -46,12 +46,12 @@ public class Mountain {
 		this.mInfo = mInfo;
 	}
 
-	public String getmHight() {
-		return mHight;
+	public String getmHeight() {
+		return mHeight;
 	}
 
-	public void setmHight(String mHight) {
-		this.mHight = mHight;
+	public void setmHeight(String mHeight) {
+		this.mHeight = mHeight;
 	}
 
 	public String getxCoor() {
@@ -73,7 +73,7 @@ public class Mountain {
 	@Override
 	public String toString() {
 		return "Mountain [mountainIdx=" + mountainIdx + ", mName=" + mName + ", mLoc=" + mLoc + ", mInfo=" + mInfo
-				+ ", mHight=" + mHight + ", xCoor=" + xCoor + ", yCoor=" + yCoor + "]";
+				+ ", mHeight=" + mHeight + ", xCoor=" + xCoor + ", yCoor=" + yCoor + "]";
 	}
 
 	

@@ -54,12 +54,12 @@ public class MountainService {
 
 	}
 
-	public List<Mountain> getMountainInfo(String query) {
+	public Mountain getMountainInfo(String mName) {
 		Connection conn = template.getConnection();
-		List<Mountain> mountainInfo = null;
+		Mountain mountainInfo = null;
 		
 		try {
-			mountainInfo = mountainDao.getMountainInfo(query, conn);
+			mountainInfo = mountainDao.getMountainInfo(mName, conn);
 		} finally {
 			template.close(conn);
 		}

@@ -19,7 +19,7 @@ import com.togetherHiking.mountain.model.service.MountainService;
 @WebServlet("/mountain/*")
 public class MountainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	MountainService mountainService = new MountainService();   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -59,17 +59,16 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
-		String query_ = request.getParameter("query");
+		String inputmName = request.getParameter("mName");
 		
 		//쿼리값 전달 안됐으면 공백, 됐으면 그 쿼리 사용하겠다.
-		String query = "";
-		if(query_ != null)
-			query = query_;
+		String mName = "";
+		if(inputmName != null)
+			mName = inputmName;
+				
+		Mountain mountainInfo = mountainService.getMountainInfo(mName);
 		
-		MountainService mountainService = new MountainService();
-		List<Mountain> mountainInfo = mountainService.getMountainInfo(query);
-		
-		request.setAttribute("MountainInfo", mountainInfo);
+		request.setAttribute("mountainInfo", mountainInfo);
 		
 		request.getRequestDispatcher("/mountain/mountain-detail").forward(request, response);
 		
