@@ -112,9 +112,50 @@ public class MountainDao {
 		}
 		
 		return mountainInfo;
-		
+	}	
 	
-}	
+	public List<Mountain> getSeoulMountainList(Mountain mountain,Connection conn) {	
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		List<Mountain> seoulMountain = new ArrayList<Mountain>();	
+		
+		String sql = "select M_NAME from mountain where M_LOC like '서울%'";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mountain.getmName());
+			rset = pstm.executeQuery();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return seoulMountain;
+	}
+	
+	public List<Mountain> getGyeonggiMountainList(Mountain mountain,Connection conn) {
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		List<Mountain>  gyeonggiMountain = new ArrayList<Mountain>();	
+		
+		String sql = "select M_NAME from mountain where M_LOC like '경기%'";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mountain.getmName());
+			rset = pstm.executeQuery();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return gyeonggiMountain;
+	}
+	
 
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
@@ -126,5 +167,5 @@ public class MountainDao {
 		mountain.setyCoor(rset.getString("y_coor"));
 		return mountain;
 	}
-	
+
 }	

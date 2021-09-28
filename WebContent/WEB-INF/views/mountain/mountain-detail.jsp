@@ -11,7 +11,7 @@
   <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
   <section class="container">      							
     <form id="search_mountain" name="search" method = "get"  action="?mName=${param.mName}" onsubmit="return keyword_check()">
-		지역 또는 산 이름 검색 <br>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
+		지역 또는 산 이름 검색 <br>           
 		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
 		<input type="text" class="search_bar" name= mName value="${param.mName}" >  
 		
@@ -24,7 +24,6 @@
 		
     <div id="mountain_detail">
 	    <div id="mountain_loc-map"></div>
-	    <!-- 등산로 관련 정보 끌어오기api  -->
 		<div id="mountain_info">
 			<div class="tit_mountain">
 				<span class="mountain_name">${mountainInfo.mName}</span>

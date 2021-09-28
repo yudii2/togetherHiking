@@ -67,5 +67,36 @@ public class MountainService {
 		return mountainInfo;
 	}
 	
+	public List<Mountain> getSeoulMountainList() {
+		Connection conn = template.getConnection();
+		Mountain mountain = new Mountain();
+		List<Mountain> seoulMountain = null;
+		
+		try {
+			seoulMountain = mountainDao.getSeoulMountainList(mountain,conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return seoulMountain;
+	}
+	
+	public List<Mountain> getGyeonggiMountainName() {
+		Connection conn = template.getConnection();
+		Mountain mountain = new Mountain();
+		List<Mountain>gyeonggiMountain = null;
+		
+		try {
+			gyeonggiMountain = mountainDao.getGyeonggiMountainList(mountain,conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return gyeonggiMountain;
+	}
+	
+	
+	
+	
 	
 }
