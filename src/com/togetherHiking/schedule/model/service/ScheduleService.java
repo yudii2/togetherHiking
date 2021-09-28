@@ -97,6 +97,12 @@ public class ScheduleService {
 		map.put("openChat", map.get("OPENCHAT"));
 		map.put("age", map.get("AGE"));
 	}
+
+
+	public void delete(String scIdx) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

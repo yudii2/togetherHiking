@@ -79,7 +79,11 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String scIdx = request.getParameter("sc_idx");
+		scheduleService.delete(scIdx);
+		
+		response.sendRedirect("/schedule/calendar");
+	
 		
 	}
 
