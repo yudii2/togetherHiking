@@ -10,7 +10,6 @@
 	<!-- data -->
 	<script src="/resources/js/schedule/data.js"></script>
   <!-- jQuery CDN -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script defer src="js/main/gnb.js"></script>
   <!-- head.jsp -->
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
@@ -18,7 +17,7 @@
 </head>
 			<script>
 			$(function () {	//화면 로딩후 시작
-				$("#searchMountainName").autocomplete({  //오토 컴플릿트 시작
+				$("#mountainName").autocomplete({  //오토 컴플릿트 시작
 					source: List,	// source는 data.js파일 내부의 List 배열
 					focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
 						return false;

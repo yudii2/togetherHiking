@@ -201,7 +201,6 @@ public class AuthorizationFilter implements Filter {
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-			break;
 		//로그인 유저 == 작성자 비교 후 edit요청이 들어오는 경우
 //		case "edit":
 //			if(httpRequest.getSession().getAttribute("authentication") == null) {
@@ -216,7 +215,6 @@ public class AuthorizationFilter implements Filter {
 			if(authBoardWriter(httpRequest,httpResponse,member)) {
 				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 			}
-			break;
 		case "delete-reply":
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
@@ -224,9 +222,7 @@ public class AuthorizationFilter implements Filter {
 			if(authReplyWriter(httpRequest,httpResponse,member)) {
 				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
 			}
-			break;
-		default: 
-			break;
+		default: throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 		}
 	}
 
@@ -259,10 +255,8 @@ public class AuthorizationFilter implements Filter {
 
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
-		System.out.println(member);
-		System.out.println(member.getGrade());
-		MemberGrade grade = MemberGrade.valueOf(member.getGrade());
 		
+		MemberGrade grade = MemberGrade.valueOf(member.getGrade());
 		if(!grade.ROLE.equals("admin")) {
 			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);
 		}
@@ -283,17 +277,42 @@ public class AuthorizationFilter implements Filter {
 			break;
 		//비로그인or 세션 유효하지 않은 유저가 마이페이지 요청시
 		case "mypage":
-			if(httpRequest.getSession().getAttribute("authentication") == null) {
-				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
-			}
-			break;
+			mypageAuthorize(httpRequest,httpResponse,uriArr);
+
 		default:
 			break;
 		}
 		
 	}
 
+	private void mypageAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		
+		switch (uriArr[3]) {
+		case "my-schedule":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		case "reply":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		case "modify-page":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		default:
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		}
+		
 
+		
+	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
