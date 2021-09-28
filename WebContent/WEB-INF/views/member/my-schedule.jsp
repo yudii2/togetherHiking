@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -42,8 +43,8 @@
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
-            <h2 class="cnt">내 게시글 수 <span>${authentication.postCnt} 개</span></h2>
-            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt} 개</span></h2>
+            <h2 class="cnt" >내 게시글 수 <span id="postCnt">${fn:length(myPosts)}</span> 개</h2>
+            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply.reply)}</span> 개</h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>

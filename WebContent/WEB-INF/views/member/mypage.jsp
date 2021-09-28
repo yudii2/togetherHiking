@@ -42,14 +42,14 @@
           </c:if>
           </div>
           <form action="/member/profile-upload" name="profile" method="POST" enctype="multipart/form-data" >
-            <input type="file" id="file" name="file" style="display: none;" onclick="changeValue(this)">
+            <input type="file" id="file" name="file" style="display: none;" onchange="changeValue(this)">
             <input type="hidden" name="target_url">	<!-- 보이지않지만 서버로 submit발생 -->
           </form>
 
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
             <h2 class="cnt" >내 게시글 수 <span id="postCnt">${fn:length(myPosts)}</span> 개</h2>
-            <h2 class="cnt">내 댓글 수 <span>${authentication.replyCnt}</span> 개</h2>
+            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply.reply)}</span> 개</h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>
