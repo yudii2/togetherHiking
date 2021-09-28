@@ -46,7 +46,7 @@ public void api() throws XmlPullParserException, IOException {
             String mountainIdx= null;   //인덱스번호
             String mLoc= null;      //위치
             String mInfo= null;   //정보
-            String mHight= null;      //높이
+            String mHeight= null;      //높이
             
             while (event_type != XmlPullParser.END_DOCUMENT) {
                 if (event_type == XmlPullParser.START_TAG) {
@@ -61,7 +61,7 @@ public void api() throws XmlPullParserException, IOException {
                     }else if(tag.equals("mntninfodtlinfocont")){
                     	mInfo = xpp.getText();
                     }else if(tag.equals("mntninfohght")){
-                    	mHight = xpp.getText();
+                    	mHeight = xpp.getText();
                     }
                 } else if (event_type == XmlPullParser.END_TAG) {
                     tag = xpp.getName();
@@ -74,7 +74,7 @@ public void api() throws XmlPullParserException, IOException {
                         mountain.setMountainIdx(mountainIdx);
                         mountain.setmInfo(mInfo);
                         mountain.setmLoc(mLoc);
-                        mountain.setmHight(mHight);
+                        mountain.setmHeight(mHeight);
 
                         String beforetext = mountain.toString();
                         String mountaintext = beforetext.replaceAll("&lt;br /&gt;", "");   

@@ -195,7 +195,7 @@ public class MemberController extends HttpServlet {
 		
 		//유저 정보와 프로필
 		Member member = memberService.memberAuthenticate(userId,password);
-		FileDTO profile = memberService.selectProfile(userId).get("profile");
+		FileDTO profile = memberService.selectProfile(userId);
 
 		if(profile.getRenameFileName() != null) {
 			request.getSession().setAttribute("profile", profile);
@@ -229,7 +229,7 @@ public class MemberController extends HttpServlet {
 		FileDTO fileDTO = param.get("com.togetherHiking.files");
 		
 		//프로필정보 없으면 insert , 이미 존재하면 update
-		if(memberService.selectProfile(userId) == null) {
+		if(memberService.selectProfile(userId).getRenameFileName() == null) {
 			memberService.insertProfile(userId, fileDTO);
 		}else {
 			int updateProfile = memberService.updateProfile(userId, fileDTO);
@@ -237,21 +237,15 @@ public class MemberController extends HttpServlet {
 			if(updateProfile == 0) {
 				request.setAttribute("msg", "프로필 등록에 실패하였습니다.");
 			}
-		
-			FileDTO profile = memberService.selectProfile(userId).get("profile");
-			request.getSession().setAttribute("profile", profile);	//세션에 프로필 재등록
 			request.setAttribute("msg", "프로필 등록에 성공하였습니다.");
-
-			
-			request.setAttribute("url", "/member/mypage");
-			request.getRequestDispatcher("/common/result").forward(request, response);
-
 		}
 		
-
-
+		FileDTO profile = memberService.selectProfile(userId);
+		request.getSession().setAttribute("profile", profile);	//세션에 프로필 재등록
+		
+		request.setAttribute("url", "/member/mypage");
+		request.getRequestDispatcher("/common/result").forward(request, response);
 			
-		//mypage.jsp로 넘어가지 않는 문제
 	}
 	
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -320,6 +314,17 @@ public class MemberController extends HttpServlet {
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
 		
+		
+		//Pagination
+		String paramPage = request.getParameter("p");
+		int page = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		
+		if(paramPage != null && !paramPage.equals("")) {
+			page = Integer.parseInt(paramPage);
+		}
+
+		List<Board> postByPage = memberService.selectPostByPage(userId, page);
+		request.setAttribute("postByPage", postByPage);
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 	}
 	

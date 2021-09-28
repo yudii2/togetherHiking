@@ -1,17 +1,13 @@
 @charset "UTF-8";
 
-.con_mountain{
-	
-} 
-
 #search_mountain{
 	background-color : var(--point-color);
 	text-align:center;
 	color : white;  
 	font-size: 30px;
 	padding: 30px;
-
 } 
+
 #search_mountain h1{
 	font-size: 25px;
 	font-weight: 500;
@@ -27,10 +23,6 @@
 	border: none;
 	outline:none;
 }
-
-.search_bar{
-
-} 
 
 .loc_bnt{
   background:green;

@@ -5,21 +5,20 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/mountain/mountain-search.css">
-<link rel="styleseet" href = "/resources/js/mountain/mountain-search.js">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
        
   <section>   
-	<div class="container con_mountain">							<!-- location.href? -->
-	    <form id="search_mountain" name="search" method = "get"  action ="/mountain/detail" onsubmit="return keyword_check()">
-			<h1>지역 또는 산 이름 검색</h1>            <%-- action 지금은 페이지만 정해놓음. 나중에 api로 받은 파람값?(산이름)으로보내기. 확인 후 수정하기--%>
+	<div class="container con_mountain">						
+	    <form id="search_mountain" name="search" method = "get"  action="/mountain/detail?mName=${param.mName}" onsubmit="return keyword_check()">
+			<h1>지역 또는 산 이름 검색</h1>          
 			<i class="fas fa-search" style="font-size: 30px; color: white;"></i>
-			<input type="text" class="search_bar" name="query" value="${param.query}" />  
+			<input type="text" class="search_bar" name="mName" value="${param.mName}" />  
 	
 	    	<div id="loc_bnt_wrap">
 	  			 <a type="button" class="loc_bnt" data-div-id='#Gyeonggi'>경기도</a>  
-	  			 <a type="button" class="loc_bnt" data-div-id='#seoul'>서울</a>  
+	  			 <a type="button" class="loc_bnt" data-div-id='#Seoul'>서울</a>  
 			</div>  
 		</form>	 
 	     
@@ -29,7 +28,7 @@
 		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	
 		    <i class="fas fa-angle-double-left"></i>		
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">가학산</a>  
+			  <a class="mountain" href="/mountain/detail">${seoulMountain.mName}</a>  
 			  <a class="mountain" href="/mountain/detail">각흘산</a>
 			  <a class="mountain" href="/mountain/detail">갈기산</a>
 			  <a class="mountain" href="/mountain/detail">갈기산</a>
@@ -42,7 +41,7 @@
 		</div>
 	    
 	     <%--  서울 산 --%>
-	    <div class = loc id= "seoul">
+	    <div class = loc id= "Seoul">
 		    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>	
 		    <i class="fas fa-angle-double-left"></i>							
 		    <div class="mountain_group">

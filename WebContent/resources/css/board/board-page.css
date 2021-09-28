@@ -108,8 +108,8 @@ td{
 	 display: inline-block;
 	 margin: 0 5px;
 }
-.orange{
-	color: orange;
+.color{
+	color: rgb(39,174,96);
 }
 .bold{
 	font-weight: bold;

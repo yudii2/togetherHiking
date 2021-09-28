@@ -72,19 +72,19 @@
 							<div class="writer_board_info">
 								<div>조회수: ${board.viewCnt}</div>
 								
-								<div class="">
-									<a>첨부파일</a>
-									
-									<div class="file_div">
+								<ul class="dep1">
+									<li>
 										<c:if test="${not empty files}">
+										<a>첨부파일</a>
+										<ul class="dep2">
 										<c:forEach items="${files }" var="file" varStatus="status">
-											<a href="${file.downloadURL }">${file.originFileName }</a>
-											<c:if test="${!status.last }">/</c:if>
+											<li><a href="${file.downloadURL }">${file.originFileName }</a></li>
+											<%-- <c:if test="${!status.last }">/</c:if> --%>
 										</c:forEach>
+										</ul>
 										</c:if>
-									</div>
-									
-								</div>
+									</li>
+								</ul>
 								
 							</div>
 						</div>

@@ -92,14 +92,19 @@
 	margin-bottom: 5px;
 }
 .writer_board_info{
-	width: 500px;
 	height: 50px;
 }
 .writer_board_info>div{
 	margin-bottom: 5px;
 }
-.file_div{
-	/* display: none; */
+.dep1>li>a{
+	display: block;
+}
+.dep1>li>ul{
+	display: none;
+}
+.dep1>li:hover > .dep2{
+	display: block;
 }
 .section_container{
 	width: 100%;

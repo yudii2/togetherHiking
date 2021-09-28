@@ -74,7 +74,7 @@ public class MountainDao {
 					 + "values(?,?,?,?,sc_mountain_idx.nextval) ";
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, mountain.getmHight());
+			pstm.setString(1, mountain.getmHeight());
 			pstm.setString(2, mountain.getmInfo());
 			pstm.setString(3, mountain.getmLoc());
 			pstm.setString(4, mountain.getmName());
@@ -90,21 +90,20 @@ public class MountainDao {
 	}
 
 
-	public List<Mountain> getMountainInfo(String query, Connection conn) {
+	public Mountain getMountainInfo(String mName, Connection conn) {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		List<Mountain> mountainInfo = new ArrayList<>();
+		Mountain mountainInfo = new Mountain();
 		
-		String sql = "select * from mountain where m_name = ?";
+		String sql = "select * from mountain where M_NAME = ? ";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, "%" + query + "%");
+			pstm.setString(1,mName);
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				Mountain mountain = convertRowToMountain(rset);
-				mountainInfo.add(mountain);
+				mountainInfo = convertRowToMountain(rset);
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -113,16 +112,60 @@ public class MountainDao {
 		}
 		
 		return mountainInfo;
+	}	
 	
-}
+	public List<Mountain> getSeoulMountainList(Mountain mountain,Connection conn) {	
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		List<Mountain> seoulMountain = new ArrayList<Mountain>();	
+		
+		String sql = "select M_NAME from mountain where M_LOC like '서울%'";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mountain.getmName());
+			rset = pstm.executeQuery();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return seoulMountain;
+	}
+	
+	public List<Mountain> getGyeonggiMountainList(Mountain mountain,Connection conn) {
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		List<Mountain>  gyeonggiMountain = new ArrayList<Mountain>();	
+		
+		String sql = "select M_NAME from mountain where M_LOC like '경기%'";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mountain.getmName());
+			rset = pstm.executeQuery();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return gyeonggiMountain;
+	}
+	
 
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
-		mountain.setmHight(rset.getString("m_hight"));
+		mountain.setmHeight(rset.getString("m_height"));
 		mountain.setmInfo(rset.getString("m_info"));
 		mountain.setmLoc(rset.getString("m_loc"));
 		mountain.setmName(rset.getString("m_name"));
+		mountain.setxCoor(rset.getString("x_coor"));
+		mountain.setyCoor(rset.getString("y_coor"));
 		return mountain;
 	}
-	
+
 }	

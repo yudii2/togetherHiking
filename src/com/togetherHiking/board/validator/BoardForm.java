@@ -17,12 +17,12 @@ public class BoardForm {
 	private String subject;
 	private String content;
 	private Map<String,String> faildValidation = new HashMap<String,String>(); // validation에 실패한 개체 저장
-	FileUtil fileUtil = new FileUtil();
+	
 	
 	public BoardForm(ServletRequest request) {
 		this.request = (HttpServletRequest) request;
-		
-		MultiPartParams multiPartParams = fileUtil.fileUpload(this.request);
+		FileUtil fileUtil = new FileUtil();
+		MultiPartParams multiPartParams = fileUtil.fileUpload((HttpServletRequest) request);
 		this.title = multiPartParams.getParameter("title");
 		this.subject = multiPartParams.getParameter("subject");
 		this.content = multiPartParams.getParameter("content");
@@ -35,19 +35,19 @@ public class BoardForm {
 		if(title == null || title.isEmpty()) {
 			faildValidation.put("title", title);
 			isFailed = true;
-			System.out.println("title null");
+			System.out.println("title");
 		}
 		// 말머리가 "잡담" 또는 "후기" 가 아니라면
 		if(subject == null || !(subject.equals("잡담") || subject.equals("후기"))) {
 			faildValidation.put("subject", subject);
 			isFailed = true;
-			System.out.println("subject null");
+			System.out.println("subject");
 		}
 		// 내용이 비어있다면
 		if(content == null || content.isEmpty()) {
 			faildValidation.put("content", content);
 			isFailed = true;
-			System.out.println("content null");
+			System.out.println("content");
 		}
 		
 		if(isFailed) {
