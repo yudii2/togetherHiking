@@ -5,47 +5,49 @@
 <head>
 <%@ include file = "/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href = "/resources/css/mountain/mountain-detail.css">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0BynjFSEnK1evu8mQktPf2KwJjkHcvH0&callback=initMap&region=kr"></script>
 </head>
-   
-  <body>
-  <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
-  <section class="container">      							
-    <form id="search_mountain" name="search" method = "get"  action="?mName=${param.mName}" onsubmit="return keyword_check()">
-		지역 또는 산 이름 검색 <br>           
-		<i class="fas fa-search" style="font-size: 1em; color: white;"></i>
-		<input type="text" class="search_bar" name= mName value="${param.mName}" >  
-		
-    	<div id="loc_bnt_wrap">
-    		<a class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
-		</div>  
-    </form>
+<body>
+<%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
+
+  <section>
+    <div class="container con_mountain">							
+	    <form id="search_mountain" name="search" method = "get"  action="?mName=${param.mName}" onsubmit="return keyword_check()">
+			<h1>지역 또는 산 이름 검색</h1>           
+			<i class="fas fa-search" style="font-size: 30px; color: white;"></i>
+			<input type="text" class="search_bar" name= mName value="${param.mName}" />  
+			
+	    	<div id="loc_bnt_wrap">
+	    		<a type="button" class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
+			</div>  
+	    </form>
     
-    <div id="weather">날씨api</div>			<%-- 등산호 api로 가져 온 산의 주소에 해당하는 날씨 반환 --%>
-		
-    <div id="mountain_detail">
-	    <div id="mountain_loc-map"></div>
-		<div id="mountain_info">
-			<div class="tit_mountain">
-				<span class="mountain_name">${mountainInfo.mName}</span>
-				<!-- 요청을 보내 모달창에 데이터 호출 필요...세션에 mountain객체를 저장? -->
-				<!-- <form action="mountain/detail/course" id="mountain_trail">
-					<select name="mountain_trail" class="mountain_trail">
-						<option value="" selected disabled>등산로를 선택하세요</option>
-						<option value="1">등산로1</option>
-						<option value="2">등산로2</option>
-					</select> -->
-				</form>
-			</div>
-			<p>
-				${mountainInfo.mInfo}
-			</p>
-			<div class="desc_mountain">
-				<h2>높이 : <span>${mountainInfo.mHeight}</span></h2>
-				<h2>위치 : <span>${mountainInfo.mLoc}</span></h2>
-			</div>
-		</div>          
-    </div>
- 
+	    <div id="weather">날씨api</div>			<%-- 등산호 api로 가져 온 산의 주소에 해당하는 날씨 반환 --%>
+			
+	    <div id="mountain_detail">
+		    <div id="mountain_loc-map"></div>
+			<div id="mountain_info">
+				<div class="tit_mountain">
+					<span class="mountain_name">${mountainInfo.mName}</span>
+					<!-- 요청을 보내 모달창에 데이터 호출 필요...세션에 mountain객체를 저장? -->
+					<!-- <form action="mountain/detail/course" id="mountain_trail">
+						<select name="mountain_trail" class="mountain_trail">
+							<option value="" selected disabled>등산로를 선택하세요</option>
+							<option value="1">등산로1</option>
+							<option value="2">등산로2</option>
+						</select> -->
+					</form>
+				</div>
+				<p>
+					${mountainInfo.mInfo}
+				</p>
+				<div class="desc_mountain">
+					<h2>높이 : <span>${mountainInfo.mHeight}</span></h2>
+					<h2>위치 : <span>${mountainInfo.mLoc}</span></h2>
+				</div>
+			</div>          
+	    </div>
+ 	</div>      
   </section>
   
   <%-- 
@@ -98,7 +100,6 @@
 
   </script>	 
     
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0BynjFSEnK1evu8mQktPf2KwJjkHcvH0&callback=initMap&region=kr"></script>
   <script>
     
     var map;

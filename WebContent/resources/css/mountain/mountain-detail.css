@@ -1,24 +1,27 @@
 @charset "UTF-8";
 
-.container{
-		position:relative;
-		margin : auto;
-}	
-	
 #search_mountain{
 	background-color : var(--point-color);
-	height:200px;
 	text-align:center;
-	color : white;
+	color : white;  
 	font-size: 30px;
-	line-height: 50px;
+	padding: 30px;
 }  
+
+#search_mountain h1{
+	font-size: 25px;
+	font-weight: 500;
+	padding: 15px 0 15px 0;	
+}
 
 .search_bar{
 	width:600px;
 	text-align:center;
 	height: 30px;
-	margin-top: 30px;
+	margin: 10px;
+	border-radius:10px;
+	border: none;
+	outline:none;
 }
 
 .loc_bnt{
@@ -33,6 +36,7 @@
   transition:800ms ease all;
   outline:none;
   border-radius:20px;
+  margin-bottom: 20px;
 }
 
 .loc_bnt:hover{
@@ -47,8 +51,6 @@
 	color: red;				/* api연결 */
 	
 }
-
-
 #mountain_detail{
 	margin-left: 40px;
 	display: flex;
@@ -65,7 +67,6 @@
 }
 
 #mountain_info{
-	/* border: 1px solid #bcbcbc; */    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
 	width:500px;
 	height:470px;
 	position: absolute;

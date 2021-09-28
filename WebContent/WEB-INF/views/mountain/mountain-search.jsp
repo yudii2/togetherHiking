@@ -5,7 +5,6 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/mountain/mountain-search.css">
-<link rel="styleseet" href = "/resources/js/mountain/mountain-search.js">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -19,7 +18,7 @@
 	
 	    	<div id="loc_bnt_wrap">
 	  			 <a type="button" class="loc_bnt" data-div-id='#Gyeonggi'>경기도</a>  
-	  			 <a type="button" class="loc_bnt" data-div-id='#seoul'>서울</a>  
+	  			 <a type="button" class="loc_bnt" data-div-id='#Seoul'>서울</a>  
 			</div>  
 		</form>	 
 	     
@@ -42,7 +41,7 @@
 		</div>
 	    
 	     <%--  서울 산 --%>
-	    <div class = loc id= "seoul">
+	    <div class = loc id= "Seoul">
 		    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>	
 		    <i class="fas fa-angle-double-left"></i>							
 		    <div class="mountain_group">
