@@ -21,8 +21,8 @@
 				<h2>kh1234</h2>
 			</div>
 		
-		    <button onclick = "location.href = '#'" type="submit" >로그인하기</button>  
-		    <button onclick = "location.href = '#'" type="submit">비밀번호찾기</button>  
+		    <button onclick = "location.href ='/member/join'" type="submit" >로그인하기</button>  
+		    <button onclick = "location.href = '/member/search-password'" type="submit">비밀번호찾기</button>  
 	    </form>
 	
 	</div>

@@ -29,8 +29,8 @@
 	    
 	        <div class="caption">
 		        <a href="/member/login">회원가입</a>
-		        <a href="#">아이디찾기</a>     
-		        <a href="#">비밀번호 찾기</a>
+		        <a href="/member/search-id">아이디찾기</a>     
+		        <a href="/member/search-password">비밀번호 찾기</a>
 	   		</div>
 	       
 	        <button type="submit">로그인</button>
