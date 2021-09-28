@@ -58,18 +58,16 @@ public class MemberService {
 	
 	
 	//프로필 저장경로 조회 목적 --> 프로필이미지 화면출력
-	public Map<String, FileDTO> selectProfile(String userId) {
+	public FileDTO selectProfile(String userId) {
 		Connection conn = template.getConnection();
-		Map<String, FileDTO> res = new HashMap<String, FileDTO>();
+		FileDTO profile = new FileDTO();
 		
 		try {
-			FileDTO profile = memberDao.selectProfile(userId, conn);
-			
-			res.put("profile", profile);	
+			profile = memberDao.selectProfile(userId, conn);
 		}finally {
-			template.close(conn);	//세션 만료
+			template.close(conn);	
 		}
-		return res;
+		return profile;
 	}
 	
 	public int updateProfile(String userId, FileDTO fileDTO) {
