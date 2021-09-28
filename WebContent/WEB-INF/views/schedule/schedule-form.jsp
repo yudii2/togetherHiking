@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- 자동완성 CSS , JS -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script defer src="js/main/gnb.js"></script>
@@ -19,7 +23,7 @@
 		<table class="table">
 		<tr height="50">
 			<td width="150" align="center"> 산 이름 </td>
-			<td width="350" align="center"> <input type="text" name="mountainName" id="mountainName" size="40" placeholder="북한산" value="">
+			<td width="350" align="center"> <input type="text" name="mountainName" id="searchMountainName" size="40" >
 			</td>
 		</tr>
 		<tr height="50">
@@ -68,7 +72,11 @@
 		
 	
 		</form>
-	</section>
+			</section>
+		
+
+		
+
 			<script>
 			let upload = () => {
 				document.form.submit();

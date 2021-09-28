@@ -3,7 +3,6 @@ package com.togetherHiking.schedule.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -81,10 +80,10 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String scIdx = request.getParameter("sc_idx");
+		/*String scIdx = request.getParameter("sc_idx");
 		scheduleService.delete(scIdx);
 		
-		response.sendRedirect("/schedule/calendar");
+		response.sendRedirect("/schedule/calendar");*/
 	
 		
 	}
@@ -100,11 +99,11 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	private void scheduleDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String scIdx = request.getParameter("sc_idx");
+		/*String scIdx = request.getParameter("sc_idx");
 		Map<String,Object> datas = scheduleService.getScheduleDetail(scIdx);
 		
 		request.setAttribute("datas", datas);
-		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
+		request.getRequestDispatcher("/schedule/calendar").forward(request, response);*/
 		
 	}
 
@@ -148,7 +147,7 @@ public class ScheduleController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	
-	public String scrinDetailView(HttpServletRequest request) {
+	/*public String scrinDetailView(HttpServletRequest request) {
 		// 비로그인자가 접근할경우 방지
 		if (session.getAttribute("member") == null) return "/member/login-page";
 		
@@ -156,7 +155,7 @@ public class ScheduleController extends HttpServlet {
 		// 해당 글작성자 이외의 다른 멤버가 수정권한에 접근할 경우를 방지
 		
 		return "schedule/calendar";
-	}
+	}*/
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

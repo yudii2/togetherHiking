@@ -55,7 +55,7 @@ public class ScheduleService {
 		}
 	}
 
-	public Map<String, Object> getScheduleDetail(String scIdx) {
+	/*public Map<String, Object> getScheduleDetail(String scIdx) {
 		Connection conn = template.getConnection();
 		Map<String,Object> datas = new HashMap<String, Object>();
 		Schedule schedule = null;
@@ -74,10 +74,10 @@ public class ScheduleService {
 		}
 		
 		return datas;
-	}
+	}*/
 	
 	
-	// 특정 게시글을 보여준다
+/*	// 특정 게시글을 보여준다
 	public List<HashMap<String, Object>> selectSchedule(HashMap<String, Object> selectMap, String contextPath){
 		HashMap<String, Object> scheduleMap = scheduleDao.selectSchedule(selectMap);
 		scheduleSettings(scheduleMap, contextPath);
@@ -118,7 +118,7 @@ public class ScheduleService {
 		}
 
 		
-	}
+	}*/
 	
 	
 	

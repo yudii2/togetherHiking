@@ -23,9 +23,9 @@ public class ScheduleDao {
 		return null;
 	}
 	
-	public interface Calendar {
+	/*public interface Calendar {
 		public ArrayList<Calendar> calendar();
-	}
+	}*/
 	
 	public List<Schedule> selectSchedules(Connection conn, String scIdx) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
@@ -120,7 +120,7 @@ public class ScheduleDao {
 	}
 
 
-	public HashMap<String, Object> selectSchedule(HashMap<String, Object> selectMap) {
+	/*public HashMap<String, Object> selectSchedule(HashMap<String, Object> selectMap) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -149,7 +149,7 @@ public class ScheduleDao {
 		
 	
 		
-	}
+	}*/
 	
 
 	
