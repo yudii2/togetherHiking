@@ -153,4 +153,16 @@ td:nth-child(4){
 	font-size:13px;
 	cursor:pointer;
 	text-align: center;
+	display: flex;
+	justify-content: center
+}
+.pageNum{
+	display:flex;
+	margin: 0 10px;
+}
+.num{
+	padding: 0 5px;
+}
+.point{
+	color:var(--point-color);
 }
