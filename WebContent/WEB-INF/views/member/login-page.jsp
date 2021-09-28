@@ -27,9 +27,9 @@
 	           <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요.">
 			</div>
 	    	<br>
-	        <div class="caption">
-		        <a href="/member/join-page">회원가입　</a>
-		        <a href="/member/search-id">아이디찾기　</a>     
+	        <div class="caption" style="display:flex; justify-content:space-around">
+		        <a href="/member/join-page">회원가입</a>
+		        <a href="/member/search-id">아이디찾기</a>
 		        <a href="/member/search-password">비밀번호 찾기</a>
 	   		</div>
 	   		<br>

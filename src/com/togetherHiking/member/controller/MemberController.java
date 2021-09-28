@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,9 +65,6 @@ public class MemberController extends HttpServlet {
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
-		case "check-id":
-			  checkID(request,response);
-			break;
 		case "check-nickname":
 			  checkNickname(request,response);
 			break;
@@ -124,19 +122,6 @@ public class MemberController extends HttpServlet {
 		
 	}
 
-	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/member/check-id").forward(request, response);
-		String userid = request.getParameter("userid");
-		Member member = memberService.selectMemberById(userid);
-		//회원가입시 아이디 중복값 확인
-		if(member == null) {
-			response.getWriter().print("available");
-		}else {
-			response.getWriter().print("disable");
-		}
-		
-	}
-
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stubs
 		
@@ -158,10 +143,8 @@ public class MemberController extends HttpServlet {
 		String info = request.getParameter("information");
 		System.out.println(info);
 		long temp = Integer.parseInt(date+month+year);
-		
-		
-		Date dat = new Date(temp);
-		
+		Date dat = new Date(temp);		
+					
 		Member member = new Member();
 		member.setUserId(userId);
 		member.setPassword(password);
@@ -170,16 +153,10 @@ public class MemberController extends HttpServlet {
 		member.setBirth(dat);
 		member.setInfo(info);
 		  
-		
 		memberService.insertMember(member);
-		response.sendRedirect("/member/login-page");
-			
-			
+		response.sendRedirect("/member/login-page");	
 		}
 		
-		
-		
-
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");
