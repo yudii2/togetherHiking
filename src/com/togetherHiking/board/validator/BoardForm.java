@@ -47,7 +47,7 @@ public class BoardForm {
 		if(content == null || content.isEmpty()) {
 			faildValidation.put("content", content);
 			isFailed = true;
-			System.out.println("content null");
+			System.out.println(content);
 		}
 		
 		if(isFailed) {

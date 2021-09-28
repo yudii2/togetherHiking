@@ -62,14 +62,15 @@
 .select_subject{
 	width: 20%;
 	height: 40px;
-	font-size: 18px;
+	font-size: 15px;
 	border: none;
 	background-color: rgba(0,0,0,0.1);
+	text-align: center;
 }
 .post_title{
 	width: 80%;
 	height: 38px;
-	font-size: 18px;
+	font-size: 15px;
 	border: none;
 	margin-left: 5px;
 }

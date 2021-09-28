@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
-<script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
   <section>
     <div class="container">
@@ -36,11 +36,13 @@
 				<div class='frm_content_area'>
 					<textarea name="content" required="required" placeholder="내용을 입력하세요"></textarea>
 					<script type="text/javascript">
-					 	CKEDITOR.replace("content");
-					 	CKEDITOR.config.removePlugins = 'resize';
-					 	CKEDITOR.config.width = '100%';
-					 	CKEDITOR.config.height = '250';
+					 	CKEDITOR.replace("content",{
+					 		removePlugins: "resize",
+					 		width: "100%",
+					 		height: "250"
+					 	});
 					</script>
+					
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>
@@ -48,6 +50,5 @@
 	
 	</div>
   </section>
-
 </body>
 </html>
