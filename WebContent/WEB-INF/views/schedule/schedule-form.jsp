@@ -28,30 +28,7 @@
 				});
 			}); 
 			
-			/*  $(function() {    //화면 다 뜨면 시작
-			        var searchSource = ["관악산", "인왕산", "갈기산", "고동산"]; // 배열 형태로 
-			        $("#searchMountainName").autocomplete({  //오토 컴플릿트 시작
-			            source : searchSource,    // source 는 자동 완성 대상
-			            select : function(event, ui) {    //아이템 선택시
-			                console.log(ui.item);
-			            },
-			            focus : function(event, ui) {    //포커스 가면
-			                return false;//한글 에러 잡기용도로 사용됨
-			            },
-			            minLength: 1,// 최소 글자수
-			            autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
-			            classes: {    //잘 모르겠음
-			                "ui-autocomplete": "highlight"
-			            },
-			            delay: 500,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
-						//disabled: true, //자동완성 기능 끄기
-			            position: { my : "right top", at: "right bottom" },    //잘 모르겠음
-			            close : function(event){    //자동완성창 닫아질때 호출
-			                console.log(event);
-			            }
-			        });
-			        
-			    }); */
+		
 			</script>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>

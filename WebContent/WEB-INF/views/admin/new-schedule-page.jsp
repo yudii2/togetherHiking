@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Dashboard</title>
@@ -24,7 +26,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/admin/adminlte.min.css">
   
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
   
   <!-- Font Awesome -->
@@ -234,7 +237,7 @@
                   <p>NEW 모임 신청 내역</p>
                 </a>
               </li>
-   <!--            <li class="nav-item">
+<!--               <li class="nav-item">
                 <a href="/member/admin/reject-schedule" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>모임 신청 반려 내역</p>
@@ -283,7 +286,7 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-         <!--  <div class="col-lg-3 col-6">
+          <!-- <div class="col-lg-3 col-6">
             small box
             <div class="small-box bg-info">
               <div class="inner">
@@ -313,7 +316,7 @@
             </div>
           </div>
           <!-- ./col -->
-         <!--  <div class="col-lg-3 col-6">
+ <!--          <div class="col-lg-3 col-6">
             small box
             <div class="small-box bg-warning">
               <div class="inner">
@@ -341,9 +344,9 @@
               </div>
               <a href="/member/admin/total-board" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          ./col
-        </div> -->
+          </div> -->
+          <!-- ./col -->
+        </div>
         <!-- /.row -->
         </div>
       </section>
@@ -353,7 +356,17 @@
 	    <!-- Content Header (Page header) -->
 	    <section class="content-header">
 	      <div class="container-fluid">
-	       
+	        <div class="row mb-2">
+	          <div class="col-sm-6">
+	            <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size:24px;">NEW 모임 신청 내역</h1>
+	          </div>
+	          <div class="col-sm-6">
+	            <ol class="breadcrumb float-sm-right">
+	              <li class="breadcrumb-item"><a href="#">MORE</a></li>
+	              <li class="breadcrumb-item active">자세히</li>
+	            </ol>
+	          </div>
+	        </div>
 	      </div><!-- /.container-fluid -->
 	    </section>
 	
@@ -361,11 +374,50 @@
 	    <section class="content">
 	      <div class="card">
 	        <div class="card-header">
-	          <h3 class="card-title">Click More info</h3>
+	          <h3 class="card-title">승인버튼을 눌러주세요</h3>
 	        </div>
 	        <!-- /.card-header -->
+	        <!-- 미승인된 스케줄 정보를 표시 -->
 	        <div class="card-body">
-	          <!-- <div id="jsGrid1"></div> -->
+	          <div id="jsGrid1">
+	          <div class="row">
+					<table class="table" style="border: 1px solid #dddddd">
+						<thead>
+							<tr style="height: 30px">
+								<th style="width: 10%">글번호</th>
+								<th style="width: 40%">산이름</th>
+								<th style="width: 20%">작성자</th>
+								<th style="width: 10%">작성일</th>
+								<th style="width: 10%">승인</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${not empty scheduleList}">
+								<c:forEach items="${scheduleList}" var="schedule">
+								<tr style="height: 30px; line-height: 30px;">
+									<td>${schedule.scIdx}</td>
+									<td>${schedule.mountainName}</td>
+									<td>${schedule.userId}</td>
+									<td>${schedule.regDate}</td>
+									<td><a href="/admin/approve-schedule?scIdx=${schedule.scIdx}">승인</a></td>
+								</tr>
+								</c:forEach>
+							</c:if>
+							
+							<c:if test="${empty scheduleList }">
+							<tr style="height: 30px; line-height: 30px;">
+								<td rowspan="4" colspan="4" style="text-align: center;">
+									스케줄이 없습니다.
+								</td>
+							</tr>
+							</c:if>
+							
+						</tbody>
+					</table>
+				</div>
+	          	
+	          
+	          </div>
 	        </div>
 	        <!-- /.card-body -->
 	      </div>
@@ -404,7 +456,7 @@
 
 <script>
   $(function () {
-    $("#jsGrid1").jsGrid({
+    /* $("#jsGrid1").jsGrid({
         height: "100%",
         width: "100%",
 
@@ -420,7 +472,7 @@
             { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
             { name: "Married", type: "checkbox", title: "Is Married" }
         ]
-    });
+    }); */
   });
 </script>
 </body>
