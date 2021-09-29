@@ -253,6 +253,7 @@ public class MemberController extends HttpServlet {
 	
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nickname = request.getParameter("nickname");
+		System.out.println(nickname);
 		Member member = memberService.selectByNickname(nickname);
 		if(member == null) {
 			response.getWriter().print("available");	//js에게 전달

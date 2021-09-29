@@ -13,6 +13,7 @@
     <script src="http://developers.kakao.com/sdk/js/kakao.js"></script>
         // b48910cb5f06aa478cc2184431f97be9
         <script>
+        
         window.Kakao.init("b48910cb5f06aa478cc2184431f97be9");
 
 	   function kakaoLogin() {  
