@@ -20,12 +20,16 @@ public class MemberService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	private MemberDao memberDao = new MemberDao();
 	
-	//사용자가 프로필 이미지 등록시 dao호출해 info테이블에 등록하도록
+	//사용자가 프로필 이미지 등록시 info테이블에 등록 및 멤버 객체 profile 속성 set
+	//유진 09/29
 	public void insertProfile(String userId, FileDTO profile) {
 		Connection conn = template.getConnection();
 		
+		
 		try {
+			Member member = new Member();
 			memberDao.insertProfile(userId, profile, conn);
+			member.setProfile(selectProfile(userId));
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -78,7 +82,11 @@ public class MemberService {
 		int res = 0;
 		
 		try {
-			res = memberDao.updateProfile(userId,fileDTO, conn);
+			Member member = new Member();
+			res = memberDao.updateProfile(userId,fileDTO, conn);	//file_info테이블에 프로필 업데이트 
+			if(res > 0) {
+				member.setProfile(selectProfile(userId));				//새로운 프로필 조회해 멤버 객체에 set
+			}
 			
 			template.commit(conn);
 		} catch (Exception e) {
@@ -92,12 +100,14 @@ public class MemberService {
 		
 	}
 
+	//유진 09/29
 	public Member selectMemberById(String userId) {
 		Connection conn = template.getConnection();
 		Member member = null;
 		
 		try {
 			member = memberDao.selectMemberById(userId, conn);
+			member.setProfile(selectProfile(userId));
 		} finally {
 			template.close(conn);
 		}
@@ -211,6 +221,7 @@ public class MemberService {
 		
 	}
 	//로그인시 멤버객체 반환
+	//유진 09/29
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
 		Member member = null;
