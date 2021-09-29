@@ -99,29 +99,29 @@
         </form>
         </div>
         <c:set var="currPage" value="${(empty param.p)? 1 : param.p}" ></c:set>	<!-- 현재 페이지 -->
-        <c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 첫 페이지 번호(1 or 0) -->
-        <c:set var="lastNum" value="${Math.ceil(fn:length(myPosts)/8)}" ></c:set>	<!-- 총 페이지수 -->
+        <c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 페이지넘버링 처음 번호(1,5,9,,,) -->
+        <c:set var="lastPage" value="${empty myPosts ? 1 : Math.ceil(fn:length(myPosts)/8)}" ></c:set>	<!-- 총 페이지수 -->
                 
-	    <div class="arrows" style="display: flex; justify-content: center">
-	        <c:if test="${startNum > 1}">
+	    <div class="arrows" >
+	        <c:if test="${startNum > 1}">	
 		      <a href="?p=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
 		    </c:if>
-		    <c:if test="${startNum <= 1}">
+		    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지 -->
 		      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
         	</c:if>
         	
-			<ul style="display:flex; margin: 0 5px">
+			<ul class="pageNum">	<!-- 페이지 넘버링 -->
 				<c:forEach var="i" begin="0" end="4">
-				<c:if test="${(startNum+i) <= lastNum }">	<!-- 같거나 작을 때만 출력 -->
-				<li><a href="?p=${startNum + i}" style="padding: 0 5px">${startNum + i}</a></li>	<!-- 페이지 넘버링 -->
+				<c:if test="${(startNum+i) <= lastPage }">	<!-- 같거나 작을 때만 출력 -->
+				<li><a href="?p=${startNum + i}" class="num ${currPage == (startNum + i) ? 'point' : '' }">${startNum + i}</a></li>	
 				</c:if>
 				</c:forEach> 		
 			</ul>
 
-			<c:if test="${startNum + 4 < lastNum}">
-				<a href="?p=${startNum + 5}"><i class="fas fa-chevron-right rightArrow" ></i></a>
+			<c:if test="${startNum + 4 < lastPage}">	<!-- 총 페이지 수가 5를 넘으면 i=[5-9] -->
+				<a href="?p=${startNum + 5}"><i class="fas fa-chevron-right rightArrow" ></i></a>	<!-- rightArrow 클릭시 5번page 이동 -->
 			</c:if>
-			<c:if test="${startNum + 4 >= lastNum}">
+			<c:if test="${startNum + 4 >= lastPage}">
 				<span onclick="alert('더이상 게시글이 존재하지 않습니다.')"><i class="fas fa-chevron-right rightArrow" ></i></span>
 			</c:if>			
 		</div>     
@@ -134,9 +134,7 @@
 
    <script>
 
-   
-
-	//현재실행안됨..;   
+   /* 프로필 등록 */
    document.querySelector('.profile_img').addEventListener('click', function (e) {
     	 document.profile.target_url.value = document.getElementById('target_img').src;
          e.preventDefault();
@@ -148,10 +146,6 @@
   	 document.profile.submit();
 
    }
-     
-   
-   
-   
    
    
    

@@ -126,6 +126,20 @@ input[type=submit]{
 		display: none;
 	}
 }
+@media screen and (max-width: 768px){
+	.tab_mypage{
+		right: 10px;
+	}
+	.tab_mypage em{
+		display: none;
+	}
+	.con_header{
+		width: 750px;
+	}
+	.gnb li{
+		padding: 60px 20px 20px 20px;
+	}
+}
 
 /* 헤더 끝 */
 

@@ -58,14 +58,23 @@
           	<option value="end">완료</option>
           </select>
           <div class="wrap_post">
-            <div class="post">
-            	<div class="tit_schedule"><h1>북한산 맛등산</h1></div>
-            	<div class="date">2021.09.04 토</div>
-            	<div class="hiking_info">
-            		<span>해발 : 630m</span>
-            		<span>난이도 : 상</span>
-            	</div>
-            </div>
+          <c:if test="${empty mySchedule}">
+          	<div>새로운 모임 일정을 등록해 주세요</div>        
+          </c:if>
+          <c:if test="${not empty mySchedule}">
+          	<c:forEach items="${mySchedule}" var="schedule">
+	            <div class="post">
+	            	<div class="tit_schedule"><h1>${schedule.mountainName}</h1></div>
+	            	<div class="date">${schedule.dDay }</div>
+	            	<div class="hiking_info">
+	            		<span>해발 : 630m</span>
+	            		<span>난이도 : 상</span>
+	            	</div>
+	            </div>          	
+          	</c:forEach>          	
+          </c:if>
+
+
             <div class="post">
             	<div class="tit_schedule"><h1>북한산 맛등산</h1></div>
             	<div class="date">2021.09.04 토</div>
@@ -78,6 +87,23 @@
             </div>
             <div class="post"></div>
             
+            <script type="text/javascript">
+            /* 현재 */
+            (() => {
+            	let today = Date.now();
+                let dDay = new Date();
+                console.dir(today);
+                console.dir(dDay);
+               	document.querySelectorAll('.date').forEach((date) => {
+               		console.dir(date);
+               	});
+                
+                
+            })();
+            
+            
+            
+            </script>
           </div>
         </div>
       </div>

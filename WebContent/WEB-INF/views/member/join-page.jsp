@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 <section class="container con_join_form">
  
- <form class="join_page" name="login" action="/member/join" method="post">
+ <form class="join_page" name="login" id="frm_join" action="/member/join" method="post">
  
 
  <img src="/resources/img/대지 1.png">
@@ -184,15 +184,17 @@
         </div>
         <p>
            <input type="checkbox" id="chk2">
-           <label for="chk1">개인정보 수집·이용 동의 이용약관에 동의합니다.(필수)</label>
+           <label for="chk2">개인정보 수집·이용 동의 이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
 
     <div>
     <br><br>
        <h3>아이디</h3>
+       <div>
        <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
-        <button class="btn" onclick="idcheck()">중복확인</button>
+        <button class="btn" id="idcheck">중복확인</button>
+         </div>
         <span class="valid-msg" id="id-check"></span>
     </div>
 
@@ -210,9 +212,8 @@
    
       <h3>닉네임</h3>
       <input type="text" name="nickname" id="nickname"  required />
-      <button class="btn" onclick="nicknameCheck()">닉네임확인</button>
+      <button class="btn" onclick="checkNickname()">닉네임확인</button>
       </div>
-
 
    <div>
       <h3>생년월일</h3>
@@ -389,29 +390,10 @@
       <button id="join" type="submit">가입하기</button>
 
     </form>      
-    
-    
-    <script type= "text/javascript">
-    
-    let idcheck = function(){
-    	
-    	let userid = document.querySelector('#userid').value;
-    	
-    	fetch("/member/id-check?userid=" + userid)
-    	.then(response => response.text())
-    	.then(text => {
-    	 	if(text == 'available'){
-    	 		document.querySelector('#idcheck').innerHTML = '사용이 가능한 아이디 입니다.';
-    	 	}else{
-    	 		document.querySelector('#idcheck').innerHTML = '사용이 불가능한 아이디 입니다.';
-    	 	}
-    	 	})
-    }
 
     
-    </script>
-    
-    
+     <script type="text/javascript" src="/resources/js/member/joinForm.js"></script>
+     
 </section>
 
 
