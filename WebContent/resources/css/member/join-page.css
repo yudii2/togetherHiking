@@ -66,3 +66,7 @@ input[type=checkbox]{
     border:none;
     margin:30px 0;
 }
+.valid-msg{
+	font-size: 13px;
+	color:crimson;
+}

@@ -24,7 +24,7 @@ public class JoinForm {
 	public JoinForm(ServletRequest request) {
 		this.request = (HttpServletRequest) request;
 		this.userId = request.getParameter("userId");
-		this.password = request.getParameter("user_PW1");
+		this.password = request.getParameter("password");
 		this.email = request.getParameter("email");
 		this.nickname = request.getParameter("nickname");
 		this.info = request.getParameter("information");

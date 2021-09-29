@@ -198,20 +198,22 @@
                 </c:if>
                  required/>
         
-         	<span class="valid-msg" id="id-check">
+
+          <button class="btn" id="idcheck">중복확인</button>
+ 	    <h1 class="valid-msg" id="id-check" style="text-align: left;">
         		<c:if test="${not empty param.err and not empty joinValid.userid}">
         		이미 존재하는 아이디 입니다.
        		 </c:if>
-        	</span>
-          <button class="btn" id="idcheck">중복확인</button>
+        </h1>
  	</div>
+
 
    <div>
       <h3>비밀번호</h3>
-      <input type="password" id="user_PW1" name="user_PW1" placeholder="비밀번호를 입력하세요." required/>
+      <input type="password" id="user_PW1" name="password" placeholder="비밀번호를 입력하세요." required/>
       <span id="user_PW1" class="valid_msg">
-      	<c:if test="${not empty param.err empty joinValid.user_PW1 }">
- 					value="${joinForm.user_PW1}"
+      	<c:if test="${not empty param.err and empty joinValid.password}">
+ 					value="${joinForm.password}"
                 </c:if>
      <div>
         <c:if test="${not empty param.err and not empty joinValid.password}">
