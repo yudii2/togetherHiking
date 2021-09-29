@@ -11,11 +11,9 @@ import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
 import com.togetherHiking.member.model.dto.Member;
-<<<<<<< HEAD
 import com.togetherHiking.schedule.model.dto.Schedule;
-=======
 import com.togetherHiking.reply.model.dto.Reply;
->>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
+
 
 public class MemberService {
 	
