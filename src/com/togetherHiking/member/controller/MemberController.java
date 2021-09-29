@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.file.FileDTO;
@@ -136,7 +137,17 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stubs
+		HttpSession session = request.getSession();
+		memberService.insertMember((Member) session.getAttribute("persistUser"));
+
+		// 예전처럼 예외처리를 했을 경우 직접 request.setAttribute를 사용해 메시지를 입력해서 넣어줬다.
+		// 지금과의 차이점이 무엇일까
+		// 가독성의 차이. 예외상황이라는 것이 더 명확하게 보인다.
+
+		// 같은 persistUser값이 두 번 DB에 입력되지 않도록 사용자 정보와 인증을 만료시킴
+		session.removeAttribute("persistUser");
+		session.removeAttribute("persist-token");
+		response.sendRedirect("/member/login-page");
 		
 	}
 	private void joinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

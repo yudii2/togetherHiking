@@ -42,20 +42,19 @@ public class JoinForm {
 		
 		//비밀번호가 영어, 숫자, 특수문자 조합의 8~15자의 문자열인지 확인
 		if(!Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,15}", password)) {
-			failedAttrubute.put("password",password);
+			failedAttrubute.put("password",password); 
+			isFailed = true;
+		}
+		
+		//닉네임 검증 : 사용자가 입력한 닉네임이 DB에 이미 존재하는지 확인 (위 아이디 검증과 유사)
+		if(nickname.equals("") || memberService.selectMemberById(nickname) != null) {
+			failedAttrubute.put("nickname",nickname);
 			isFailed = true;
 		}
 		
 		//이메일 검증 : '@가 포함되어 있는지 + '.'(마침표)뒤에 세글자(com/net..)인지 확인
 		
 		//생년월일 검증
-		
-		//닉네임 검증 : 사용자가 입력한 닉네임이 DB에 이미 존재하는지 확인 (위 아이디 검증과 유사)
-		
-
-		
-		
-
 		
 		if(isFailed) {
 			request.getSession().setAttribute("joinValid", failedAttrubute);	//joinFailed에 검증실패한 값 저장
@@ -92,16 +91,6 @@ public class JoinForm {
 
 	public String getBirth() {
 		return birth;
-	}
-
-
-
-	
-	
-	
-	
-	
-	
-	
+	}	
 
 }

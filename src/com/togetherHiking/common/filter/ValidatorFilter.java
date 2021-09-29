@@ -28,7 +28,7 @@ public class ValidatorFilter implements Filter {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/** 
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
@@ -142,7 +142,7 @@ public class ValidatorFilter implements Filter {
 		switch (uriArr[2]) {
 		//member/join
 		case "join":
-			if(!joinForm.test()) {
+			if(!joinForm.test()) {   
 				redirectURI = "/member/join-form?err=1";	//err파라미터 전달(왜? 이때만 validation출력)
 			}break;
 		//가입시 이메일 인증절차 : 발송된 이메일 form에서 사이트로 돌아가는 버튼(가입완료)을 클릭하면 거쳐야하는 절차 

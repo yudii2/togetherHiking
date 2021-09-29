@@ -188,20 +188,37 @@
         </p>
     </div>
 
-    <div>
+    
     <br><br>
+    <div>
        <h3>아이디</h3>
-       <div>
-       <input type="text" id="userId" name="userId" size="10" required placeholder="아이디를 입력하세요." />
-        <button class="btn" id="idcheck">중복확인</button>
-         </div>
-        <span class="valid-msg" id="id-check"></span>
-    </div>
+       <input type="text" id="userId" name="userId" size="10" placeholder="아이디를 입력하세요" 
+     		<c:if test="${not empty param.err and empty joinValid.userId}">
+ 					value="${joinForm.userId}"
+                </c:if>
+                 required/>
+        
+         	<span class="valid-msg" id="id-check">
+        		<c:if test="${not empty param.err and not empty joinValid.userid}">
+        		이미 존재하는 아이디 입니다.
+       		 </c:if>
+        	</span>
+          <button class="btn" id="idcheck">중복확인</button>
+ 	</div>
 
    <div>
       <h3>비밀번호</h3>
-      <input type="password" id="user_PW1" name="user_PW1" required placeholder="비밀번호를 입력하세요."/>
-      <span id="pw_confirm" class="valid_msg"></span>
+      <input type="password" id="user_PW1" name="user_PW1" placeholder="비밀번호를 입력하세요." required/>
+      <span id="user_PW1" class="valid_msg">
+      	<c:if test="${not empty param.err empty joinValid.user_PW1 }">
+ 					value="${joinForm.user_PW1}"
+                </c:if>
+     <div>
+        <c:if test="${not empty param.err and not empty joinValid.password}">
+        	영어,숫자,특수문자 조합의 8글자 이상입니다.
+        </c:if>
+        </div>
+      </span>
    </div>
    <div>
       <h3>비밀번호확인</h3>
@@ -213,6 +230,13 @@
       <h3>닉네임</h3>
       <input type="text" name="nickname" id="nickname"  required />
       <button class="btn" onclick="checkNickname()">닉네임확인</button>
+      <span id="nickname" class="valid_msg">
+       <c:if test="${not empty param.err and not empty joinValid.nickname}">
+       이미 존재하는 닉네임 입니다.
+        </c:if>
+        </span>
+      
+      
       </div>
 
    <div>
@@ -377,10 +401,14 @@
 
    <div>
       <h3>이메일</h3>
-      <c:if test="조건들어갈 곳">
-         <span>아이디를 사용할 수 없습니다.</span>
+      <c:if test="true">
+         <span></span>
       </c:if>
-      <input type="email" id="user_email" name="user_email" placeholder="이메일을 입력하세요." required />      
+      <input type="email" id="user_email" name="user_email" placeholder="이메일을 입력하세요." 
+      	<c:if test="${not empty param.err and empty joinValid.email}">
+ 					value="${joinForm.email}"
+                </c:if>
+      required />      
    </div>
    <div>
      <h3>자기소개</h3>
