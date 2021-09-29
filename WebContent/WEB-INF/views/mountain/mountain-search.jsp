@@ -22,7 +22,7 @@
 			</div>  
 		</form>	 
 	     
-
+ 
 		<%-- 경기도 산  --%>
 	   <div class = loc id= "Gyeonggi">
 		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	

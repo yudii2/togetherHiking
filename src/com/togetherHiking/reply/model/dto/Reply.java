@@ -1,4 +1,4 @@
-package com.togetherHiking.board.model.dto;
+package com.togetherHiking.reply.model.dto;
 
 import java.sql.Date;
 

@@ -1,7 +1,6 @@
 package com.togetherHiking.common.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.validator.BoardForm;
-import com.togetherHiking.board.validator.ReplyForm;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.validator.JoinForm;
 import com.togetherHiking.member.validator.ModifyForm;
+import com.togetherHiking.reply.validator.ReplyForm;
 import com.togetherHiking.schedule.validator.ScheduleForm;
 
 public class ValidatorFilter implements Filter {
@@ -61,6 +60,9 @@ public class ValidatorFilter implements Filter {
 				case "board":
 					redirectURI = boardValidation(httpRequest, httpResponse, uriArr);
 					break;
+				case "reply":
+					redirectURI = replyValidation(httpRequest, httpResponse, uriArr);
+					break;
 				//
 				default:
 					break;
@@ -72,6 +74,23 @@ public class ValidatorFilter implements Filter {
 		}
 		
 		chain.doFilter(request, response);
+	}
+
+	private String replyValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		String redirectURI = null;
+		
+		switch (uriArr[2]) {
+		case "add-reply":
+			ReplyForm replyFrom = new ReplyForm(httpRequest);
+			if(!replyFrom.test()) {
+				redirectURI = "/reply/board-detail?bd_idx=" + httpRequest.getParameter("bd_idx") + "&err=1";
+				return redirectURI;
+			}
+			break;
+		default:
+			break;
+		}
+		return redirectURI;
 	}
 
 	private String scheduleValidation(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
@@ -105,14 +124,6 @@ public class ValidatorFilter implements Filter {
 			BoardForm boardForm = new BoardForm(httpRequest);
 			if(!boardForm.test()) {
 				redirectURI = "/board/board-form?err=1";
-				return redirectURI;
-			}
-			break;
-			
-		case "add-reply":
-			ReplyForm replyFrom = new ReplyForm(httpRequest);
-			if(!replyFrom.test()) {
-				redirectURI = "/board/board-detail?bd_idx=" + httpRequest.getParameter("bd_idx") + "&err=1";
 				return redirectURI;
 			}
 			break;

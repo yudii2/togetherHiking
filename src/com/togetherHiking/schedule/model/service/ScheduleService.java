@@ -24,7 +24,7 @@ public class ScheduleService {
 		// TODO Auto-generated constructor stub
 	}
 	
-	// 승인된 schedule 리스트를 조회한다.
+	// 승인된 schedule 리스트를 조회
 	public List<Schedule> getScheduleDTOs() {
 		List<Schedule> schedules = null;
 		Connection conn = template.getConnection();
@@ -38,7 +38,7 @@ public class ScheduleService {
 		
 		return schedules;
 	}
-	// 미승인된 schedule 리스트를 조회한다.
+	// 미승인된 schedule 리스트를 조회
 	public List<Schedule> getNonApproveScheduleDTOs() {
 		List<Schedule> schedules = null;
 		Connection conn = template.getConnection();
@@ -70,6 +70,7 @@ public class ScheduleService {
 		}
 	}
 	
+	//스케줄 승인
 	public void approveSchedule(String scIdx) {
 		Connection conn = template.getConnection();
 		
@@ -108,32 +109,6 @@ public class ScheduleService {
 		return datas;
 	}
 	
-	
-/*	// 특정 게시글을 보여준다
-	public List<HashMap<String, Object>> selectSample(HashMap<String, Object> selectMap, String contextPath){
-		HashMap<String, Object> sampleMap = sampleDao.selectSample(selectMap);
-		sampleSettings(sampleMap, contextPath);
-		List<HashMap<String, Object>> sampleList = new ArrayList<>();
-		sampleList.add(sampleMap);
-		return sampleList;
-	}
-	
-	// 게시글의 정보를 풀캘린더에서 바로 읽어들일 수 있도록 세팅한다
-	private void sampleSettings (HashMap<String, Object> map, String contextPath) {
-		// 풀캘린더에서 데이터를 읽어들일수 있게 값 세팅
-		map.put("id", map.get("SEQ"));
-		map.put("memberNo", map.get("MEMBER_NO"));
-		map.put("url", contextPath+ "/sample/sampleUpdateView?seq=" + map.get("SEQ"));
-		map.put("textColor", "white");
-		map.put("title", map.get("TITLE"));
-		map.put("content", map.get("CONTENT"));
-		map.put("start", map.get("START_DATE"));
-		map.put("end", map.get("END_DATE"));
-		map.put("name", map.get("NAME"));
-		map.put("type", map.get("TYPE"));
-		
-	}
-	*/
 	
 	
 	

@@ -1,4 +1,4 @@
-package com.togetherHiking.board.validator;
+package com.togetherHiking.reply.validator;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ public class ReplyForm {
 	public boolean test() {
 		boolean isFailed = false;
 		//내용이 빈칸이라면
-		if(content.equals("") || content == null) {
+		if(content == null || content.isEmpty()) {
 			isFailed = true;
 		}
 		

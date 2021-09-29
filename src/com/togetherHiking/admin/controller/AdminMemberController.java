@@ -56,12 +56,22 @@ public class AdminMemberController extends HttpServlet {
 	// 새로 등록된 스케줄을 조회
 	private void newSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+		List<Schedule> scheduleList = new ArrayList<Schedule>();
+		scheduleList = scheduleService.getNonApproveScheduleDTOs();
+		System.out.println(scheduleList);
+		request.setAttribute("scheduleList", scheduleList);
+		request.getRequestDispatcher("/admin/new-schedule-page").forward(request, response);
 	}
+	
 	// 새로 등록된 스케줄을 승인한다
 	private void approveSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
 		
 
+
+		
 	}
 
 	/**

@@ -108,7 +108,7 @@
 									<div class="cmt_info">
 										<div>${reply.userId }
 											<c:if test="${authentication.userId eq reply.userId }">
-											<a href="/board/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
+											<a href="/reply/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
 											</c:if>
 										</div>
 										<div>${reply.regDate }</div>
@@ -121,7 +121,7 @@
 						</div>
 						
 						<%-- 로그인했을 경우에만 댓글을 쓸 수 있어야함 --%>
-						<form class="frm_write_cmt" action="/board/add-reply?bd_idx=${board.bdIdx }" method="POST">
+						<form class="frm_write_cmt" action="/reply/add-reply?bd_idx=${board.bdIdx }" method="POST">
 							<div class="cmt_write_box">
 								<c:if test="${not empty authentication.userId }">
 									<div class="cmt_writer_id">${authentication.userId }</div>

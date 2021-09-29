@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
-import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.board.model.service.BoardService;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
@@ -46,7 +45,6 @@ public class BoardController extends HttpServlet {
 		case "board-page":
 			  boardPage(request,response);
 			break;
-		//board-form: 글쓰기버튼 클릭 -> 요청되는 url
 		case "board-form":
 			  boardForm(request,response);
 			break;
@@ -56,14 +54,8 @@ public class BoardController extends HttpServlet {
 		case "upload":
 			upload(request,response);
 			break;
-		case "add-reply":
-			addReply(request,response);
-			break;
 		case "delete-board":
-			delete(request,response);
-			break;
-		case "delete-reply":
-			deleteReply(request,response);
+			deleteBoard(request,response);
 			break;
 		
 		default:/* throw new PageNotFoundException(); */
@@ -71,35 +63,11 @@ public class BoardController extends HttpServlet {
 		}
 	}
 
-	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String rpIdx = request.getParameter("rp_idx");
-		String bdIdx = request.getParameter("bd_idx");
-		
-		boardService.deleteReply(rpIdx);
-		
-		response.sendRedirect("/board/board-detail?bd_idx=" + bdIdx);
-	}
-
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void deleteBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bdIdx = request.getParameter("bd_idx");
 		boardService.deleteBoard(bdIdx);
 		
 		response.sendRedirect("/board/board-page");
-	}
-
-	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
-		String bdIdx = request.getParameter("bd_idx");
-		String content = request.getParameter("content");
-		
-		Reply reply = new Reply();
-		reply.setBdIdx(bdIdx);
-		reply.setUserId(userId);
-		reply.setContent(content);
-		
-		boardService.insertReply(reply);
-		
-		response.sendRedirect("/board/board-detail?bd_idx=" + bdIdx);
 	}
 
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

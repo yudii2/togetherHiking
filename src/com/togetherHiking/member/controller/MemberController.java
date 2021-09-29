@@ -2,7 +2,6 @@ package com.togetherHiking.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.togetherHiking.board.model.dto.Board;
-import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
-import com.togetherHiking.common.file.MultiPartParams;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
 import com.togetherHiking.schedule.model.dto.Schedule;

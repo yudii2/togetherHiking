@@ -16,7 +16,7 @@
 			<h1>지역 또는 산 이름 검색</h1>           
 			<i class="fas fa-search" style="font-size: 30px; color: white;"></i>
 			<input type="text" class="search_bar" name= mName value="${param.mName}" />  
-			
+	 		
 	    	<div id="loc_bnt_wrap">
 	    		<a type="button" class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
 			</div>  
