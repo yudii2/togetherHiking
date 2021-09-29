@@ -12,6 +12,7 @@ import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.schedule.model.dto.Schedule;
 
 public class MemberService {
 	
@@ -70,12 +71,14 @@ public class MemberService {
 		return profile;
 	}
 	
+	//유진 09/29
 	public int updateProfile(String userId, FileDTO fileDTO) {
 		Connection conn = template.getConnection();
 		int res = 0;
 		
 		try {
 			res = memberDao.updateProfile(userId,fileDTO, conn);
+			
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -114,6 +117,20 @@ public class MemberService {
 		return member;
 		
 	}
+	
+	//유진 09/29
+	public List<Schedule> selectMySchedule(String userId) {
+		Connection conn  = template.getConnection();
+		List<Schedule> scheduleList = new ArrayList<Schedule>();
+		
+		try {
+			scheduleList = memberDao.selectMySchedule(userId,conn);
+		} finally {
+			template.close(conn);	
+		}
+		return scheduleList;
+	}
+
 	
 	public List<Board> selectMyPostById(String userId) {
 		Connection conn  = template.getConnection();
@@ -201,6 +218,7 @@ public class MemberService {
 			member = memberDao.memberAuthenticate(userId, password, conn);	
 			member.setReplyCnt(countMyReply(userId));
 			member.setPostCnt(countMyPost(userId));
+			member.setProfile(selectProfile(userId));
 		}finally {
 			template.close(conn);
 		}
@@ -220,6 +238,7 @@ public class MemberService {
 		
 		return replyList;
 	}
+
 
 
 

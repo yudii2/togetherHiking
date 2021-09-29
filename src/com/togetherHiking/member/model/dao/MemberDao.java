@@ -15,6 +15,7 @@ import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.schedule.model.dto.Schedule;
 
 public class MemberDao {
 	
@@ -344,6 +345,39 @@ public class MemberDao {
 		return res;
 	}
 	
+	//유진 09/29
+	public List<Schedule> selectMySchedule(String userId, Connection conn) {
+		List<Schedule> scheduleList = new ArrayList<Schedule>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String sql = "select mountain_name, d_day from schedule S"
+				+ "join participant_list L using(sc_idx) "
+				+ "join participant_history H using (pl_idx) where H.user_id = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userId);	//참가자 ID와 비교
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				Schedule schedule = new Schedule();
+				schedule.setMountainName(rset.getString("mountain_name"));
+				schedule.setdDay(rset.getDate("dDay"));
+				
+				scheduleList.add(schedule);
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset,pstm);
+		}
+		
+		return scheduleList;
+	}
+
+	
 	
 	
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
@@ -381,6 +415,8 @@ public class MemberDao {
 		}
 		return member;
 	}
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.togetherHiking.member.model.dto;
 
 import java.sql.Date;
 
+import com.togetherHiking.common.file.FileDTO;
+
 public class Member {
 	
 	private String userId;
@@ -16,6 +18,7 @@ public class Member {
 	private int isLeave;
 	private int postCnt;
 	private int replyCnt;
+	private String profile;
 	
 	public String getUserId() {
 		return userId;
@@ -136,15 +139,27 @@ public class Member {
 	public void setReplyCnt(int replyCnt) {
 		this.replyCnt = replyCnt;
 	}
+	
+	
+	public String getProfile() {
+		return profile;
+	}
+
+
+	public void setProfile(FileDTO profile) {
+		this.profile = profile.getSavePath() + profile.getRenameFileName();
+	}
 
 
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", password=" + password + ", birth=" + birth + ", info=" + info
 				+ ", nickname=" + nickname + ", joinDate=" + joinDate + ", email=" + email + ", grade=" + grade
-				+ ", isHost=" + isHost + ", isLeave=" + isLeave + ", postCnt=" + postCnt + ", replyCnt=" + replyCnt
-				+ "]";
+				+ ", isHost=" + isHost + ", isLeave=" + isLeave + "]";
 	}
+
+
+
 
 
 

@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +19,7 @@ import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.common.file.MultiPartParams;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
+import com.togetherHiking.schedule.model.dto.Schedule;
 
 /**
  * Servlet implementation class MemberController
@@ -64,6 +64,9 @@ public class MemberController extends HttpServlet {
 			break;
 		case "join-impl":
 			  joinImpl(request,response);
+			break;
+		case "check-id":
+			  checkID(request,response);
 			break;
 		case "check-nickname":
 			  checkNickname(request,response);
@@ -122,6 +125,19 @@ public class MemberController extends HttpServlet {
 		
 	}
 
+	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/member/check-id").forward(request, response);
+		String userid = request.getParameter("userid");
+		Member member = memberService.selectMemberById(userid);
+		//회원가입시 아이디 중복값 확인
+		if(member == null) {
+			response.getWriter().print("available");
+		}else {
+			response.getWriter().print("disable");
+		}
+		
+	}
+
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stubs
 		
@@ -143,8 +159,10 @@ public class MemberController extends HttpServlet {
 		String info = request.getParameter("information");
 		System.out.println(info);
 		long temp = Integer.parseInt(date+month+year);
-		Date dat = new Date(temp);		
-					
+		
+		
+		Date dat = new Date(temp);
+		
 		Member member = new Member();
 		member.setUserId(userId);
 		member.setPassword(password);
@@ -153,10 +171,16 @@ public class MemberController extends HttpServlet {
 		member.setBirth(dat);
 		member.setInfo(info);
 		  
+		
 		memberService.insertMember(member);
-		response.sendRedirect("/member/login-page");	
+		response.sendRedirect("/member/login-page");
+			
+			
 		}
 		
+		
+		
+
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");
@@ -165,18 +189,18 @@ public class MemberController extends HttpServlet {
 		response.sendRedirect("/");
 		
 	}
-
+	//유진 09/29
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId =  request.getParameter("userId");
 		String password = request.getParameter("password");
 		
 		//유저 정보와 프로필
 		Member member = memberService.memberAuthenticate(userId,password);
-		FileDTO profile = memberService.selectProfile(userId);
-
-		if(profile.getRenameFileName() != null) {
-			request.getSession().setAttribute("profile", profile);
-		}
+//		FileDTO profile = memberService.selectProfile(userId);
+//
+//		if(profile.getRenameFileName() != null) {
+//			request.getSession().setAttribute("profile", profile);
+//		}
 		
 		if(member == null) {
 			response.sendRedirect("/member/login-page?err=1");
@@ -218,7 +242,7 @@ public class MemberController extends HttpServlet {
 		}
 		
 		FileDTO profile = memberService.selectProfile(userId);
-		request.getSession().setAttribute("profile", profile);	//세션에 프로필 재등록
+		request.getSession().setAttribute("profile", profile);	//세션에 멤버객체 재등록(프로필 포함)
 		
 		request.setAttribute("url", "/member/mypage");
 		request.getRequestDispatcher("/common/result").forward(request, response);
@@ -260,18 +284,26 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 	}
-
+	//유진 09/29
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();
 		
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
 		Map<String,List> reply = memberService.selectMyReply(userId);
+		
+		
+		List<Schedule> schedule = memberService.selectMySchedule(userId);
+		
+		
+		request.setAttribute("mySchedule", schedule);
 
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);		
 		
 		request.getRequestDispatcher("/member/my-schedule").forward(request, response);
+		
+		
 		
 	}
 
