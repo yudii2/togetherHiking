@@ -149,6 +149,48 @@ public class ScheduleDao {
 		schedule.setAge(rset.getInt("age"));
 		return schedule;
 	}
+
+	public void updateSchedule(Schedule schedule, Connection conn) {
+		String sql = "update schedule set mountain_name = ?, allowed_num = ?,  info = ?, openChat = ?, age = ?, d_day = ?  where sc_idx = ? ";
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, schedule.getMountainName());
+			pstm.setInt(2, schedule.getAllowedNum());
+			pstm.setString(3, schedule.getInfo());
+			pstm.setString(4, schedule.getOpenChat());
+			pstm.setInt(5, schedule.getAge());
+			pstm.setDate(6, schedule.getdDay());
+			pstm.setString(7, schedule.getScIdx());
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
+
+	public void deleteSchedule(String scIdx, Connection conn) {
+		String sql = "update schedule set is_del = '1' where sc_idx = ? ";
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, scIdx);
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
 	
 
 	

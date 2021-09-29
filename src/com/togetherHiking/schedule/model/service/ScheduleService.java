@@ -108,6 +108,40 @@ public class ScheduleService {
 		
 		return datas;
 	}
+
+	public void updateSchedule(Schedule schedule) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.updateSchedule(schedule, conn);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+		} finally {
+			template.close(conn);
+		}
+		
+	}
+
+	// 스케줄을 삭제한다.
+	public void deleteSchedule(String scIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.deleteSchedule(scIdx, conn);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+	}
 	
 	
 	
