@@ -6,6 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="/resources/css/board/board-detail.css">
+<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -79,7 +80,6 @@
 										<ul class="dep2">
 										<c:forEach items="${files }" var="file" varStatus="status">
 											<li><a href="${file.downloadURL }">${file.originFileName }</a></li>
-											<%-- <c:if test="${!status.last }">/</c:if> --%>
 										</c:forEach>
 										</ul>
 										</c:if>
@@ -90,7 +90,36 @@
 						</div>
 					</div>
 					<div class="section_container">
-						<div class="content_area">${board.content }</div>
+						<div class="content_area">
+							<textarea cols="80" id="editor1" name="editor1" rows="10">
+								<c:out value="${board.content }"/>
+							</textarea>
+							<script>
+								var editor1 = CKEDITOR.replace('editor1', {
+								  extraAllowedContent: 'div',
+								  removeButtons: 'PasteFromWord'
+								});
+								editor1.on('instanceReady', function() {
+								  // Output self-closing tags the HTML4 way, like <br>.
+								  this.dataProcessor.writer.selfClosingEnd = '>';
+								
+								  // Use line breaks for block elements, tables, and lists.
+								  var dtd = CKEDITOR.dtd;
+								  for (var e in CKEDITOR.tools.extend({}, dtd.$nonBodyContent, dtd.$block, dtd.$listItem, dtd.$tableContent)) {
+								    this.dataProcessor.writer.setRules(e, {
+								      indent: true,
+								      breakBeforeOpen: true,
+								      breakAfterOpen: true,
+								      breakBeforeClose: true,
+								      breakAfterClose: true
+								    });
+								  }
+								  // Start in source mode.
+								  this.setMode('source');
+								});
+							</script>
+							
+						</div>
 						
 						<div class="comment_area">
 							<div class="line_btns">

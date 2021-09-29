@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/board/board-form.css">
-<script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -34,15 +34,16 @@
 				</div>
 				
 				<div class='frm_content_area'>
-					<textarea name="content" required="required" placeholder="내용을 입력하세요"></textarea>
+					<textarea name="content" required="required" placeholder="내용을 입력하세요" data-sample-short></textarea>
 					<script type="text/javascript">
 					 	CKEDITOR.replace("content",{
 					 		removePlugins: "resize",
 					 		width: "100%",
-					 		height: "250"
+					 		height: "200",
+					 		removeButtons: '',
+							removeButtons: 'PasteFromWord'
 					 	});
 					</script>
-
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>

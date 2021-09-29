@@ -13,7 +13,6 @@ import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
-import com.togetherHiking.reply.model.dto.Reply;
 
 public class BoardDao {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
@@ -59,10 +58,6 @@ public class BoardDao {
 		int count = 0;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-//		String sql = "select count(bd_idx) COUNT"
-//				+ " from (select rownum NUM, N.*"
-//				+ " from (select * from board"
-//				+ " where " + field + " like ? and is_del = 0 order by reg_date desc) N)";
 		String sql = "select count(bd_idx) COUNT"
 				+ " from (select bd_idx from board"
 				+ " where " + field + " like ? and is_del = 0)";
