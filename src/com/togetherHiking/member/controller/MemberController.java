@@ -193,6 +193,7 @@ public class MemberController extends HttpServlet {
 		
 		//유저 정보와 프로필
 		Member member = memberService.memberAuthenticate(userId,password);
+		System.out.println(member.getProfile());
 //		FileDTO profile = memberService.selectProfile(userId);
 //
 //		if(profile.getRenameFileName() != null) {
@@ -237,7 +238,7 @@ public class MemberController extends HttpServlet {
 			}
 			request.setAttribute("msg", "프로필 등록에 성공하였습니다.");
 		}
-		
+		//Member member = memberService.selectMember(userId);
 		FileDTO profile = memberService.selectProfile(userId);
 		request.getSession().setAttribute("profile", profile);	//세션에 멤버객체 재등록(프로필 포함)
 		

@@ -34,20 +34,15 @@
 				</div>
 				
 				<div class='frm_content_area'>
-					<input type="hidden" name="content" id="content">
-					<textarea name="contentbox" required="required" placeholder="내용을 입력하세요"></textarea>
+					<textarea name="content" required="required" placeholder="내용을 입력하세요"></textarea>
 					<script type="text/javascript">
-					 	CKEDITOR.replace("contentbox",{
+					 	CKEDITOR.replace("content",{
 					 		removePlugins: "resize",
 					 		width: "100%",
 					 		height: "250"
 					 	});
 					</script>
-					<script type="text/javascript"> /* 에러발생중 */
-						document.querySelector("#btnSubmit").addEventListener("click",()=>{
-							document.querySelector("#content").innerHTML = CKEDITOR.instances.content.getData();
-						});
-					</script>
+
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>

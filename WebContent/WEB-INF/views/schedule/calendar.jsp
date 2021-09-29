@@ -73,15 +73,23 @@
           </div>
           <div class="desc_content">
             <h1 class="tit_content">함께 동행할 유저 소개</h1>
-            <div class="desc_user">
-              <img src="/resources/img/mail-template/img_travel_01.png" alt="">
-              <div class="info">
-                <h1>닉넴1 ${member.nickname}</h1>
-                <h2>29살</h2>
-                <span>등산을 좋아하는 1인입니다. ${member.info}</span>
-              </div>
-            </div>
-            <div class="desc_user">
+            <c:forEach items="${participants}" var="participant">
+				<div class="desc_user">
+				  <c:if test="${empty participant.profile}">
+				  	<img id="target_img" src="/resources/img/user.png">
+				  </c:if>
+				  <c:if test="${not empty participant.profile}">
+	              	<img src="http://localhost:7070/file/${participant.profile }" alt="">
+	              </c:if>	
+	              <div class="info">
+	                <h1>닉넴1 ${participant.nickname}</h1>
+	                <!-- <h2>29살</h2> -->
+	                <span>${participant.info}</span>
+	              </div>
+	            </div>            
+            </c:forEach>
+            
+<!--             <div class="desc_user">
               <img src="/resources/img/mail-template/img_travel_02.png" alt="">
               <div class="info">
                 <h1>닉넴2</h1>
@@ -96,7 +104,7 @@
                 <h2>29살</h2>
                 <span>등산을 좋아하는 1인입니다.</span>
               </div>
-            </div>
+            </div> -->
           </div>
           <!-- host가 아닐 때 -->
           <input type="submit" id="btn_parti" value="동행하러가기">
