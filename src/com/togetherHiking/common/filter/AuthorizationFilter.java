@@ -104,6 +104,9 @@ public class AuthorizationFilter implements Filter {
 				case "board":
 					boardAuthorize(httpRequest, httpResponse, uriArr);
 					break;
+				case "reply":
+					replyAuthorize(httpRequest, httpResponse, uriArr);
+					break;
 				case "schedule":
 					scheduleAuthorize(httpRequest, httpResponse, uriArr);
 					break;
@@ -113,6 +116,29 @@ public class AuthorizationFilter implements Filter {
 		}
 		
 		chain.doFilter(request, response);
+	}
+
+	private void replyAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
+		
+		switch (uriArr[2]) {
+		case "add-reply":
+			if(member == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
+		case "delete-reply":
+			if(member == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			if(authWriter(httpRequest,httpResponse,member, "reply", httpRequest.getParameter("rp_idx"))) {
+				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+			}
+			break;
+			
+		default:
+			break;
+		}
 	}
 
 	private void scheduleAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
@@ -191,64 +217,40 @@ public class AuthorizationFilter implements Filter {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
 			break;
-		//로그인 유저 - upload가능
 		case "upload":
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
 			break;
-		case "add-reply":
+		case "delete-board":
 			if(member == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-		//로그인 유저 == 작성자 비교 후 edit요청이 들어오는 경우
+			if(authWriter(httpRequest,httpResponse,member, "board", httpRequest.getParameter("bd_idx"))) {
+				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+			}
+			break;
+//		로그인 유저 == 작성자 비교 후 edit요청이 들어오는 경우
 //		case "edit":
 //			if(httpRequest.getSession().getAttribute("authentication") == null) {
 //				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 //			}
 //			authBoardEditor(httpRequest,httpResponse);
 //			break;
-		case "delete-board":
-			if(member == null) {
-				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
-			}
-			if(authBoardWriter(httpRequest,httpResponse,member)) {
-				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
-			}
-		case "delete-reply":
-			if(member == null) {
-				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
-			}
-			if(authReplyWriter(httpRequest,httpResponse,member)) {
-				throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
-			}
-		default: throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			
+		default:
+			break;
 		}
 	}
-
-	private boolean authReplyWriter(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Member member) {
+	
+	private boolean authWriter(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Member member, String table, String idx) {
 		BoardService boardService = new BoardService();
-		
-		String idx = httpRequest.getParameter("rp_idx");
-		String userId = boardService.getWriterId("reply", idx);
+		String userId = boardService.getWriterId(table, idx);
 		
 		if(member.getUserId().equals(userId)) {
-			return true;
-		}else {
 			return false;
-		}
-	}
-
-	private boolean authBoardWriter(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Member member) {
-		BoardService boardService = new BoardService();
-		
-		String idx = httpRequest.getParameter("bd_idx");
-		String userId = boardService.getWriterId("board", idx);
-		
-		if(member.getUserId().equals(userId)) {
-			return true;
 		}else {
-			return false;
+			return true;
 		}
 		
 	}

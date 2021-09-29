@@ -8,16 +8,18 @@ import java.util.Map;
 import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
-import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.common.file.FileDTO;
+import com.togetherHiking.reply.model.dao.ReplyDao;
+import com.togetherHiking.reply.model.dto.Reply;
 
 public class BoardService {
-	private BoardDao boardDao = new BoardDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
+	private BoardDao boardDao = new BoardDao();
+	private ReplyDao replyDao = new ReplyDao();
 	
 	public BoardService() {
 		// TODO Auto-generated constructor stub
@@ -63,7 +65,7 @@ public class BoardService {
 			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -112,7 +114,7 @@ public class BoardService {
 		try {
 			boardDao.updateBoardViewCnt(conn, bdIdx); // 조회수 +1
 			board = boardDao.selectBoard(conn, bdIdx);
-			replys = boardDao.selectReplyList(conn, bdIdx);
+			replys = replyDao.selectReplyList(conn, bdIdx);
 			files = boardDao.selectFiles(conn, bdIdx);
 			profile = boardDao.selectFile(conn, board.getUserId());
 			prevIdx = boardDao.selectPrevIdx(conn, bdIdx);
@@ -129,7 +131,7 @@ public class BoardService {
 			
 		}catch(DataAccessException e){
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.DATABSE_ACCESS_ERROR);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -156,23 +158,6 @@ public class BoardService {
 		
 	}
 
-	public void insertReply(Reply reply) {
-		Connection conn = template.getConnection();
-		
-		try {
-			boardDao.insertReply(conn, reply);
-			
-			template.commit(conn);
-			
-		} catch(DataAccessException e) {
-			template.rollback(conn);
-			throw new HandleableException(ErrorCode.FAILED_BOARD_UPDATE_ERROR);
-		} finally {
-			template.close(conn);
-		}
-		
-	}
-
 	public void deleteBoard(String bdIdx) {
 		Connection conn = template.getConnection();
 		
@@ -183,30 +168,12 @@ public class BoardService {
 			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
-		
 	}
-
-	public void deleteReply(String rpIdx) {
-		Connection conn = template.getConnection();
-		
-		try {
-			boardDao.deleteReply(conn, rpIdx);
-			
-			template.commit(conn);
-			
-		} catch (DataAccessException e) {
-			template.rollback(conn);
-			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
-		} finally {
-			template.close(conn);
-		}
-		
-	}
-	
+	// AuthorizationFilter.java 에서 사용중
 	public String getWriterId(String table, String idx) {
 		Connection conn = template.getConnection();
 		String res = null;

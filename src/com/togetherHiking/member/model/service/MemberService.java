@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.togetherHiking.board.model.dto.Board;
-import com.togetherHiking.board.model.dto.Reply;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.reply.model.dto.Reply;
 
 public class MemberService {
 	
