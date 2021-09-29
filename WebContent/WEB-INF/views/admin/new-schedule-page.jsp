@@ -237,18 +237,6 @@
                   <p>NEW 모임 신청 내역</p>
                 </a>
               </li>
-<!--               <li class="nav-item">
-                <a href="/member/admin/reject-schedule" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>모임 신청 반려 내역</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/member/admin/total-board" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>자유게시판 관리</p>
-                </a>
-              </li> -->
             </ul>
           </li>
 
@@ -286,21 +274,7 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <!-- <div class="col-lg-3 col-6">
-            small box
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
 
-                <p>전체 모임 관리</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="/member/admin/total-schedule" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div> -->
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
@@ -315,37 +289,7 @@
               <a href="/admin/new-schedule" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
- <!--          <div class="col-lg-3 col-6">
-            small box
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>모임 신청 반려 내역</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="/member/admin/reject-schedule" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          ./col
-          <div class="col-lg-3 col-6">
-            small box
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>자유게시판 관리</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="/member/admin/total-board" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div> -->
-          <!-- ./col -->
+ 
         </div>
         <!-- /.row -->
         </div>
@@ -377,48 +321,7 @@
 	          <h3 class="card-title">승인버튼을 눌러주세요</h3>
 	        </div>
 	        <!-- /.card-header -->
-	        <!-- 미승인된 스케줄 정보를 표시 -->
-	        <div class="card-body">
-	          <div id="jsGrid1">
-	          <div class="row">
-					<table class="table" style="border: 1px solid #dddddd">
-						<thead>
-							<tr style="height: 30px">
-								<th style="width: 10%">글번호</th>
-								<th style="width: 40%">산이름</th>
-								<th style="width: 20%">작성자</th>
-								<th style="width: 10%">작성일</th>
-								<th style="width: 10%">승인</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:if test="${not empty scheduleList}">
-								<c:forEach items="${scheduleList}" var="schedule">
-								<tr style="height: 30px; line-height: 30px;">
-									<td>${schedule.scIdx}</td>
-									<td>${schedule.mountainName}</td>
-									<td>${schedule.userId}</td>
-									<td>${schedule.regDate}</td>
-									<td><a href="/admin/approve-schedule?scIdx=${schedule.scIdx}">승인</a></td>
-								</tr>
-								</c:forEach>
-							</c:if>
-							
-							<c:if test="${empty scheduleList }">
-							<tr style="height: 30px; line-height: 30px;">
-								<td rowspan="4" colspan="4" style="text-align: center;">
-									스케줄이 없습니다.
-								</td>
-							</tr>
-							</c:if>
-							
-						</tbody>
-					</table>
-				</div>
-	          	
-	          
-	          </div>
-	        </div>
+
 	        <!-- /.card-body -->
 	      </div>
 	      <!-- /.card -->
