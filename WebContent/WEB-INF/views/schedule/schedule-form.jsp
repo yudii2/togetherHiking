@@ -35,6 +35,7 @@
 	<section>
 		
 		<form  action="/schedule/upload" method="post" class="schedule_form" name="form">
+		
 		<table class="table">
 		<tr height="50">
 			<td width="150" align="center"> 산 이름 </td>
@@ -79,10 +80,11 @@
 			</td>
 		</tr>
 		</table>
-		
-			<button type="button" onclick="location.href='calendar'" >캘린더로 돌아가기</button >
-		
-			<button type="button" onclick="upload()">모임글 등록하기</button >
+			
+			<button id="btn1" type="button" onclick="location.href='calendar'" >캘린더로 돌아가기</button >
+			
+			
+			<button id="btn2" type="button" onclick="upload()">모임글 등록하기</button >
 			
 		
 	

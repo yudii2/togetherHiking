@@ -52,6 +52,7 @@ public class ScheduleDao {
 		return schedules;
 	}
 	
+	// 승인되지 않은 스케줄list
 	public List<Schedule> selectNonApproveSchedules(Connection conn) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
