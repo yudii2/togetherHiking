@@ -26,28 +26,52 @@
 		<%-- 경기도 산  --%>
 	   <div class = loc id= "Gyeonggi">
 		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	
-		    <i class="fas fa-angle-double-left"></i>		
+		    <!-- <i class="fas fa-angle-double-left"></i>	 -->	
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">${seoulMountain.mName}</a>  
-			  <a class="mountain" href="/mountain/detail">각흘산</a>
-			  <a class="mountain" href="/mountain/detail">갈기산</a>
-			  <a class="mountain" href="/mountain/detail">갈기산</a>
-			  <a class="mountain" href="/mountain/detail">갑악산</a>
-			  <a class="mountain" href="/mountain/detail">갑산</a>
-			  <a class="mountain" href="/mountain/detail">개명산</a>
-			  <a class="mountain" href="/mountain/detail">강씨봉</a>
-	   		</div>
-			<i class="fas fa-angle-double-right"></i>
+		    
+		     <%-- <c:set var="currPage" value="${(empty param.p)? 1 : param.p}" ></c:set>	<!-- 현재 페이지 -->
+      		 <c:set var="lastPage" value="${empty mountainButton ? 1 : Math.ceil(fn:length(mountainButton)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+			     <div class="arrows" >
+			        <c:if test="${startNum > 1}">	<!-- 이전페이지로 넘기기-->
+				      <a href="?p=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+				    </c:if>
+				    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지일 경우 이전페이지x -->
+				      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
+		        	</c:if>
+					<c:if test="${currPage < lastPage}">	<!-- 다음페이지로 넘기기 -->
+						<a href="?p=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
+					</c:if>
+					<c:if test="${currPage > lastPage}">	<!-- 현재 마지막페이지일 경우 다음페이지x -->
+						<span onclick="alert('더이상 게시글이 존재하지 않습니다.')"><i class="fas fa-chevron-right rightArrow" ></i></span>
+					</c:if>			
+				 </div>		 --%>   		   	 
+			<!-- <i class="fas fa-angle-double-right"></i> -->
+		 </div>
 		</div>
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	   
+
+	    
+	    
+	    
+	    
 	    
 	     <%--  서울 산 --%>
 	    <div class = loc id= "Seoul">
 		    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>	
 		    <i class="fas fa-angle-double-left"></i>							
 		    <div class="mountain_group">
-			  <a class="mountain" href="/mountain/detail">개화산</a> 
-			  <a class="mountain" href="/mountain/detail">관악산</a>
-			  <a class="mountain" href="/mountain/detail">구룡산</a>
+		    	<c:if test="${not empty seoulMountain}">
+					<c:forEach items="${seoulMountain}" var="seoulMountain">
+		    			<a class="mountain" href="/mountain/detail">${seoulMountain.mName}</a>
+		   			</c:forEach>
+				</c:if>
 	   		</div>
 			<i class="fas fa-angle-double-right"></i>
 	    </div>

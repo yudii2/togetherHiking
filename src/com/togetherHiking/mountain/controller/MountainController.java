@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.mountain.model.dto.Mountain;
 import com.togetherHiking.mountain.model.service.MountainService;
 
@@ -76,6 +77,16 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String paramPage = request.getParameter("p");
+//		int page = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+//		
+//		if(paramPage != null && !paramPage.equals("")) {
+//			page = Integer.parseInt(paramPage);
+//		}
+//
+//		Mountain mountainButton = mountainService.mountainButtonPage(page);
+//		request.setAttribute("mountainButton", mountainButton);
+		
 		request.getRequestDispatcher("/mountain/mountain-search").forward(request, response);
 		
 	}

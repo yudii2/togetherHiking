@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
@@ -15,57 +16,7 @@ import com.togetherHiking.mountain.model.dto.Mountain;
 
 public class MountainDao {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-	
-//	public List<Mountain> selectMountainList(Connection conn) {
-//		List<Mountain>  mountainList = new ArrayList< Mountain>();
-//		PreparedStatement pstm = null;
-//		ResultSet rset = null;
-//		String query = "select * from mountain";
-//		
-//		try {
-//			pstm = conn.prepareStatement(query);
-//			rset = pstm.executeQuery();
-//			
-//			while(rset.next()) {
-//				Mountain mountain = convertRowToMountain(rset);
-//				mountainList.add(mountain);
-//			}
-//		} catch (Exception e) {
-//			throw new DataAccessException(e);
-//		} finally {
-//			template.close(rset, pstm);
-//		}
-//		
-//		return mountainList;
-//	}
-//	
-//	
-//	public Mountain selectMountainByMountainName(String mName, Connection conn) {
-//		Mountain mountain = null;			
-//		PreparedStatement pstm = null;
-//		ResultSet rset = null;
-//		
-//		String query = "select * from mountain where m_name = ?";
-//		
-//		try {			
-//			pstm = conn.prepareStatement(query);
-//			pstm.setString(1, mName);
-//			rset = pstm.executeQuery();
-//			
-//			if(rset.next()) {
-//				mountain = convertRowToMountain(rset);
-//			}
-//		} catch (SQLException e) {
-//			throw new DataAccessException(e);
-//		} finally {
-//			template.close(rset, pstm);
-//		}
-//
-//		return mountain;
-//	}
-	
-	
-	
+		
 	public void insertMountain(Mountain mountain, Connection conn){	
 		PreparedStatement pstm = null;
 		
@@ -123,8 +74,12 @@ public class MountainDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, mountain.getmName());
 			rset = pstm.executeQuery();
+			
+			while(rset.next()) {				
+				mountain.setmName(rset.getString("m_name"));
+				seoulMountain.add(mountain);
+			}
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -144,8 +99,12 @@ public class MountainDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, mountain.getmName());
 			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				mountain.setmName(rset.getString("m_name"));
+				gyeonggiMountain.add(mountain);
+			}
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -153,10 +112,33 @@ public class MountainDao {
 			template.close(rset, pstm);
 		}
 		
-		return gyeonggiMountain;
+		return gyeonggiMountain;		
 	}
 	
 
+//	public Mountain mountainButtonPage(int page, Connection conn) {
+//		Mountain mountainButton = new Mountain();
+//		PreparedStatement pstm = null;
+//		ResultSet rset = null;
+//		
+//		String sql = "select M_NAME from mountain where M_LOC like '경기%'";
+//		
+//		try {
+//			pstm = conn.prepareStatement(sql);
+//			pstm.setInt(1, (page-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
+//			pstm.setInt(2, page*9);			//8, 16, 24, 	 -> page * 8
+//			rset = pstm.executeQuery();
+//
+//		} catch (SQLException e) {
+//			throw new DataAccessException(e);
+//		}finally {
+//			template.close(rset,pstm);
+//		}
+//		
+//		return mountainButton;
+//	
+//	}
+	
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
 		mountain.setmHeight(rset.getString("m_height"));
@@ -167,5 +149,8 @@ public class MountainDao {
 		mountain.setyCoor(rset.getString("y_coor"));
 		return mountain;
 	}
+
+
+	
 
 }	
