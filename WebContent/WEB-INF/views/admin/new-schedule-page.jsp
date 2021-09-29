@@ -321,7 +321,48 @@
 	          <h3 class="card-title">승인버튼을 눌러주세요</h3>
 	        </div>
 	        <!-- /.card-header -->
-
+			<!-- 미승인된 스케줄 정보를 표시 -->
+	        <div class="card-body">
+	          <div id="jsGrid1">
+	          <div class="row">
+					<table class="table" style="border: 1px solid #dddddd">
+						<thead>
+							<tr style="height: 30px">
+								<th style="width: 10%">글번호</th>
+								<th style="width: 40%">산이름</th>
+								<th style="width: 20%">작성자</th>
+								<th style="width: 10%">작성일</th>
+								<th style="width: 10%">승인</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${not empty scheduleList}">
+								<c:forEach items="${scheduleList}" var="schedule">
+								<tr style="height: 30px; line-height: 30px;">
+									<td>${schedule.scIdx}</td>
+									<td>${schedule.mountainName}</td>
+									<td>${schedule.userId}</td>
+									<td>${schedule.regDate}</td>
+									<td><a href="/admin/approve-schedule?scIdx=${schedule.scIdx}">승인</a></td>
+								</tr>
+								</c:forEach>
+							</c:if>
+							
+							<c:if test="${empty scheduleList }">
+							<tr style="height: 30px; line-height: 30px;">
+								<td rowspan="4" colspan="4" style="text-align: center;">
+									스케줄이 없습니다.
+								</td>
+							</tr>
+							</c:if>
+							
+						</tbody>
+					</table>
+				</div>
+	          	
+	          
+	          </div>
+	        </div>
 	        <!-- /.card-body -->
 	      </div>
 	      <!-- /.card -->

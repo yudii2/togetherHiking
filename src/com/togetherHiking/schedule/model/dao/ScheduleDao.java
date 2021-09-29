@@ -77,27 +77,10 @@ public class ScheduleDao {
 		
 		return schedules;
 	}
+	
+	// admin 승인시 status = 1
 	public void approveSchedule(Connection conn, String scIdx) {
-		PreparedStatement pstm = null;
-		String sql = "UPDATE schedule SET status = 1 WHERE sc_idx = ?";
-		
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, scIdx);
-			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("승인성공");
-			}else {
-				System.out.println("승인 실패");
-			}
-			
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(pstm);
-		}
-		
+
 	}
 
 
