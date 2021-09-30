@@ -14,13 +14,10 @@ import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
-/*<<<<<<< HEAD*/
+import com.togetherHiking.mountain.model.dto.Mountain;
 import com.togetherHiking.schedule.model.dto.Schedule;
-/*=======*/
 import com.togetherHiking.reply.model.dto.Reply;
 
-/*>>>>>>> branch 'main' of https://github.com/yudii2/togetherHiking.git
-*/
 public class MemberDao {
 	
 	JDBCTemplate template = JDBCTemplate.getInstance();
@@ -349,13 +346,13 @@ public class MemberDao {
 		return res;
 	}
 	
-	//유진 09/29
+	//유진 09/30
 	public List<Schedule> selectMySchedule(String userId, Connection conn) {
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
-		String sql = "select mountain_name, d_day from schedule S"
+		String sql = "select mountain_name, d_day,status from schedule S "
 				+ "join participant_list L using(sc_idx) "
 				+ "join participant_history H using (pl_idx) where H.user_id = ?";
 		
@@ -367,7 +364,7 @@ public class MemberDao {
 			while(rset.next()) {
 				Schedule schedule = new Schedule();
 				schedule.setMountainName(rset.getString("mountain_name"));
-				schedule.setdDay(rset.getDate("dDay"));
+				schedule.setdDay(rset.getDate("d_day"));
 				
 				scheduleList.add(schedule);
 			}
@@ -379,6 +376,33 @@ public class MemberDao {
 		}
 		
 		return scheduleList;
+	}
+	
+	//유진 09/30
+	public Mountain selectMountain(String mountainName, Connection conn) {
+		Mountain mountain = new Mountain();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String sql = "select m_height from mountain where m_name = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mountainName);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				mountain.setmHeight(rset.getString("m_height"));				
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset,pstm);
+		}
+		
+		
+		return mountain;
 	}
 
 	
@@ -419,6 +443,8 @@ public class MemberDao {
 		}
 		return member;
 	}
+
+
 
 
 

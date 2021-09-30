@@ -29,10 +29,10 @@
       <div class="wrap_my_contents">
         <div class="profile">
           <div class="profile_img">
-		  <c:if test="${not empty authentication and not empty profile}">
-	      	<img id="target_img" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}">
+		  <c:if test="${not empty authentication and not empty authentication.profile}">
+	      	<img id="target_img" src="http://localhost:7070/file/${authentication.profile}">
 	      </c:if>
-	      <c:if test="${not empty authentication and empty profile}">
+	      <c:if test="${not empty authentication and empty authentication.profile}">
 	        <img id="target_img" src="/resources/img/user.png">
 	      </c:if>
           </div>
@@ -99,7 +99,7 @@
 	
    //비동기 통신으로 댓글리스트 뿌려주기
    
-   document.querySelector('#tab_reply').addEventListener('click',(e)=>{
+   document.querySelector('#tab_reply').addEventListener('click',(e) => {
 	   //e.preventDefault();
 	   
 	   //console.dir(e.target);
@@ -117,17 +117,18 @@
    });
    
    
-   
-   document.querySelector('#target_img').addEventListener('click', function (e) {
-    	 document.profile.target_url.value = document.getElementById( 'target_img' ).src;
+   /* 프로필 등록 */
+   document.querySelector('.profile_img').addEventListener('click', function (e) {
+    	 document.profile.target_url.value = document.getElementById('target_img').src;
          e.preventDefault();
        	 $('#file').click();	//changeValue메서드 호출
-     });
+   });
 
-     let changeValue = function(obj) {
-    	 document.profile.submit();
+   
+   let changeValue = function(obj) {
+  	 document.profile.submit();
 
-     }
+   }
    </script>
 
 </body>

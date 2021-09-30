@@ -42,13 +42,12 @@ public class MountainService {
 		return mountainInfo;
 	}
 	
-	public List<Mountain> getSeoulMountainList() {
+	public List<Mountain> getSeoulMountainList(int spage) {
 		Connection conn = template.getConnection();
-		Mountain mountain = new Mountain();
-		List<Mountain> seoulMountain = null;
+		List<Mountain> seoulMountain = new ArrayList<Mountain>();	
 		
 		try {
-			seoulMountain = mountainDao.getSeoulMountainList(mountain,conn);
+			seoulMountain = mountainDao.getSeoulMountainList(spage,conn);
 		} finally {
 			template.close(conn);
 		}
@@ -56,19 +55,19 @@ public class MountainService {
 		return seoulMountain;
 	}
 	
-	public List<Mountain> getGyeonggiMountainName() {
+	public List<Mountain> getGyeonggiMountainList(int gpage) {
 		Connection conn = template.getConnection();
-		Mountain mountain = new Mountain();
-		List<Mountain>gyeonggiMountain = null;
+		List<Mountain>gyeonggiMountain = new ArrayList<Mountain>();	
 		
 		try {
-			gyeonggiMountain = mountainDao.getGyeonggiMountainList(mountain,conn);
+			gyeonggiMountain = mountainDao.getGyeonggiMountainList(gpage,conn);
 		} finally {
 			template.close(conn);
 		}
 		
 		return gyeonggiMountain;
 	}
+	
 
 	
 //	public Mountain mountainButtonPage(int page) {

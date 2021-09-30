@@ -63,7 +63,7 @@ public class MountainController extends HttpServlet {
 		String inputmName = request.getParameter("mName");
 		
 		//쿼리값 전달 안됐으면 공백, 됐으면 그 쿼리 사용하겠다.
-		String mName = "";
+		String mName = ""; 
 		if(inputmName != null)
 			mName = inputmName;
 				
@@ -77,22 +77,28 @@ public class MountainController extends HttpServlet {
 	}
 
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String paramPage = request.getParameter("p");
-//		int page = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
-//		
-//		if(paramPage != null && !paramPage.equals("")) {
-//			page = Integer.parseInt(paramPage);
-//		}
-//
-//		Mountain mountainButton = mountainService.mountainButtonPage(page);
-//		request.setAttribute("mountainButton", mountainButton);
+		String seoulparamPage = request.getParameter("sp");
+		String gyeonggiparamPage = request.getParameter("gp");
+		
+		int spage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		int gpage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		
+		if(seoulparamPage != null && !seoulparamPage.equals("")) {
+			spage = Integer.parseInt(seoulparamPage);
+		}
+		if(gyeonggiparamPage != null && !gyeonggiparamPage.equals("")) {
+			gpage = Integer.parseInt(gyeonggiparamPage);
+		}
+
+		List<Mountain> seoulMountain = mountainService.getSeoulMountainList(spage);
+		List<Mountain> gyeonggiMountain = mountainService.getGyeonggiMountainList(gpage);
+		
+		request.setAttribute("seoulMountain", seoulMountain);
+		request.setAttribute("gyeonggiMountain", gyeonggiMountain);
 		
 		request.getRequestDispatcher("/mountain/mountain-search").forward(request, response);
 		
 	}
-
-
-		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

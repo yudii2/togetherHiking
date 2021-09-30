@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,26 +27,33 @@
 		<%-- 경기도 산  --%>
 	   <div class = loc id= "Gyeonggi">
 		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	
-		    <!-- <i class="fas fa-angle-double-left"></i>	 -->	
-		    <div class="mountain_group">
 		    
-		     <%-- <c:set var="currPage" value="${(empty param.p)? 1 : param.p}" ></c:set>	<!-- 현재 페이지 -->
-      		 <c:set var="lastPage" value="${empty mountainButton ? 1 : Math.ceil(fn:length(mountainButton)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+		    <c:set var="currPage" value="${(empty param.gpage)? 1 : param.gpage}" ></c:set>	<!-- 현재 페이지 -->
+      		 <c:set var="lastPage" value="${empty gyeonggiMountain ? 1 : Math.ceil(fn:length(gyeonggiMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
 			     <div class="arrows" >
 			        <c:if test="${startNum > 1}">	<!-- 이전페이지로 넘기기-->
-				      <a href="?p=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+				      <a href="?gpage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
 				    </c:if>
 				    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지일 경우 이전페이지x -->
 				      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
 		        	</c:if>
 					<c:if test="${currPage < lastPage}">	<!-- 다음페이지로 넘기기 -->
-						<a href="?p=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
+						<a href="?gpage=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
 					</c:if>
 					<c:if test="${currPage > lastPage}">	<!-- 현재 마지막페이지일 경우 다음페이지x -->
-						<span onclick="alert('더이상 게시글이 존재하지 않습니다.')"><i class="fas fa-chevron-right rightArrow" ></i></span>
+						<span onclick="alert('다음 페이지가 존재하지 않습니다..')"><i class="fas fa-chevron-right rightArrow" ></i></span>
 					</c:if>			
-				 </div>		 --%>   		   	 
-			<!-- <i class="fas fa-angle-double-right"></i> -->
+				 </div>	
+				 
+		    <div class="mountain_group">
+		    
+		     
+				
+			<c:if test="${not empty gyeonggiMountain}">
+				<c:forEach items="${gyeonggiMountain}" var="gyeonggiMountain">
+		    		<a class="mountain" href="/mountain/detail?mName=${gyeonggiMountain.mName}">${gyeonggiMountain.mName}</a>
+		   		</c:forEach>
+			</c:if>				 	   
 		 </div>
 		</div>
 	    
@@ -65,19 +73,33 @@
 	     <%--  서울 산 --%>
 	    <div class = loc id= "Seoul">
 		    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>	
-		    <i class="fas fa-angle-double-left"></i>							
+		   <c:set var="currPage" value="${(empty param.gpage)? 1 : param.gpage}" ></c:set>	<!-- 현재 페이지 -->
+      		 <c:set var="lastPage" value="${empty gyeonggiMountain ? 1 : Math.ceil(fn:length(gyeonggiMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+			     <div class="arrows" >
+			        <c:if test="${startNum > 1}">	<!-- 이전페이지로 넘기기-->
+				      <a href="?gpage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+				    </c:if>
+				    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지일 경우 이전페이지x -->
+				      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
+		        	</c:if>
+					<c:if test="${currPage < lastPage}">	<!-- 다음페이지로 넘기기 -->
+						<a href="?gpage=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
+					</c:if>
+					<c:if test="${currPage > lastPage}">	<!-- 현재 마지막페이지일 경우 다음페이지x -->
+						<span onclick="alert('다음 페이지가 존재하지 않습니다..')"><i class="fas fa-chevron-right rightArrow" ></i></span>
+					</c:if>			
+				 </div>	
+				 
 		    <div class="mountain_group">
-		    	<c:if test="${not empty seoulMountain}">
-					<c:forEach items="${seoulMountain}" var="seoulMountain">
-		    			<a class="mountain" href="/mountain/detail">${seoulMountain.mName}</a>
-		   			</c:forEach>
-				</c:if>
-	   		</div>
-			<i class="fas fa-angle-double-right"></i>
-	    </div>
-
-	
-	</div>
+		    		    			
+			<c:if test="${not empty seoulMountain}">
+				<c:forEach items="${seoulMountain}" var="seoulMountain">
+		    		<a class="mountain" href="/mountain/detail?mName=${seoulMountain.mName}">${seoulMountain.mName}</a>
+		   		</c:forEach>
+			</c:if>	
+			</div>
+		</div>			 	   
+			
   </section>  
 
 <script type="text/javascript">

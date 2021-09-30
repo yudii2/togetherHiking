@@ -16,16 +16,13 @@ import com.togetherHiking.reply.model.dto.Reply;
 
 
 public class MemberService {
-	
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	private MemberDao memberDao = new MemberDao();
-	
+
 	//사용자가 프로필 이미지 등록시 info테이블에 등록 및 멤버 객체 profile 속성 set
 	//유진 09/29
 	public void insertProfile(String userId, FileDTO profile) {
 		Connection conn = template.getConnection();
-		
-		
 		try {
 			Member member = new Member();
 			memberDao.insertProfile(userId, profile, conn);
@@ -35,9 +32,8 @@ public class MemberService {
 			template.rollback(conn);
 		}finally {
 			template.close(conn);
-		}
-		
-	}
+		}	
+	}	
 	
 	public int insertMember(Member member) {
 		Connection conn = template.getConnection();
@@ -60,8 +56,6 @@ public class MemberService {
 		}
 		return res;
 	}
-
-	
 	
 	//프로필 저장경로 조회 목적 --> 프로필이미지 화면출력
 	public FileDTO selectProfile(String userId) {
@@ -87,7 +81,6 @@ public class MemberService {
 			if(res > 0) {
 				member.setProfile(selectProfile(userId));				//새로운 프로필 조회해 멤버 객체에 set
 			}
-			
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -95,58 +88,51 @@ public class MemberService {
 		}finally {
 			template.close(conn);
 		}
-		
 		return res;
-		
 	}
-
-	//유진 09/29
+	//유진 09/30 
+	//아이디 중복확인용
 	public Member selectMemberById(String userId) {
 		Connection conn = template.getConnection();
 		Member member = null;
 		
 		try {
 			member = memberDao.selectMemberById(userId, conn);
-			member.setProfile(selectProfile(userId));
 		} finally {
 			template.close(conn);
 		}
 		return member;
 	}
-
 	//닉네임 중복확인용	
 	public Member selectByNickname(String nickname) {
 		Connection conn = template.getConnection();
 		Member member = null;
-		
 		try {
 			member = memberDao.selectByNickname(nickname, conn);
 		} finally {
 			template.close(conn);	
 		}
-		
-		return member;
-		
+		return member;	
 	}
-	
-	//유진 09/29
+	//유진 09/30
 	public List<Schedule> selectMySchedule(String userId) {
 		Connection conn  = template.getConnection();
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
 		
 		try {
 			scheduleList = memberDao.selectMySchedule(userId,conn);
+			for (Schedule schedule : scheduleList) {
+				schedule.setmHeight(memberDao.selectMountain(schedule.getMountainName(),conn));
+			}
 		} finally {
 			template.close(conn);	
 		}
 		return scheduleList;
 	}
 
-	
 	public List<Board> selectMyPostById(String userId) {
 		Connection conn  = template.getConnection();
 		List<Board> boardList = new ArrayList<Board>();
-		
 		try {
 			boardList = memberDao.selectMyPostById(userId, conn);
 		} finally {
@@ -216,18 +202,15 @@ public class MemberService {
 		}finally {
 			template.close(conn);
 		}
-		
 		return res;
-		
 	}
 	//로그인시 멤버객체 반환
 	//유진 09/29
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
 		Member member = null;
-		
 		try {
-			member = memberDao.memberAuthenticate(userId, password, conn);	
+			member = memberDao.memberAuthenticate(userId, password, conn);
 			member.setReplyCnt(countMyReply(userId));
 			member.setPostCnt(countMyPost(userId));
 			member.setProfile(selectProfile(userId));
@@ -236,28 +219,32 @@ public class MemberService {
 		}
 		return member;
 	}
-
-
+	
+	//유진 09/30 멤버 세부정보 조회(프로필 포함)
+	public Member getMemberDetail(Member member) {
+		Connection conn = template.getConnection();
+		Member memberDetail = null;
+		
+		try {
+			memberDetail = memberDao.selectMemberById(member.getUserId(), conn);
+			memberDetail.setReplyCnt(countMyReply(member.getUserId()));
+			memberDetail.setPostCnt(countMyPost(member.getUserId()));
+			memberDetail.setProfile(selectProfile(member.getUserId()));
+			
+		}finally {
+			template.close(conn);
+		}
+		return memberDetail;
+	}
+	
 	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
 		Map<String,List> replyList = new HashMap<String, List>();
-		
 		try {
 			replyList = memberDao.selectMyReply(userId,conn);
 		} finally {
 			template.close(conn);	
 		}
-		
 		return replyList;
 	}
-
-
-
-
-
-	
-	
-
-
-
 }

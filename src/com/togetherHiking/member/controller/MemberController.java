@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.file.FileDTO;
@@ -62,8 +63,8 @@ public class MemberController extends HttpServlet {
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
-		case "check-id":
-			  checkID(request,response);
+		case "id-check": //회원가입시 아이디 중복확인
+			 checkId(request,response);
 			break;
 		case "check-nickname":
 			  checkNickname(request,response);
@@ -92,9 +93,7 @@ public class MemberController extends HttpServlet {
 		case "search-password":
 			searchPassword(request,response);
 			break;
-		case "id-check": //회원가입시 아이디 중복확인
-			 checkId(request,response);
-			break;
+
 		default:/* throw new PageNotFoundException(); */
 
 		}
@@ -122,21 +121,19 @@ public class MemberController extends HttpServlet {
 		
 	}
 
-	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/member/check-id").forward(request, response);
-		String userid = request.getParameter("userid");
-		Member member = memberService.selectMemberById(userid);
-		//회원가입시 아이디 중복값 확인
-		if(member == null) {
-			response.getWriter().print("available");
-		}else {
-			response.getWriter().print("disable");
-		}
-		
-	}
 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stubs
+		HttpSession session = request.getSession();
+		memberService.insertMember((Member) session.getAttribute("persistUser"));
+
+		// 예전처럼 예외처리를 했을 경우 직접 request.setAttribute를 사용해 메시지를 입력해서 넣어줬다.
+		// 지금과의 차이점이 무엇일까
+		// 가독성의 차이. 예외상황이라는 것이 더 명확하게 보인다.
+
+		// 같은 persistUser값이 두 번 DB에 입력되지 않도록 사용자 정보와 인증을 만료시킴
+		session.removeAttribute("persistUser");
+		session.removeAttribute("persist-token");
+		response.sendRedirect("/member/login-page");
 		
 	}
 	private void joinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -210,7 +207,7 @@ public class MemberController extends HttpServlet {
 	}
 
 
-
+	//유진 09/30
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FileUtil util = new FileUtil();
 		Map<String,FileDTO> param = util.profileUpload(request);
@@ -232,7 +229,7 @@ public class MemberController extends HttpServlet {
 			}
 			request.setAttribute("msg", "프로필 등록에 성공하였습니다.");
 		}
-		member = memberService.selectMemberById(userId);
+		member = memberService.getMemberDetail(member);
 		request.getSession().setAttribute("authentication", member);	//세션에 멤버객체 재등록(프로필 포함)
 		
 		request.setAttribute("url", "/member/mypage");
@@ -242,6 +239,7 @@ public class MemberController extends HttpServlet {
 	
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nickname = request.getParameter("nickname");
+		System.out.println(nickname);
 		Member member = memberService.selectByNickname(nickname);
 		if(member == null) {
 			response.getWriter().print("available");	//js에게 전달
@@ -275,7 +273,7 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 	}
-	//유진 09/29
+	//유진 09/30
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();
