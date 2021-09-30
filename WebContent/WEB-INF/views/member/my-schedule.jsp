@@ -1,6 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,6 +63,10 @@
           	<option value="end">완료</option>
           </select>
           <div class="wrap_post">
+
+          <c:set var="today" value="<%=new java.util.Date()%>"/>
+          <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy.MM.dd"/>
+          
           <c:if test="${empty mySchedule}">
           	<div>새로운 모임 일정을 등록해 주세요</div>        
           </c:if>
@@ -75,7 +84,7 @@
 	            			<span class="status" style="background-color: #ff8080">승인</span>	            		
 	            		</c:if>
 	            	</div>
-	            	<c:if test="${schedule.dDay < sysdate}">
+	            	<c:if test="${schedule.dDay < today}">
 	   		         	<div class="end">등반완료!</div>
 	            	</c:if>
 	            </div>          	

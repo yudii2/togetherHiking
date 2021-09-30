@@ -63,7 +63,12 @@
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">
-								<img alt="프로필이미지" src="http://localhost:7070/file/${board.profileSavePath}${board.profileRenameFileName}">
+								<c:if test="${empty reply.profileRenameFileName }">
+									<img alt="프로필이미지" src="/resources/img/user.png"> 								
+								</c:if>
+								<c:if test="${not empty reply.profileRenameFileName }">
+									<img alt="프로필이미지" src="http://localhost:7070/file/${board.profileSavePath}${board.profileRenameFileName}"> 								
+								</c:if>
 							</div>
 							<div class="writer_profile">
 								<div>작성자: ${board.userId }</div>
@@ -117,7 +122,12 @@
 							<c:forEach items="${replys}" var="reply">
 								<div class="cmt_wrap">
 									<div class="cmter_picture">
-										<img alt="프로필이미지" src="http://localhost:7070/file/${reply.profileSavePath}${reply.profileRenameFileName}"> 
+									<c:if test="${empty reply.profileRenameFileName }">
+										<img alt="프로필이미지" src="/resources/img/user.png"> 								
+									</c:if>
+									<c:if test="${not empty reply.profileRenameFileName }">
+										<img alt="프로필이미지" src="http://localhost:7070/file/${reply.profileSavePath}${reply.profileRenameFileName}"> 								
+									</c:if>
 									</div>
 									<div>
 										<div class="cmt_info">
