@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.togetherHiking.common.http.HttpConnector;
+import com.togetherHiking.common.http.RequestParams;
+import com.togetherHiking.common.mail.MailSender;
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
@@ -236,6 +239,24 @@ public class MemberService {
 		}
 		return memberDetail;
 	}
+	
+	public void authenticateEmail(Member member, String persistToken) {
+		
+	      HttpConnector conn = new HttpConnector();
+	      
+	      Map<String,String> params = new HashMap<String, String>();
+	      params.put("mail-template", "mail-template");
+	      params.put("persistToken", persistToken);
+	      params.put("userId", member.getUserId());
+
+	      String queryString = conn.urlEncodedForm(params);
+	      
+	      String mailTemplate = conn.get("http://localhost:7070/mail?" + queryString);
+	      MailSender sender = new MailSender();
+	      sender.sendEmail(member.getEmail(), "환영합니다" + member.getUserId() + "님", mailTemplate);
+
+	}
+	
 	
 	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();

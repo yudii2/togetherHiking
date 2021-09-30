@@ -79,12 +79,12 @@
     </dependency>
 	
 		
-	<!-- 메일링 -->
-	<dependency>
-	    <groupId>javax.mail</groupId>
-	    <artifactId>mail</artifactId>
-	    <version>1.4.7</version>
-	</dependency>
+   <!-- 메일링 -->
+   <dependency>
+       <groupId>javax.mail</groupId>
+       <artifactId>mail</artifactId>
+       <version>1.5.0-b01</version>
+   </dependency>
 	
 	<!-- JSON 파싱 -->
 	<dependency>

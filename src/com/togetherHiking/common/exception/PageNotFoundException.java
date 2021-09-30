@@ -9,4 +9,10 @@ public class PageNotFoundException extends RuntimeException{
 		this.setStackTrace(new StackTraceElement[0]);
 		
 	}
+
+public PageNotFoundException(String message) {
+	// TODO Auto-generated constructor stub
+	super(message);
+}
+
 }

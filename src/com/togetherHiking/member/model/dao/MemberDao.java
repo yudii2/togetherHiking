@@ -325,9 +325,9 @@ public class MemberDao {
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
+		String query = "insert into member(user_id,password,nickname,birth,email,info) values(?,?,?,?,?,?)";
 
 		try {
-			String query = "insert into member(user_id,password,nickname,birth,email,info) values(?,?,?,?,?,?)";
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, member.getUserId());
 			pstm.setString(2, member.getPassword());
