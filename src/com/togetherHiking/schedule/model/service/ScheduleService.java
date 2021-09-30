@@ -12,6 +12,7 @@ import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.schedule.model.dao.ScheduleDao;
+import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 
 
@@ -141,6 +142,19 @@ public class ScheduleService {
 		} finally {
 			template.close(conn);
 		}
+	}
+
+	public List<Participant> getParticipantDTOs(String scIdx) {
+		List<Participant> participants = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			participants = scheduleDao. selectParticipantList(conn, scIdx);
+		} finally {
+			template.close(conn);
+		}	
+			
+		return participants;
 	}
 	
 	
