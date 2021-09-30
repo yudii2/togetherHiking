@@ -65,18 +65,23 @@ public class MountainDao {
 		return mountainInfo;
 	}	
 	
-	public List<Mountain> getSeoulMountainList(Mountain mountain,Connection conn) {	
+	public List<Mountain> getSeoulMountainList(int spage,Connection conn) {	
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		List<Mountain> seoulMountain = new ArrayList<Mountain>();	
 		
-		String sql = "select M_NAME from mountain where M_LOC like '서울%'";
+		String sql = "select rownum, M_Name from " 
+				+ "(select rownum,M_Name from mountain where M_LOC like '서울%')"
+				+ "where rownum BETWEEN ? and ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, (spage-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
+			pstm.setInt(2, spage*9);			//8, 16, 24, 	 -> page * 8
 			rset = pstm.executeQuery();
 			
-			while(rset.next()) {				
+			while(rset.next()) {	
+				Mountain mountain = new Mountain();
 				mountain.setmName(rset.getString("m_name"));
 				seoulMountain.add(mountain);
 			}
@@ -90,18 +95,24 @@ public class MountainDao {
 		return seoulMountain;
 	}
 	
-	public List<Mountain> getGyeonggiMountainList(Mountain mountain,Connection conn) {
+	
+	public List<Mountain> getGyeonggiMountainList(int gpage,Connection conn) {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		List<Mountain>  gyeonggiMountain = new ArrayList<Mountain>();	
 		
-		String sql = "select M_NAME from mountain where M_LOC like '경기%'";
+		String sql = "select rownum, M_Name from " 
+				+ "(select rownum,M_Name from mountain where M_LOC like '경기%')"
+				+ "where rownum BETWEEN ? and ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, (gpage-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
+			pstm.setInt(2, gpage*9);			//8, 16, 24, 	 -> page * 8
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
+				Mountain mountain = new Mountain();
 				mountain.setmName(rset.getString("m_name"));
 				gyeonggiMountain.add(mountain);
 			}
@@ -115,7 +126,7 @@ public class MountainDao {
 		return gyeonggiMountain;		
 	}
 	
-
+	
 //	public Mountain mountainButtonPage(int page, Connection conn) {
 //		Mountain mountainButton = new Mountain();
 //		PreparedStatement pstm = null;
@@ -149,6 +160,9 @@ public class MountainDao {
 		mountain.setyCoor(rset.getString("y_coor"));
 		return mountain;
 	}
+
+
+	
 
 
 	
