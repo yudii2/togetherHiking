@@ -14,12 +14,15 @@ public class Schedule {
 	private Date expDate;
 	private int allowedNum;
 	private int remainNum;
-	private String info;
+	private String info; //모임 상세정보
 	private String isDel;
 	private int status;
 	private String openChat;	
-	private int age; //모임연령대
+	private int age; //모임 연령대
+	private String nickName;
+	private String userInfo;
 	private String mHeight;
+
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
@@ -129,13 +132,30 @@ public class Schedule {
 		this.age = age;
 	}
 	
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	public String getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(String userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	
 	public String getmHeight() {
 		return mHeight;
 	}
 
-	public void setmHeight(Mountain mountain) {
-		this.mHeight = mountain.getmHeight();
+	public void setmHeight(String mHeight) {
+		this.mHeight = mHeight;
 	}
 
 	@Override

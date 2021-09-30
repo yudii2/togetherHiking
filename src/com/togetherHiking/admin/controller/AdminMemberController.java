@@ -38,10 +38,12 @@ public class AdminMemberController extends HttpServlet {
 		case "home":
 			home(request,response);
 			break;
-		case "new-schedule":	// 새로 등록된 스케줄의 리스트를 조회
+			// 새로 등록된 스케줄 리스트 조회
+		case "new-schedule":
 			newSchedule(request,response);
 			break;
-		case "approve-schedule":	// 새로 등록된 스케줄을 승인
+			// 새로 등록된 스케줄을 승인
+		case "approve-schedule":
 			approveSchedule(request,response);
 			break;
 		default:
@@ -53,25 +55,23 @@ public class AdminMemberController extends HttpServlet {
 		request.getRequestDispatcher("/admin/admin-page").forward(request, response);
 		
 	}
-	// 새로 등록된 스케줄을 조회
+	// 새로 등록된 스케줄 조회
 	private void newSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
+		//getNonApproveScheduleDTOs 미승인된 스케줄
 		scheduleList = scheduleService.getNonApproveScheduleDTOs();
 		System.out.println(scheduleList);
 		request.setAttribute("scheduleList", scheduleList);
 		request.getRequestDispatcher("/admin/new-schedule-page").forward(request, response);
 	}
 	
-	// 새로 등록된 스케줄을 승인한다
+	// 새로 등록된 스케줄 승인처리
 	private void approveSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
-		
-
-
-		
+		String scIdx = request.getParameter("scIdx");
+		scheduleService.approveSchedule(scIdx);
+		response.sendRedirect("/admin/new-schedule");	
 	}
 
 	/**

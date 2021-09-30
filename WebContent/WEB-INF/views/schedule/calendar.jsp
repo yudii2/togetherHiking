@@ -73,21 +73,21 @@
           </div>
           <div class="desc_content">
             <h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
-  <%--           <c:forEach items="${participants}" var="participant">
+           <%-- <c:forEach items="${participants}" var="participant">--%>
 				<div class="desc_user">
-				  <c:if test="${empty participant.profile}">
+<%-- 				  <c:if test="${empty participant.profile}">
 				  	<img id="target_img" src="/resources/img/user.png">
 				  </c:if>
 				  <c:if test="${not empty participant.profile}">
 	              	<img src="http://localhost:7070/file/${participant.profile }" alt="">
-	              </c:if>	
+	              </c:if>	 --%>
 	              <div class="info">
-	                <h1>닉넴1 ${participant.nickname}</h1>
+	                <h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
 	                <!-- <h2>29살</h2> -->
-	                <span>${participant.info}</span>
+	                <span class="paInfo">${participant.info}</span>
 	              </div>
 	            </div>            
-            </c:forEach> --%>
+           <%-- </c:forEach>--%>
             
             
             
@@ -155,11 +155,11 @@
                 	};
                 	schedule.push(object);
                 }
-            },
+            }/* ,
             error:function(){
                 alert("error");
                 return;
-            }
+            } */
         });
     	console.log(schedule);
         var calendarEl = document.getElementById('calendar');
@@ -196,6 +196,7 @@
                      success:function(json){
                          console.log(json);   
                          var sh = json.schedule;
+                         //var pa = json.participants;
                          if(sh){
                        	  // 받아온 schedule 정보를 모달에 등록한다.
                        	  $('#tit_schedule').text(sh.mountainName);
@@ -205,8 +206,14 @@
                              $('#allowedNum').text(sh.allowedNum);
                              $('#openChat').text(sh.openChat);
                              $('#age').text(sh.age + '대');
-                             
-                             // 참가동행자가 있을 경우 화면에 표시
+                         
+	                             // 참가동행자가 있을 경우 화면에 표시
+	                         if(json.participants){
+	                        	 for (var i = 0; i < json.participants.length; i++) {
+									$('.paNickname').text(json.participants[i].nickname);
+									$('.paInfo').text(json.participants[i].info);
+	                        	 }
+	                         }
                              
                              
                              // 접속 사용자와 작성자가 동일하면 버튼을 노출하고, 아니면 숨긴다
@@ -215,16 +222,17 @@
                            	  return;
                              }
                              if(json.userIdx.userId == sh.userId){
+                            	 $('#btn_parti').hide();
                            	  $('#btn').show();
                              } else {
                            	  $('#btn').hide();
                              }
                              $('#scid').val(info.event.id);
                          }
-                     },
+                     }/* ,
                      error:function(){
                          alert("error");
-                     }
+                     } */
                  });
            	  
          	    document.querySelector('.modal').style.display='flex';

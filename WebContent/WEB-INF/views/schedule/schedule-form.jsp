@@ -96,10 +96,11 @@
 				if(document.form.checkValidity()){
 					alert('검토를 거쳐 24시간 후 결과를 안내드리겠습니다.');
 					document.form.submit();
-				} else {
+				} 
+				/* else {
 					document.form.reportValidity()
 					return false;
-				}
+				} */
 				
 			} 
 			

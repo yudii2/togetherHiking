@@ -11,6 +11,7 @@ import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.exception.HandleableException;
+import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.schedule.model.dao.ScheduleDao;
 import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
@@ -23,35 +24,6 @@ public class ScheduleService {
 	
 	public ScheduleService() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	// 승인된 schedule 리스트를 조회
-	public List<Schedule> getScheduleDTOs() {
-		List<Schedule> schedules = null;
-		Connection conn = template.getConnection();
-		
-		try {
-			schedules = scheduleDao.selectSchedules(conn);
-			
-		} finally {
-			template.close(conn);
-		}
-		
-		return schedules;
-	}
-	// 미승인된 schedule 리스트를 조회
-	public List<Schedule> getNonApproveScheduleDTOs() {
-		List<Schedule> schedules = null;
-		Connection conn = template.getConnection();
-		
-		try {
-			schedules = scheduleDao.selectNonApproveSchedules(conn);
-			
-		} finally {
-			template.close(conn);
-		}
-		
-		return schedules;
 	}
 	
 	
@@ -70,34 +42,18 @@ public class ScheduleService {
 			template.close(conn);
 		}
 	}
-	
-	//스케줄 승인
-	public void approveSchedule(String scIdx) {
-		Connection conn = template.getConnection();
-		
-		try {
-			scheduleDao.approveSchedule(conn, scIdx);
-			
-			template.commit(conn);
-			
-		} catch (DataAccessException e) {
-			template.rollback(conn);
-			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
-		} finally {
-			template.close(conn);
-		}
-		
-	}
 
 	public Map<String, Object> getScheduleDetail(String scIdx) {
 		Connection conn = template.getConnection();
 		Map<String,Object> datas = new HashMap<String, Object>();
+		List<Member> participants = null;
 		Schedule schedule = null;
 		
 		try {
-			schedule = scheduleDao. selectSchedule(conn, scIdx);
-			
+			schedule = scheduleDao. selectSchedule(conn, scIdx);  // dao단 selectSchedule 때문에 오류남ㅠ
+			participants = scheduleDao. selectParticipantList(conn, scIdx);
 			datas.put("schedule", schedule);
+			datas.put("participants", participants);
 			
 			template.commit(conn);
 		}catch(DataAccessException e){
@@ -144,8 +100,80 @@ public class ScheduleService {
 		}
 	}
 
-	public List<Participant> getParticipantDTOs(String scIdx) {
-		List<Participant> participants = null;
+	
+	//ADMIN
+	// 미승인된 스케줄 조회
+	public List<Schedule> getNonApproveScheduleDTOs() {
+		List<Schedule> schedules = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			schedules = scheduleDao.selectNonApproveSchedules(conn);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return schedules;
+	}
+	
+	//스케줄 승인
+	public void approveSchedule(String scIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.approveSchedule(conn, scIdx);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.UNMATCHED_USER_AUTH_ERROR);
+		} finally {
+			template.close(conn);
+		}
+		
+	}
+	
+	// 승인된 스케줄 조회
+	public List<Schedule> getScheduleDTOs() {
+		List<Schedule> schedules = null;
+		Connection conn = template.getConnection();
+		
+		try {
+			schedules = scheduleDao.selectSchedules(conn);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return schedules;
+	}
+
+
+	//참가자 등록
+	public void insertParticipant(String scIdx, Member member) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.insertParticipant(scIdx,member, conn);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+
+		
+		
+	}
+	
+	//참가자 리스트 가져오기
+	public List<Member> getParticipants(String scIdx) {
+		List<Member> participants = null;
 		Connection conn = template.getConnection();
 		
 		try {
@@ -156,10 +184,6 @@ public class ScheduleService {
 			
 		return participants;
 	}
-	
-	
-	
-	
 	
 	
 	

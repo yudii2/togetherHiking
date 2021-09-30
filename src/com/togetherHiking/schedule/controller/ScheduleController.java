@@ -116,40 +116,43 @@ public class ScheduleController extends HttpServlet {
 		// request.getRequestDispatcher("/admin/new-schedule-page").forward(request,
 		// response);
 	}
+	
 
-	// 선택한 schedule 상세내용을 조회
-	private void scheduleDetail(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	// 스케줄 디테일 조회
+	private void scheduleDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String scIdx = request.getParameter("scIdx");
 		// Map에 schedule : 스케줄 상세정보를 put
 		Map<String, Object> datas = scheduleService.getScheduleDetail(scIdx);
 
+ 		// 팝업에 참가자 조회
 		// scIdx를 키로 참가동행자 리스트를 조회
-		List<Participant> participants = scheduleService.getParticipantDTOs(scIdx);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
 		// Map에 userIdx 사용자인증정보 put
 		datas.put("userIdx", request.getSession().getAttribute("authentication"));
+		System.out.println(datas);
 
 		// Map 데이터를 json 타입으로 리턴
 		String gson = new Gson().newBuilder().setDateFormat("yyyy-MM-dd").create().toJson(datas);
 		PrintWriter out = response.getWriter();
 		out.write(gson);
-		// request.setAttribute("datas", datas);
-		// request.getRequestDispatcher("/schedule/scheduleDetail").forward(request, response);
+		//request.setAttribute("schedule", datas.get("schedule"));
+		//System.out.println(datas.get("schedule"));
+		//request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 
 	}
 
+	
 	private void scheduleForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/schedule/schedule-form").forward(request, response);
 
 	}
 
-	// 수정폼 상세내용 조회
+	// 수정폼에 상세내용 불러오기
 	private void scheduleModifyForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String scIdx = request.getParameter("scIdx");
 		 Map<String, Object> schedule = scheduleService.getScheduleDetail(scIdx);
@@ -208,7 +211,7 @@ public class ScheduleController extends HttpServlet {
 		schedule.setInfo(info);
 		schedule.setOpenChat(openChat);
 		schedule.setAge(age);
-
+		System.out.println(schedule);
 		scheduleService.insertSchedule(schedule);
 		// 최종적으로 schedule 페이지로 redirect
 		response.sendRedirect("/schedule/calendar");
@@ -229,9 +232,21 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	// 동행버튼 이벤트
-	private void participant(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void participant(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		//로그인 하지 않았을 경우
+		if(member == null) {
+			response.sendRedirect("/schedule/calendar");
+			return;
+		}
+		else {
+		// userId, scIdx 가져오기
+		String userId = member.getUserId();
+		String scIdx = request.getParameter("scIdx");
 		
+		scheduleService.insertParticipant(scIdx,member);
+		}
+		response.sendRedirect("/schedule/calendar");
 	}
 	
 	/**
