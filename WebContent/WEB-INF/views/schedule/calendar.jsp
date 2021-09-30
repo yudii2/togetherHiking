@@ -65,22 +65,22 @@
           </div>
            <div class="desc_content">
             <h1 class="tit_content">안내사항</h1>
-            <h2>모임 날짜</h2><span id="dDay">2021-09-28 ${schedule.dDay}</span>
-            <h2>모임 장소</h2><span id="mointainName">불암산 버스정류장 ${schedule.mountainName}</span>
-            <h2>인원수</h2><span id="allowedNum">4 ${schedule.allowedNum}</span>
-            <h2>오픈채팅방 링크</h2><span id="openChat">dsfjlsfjlfj454 ${schedule.openChat}</span>
-            <h2>모집 연령대</h2><span id="age">40대 ${schedule.age}</span>
+            <h2>모임 날짜</h2><span id="dDay">${schedule.dDay}</span>
+            <h2>모임 장소</h2><span id="mointainName"> ${schedule.mountainName}</span>
+            <h2>인원수</h2><span id="allowedNum">${schedule.allowedNum}</span>
+            <h2>오픈채팅방 링크</h2><span id="openChat"> ${schedule.openChat}</span>
+            <h2>모집 연령대</h2><span id="age">${schedule.age}</span>
           </div>
           <div class="desc_content">
             <h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
            <%-- <c:forEach items="${participants}" var="participant">--%>
 				<div class="desc_user">
-<%-- 				  <c:if test="${empty participant.profile}">
+<%--  				  <c:if test="${empty participant.profile}">
 				  	<img id="target_img" src="/resources/img/user.png">
-				  </c:if>
-				  <c:if test="${not empty participant.profile}">
-	              	<img src="http://localhost:7070/file/${participant.profile }" alt="">
-	              </c:if>	 --%>
+				  </c:if> --%>
+				 <%--  <c:if test="${not empty participant.profile}"> --%>
+	              	<img id="paProfile" src="http://localhost:7070/file/${participant.profile }" alt="">
+	              <%-- </c:if> --%>
 	              <div class="info">
 	                <h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
 	                <!-- <h2>29살</h2> -->
@@ -93,9 +93,12 @@
             
           </div>
           <!-- host가 아닐 때 -->
-          <input type="submit" id="btn_parti" value="동행하러가기">
+          <div class="btn" id="btnNotHost">
+          	<input type="submit" id="btn_parti" value="동행하러가기">
+	        <input type="submit" id="btn_cancel" value="동행 취소">
+          </div>
           <!-- host일 때 -->
-          <div class="btn" id="btn">
+          <div class="btn" id="btnHost">
           	<input type="hidden" id="scid" >
           	<input type="submit" id="btn_edit" value="수정">
           	<input type="submit" id="btn_del" value="삭제">      
@@ -120,6 +123,10 @@
     <script type="text/javascript">
     $(document).ready(function(){	// DOM 객체가 로드되면 #btn을 숨긴다.
     	$('#btn').hide();
+    
+    $('#btn_parti').on('click',function(){
+    	location.href = '/schedule/participant?scIdx='+$('#scid').val();
+    });
     
     $('#btn_edit').on('click',function(){
     	location.href = '/schedule/schedule-modify-form?scIdx='+$('#scid').val();
@@ -210,6 +217,8 @@
 	                             // 참가동행자가 있을 경우 화면에 표시
 	                         if(json.participants){
 	                        	 for (var i = 0; i < json.participants.length; i++) {
+	                        		 console.dir($('#paProfile'));
+	                        		$('#paProfile')[0].src += json.participants[i].profile;
 									$('.paNickname').text(json.participants[i].nickname);
 									$('.paInfo').text(json.participants[i].info);
 	                        	 }
@@ -222,10 +231,10 @@
                            	  return;
                              }
                              if(json.userIdx.userId == sh.userId){
-                            	 $('#btn_parti').hide();
-                           	  $('#btn').show();
+                            	 $('#btnNotHost').hide();
+                           	  	$('#btnHost').show();
                              } else {
-                           	  $('#btn').hide();
+                           	  $('#btnHost').hide();
                              }
                              $('#scid').val(info.event.id);
                          }

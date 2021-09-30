@@ -1,5 +1,6 @@
 package com.togetherHiking.schedule.model.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -223,20 +224,25 @@ public class ScheduleDao {
 	
 	//참가자 리스트 넣기
 	public void insertParticipant(String scIdx, Member member, Connection conn) {
-		String sql = "insert into participant_list (pl_idx, sc_idx, user_id) "
-				+ "values(SC_PL_IDX.nextval,?,?)";
-		PreparedStatement pstm = null;
+		/*
+		 * String sql =
+		 * "insert into participant_history (ph_idx,pl_idx, sc_idx, user_id) " +
+		 * "values(sc_ph_idx.nextval, SC_PL_IDX.currval,?,?) " +
+		 * "where pl_idx = (select pl_idx from participant_list)";
+		 */
+		CallableStatement cstm = null;
+		String sql  = "{call sp_insert_participant(?,?)}";
 		
 		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, scIdx);
-			pstm.setString(2, member.getUserId());
-			pstm.executeUpdate();
+			cstm = conn.prepareCall(sql);
+			cstm.setString(1, scIdx);
+			cstm.setString(2, member.getUserId());
+			cstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
-			template.close(pstm);
+			template.close(cstm);
 		}
 		
 	} 

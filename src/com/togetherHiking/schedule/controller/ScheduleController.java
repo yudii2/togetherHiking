@@ -127,7 +127,7 @@ public class ScheduleController extends HttpServlet {
 
  		// 팝업에 참가자 조회
 		// scIdx를 키로 참가동행자 리스트를 조회
-		
+				
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -241,9 +241,9 @@ public class ScheduleController extends HttpServlet {
 		}
 		else {
 		// userId, scIdx 가져오기
-		String userId = member.getUserId();
+		//String userId = member.getUserId();
 		String scIdx = request.getParameter("scIdx");
-		
+		System.out.println(member.getUserId());
 		scheduleService.insertParticipant(scIdx,member);
 		}
 		response.sendRedirect("/schedule/calendar");

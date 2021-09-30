@@ -118,23 +118,22 @@
     cursor: pointer;
    	color: #fff;
    	display: inline-block;
+   	width: 50%;
   }
   #btn_parti{
-    width: 100%;  	
+    margin-right: 10px;
     background-color: var(--point-color);
 
   }
   .btn{
   	display: flex;
   }
-  #btn_edit, #btn_del{
-  	width: 50%;
-  }
+
    #btn_edit{
     background-color: #0080ff;
    	margin-right: 10px;
    }
-   #btn_del{
+   #btn_del,#btn_cancel{
      background-color: crimson;
    	
    }
