@@ -9,12 +9,14 @@ import java.util.Map;
 import com.togetherHiking.common.http.HttpConnector;
 import com.togetherHiking.common.http.RequestParams;
 import com.togetherHiking.common.mail.MailSender;
+import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dao.MemberDao;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.schedule.model.dto.Schedule;
+import com.togetherHiking.reply.model.dao.ReplyDao;
 import com.togetherHiking.reply.model.dto.Reply;
 
 
@@ -87,7 +89,6 @@ public class MemberService {
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
-			e.printStackTrace();
 		}finally {
 			template.close(conn);
 		}
@@ -268,4 +269,37 @@ public class MemberService {
 		}
 		return replyList;
 	}
+
+	//유진 10/01
+	public void deletePost(String bdIdx) {
+		Connection conn = template.getConnection();
+		BoardDao boardDao = new BoardDao();
+		
+		try {
+			boardDao.deleteBoard(conn, bdIdx);		
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+		}finally {
+			template.close(conn);
+		}
+	}
+
+	public void deleteReply(String replyIdx) {
+		Connection conn = template.getConnection();
+		ReplyDao replyDao = new ReplyDao();
+		
+		try {
+			replyDao.deleteReply(conn, replyIdx);		
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+		}finally {
+			template.close(conn);
+		}
+	}
+		
+	
+		
+	
 }

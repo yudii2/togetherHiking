@@ -252,8 +252,8 @@ public class MemberDao {
 		ResultSet rset = null;
 				
 		String sql = "select * from (select rownum num, b.* "
-				+ "from (select * from board order by reg_date desc) b "
-				+ ") where (num between ? and ? ) and (user_id = ?)";
+				+ "from (select * from board where is_del = 0 order by reg_date desc) b "
+				+ ") where (num between ? and ? ) and (user_id = ?) ";
 
 		try {
 			pstm = conn.prepareStatement(sql);

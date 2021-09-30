@@ -58,6 +58,7 @@
             <span class="date">작성일</span>
             <span class="views">답글</span>
           </div>
+        <form action="/member/delete-reply" method="post" name="deleteReply">             
           <table>
           <!-- board패키지 접근 필요 -->
           <c:if test="${empty myReply.reply}">
@@ -71,7 +72,7 @@
           <c:if test="${not empty myReply.reply}">
             <c:forEach items="${myReply.reply}" var="myReply">
 	            <tr class="contents" id="myReply">
-	              <td><input type="checkbox" id="checkbox"><span><c:out value = '${myReply.rpIdx}'/></span></td>
+	              <td><input type="checkbox" class="checkbox" name="chk" value="${myReply.rpIdx}"><span>${myReply.rpIdx}</span></td>
 	              <td>${myReply.content}</td>
 	              <td>${myReply.regDate}</td>
 	              <td>${myReply.codeIdx}</td>
@@ -81,55 +82,21 @@
           </table>
           <div class="btns">
             <div class="select_all">
-              <input type="checkbox" id="select_all">
+              <input type="checkbox" id="selectAll">
               <label for="select_all">전체선택</label>
             </div>
             <div class="btn">
               <button id="btn_del">삭제하기</button>
             </div>
           </div>
+		</form>        
         </div>
       </div>
     </div>
   </section>
 
-
-   <script>
-   
-	
-   //비동기 통신으로 댓글리스트 뿌려주기
-   
-   document.querySelector('#tab_reply').addEventListener('click',(e) => {
-	   //e.preventDefault();
-	   
-	   //console.dir(e.target);
-	   
-	   document.querySelector('.title').innerHTML = '댓글';
-	   document.querySelector('.views').innerHTML = '답글';
-	   document.querySelector('#tab_post').style.border = '1px solid #bbb'
-	   document.querySelector('#tab_post').style.backgroundColor = '#fff';
-	   document.querySelector('#tab_post>a').style.color = '#555555';
-
-	   document.querySelector('#tab_reply').style.backgroundColor = 'var(--point-color)';
-	   document.querySelector('#tab_reply').style.border = 'none';
-	   document.querySelector('#tab_reply').style.color = '#fff';
-
-   });
-   
-   
-   /* 프로필 등록 */
-   document.querySelector('.profile_img').addEventListener('click', function (e) {
-    	 document.profile.target_url.value = document.getElementById('target_img').src;
-         e.preventDefault();
-       	 $('#file').click();	//changeValue메서드 호출
-   });
-
-   
-   let changeValue = function(obj) {
-  	 document.profile.submit();
-
-   }
-   </script>
+<script type="text/javascript" src="/resources/js/member/profileUpdate.js"></script>
+<script type="text/javascript" src="/resources/js/member/my-reply.js"></script>
 
 </body>
 </html>

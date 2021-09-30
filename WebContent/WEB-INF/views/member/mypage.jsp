@@ -64,7 +64,7 @@
             <span class="views">조회</span>
           </div>
           
-      	<form action="#" method="post" name="deletePost">        
+      	<form action="/member/delete-post" method="post" name="deletePost">        
           <table>
           <!-- board패키지 접근 필요 -->
           <c:if test="${empty postByPage}">
@@ -78,7 +78,7 @@
           <c:if test="${not empty postByPage}">
             <c:forEach items="${postByPage}" var="myPost">
 	            <tr class="contents" id="myPost">
-	              <td><input type="checkbox" id="checkbox"><span class="idx">${myPost.bdIdx}</span></td>
+	              <td><input type="checkbox" class="checkbox" name="chk" value="${myPost.bdIdx}"><span class="idx">${myPost.bdIdx}</span></td>
 	              <td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${myPost.bdIdx }" id="tit_content">${myPost.title}</a></td>
 	              <td>${myPost.regDate}</td>
 	              <td>${myPost.viewCnt}</td>
@@ -132,58 +132,9 @@
   </section>
 
 
-   <script>
+<script type="text/javascript" src="/resources/js/member/profileUpdate.js"></script>
+<script type="text/javascript" src="/resources/js/member/mypage.js"></script>
 
-   /* 프로필 등록 */
-   document.querySelector('.profile_img').addEventListener('click', function (e) {
-    	 document.profile.target_url.value = document.getElementById('target_img').src;
-         e.preventDefault();
-       	 $('#file').click();	//changeValue메서드 호출
-   });
-
-   
-   let changeValue = function(obj) {
-  	 document.profile.submit();
-
-   }
-   
-   
-   
-   
-   
-   document.querySelector('#selectAll').addEventListener('click', (e) => {
-	   if(e.target.checked == true){
-		   document.querySelectorAll('#checkbox').forEach((chk) => {
-			   chk.checked = true;
-		   })
-	   }else{
-		   document.querySelectorAll('#checkbox').forEach((chk) => {
-			   chk.checked = false;
-		   })		   
-	   }
-   });
-  
-
-   
-   document.querySelector('#btn_del').addEventListener('click',(btn)=>{
-	   btn.preventDefault();
-	   
-	   let chkArr = [];
-	   document.querySelectorAll('#checkbox').forEach((chk) => {
-		   if(chk.checked == true){
-			   chkArr.push(chk)
-		   } 
-	   });
-	   if(chkArr.length > 1){
-		   alert("선택하신 게시글을 모두 삭제하시겠습니까?");
-	   }else if(chkArr.length == 0){
-		   alert("선택되지 않았습니다.");   
-	   }
-		document.deletePost.submit();
-	   
-
-   })
-   </script>
 
 </body>
 </html>

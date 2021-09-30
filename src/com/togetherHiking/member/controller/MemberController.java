@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.togetherHiking.board.model.dto.Board;
+import com.togetherHiking.common.exception.PageNotFoundException;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.member.model.dto.Member;
@@ -68,6 +69,12 @@ public class MemberController extends HttpServlet {
 		case "id-check": //회원가입시 아이디 중복확인
 			 checkId(request,response);
 			break;
+		case "search-id":
+			searchId(request,response);
+			break;
+		case "search-password":
+			searchPassword(request,response);
+			break;
 		case "check-nickname":
 			  checkNickname(request,response);
 			break;
@@ -89,18 +96,47 @@ public class MemberController extends HttpServlet {
 		case "my-schedule":
 			  mySchedule(request,response);
 			break;
-		case "search-id":
-			searchId(request,response);
+		case "delete-post":
+			  deletePost(request,response);	//유진 10/01
 			break;
-		case "search-password":
-			searchPassword(request,response);
+		case "delete-reply":
+			  deleteReply(request,response);	//유진 10/01
 			break;
 
-		default:/* throw new PageNotFoundException(); */
+		default: throw new PageNotFoundException();
 
 		}
 	}
 
+	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String[] replyIdx = request.getParameterValues("chk");
+
+		for (int i = 0; i < replyIdx.length; i++) {
+			memberService.deleteReply(replyIdx[i]);
+		}
+		
+		
+		request.setAttribute("msg", "댓글이 삭제되었습니다.");
+		request.setAttribute("url", "/member/mypage");
+		request.getRequestDispatcher("/common/result").forward(request, response);
+		
+		
+	}
+
+	//유진 10/01
+	private void deletePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String[] bdIdx = request.getParameterValues("chk");
+
+		for (int i = 0; i < bdIdx.length; i++) {
+			memberService.deletePost(bdIdx[i]);
+		}
+		
+		
+		request.setAttribute("msg", "게시글이 삭제되었습니다.");
+		request.setAttribute("url", "/member/mypage");
+		request.getRequestDispatcher("/common/result").forward(request, response);
+		
+	}
 
 	private void checkId(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 			String userid = request.getParameter("userid");
@@ -319,7 +355,7 @@ public class MemberController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();
 
-		List<Board> myPosts = memberService.selectMyPostById(userId);	
+		List<Board> myPosts = memberService.selectMyPostById(userId);	//전체 게시글 조회
 		Map<String,List> reply = memberService.selectMyReply(userId);
 
 		request.setAttribute("myPosts", myPosts);
