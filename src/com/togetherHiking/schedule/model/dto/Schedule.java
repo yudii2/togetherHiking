@@ -154,9 +154,10 @@ public class Schedule {
 		return mHeight;
 	}
 
-	public void setmHeight(String mHeight) {
-		this.mHeight = mHeight;
+	public void setmHeight(Mountain mountain) {
+		this.mHeight = mountain.getmHeight();
 	}
+
 
 	@Override
 	public String toString() {
