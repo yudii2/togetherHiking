@@ -27,8 +27,8 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select *"
 				+ " from (select rownum NUM, N.*"
-				+ " from (select * from board_view where " + field + " like ? order by reg_date desc) N)"
-				+ " where NUM between ? and ?";
+				+ " from (select * from board_list_view where " + field + " like ? order by reg_date desc) N)"
+				+ " where NUM between ? and ? order by reg_date desc";
 		
 		// ? 사용시 'field' (앞.뒤로 싱글쿼테이션 잡힘)
 		// 1, 11, 21, 31 => an = 1 + (page - 1) * 10
@@ -50,7 +50,6 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return boardList;
 	}
 	
@@ -59,8 +58,8 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select count(bd_idx) COUNT"
-				+ " from (select bd_idx from board"
-				+ " where " + field + " like ? and is_del = 0)";
+				+ " from (select bd_idx from board_view"
+				+ " where " + field + " like ?)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -76,9 +75,7 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return count;
-		
 	}
 	
 	public Board selectBoard(Connection conn, String bdIdx) {
@@ -86,8 +83,8 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select bd_idx, user_id, title, subject, content, reg_date, view_cnt"
-				+ " from board"
-				+ " where bd_idx = ? and is_del = 0";
+				+ " from board_view"
+				+ " where bd_idx = ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -95,7 +92,7 @@ public class BoardDao {
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				board = convertRowToBoard(rset);
+				board = convertRowToBoard(conn,rset);
 			}
 			
 		} catch (SQLException e) {
@@ -103,7 +100,6 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return board;
 	}
 	
@@ -112,8 +108,8 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select bd_idx"
-				+ " from (select bd_idx from board where reg_date >"
-				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
+				+ " from (select bd_idx from board_view where reg_date >"
+				+ " (select reg_date from board_view where bd_idx = ?)"
 				+ " order by reg_date asc)"
 				+ " where rownum = 1";
 		
@@ -131,9 +127,7 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return nextIdx;
-		
 	}
 	
 	public String selectPrevIdx(Connection conn, String bdIdx){
@@ -141,8 +135,8 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select bd_idx"
-				+ " from (select bd_idx from board where reg_date <"
-				+ " (select reg_date from board where bd_idx = ? and is_del = 0)"
+				+ " from (select bd_idx from board_view where reg_date <"
+				+ " (select reg_date from board_view where bd_idx = ?)"
 				+ " order by reg_date desc)"
 				+ " where rownum = 1";
 		try {
@@ -159,9 +153,7 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return prevIdx;
-		
 	}
 	
 	public List<FileDTO> selectFiles(Connection conn, String bdIdx) {
@@ -169,8 +161,8 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
-				+ " from file_info"
-				+ " where type_idx = ? and is_del = 0";
+				+ " from file_info_view"
+				+ " where type_idx = ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -187,7 +179,6 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return files;
 	}
 
@@ -197,8 +188,8 @@ public class BoardDao {
 		ResultSet rset = null;
 		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
 				+ " from (select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
-				+ " from file_info"
-				+ " where type_idx = ? and is_del = 0"
+				+ " from file_info_view"
+				+ " where type_idx = ?"
 				+ " order by reg_date desc)"
 				+ " where rownum = 1";
 		
@@ -216,7 +207,6 @@ public class BoardDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		return fileDTO;
 	}
 	
@@ -239,7 +229,6 @@ public class BoardDao {
 		} finally {
 			template.close(pstm);
 		}
-		
 		return res;
 	}
 	
@@ -284,13 +273,11 @@ public class BoardDao {
 		} finally {
 			template.close(cstm);
 		}
-		
 	}
 
 	public void updateBoardViewCnt(Connection conn, String bdIdx) {
 		PreparedStatement pstm = null;
-		String sql = "UPDATE BOARD SET VIEW_CNT = VIEW_CNT + 1 WHERE BD_IDX = ? AND IS_DEL = 0";
-		
+		String sql = "update board set view_cnt = view_cnt + 1 where bd_idx = ? and is_del = 0";
 		try {
 			pstm = conn.prepareCall(sql);
 			pstm.setString(1, bdIdx);
@@ -307,7 +294,7 @@ public class BoardDao {
 		String res = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "SELECT USER_ID FROM " + table + " WHERE " + (table.equals("board")? "bd_idx" : "rp_idx" ) + " = ? AND IS_DEL = 0";
+		String sql = "select user_id from " + table + " where " + (table.equals("board")? "bd_idx" : "rp_idx") + " = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -326,7 +313,7 @@ public class BoardDao {
 		return res;
 	}
 	
-	private Board convertRowToBoard(ResultSet rset) throws SQLException {
+	private Board convertRowToBoard(Connection conn, ResultSet rset) throws SQLException {
 		Board board = new Board();
 		board.setBdIdx(rset.getString("bd_idx"));
 		board.setUserId(rset.getString("user_id"));
@@ -335,6 +322,8 @@ public class BoardDao {
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setViewCnt(rset.getInt("view_cnt"));
+		board.setProfileRenameFileName(selectFile(conn, board.getUserId()).getRenameFileName());
+		board.setProfileSavePath(selectFile(conn, board.getUserId()).getSavePath());
 		
 		return board;
 	}

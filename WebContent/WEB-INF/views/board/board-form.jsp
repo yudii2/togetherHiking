@@ -34,16 +34,17 @@
 				</div>
 				
 				<div class='frm_content_area'>
-					<textarea name="content" required="required" placeholder="내용을 입력하세요" data-sample-short></textarea>
-					<script type="text/javascript">
-					 	CKEDITOR.replace("content",{
-					 		removePlugins: "resize",
-					 		width: "100%",
-					 		height: "200",
-					 		removeButtons: '',
+					<textarea id="editor1" name="content" placeholder="내용을 입력하세요"></textarea>
+					<script>
+						CKEDITOR.replace( 'editor1', {
+							width: '100%',
+							height: 200,
+							language: 'ko',
+							removePlugins: 'resize',
 							removeButtons: 'PasteFromWord'
-					 	});
+						} );
 					</script>
+
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
 			</form>

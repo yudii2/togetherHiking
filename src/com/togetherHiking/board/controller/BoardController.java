@@ -43,13 +43,13 @@ public class BoardController extends HttpServlet {
 		
 		switch (uriArr[uriArr.length-1]) {
 		case "board-page":
-			  boardPage(request,response);
+			boardPage(request,response);
 			break;
 		case "board-form":
-			  boardForm(request,response);
+			boardForm(request,response);
 			break;
 		case "board-detail":
-			  boardDetail(request,response);
+			boardDetail(request,response);
 			break;
 		case "upload":
 			upload(request,response);
@@ -58,7 +58,9 @@ public class BoardController extends HttpServlet {
 			deleteBoard(request,response);
 			break;
 		
-		default:/* throw new PageNotFoundException(); */
+		default: 
+			boardPage(request,response);
+			break;
 		
 		}
 	}

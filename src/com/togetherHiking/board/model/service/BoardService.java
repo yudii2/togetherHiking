@@ -35,7 +35,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return boardList;
 	}
 
@@ -69,7 +68,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return res;
 	}
 	
@@ -83,7 +81,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return prevIdx;
 	}
 	
@@ -97,7 +94,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return nextIdx;
 	}
 	
@@ -107,7 +103,6 @@ public class BoardService {
 		Board board = null;
 		List<Reply> replys = null;
 		List<FileDTO> files = null;
-		FileDTO profile = null;
 		String prevIdx = null;
 		String nextIdx = null;
 		
@@ -116,14 +111,12 @@ public class BoardService {
 			board = boardDao.selectBoard(conn, bdIdx);
 			replys = replyDao.selectReplyList(conn, bdIdx);
 			files = boardDao.selectFiles(conn, bdIdx);
-			profile = boardDao.selectFile(conn, board.getUserId());
 			prevIdx = boardDao.selectPrevIdx(conn, bdIdx);
 			nextIdx = boardDao.selectNextIdx(conn, bdIdx);
 			
 			datas.put("board", board);
 			datas.put("replys", replys);
 			datas.put("files", files);
-			datas.put("profile", profile);
 			datas.put("prevIdx", prevIdx);
 			datas.put("nextIdx", nextIdx);
 			
@@ -135,7 +128,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return datas;
 	}
 	
@@ -149,7 +141,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		
 		return res;
 	}
 

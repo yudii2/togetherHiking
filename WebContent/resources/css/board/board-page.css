@@ -1,5 +1,8 @@
  @charset "UTF-8";
  
+.section *{
+	font-size: 13px;
+}
 .section{
 	margin-top: 10px;
 	width: 1200px;
@@ -75,16 +78,14 @@ td{
 .search_bar_wrap select{
 	width: 100px;
 	height: 31px;
-	font-size: 16px;
+	text-align: center;
 }
 .search_bar_wrap input{
 	width: 300px;
 	height: 25px;
-	font-size: 16px;
 }
 .search_bar_wrap button{
 	height: 31px;
-	font-size: 16px;
 	border: 1px solid;
 	background-color: #eeeeee;
 }

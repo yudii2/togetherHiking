@@ -53,7 +53,6 @@
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<c:set var="board" value="${datas.board }"/>
 				<c:set var="files" value="${datas.files }"/>
-				<c:set var="profile" value="${datas.profile }"/>
 				<c:set var="replys" value="${datas.replys }"/>
 				
 				<div class="section_content_box">
@@ -64,7 +63,7 @@
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">
-								<img alt="프로필이미지" src="http://localhost:7070/file/${profile.savePath}${profile.renameFileName}"> <%-- 이미지 표시 도움 필요 --%>
+								<img alt="프로필이미지" src="http://localhost:7070/file/${board.profileSavePath}${board.profileRenameFileName}">
 							</div>
 							<div class="writer_profile">
 								<div>작성자: ${board.userId }</div>
@@ -90,36 +89,19 @@
 						</div>
 					</div>
 					<div class="section_container">
-						<div class="content_area">
-							<textarea cols="80" id="editor1" name="editor1" rows="10">
-								<c:out value="${board.content }"/>
-							</textarea>
-							<script>
-								var editor1 = CKEDITOR.replace('editor1', {
-								  extraAllowedContent: 'div',
-								  removeButtons: 'PasteFromWord'
-								});
-								editor1.on('instanceReady', function() {
-								  // Output self-closing tags the HTML4 way, like <br>.
-								  this.dataProcessor.writer.selfClosingEnd = '>';
-								
-								  // Use line breaks for block elements, tables, and lists.
-								  var dtd = CKEDITOR.dtd;
-								  for (var e in CKEDITOR.tools.extend({}, dtd.$nonBodyContent, dtd.$block, dtd.$listItem, dtd.$tableContent)) {
-								    this.dataProcessor.writer.setRules(e, {
-								      indent: true,
-								      breakBeforeOpen: true,
-								      breakAfterOpen: true,
-								      breakBeforeClose: true,
-								      breakAfterClose: true
-								    });
-								  }
-								  // Start in source mode.
-								  this.setMode('source');
-								});
-							</script>
-							
+						<div class="content_area" id=editor1>
+							<c:out value='${board.content }' escapeXml="false"/>
 						</div>
+						 <script>
+							CKEDITOR.replace( 'editor1', {
+								readOnly: true,
+								width: '100%',
+								height: 200,
+								language: 'ko',
+								removePlugins: 'resize',
+								removeButtons: 'PasteFromWord'
+							} );
+						</script>
 						
 						<div class="comment_area">
 							<div class="line_btns">
@@ -134,15 +116,20 @@
 							<c:if test="${not empty replys}">
 							<c:forEach items="${replys}" var="reply">
 								<div class="cmt_wrap">
-									<div class="cmt_info">
-										<div>${reply.userId }
-											<c:if test="${authentication.userId eq reply.userId }">
-											<a href="/reply/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
-											</c:if>
-										</div>
-										<div>${reply.regDate }</div>
+									<div class="cmter_picture">
+										<img alt="프로필이미지" src="http://localhost:7070/file/${reply.profileSavePath}${reply.profileRenameFileName}"> 
 									</div>
-									<div>${reply.content }</div>
+									<div>
+										<div class="cmt_info">
+											<div>${reply.userId }
+												<c:if test="${authentication.userId eq reply.userId }">
+												<a href="/reply/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
+												</c:if>
+											</div>
+											<div>${reply.regDate }</div>
+										</div>
+										<div>${reply.content }</div>
+									</div>
 								</div>
 							</c:forEach>
 							</c:if>

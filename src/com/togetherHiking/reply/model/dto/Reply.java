@@ -9,6 +9,8 @@ public class Reply {
 	private String content;
 	private String codeIdx;
 	private Date regDate;
+	private String profileSavePath;
+	private String profileRenameFileName;
 	
 	public String getRpIdx() {
 		return rpIdx;
@@ -46,10 +48,23 @@ public class Reply {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getProfileSavePath() {
+		return profileSavePath;
+	}
+	public void setProfileSavePath(String profileSavePath) {
+		this.profileSavePath = profileSavePath;
+	}
+	public String getProfileRenameFileName() {
+		return profileRenameFileName;
+	}
+	public void setProfileRenameFileName(String profileRenameFileName) {
+		this.profileRenameFileName = profileRenameFileName;
+	}
 	@Override
 	public String toString() {
 		return "Reply [rpIdx=" + rpIdx + ", bdIdx=" + bdIdx + ", userId=" + userId + ", content=" + content
-				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + "]";
+				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + ", profileSavePath=" + profileSavePath
+				+ ", profileRenameFileName=" + profileRenameFileName + "]";
 	}
 	
 	

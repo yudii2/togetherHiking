@@ -8,12 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.reply.model.dto.Reply;
 
 public class ReplyDao {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
+	private BoardDao boardDao = new BoardDao();
 	
 	public ReplyDao() {
 		// TODO Auto-generated constructor stub
@@ -24,9 +26,8 @@ public class ReplyDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "select rp_idx, bd_idx, user_id, content, code_idx, reg_date"
-				+ " from reply"
-				+ " where bd_idx = ? and is_del = 0"
-				+ " order by reg_date desc";
+				+ " from reply_view"
+				+ " where bd_idx = ? order by reg_date desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -34,7 +35,7 @@ public class ReplyDao {
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				Reply reply = convertRowToReply(rset);
+				Reply reply = convertRowToReply(conn,rset);
 				replyList.add(reply);
 			}
 			
@@ -93,7 +94,7 @@ public class ReplyDao {
 		}
 	}
 
-	private Reply convertRowToReply(ResultSet rset) throws SQLException {
+	private Reply convertRowToReply(Connection conn,ResultSet rset) throws SQLException {
 		Reply reply = new Reply();
 		reply.setRpIdx(rset.getString("rp_idx"));
 		reply.setBdIdx(rset.getString("bd_idx"));
@@ -101,6 +102,8 @@ public class ReplyDao {
 		reply.setContent(rset.getString("content"));
 		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setRegDate(rset.getDate("reg_date"));
+		reply.setProfileRenameFileName(boardDao.selectFile(conn, reply.getUserId()).getRenameFileName());
+		reply.setProfileSavePath(boardDao.selectFile(conn, reply.getUserId()).getSavePath());
 		
 		return reply;
 	}
