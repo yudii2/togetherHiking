@@ -13,6 +13,7 @@ public class JoinForm {
 	
 	private String userId;
 	private String password;
+	private String confirmPassword;
 	private String email;
 	private String nickname;
 	private String info;
@@ -25,6 +26,7 @@ public class JoinForm {
 		this.request = (HttpServletRequest) request;
 		this.userId = request.getParameter("userId");
 		this.password = request.getParameter("password");
+		this.confirmPassword = request.getParameter("user_PW2");
 		this.email = request.getParameter("email");
 		this.nickname = request.getParameter("nickname");
 		this.info = request.getParameter("information");
@@ -32,7 +34,6 @@ public class JoinForm {
 	}
 	
 	public boolean test() {
-		
 		boolean isFailed = false;
 		//사용자 아이디가 DB에 이미 존재하는 지 확인
 		if(userId.equals("") || memberService.selectMemberById(userId) != null) {
@@ -43,6 +44,12 @@ public class JoinForm {
 		//비밀번호가 영어, 숫자, 특수문자 조합의 8~15자의 문자열인지 확인
 		if(!Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,15}", password)) {
 			failedAttrubute.put("password",password); 
+			isFailed = true;
+		}
+		
+		if(!confirmPassword.equals(password) ) {
+			failedAttrubute.put("confirmPassword",confirmPassword); 
+			System.out.println('하');
 			isFailed = true;
 		}
 		

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
 
@@ -56,10 +57,10 @@ public class ScheduleController extends HttpServlet {
 			break;
 		case "schedule-form":
 			scheduleForm(request, response);
-			// 수정하기 위한 폼을 띄우기 위해 스케줄 상세내용을 조회한다.
+			// 수정하기 위한 폼을 띄우기 위해 스케줄 상세내용을 조회
 		case "schedule-modify-form":
 			scheduleModifyForm(request, response);
-			// 스케줄 수정작업을 진행한다.
+			// 스케줄 수정작업을 진행
 		case "schedule-modify":
 			scheduleModify(request, response);
 			break;
@@ -88,44 +89,7 @@ public class ScheduleController extends HttpServlet {
 		}
 	}
 
-	// 수정하기 위한 폼을 띄우기 위해 스케줄 상세내용을 조회한다.
-	private void scheduleModifyForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// scIdx를 키로 스케줄 상세내용을 조회하여 modify-form으로 이동한다.
-		String scIdx = request.getParameter("scIdx");
-		 Map<String, Object> schedule = scheduleService.getScheduleDetail(scIdx);
-		 request.setAttribute("schedule", schedule.get("schedule"));
-		request.getRequestDispatcher("/schedule/schedule-modify-form").forward(request, response);
-	}
 
-	// 스케줄 수정작업을 진행한다.
-	private void scheduleModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 입력된 값들을 가지고, scIdx를 키로 업데이트 작업을 진행한다.
-		String scIdx = request.getParameter("scIdx");
-		Date dDay = Date.valueOf(request.getParameter("dDay"));
-		String mountainName = request.getParameter("mountainName");
-		int allowedNum = Integer.parseInt(request.getParameter("allowedNum"));
-		String info = request.getParameter("info");
-		String openChat = request.getParameter("openChat");
-		int age = Integer.parseInt(request.getParameter("age"));
-		Schedule schedule = new Schedule();
-
-		schedule.setScIdx(scIdx);
-		schedule.setdDay(dDay);
-		schedule.setMountainName(mountainName);
-		schedule.setAllowedNum(allowedNum);
-		schedule.setInfo(info);
-		schedule.setOpenChat(openChat);
-		schedule.setAge(age);
-		
-		scheduleService.updateSchedule(schedule);
-		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
-	}
-
-	private void participant(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void calendar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -137,10 +101,10 @@ public class ScheduleController extends HttpServlet {
 	private void calendarList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
-		// 승인된 calendar 리스트를 조회한다.
+		// 승인된 calendar 리스트를 조회
 		scheduleList = scheduleService.getScheduleDTOs();
 
-		// 조회한 리스트를 json 타입으로 리턴한다.
+		// 조회한 리스트를 json 타입으로 리턴
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -161,6 +125,9 @@ public class ScheduleController extends HttpServlet {
 		// Map에 schedule : 스케줄 상세정보를 put
 		Map<String, Object> datas = scheduleService.getScheduleDetail(scIdx);
 
+		// scIdx를 키로 참가동행자 리스트를 조회
+		List<Participant> participants = scheduleService.getParticipantDTOs(scIdx);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
@@ -172,8 +139,7 @@ public class ScheduleController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.write(gson);
 		// request.setAttribute("datas", datas);
-		// request.getRequestDispatcher("/schedule/scheduleDetail").forward(request,
-		// response);
+		// request.getRequestDispatcher("/schedule/scheduleDetail").forward(request, response);
 
 	}
 
@@ -183,7 +149,42 @@ public class ScheduleController extends HttpServlet {
 
 	}
 
-	// schedule-form uploda
+	// 수정폼 상세내용 조회
+	private void scheduleModifyForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String scIdx = request.getParameter("scIdx");
+		 Map<String, Object> schedule = scheduleService.getScheduleDetail(scIdx);
+		 request.setAttribute("schedule", schedule.get("schedule"));
+		// scIdx를 키로 스케줄 상세내용을 조회하여 modify-form으로 이동
+		request.getRequestDispatcher("/schedule/schedule-modify-form").forward(request, response);
+	}
+
+	// 스케줄 수정 
+	//jsp파일 상에서 host에게만 브라우저에 표시해서 거르므로 validation필요없음
+	private void scheduleModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 입력된 값들을 가지고, scIdx를 키로 업데이트 작업을 진행
+		String scIdx = request.getParameter("scIdx");
+		Date dDay = Date.valueOf(request.getParameter("dDay"));
+		String mountainName = request.getParameter("mountainName");
+		int allowedNum = Integer.parseInt(request.getParameter("allowedNum"));
+		String info = request.getParameter("info");
+		String openChat = request.getParameter("openChat");
+		int age = Integer.parseInt(request.getParameter("age"));
+		Schedule schedule = new Schedule();
+
+		schedule.setScIdx(scIdx);
+		schedule.setdDay(dDay);
+		schedule.setMountainName(mountainName);
+		schedule.setAllowedNum(allowedNum);
+		schedule.setInfo(info);
+		schedule.setOpenChat(openChat);
+		schedule.setAge(age);
+		
+		scheduleService.updateSchedule(schedule);
+		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
+	}
+	
+	// 스케줄 등록
 	private void upload(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ParseException {
 		// authentication -> member 객체
@@ -213,12 +214,13 @@ public class ScheduleController extends HttpServlet {
 		response.sendRedirect("/schedule/calendar");
 	}
 
-	// edit, delete -> jsp파일 상에서 host에게만 브라우저에 표시해서 거르므로 validation필요없음
+	
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	//jsp파일 상에서 host에게만 브라우저에 표시해서 거르므로 validation필요없음
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String scIdx = request.getParameter("scIdx");
@@ -226,6 +228,12 @@ public class ScheduleController extends HttpServlet {
 		response.sendRedirect("/schedule/calendar");
 	}
 
+	// 동행버튼 이벤트
+	private void participant(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

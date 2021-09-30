@@ -1,6 +1,7 @@
 package com.togetherHiking.common.code;
 
 public enum ErrorCode {
+	//작업중
 	
 	DATABSE_ACCESS_ERROR("데이터베이스와 통신 중 에러가 발생하였습니다."),
 	FAILED_VALIDATED_ERROR("데이터의 양식이 적합하지 않습니다."),

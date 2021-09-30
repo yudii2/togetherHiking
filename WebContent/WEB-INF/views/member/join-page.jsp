@@ -163,7 +163,7 @@
       .<br>       
         </div>
         <p>
-           <input type="checkbox" id="chk1">
+           <input type="checkbox" id="chk1" class="check">
            <label for="chk1">홈페이지  이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
@@ -183,7 +183,7 @@
       - 이용자는 "산행동행"에서 수집하는 개인정보 제공에 대한 동의를 거부할 권리가 있습니다. 다만, 산행동행 이용에 필요한 필수 항목의 제공에 대한 동의를 거부하시면 위의 서비스가 제한될 수 있습니다.
         </div>
         <p>
-           <input type="checkbox" id="chk2">
+           <input type="checkbox" id="chk2" class="check">
            <label for="chk2">개인정보 수집·이용 동의 이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
@@ -210,11 +210,13 @@
 
    <div>
       <h3>비밀번호</h3>
-      <input type="password" id="user_PW1" name="password" placeholder="비밀번호를 입력하세요." required/>
-      <span id="user_PW1" class="valid_msg">
-      	<c:if test="${not empty param.err and empty joinValid.password}">
+      <input type="password" id="user_PW1" name="password" placeholder="비밀번호를 입력하세요."
+      <c:if test="${not empty param.err and empty joinValid.password}">
  					value="${joinForm.password}"
                 </c:if>
+       required/>
+      <span id="user_PW1" class="valid_msg">
+      	
      <div>
         <c:if test="${not empty param.err and not empty joinValid.password}">
         	영어,숫자,특수문자 조합의 8글자 이상입니다.
@@ -226,17 +228,20 @@
       <h3>비밀번호확인</h3>
       <input type="password" id="user_PM2" name="user_PW2" required placeholder="비밀번호를 입력하세요."/>
    </div>
-
+	<div>
+        <c:if test="${not empty param.err and not empty joinValid.confirmPassword}">
+        	비밀번호가 일치하지 않습니다.
+        </c:if>
    <div>
    
       <h3>닉네임</h3>
       <input type="text" name="nickname" id="nickname"  required />
-      <button class="btn" onclick="checkNickname()">닉네임확인</button>
-      <span id="nickname" class="valid_msg">
+      <button class="btn" id="checkNickname">닉네임확인</button>
+       <h1 class="valid-msg" id="nickname2" style="text-align: left;">
        <c:if test="${not empty param.err and not empty joinValid.nickname}">
        이미 존재하는 닉네임 입니다.
         </c:if>
-        </span>
+        </h1>
       
       
       </div>
