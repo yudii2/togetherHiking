@@ -76,8 +76,8 @@ public class MountainDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, (spage-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
-			pstm.setInt(2, spage*9);			//8, 16, 24, 	 -> page * 8
+			pstm.setInt(1, 1+(spage-1)*9);	
+			pstm.setInt(2, spage*9);
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {	
@@ -107,8 +107,8 @@ public class MountainDao {
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, (gpage-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
-			pstm.setInt(2, gpage*9);			//8, 16, 24, 	 -> page * 8
+			pstm.setInt(1, (gpage-1)*9+1);		
+			pstm.setInt(2, gpage*9);	
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {

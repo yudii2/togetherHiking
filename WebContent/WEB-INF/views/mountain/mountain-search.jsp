@@ -28,9 +28,11 @@
 	   <div class = loc id= "Gyeonggi">
 		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	
 		    
-		    <c:set var="currPage" value="${(empty param.gpage)? 1 : param.gpage}" ></c:set>	<!-- 현재 페이지 -->
-      		 <c:set var="lastPage" value="${empty gyeonggiMountain ? 1 : Math.ceil(fn:length(gyeonggiMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
-			     <div class="arrows" >
+			<c:set var="currPage" value="${(empty param.gpage)? 1 : param.gpage}" ></c:set>	<!-- 현재 페이지 -->
+			<c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 페이지넘버링 처음 번호(1,5,9,,,) -->
+	        <c:set var="lastPage" value="${empty gyeonggiMountain ? 1 : Math.ceil(fn:length(gyeonggiMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+			     
+			     <%-- <div class="arrows" >
 			        <c:if test="${startNum > 1}">	<!-- 이전페이지로 넘기기-->
 				      <a href="?gpage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
 				    </c:if>
@@ -43,12 +45,43 @@
 					<c:if test="${currPage > lastPage}">	<!-- 현재 마지막페이지일 경우 다음페이지x -->
 						<span onclick="alert('다음 페이지가 존재하지 않습니다..')"><i class="fas fa-chevron-right rightArrow" ></i></span>
 					</c:if>			
-				 </div>	
+				 </div>	 --%>
+   
+			    <div class="arrows" >
+			        <c:if test="${startNum > 1}">	
+				      <a href="?gpage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+				    </c:if>
+				    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지 -->
+				      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
+		        	</c:if>
+		        	
+					<ul class="pageNum">	<!-- 페이지 넘버링 -->
+						<c:forEach var="i" begin="0" end="4">
+						<c:if test="${(startNum+i) <= lastPage }">	<!-- 같거나 작을 때만 출력 -->
+						<li><a href="?gpage=${startNum + i}" class="num ${currPage == (startNum + i) ? 'point' : '' }">${startNum + i}</a></li>	
+						</c:if>
+						</c:forEach> 		
+					</ul>
+		
+					<c:if test="${startNum + 4 < lastPage}">	<!-- 총 페이지 수가 5를 넘으면 i=[5-9] -->
+						<a href="?gpage=${startNum + 5}"><i class="fas fa-chevron-right rightArrow" ></i></a>	<!-- rightArrow 클릭시 5번page 이동 -->
+					</c:if>
+					<c:if test="${startNum + 4 >= lastPage}">
+						<span onclick="alert('더이상 게시글이 존재하지 않습니다.')"><i class="fas fa-chevron-right rightArrow" ></i></span>
+					</c:if>			
+				</div>     	 
 				 
-		    <div class="mountain_group">
-		    
-		     
-				
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+		    <div class="mountain_group">		    	
 			<c:if test="${not empty gyeonggiMountain}">
 				<c:forEach items="${gyeonggiMountain}" var="gyeonggiMountain">
 		    		<a class="mountain" href="/mountain/detail?mName=${gyeonggiMountain.mName}">${gyeonggiMountain.mName}</a>
@@ -73,25 +106,26 @@
 	     <%--  서울 산 --%>
 	    <div class = loc id= "Seoul">
 		    <img id="loc_map" src ="/resources/img/서울지도.PNG"/>	
-		   <c:set var="currPage" value="${(empty param.gpage)? 1 : param.gpage}" ></c:set>	<!-- 현재 페이지 -->
-      		 <c:set var="lastPage" value="${empty gyeonggiMountain ? 1 : Math.ceil(fn:length(gyeonggiMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+		    <c:set var="currPage" value="${(empty param.spage)? 1 : param.spage}" ></c:set>	<!-- 현재 페이지 -->
+      		<c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 페이지넘버링 처음 번호(1,5,9,,,) -->
+      		<c:set var="lastPage" value="${empty seoulMountain ? 1 : Math.ceil(fn:length(seoulMountain)/9)}" ></c:set>	<!-- 총 페이지수 -->               
+			     
 			     <div class="arrows" >
 			        <c:if test="${startNum > 1}">	<!-- 이전페이지로 넘기기-->
-				      <a href="?gpage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
+				      <a href="?spage=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
 				    </c:if>
 				    <c:if test="${startNum <= 1}">	<!-- 현재 1페이지일 경우 이전페이지x -->
 				      <span onclick="alert('이전 페이지가 존재하지 않습니다.')"><i class="fas fa-chevron-left leftArrow" ></i></span>
 		        	</c:if>
 					<c:if test="${currPage < lastPage}">	<!-- 다음페이지로 넘기기 -->
-						<a href="?gpage=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
+						<a href="?spage=${currPage-1}"><i class="fas fa-chevron-right rightArrow" ></i></a>	
 					</c:if>
 					<c:if test="${currPage > lastPage}">	<!-- 현재 마지막페이지일 경우 다음페이지x -->
 						<span onclick="alert('다음 페이지가 존재하지 않습니다..')"><i class="fas fa-chevron-right rightArrow" ></i></span>
 					</c:if>			
 				 </div>	
 				 
-		    <div class="mountain_group">
-		    		    			
+		    <div class="mountain_group">		    		    			
 			<c:if test="${not empty seoulMountain}">
 				<c:forEach items="${seoulMountain}" var="seoulMountain">
 		    		<a class="mountain" href="/mountain/detail?mName=${seoulMountain.mName}">${seoulMountain.mName}</a>
@@ -99,7 +133,7 @@
 			</c:if>	
 			</div>
 		</div>			 	   
-			
+	</div>		
   </section>  
 
 <script type="text/javascript">
