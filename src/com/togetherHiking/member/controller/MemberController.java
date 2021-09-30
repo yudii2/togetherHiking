@@ -2,8 +2,10 @@ package com.togetherHiking.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -126,15 +128,14 @@ public class MemberController extends HttpServlet {
 		HttpSession session = request.getSession();
 		memberService.insertMember((Member) session.getAttribute("persistUser"));
 
-		// 예전처럼 예외처리를 했을 경우 직접 request.setAttribute를 사용해 메시지를 입력해서 넣어줬다.
-		// 지금과의 차이점이 무엇일까
-		// 가독성의 차이. 예외상황이라는 것이 더 명확하게 보인다.
-
 		// 같은 persistUser값이 두 번 DB에 입력되지 않도록 사용자 정보와 인증을 만료시킴
 		session.removeAttribute("persistUser");
 		session.removeAttribute("persist-token");
-		response.sendRedirect("/member/login-page");
 		
+		request.setAttribute("msg", "회원가입이 완료되었습니다.");
+		request.setAttribute("url", "/member/login-page");
+		request.getRequestDispatcher("/common/result").forward(request, response);
+				
 	}
 	private void joinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-page").forward(request, response);
@@ -143,31 +144,43 @@ public class MemberController extends HttpServlet {
 
 	private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId =  request.getParameter("userId");
-		String password = request.getParameter("user_PW1");
+		String password = request.getParameter("password");
 		String passwordcheck = request.getParameter("user_PW2");
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("user_email");
 		String year = request.getParameter("birth");
 		String month = request.getParameter("month");
-		String date = request.getParameter("day");
+		String day = request.getParameter("day");
 		String info = request.getParameter("information");
-		System.out.println(info);
-		long temp = Integer.parseInt(date+month+year);
 		
+		String birth = year + "-" + month + "-" + day;
+
 		
-		Date dat = new Date(temp);
+		//SimpleDateFormat formatting = new SimpleDateFormat("yyyy-mm-dd");		
+		//Date date = formatting.parse(birth);
+		Date date = Date.valueOf(birth);
+		
+		System.out.println(date);
+
 		
 		Member member = new Member();
 		member.setUserId(userId);
 		member.setPassword(password);
 		member.setNickname(nickname);
 		member.setEmail(email);
-		member.setBirth(dat);
+		member.setBirth(date);
 		member.setInfo(info);
-		  
+		  				
+		String persistToken = UUID.randomUUID().toString();
+		request.getSession().setAttribute("persistUser", member);
+		request.getSession().setAttribute("persist-token", persistToken);
+
+		memberService.authenticateEmail(member, persistToken);
+
+		request.setAttribute("msg", "회원가입을 위한 이메일이 발송되었습니다.");
+		request.setAttribute("url", "/member/login-form");
+		request.getRequestDispatcher("/common/result").forward(request, response);
 		
-		memberService.insertMember(member);
-		response.sendRedirect("/member/login-page");
 			
 			
 		}
