@@ -63,8 +63,8 @@ public class MemberController extends HttpServlet {
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
-		case "check-id":
-			  checkID(request,response);
+		case "id-check": //회원가입시 아이디 중복확인
+			 checkId(request,response);
 			break;
 		case "check-nickname":
 			  checkNickname(request,response);
@@ -93,9 +93,7 @@ public class MemberController extends HttpServlet {
 		case "search-password":
 			searchPassword(request,response);
 			break;
-		case "id-check": //회원가입시 아이디 중복확인
-			 checkId(request,response);
-			break;
+
 		default:/* throw new PageNotFoundException(); */
 
 		}
@@ -123,18 +121,6 @@ public class MemberController extends HttpServlet {
 		
 	}
 
-	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/member/check-id").forward(request, response);
-		String userid = request.getParameter("userid");
-		Member member = memberService.selectMemberById(userid);
-		//회원가입시 아이디 중복값 확인
-		if(member == null) {
-			response.getWriter().print("available");
-		}else {
-			response.getWriter().print("disable");
-		}
-		
-	}
 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
