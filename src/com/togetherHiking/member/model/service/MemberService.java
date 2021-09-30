@@ -98,7 +98,6 @@ public class MemberService {
 		
 		try {
 			member = memberDao.selectMemberById(userId, conn);
-//			member.setProfile(selectProfile(userId));
 		} finally {
 			template.close(conn);
 		}
