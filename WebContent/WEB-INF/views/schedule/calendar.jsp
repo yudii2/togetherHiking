@@ -79,7 +79,7 @@
 				  	<img id="target_img" src="/resources/img/user.png">
 				  </c:if> --%>
 				 <%--  <c:if test="${not empty participant.profile}"> --%>
-	              	<img id="paProfile" src="http://localhost:7070/file/${participant.profile }" alt="">
+	              	<img id="paProfile" src="http://localhost:7070/file/" alt="">
 	              <%-- </c:if> --%>
 	              <div class="info">
 	                <h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
@@ -203,7 +203,7 @@
                      success:function(json){
                          console.log(json);   
                          var sh = json.schedule;
-                         //var pa = json.participants;
+                         var pa = json.participants;
                          if(sh){
                        	  // 받아온 schedule 정보를 모달에 등록한다.
                        	  $('#tit_schedule').text(sh.mountainName);
@@ -215,19 +215,26 @@
                              $('#age').text(sh.age + '대');
                          
 	                             // 참가동행자가 있을 경우 화면에 표시
-	                         if(json.participants){
-	                        	 for (var i = 0; i < json.participants.length; i++) {
+	                         if(pa){
+	                        	 for (var i = 0; i < pa.length; i++) {
 	                        		 console.dir($('#paProfile'));
-	                        		$('#paProfile')[0].src += json.participants[i].profile;
-									$('.paNickname').text(json.participants[i].nickname);
-									$('.paInfo').text(json.participants[i].info);
+	                        		 if(!pa[i].profile){
+	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
+	                        		 }else{
+	 	                        		$('#paProfile')[0].src += pa[i].profile;
+	                        		 } 
+									$('.paNickname').text(pa[i].nickname);
+									$('.paInfo').text(pa[i].info);
+									
+									//클래스 <div class="desc_user"> 추가
 	                        	 }
 	                         }
                              
                              
                              // 접속 사용자와 작성자가 동일하면 버튼을 노출하고, 아니면 숨긴다
                              if(!json.userIdx){
-                           	  $('#btn').hide();
+	                           	  $('#btnNotHost').hide();
+	                           	 $('#btnHost').hide();
                            	  return;
                              }
                              if(json.userIdx.userId == sh.userId){
