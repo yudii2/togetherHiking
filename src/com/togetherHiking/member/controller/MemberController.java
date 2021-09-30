@@ -221,7 +221,7 @@ public class MemberController extends HttpServlet {
 	}
 
 
-
+	//유진 09/30
 	private void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FileUtil util = new FileUtil();
 		Map<String,FileDTO> param = util.profileUpload(request);
@@ -243,7 +243,7 @@ public class MemberController extends HttpServlet {
 			}
 			request.setAttribute("msg", "프로필 등록에 성공하였습니다.");
 		}
-		member = memberService.selectMemberById(userId);
+		member = memberService.getMemberDetail(member);
 		request.getSession().setAttribute("authentication", member);	//세션에 멤버객체 재등록(프로필 포함)
 		
 		request.setAttribute("url", "/member/mypage");
@@ -286,7 +286,7 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 	}
-	//유진 09/29
+	//유진 09/30
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String userId = member.getUserId();

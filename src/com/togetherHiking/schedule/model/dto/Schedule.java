@@ -2,6 +2,8 @@ package com.togetherHiking.schedule.model.dto;
 
 import java.sql.Date;
 
+import com.togetherHiking.mountain.model.dto.Mountain;
+
 public class Schedule {
 	
 	private String scIdx;
@@ -17,6 +19,7 @@ public class Schedule {
 	private int status;
 	private String openChat;	
 	private int age; //모임연령대
+	private String mHeight;
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
@@ -124,6 +127,15 @@ public class Schedule {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	
+	public String getmHeight() {
+		return mHeight;
+	}
+
+	public void setmHeight(Mountain mountain) {
+		this.mHeight = mountain.getmHeight();
 	}
 
 	@Override

@@ -90,7 +90,8 @@ public class MemberService {
 		}
 		return res;
 	}
-	//유진 09/29
+	//유진 09/30 
+	//아이디 중복확인용
 	public Member selectMemberById(String userId) {
 		Connection conn = template.getConnection();
 		Member member = null;
@@ -114,13 +115,16 @@ public class MemberService {
 		}
 		return member;	
 	}
-	//유진 09/29
+	//유진 09/30
 	public List<Schedule> selectMySchedule(String userId) {
 		Connection conn  = template.getConnection();
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
 		
 		try {
 			scheduleList = memberDao.selectMySchedule(userId,conn);
+			for (Schedule schedule : scheduleList) {
+				schedule.setmHeight(memberDao.selectMountain(schedule.getMountainName(),conn));
+			}
 		} finally {
 			template.close(conn);	
 		}
@@ -216,6 +220,24 @@ public class MemberService {
 		}
 		return member;
 	}
+	
+	//유진 09/30 멤버 세부정보 조회(프로필 포함)
+	public Member getMemberDetail(Member member) {
+		Connection conn = template.getConnection();
+		Member memberDetail = null;
+		
+		try {
+			memberDetail = memberDao.selectMemberById(member.getUserId(), conn);
+			memberDetail.setReplyCnt(countMyReply(member.getUserId()));
+			memberDetail.setPostCnt(countMyPost(member.getUserId()));
+			memberDetail.setProfile(selectProfile(member.getUserId()));
+			
+		}finally {
+			template.close(conn);
+		}
+		return memberDetail;
+	}
+	
 	public Map<String,List> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
 		Map<String,List> replyList = new HashMap<String, List>();
