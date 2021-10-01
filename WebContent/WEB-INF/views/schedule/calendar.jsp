@@ -94,7 +94,7 @@
           </div>
           <!-- host가 아닐 때 -->
           <div class="btn" id="btnNotHost">
-          	<input type="submit" id="btn_parti" value="동행하러가기">
+          	<input type="submit" id="btn_parti" value="동행하러가기" onclick="participant()">
 	        <input type="submit" id="btn_cancel" value="동행 취소">
           </div>
           <!-- host일 때 -->
@@ -121,6 +121,18 @@
     
     </script>
     <script type="text/javascript">
+    //동행하러가기 버튼 이벤트
+	function participant(){
+    	
+    	const allow = $('#allowedNum').text();
+    	const child = $('#participants').children().length;
+    	if(child - 1 >= allow){
+    		alert('초과하였습니다.');
+    		return;
+    	}
+    	location.href = '/schedule/participant?scIdx='+$('#scid').val();
+    
+    
     $(document).ready(function(){	// DOM 객체가 로드되면 #btn을 숨긴다.
     	$('#btn').hide();
     
