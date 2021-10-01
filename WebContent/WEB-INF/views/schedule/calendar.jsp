@@ -59,14 +59,14 @@
          </div>
          <div class="desc">
             <div class="desc_content">
-               <h1 class="tit_content" id="tit_content">모임내용</h1>
+               <h1 class="tit_content" id="tit_content"></h1>
                <!-- 테이블에서 info가져오기 -->
                <p>
                   <%-- 일요일 불암산 가실 분 구합니다. 내려와서 간단히 식사할 계획입니다.
                ${schedule.info} --%>
                </p>
             </div>
-            <div class="desc_content">
+            <div class="desc_content sc_info" >
                <h1 class="tit_content">안내사항</h1>
                <h2>모임 날짜</h2>
                <span id="dDay">${schedule.dDay}</span>

@@ -76,6 +76,7 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    box-sizing: border-box;
   }
   .tit_content{
     font-weight: 700;
@@ -84,14 +85,25 @@
   .desc_content p, h2, span{
     font-size: 15px;
   }
-  .desc_content h2{
+  .sc_info{
+  	display: grid;
+  	grid-template-columns: repeat( 5 , 1fr);
+  
+  }
+  .sc_info h2{
+  	grid-column : 1 / span 2 ;
+  }
+  .sc_info span{
+  	grid-column : 3 / -1 ;
+  }  
+/*   .desc_content h2{
     display: inline-block;
     width: 30%;
   }
   .desc_content span{
     display: inline-block;
     width: 70%;
-  }
+  } */
   .desc_user{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
