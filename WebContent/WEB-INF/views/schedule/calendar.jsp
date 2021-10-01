@@ -94,8 +94,8 @@
 							<img id="paProfile" src="http://localhost:7070/file/" alt="">
 						<%-- </c:if> --%>
 						<div class="info">
-							<h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
-							<span class="paInfo">${participant.info}</span>
+							<h1 class="paNickname"></h1>
+							<span class="paInfo"></span>
 						</div>
 					</div>
 					
@@ -241,7 +241,7 @@
                      success:function(json){
                          console.log(json);   
                          var sh = json.schedule;
-                        /*  var pa = json.participants; */
+                         var pa = json.participants; 
                          if(sh){
                        	  // 받아온 schedule 정보를 모달에 등록한다.
                        	  	 $('#tit_schedule').text(sh.mountainName);
@@ -269,24 +269,24 @@
 									
 							    
 	                             // 참가동행자가 있을 경우 화면에 표시
-	                         if(json.pa){
+	                         if(pa){
 
 	                        	 var top = '';
 	                        	 var bottom = '';
 	                        	 
-	                        	 for (var i = 0; i < json.pa.length; i++) {
+	                        	 for (var i = 0; i < pa.length; i++) {
 	                        		  console.dir($('#paProfile'));
-	                        		 if(!json.pa[i].profile){
+	                        		 if(!pa[i].profile){
 	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
 	                        		 }else{
-	 	                        		$('#paProfile')[0].src += json.pa[i].profile;
+	 	                        		$('#paProfile')[0].src += pa[i].profile;
 	                        		 } 
-									$('.paNickname').text(json.pa[i].nickname);
-									$('.paInfo').text(json.pa[i].info);
+									$('.paNickname').text(pa[i].nickname);
+									$('.paInfo').text(pa[i].info);
 									
 									//클래스 <div class="desc_user"> 추가
-									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ json.pa[i].nickname + '</span></div>'
-									bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+json.pa[i].nickname+'</h1><span>'+json.pa[i].info+'</span></div></div>';
+									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ pa[i].nickname + '</span></div>'
+									bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
 	                        	 }
 	                        	 	$('.part_action').before(top);
                            	  		$('.desc_tit_content').after(bottom);  
@@ -301,8 +301,26 @@
                              if(json.userIdx.userId == sh.userId){
                             	$('#btnNotHost').hide();
                            	  	$('#btnHost').show();
-                             } else {
-                           	  $('#btnHost').hide();
+                             } else {	//호스트가 아닐때                          	 
+                            	 $('#btnHost').hide();
+                            	 console.dir('로그인유저' + json.userIdx.userId);
+                            	 for (var i = 0; i < pa.length; i++) {
+                            		 console.dir(json.userIdx.userId == pa[i].userId);
+									if(pa[i].userId == json.userIdx.userId){	//참가자 리스트에 존재하면
+										console.dir(pa[i].userId);
+										
+										$('#btn_parti').hide();
+										$('#btn_cancel').width('100%');
+									}else{	//참가자 리스트에 존재하지 않으면
+										
+										$('#btn_parti').show();
+									}
+									
+								}
+                            	 
+                            	 
+                             	
+                             	
                              }
                              $('#scid').val(info.event.id);
                          	}

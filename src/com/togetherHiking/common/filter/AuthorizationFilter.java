@@ -17,6 +17,7 @@ import com.togetherHiking.common.code.member.MemberGrade;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.schedule.model.dto.Schedule;
+import com.togetherHiking.schedule.model.service.ScheduleService;
 
 /**
  * Servlet Filter implementation class AuthorizationFilter
@@ -163,12 +164,12 @@ public class AuthorizationFilter implements Filter {
 			if(httpRequest.getSession().getAttribute("authentication") == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-			scheduleHostIsSame(httpRequest,httpResponse);
+			scheduleHostIsSame(httpRequest,httpResponse,httpRequest.getParameter("scIdx"));
 		case "delete":
 			if(httpRequest.getSession().getAttribute("authentication") == null) {
 				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
 			}
-			scheduleHostIsSame(httpRequest,httpResponse);
+			scheduleHostIsSame(httpRequest,httpResponse,httpRequest.getParameter("scIdx"));
 			break;
 		default:
 			break;
@@ -177,15 +178,14 @@ public class AuthorizationFilter implements Filter {
 		
 	}
 
-	private void scheduleHostIsSame(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+	private void scheduleHostIsSame(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String scIdx) {
 		//로그인 유저 == 작성자 비교
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
 		
-//		ScheduleController scheduleController = new ScheduleController();
-//		Schedule schedule = scheduleController.checkEditor(httpRequest.getAttribute("boardIdx"));
-//	
+		ScheduleService scheduleService = new ScheduleService();
+	
 		
-		Schedule schedule = (Schedule) httpRequest.getAttribute("schedule");
+		Schedule schedule = (Schedule) scheduleService.getScheduleDetail(scIdx).get("schedule");
 		if(!member.getUserId().equals(schedule.getUserId())) {
 			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);
 		}

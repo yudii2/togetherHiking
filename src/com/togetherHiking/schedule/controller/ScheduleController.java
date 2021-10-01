@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.member.model.service.MemberService;
 import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
@@ -29,7 +30,8 @@ public class ScheduleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ScheduleService scheduleService = new ScheduleService();
-
+	private MemberService memberService = new MemberService();
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -193,15 +195,12 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	// 스케줄 등록
-	private void upload(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, ParseException {
+	private void upload(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException, ParseException {
 		// authentication -> member 객체
-		Member member = (Member) request.getSession().getAttribute("authentication");
-		String userId = member.getUserId();
+		Member loginMember = (Member) request.getSession().getAttribute("authentication");
+		String userId = loginMember.getUserId();
 
 		Date dDay = Date.valueOf(request.getParameter("dDay"));
-		// dDay 잘 받아오는지 test
-		System.out.println("dday" + dDay);
 		String mountainName = request.getParameter("mountainName");
 		int allowedNum = Integer.parseInt(request.getParameter("allowedNum"));
 		String info = request.getParameter("info");
@@ -218,8 +217,11 @@ public class ScheduleController extends HttpServlet {
 		schedule.setAge(age);
 		System.out.println(schedule);
 		scheduleService.insertSchedule(schedule);
-		// 최종적으로 schedule 페이지로 redirect
-		response.sendRedirect("/schedule/calendar");
+		
+		 Member member = memberService.selectMemberById(userId);
+		request.getSession().setAttribute("authentication", member);
+		
+		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

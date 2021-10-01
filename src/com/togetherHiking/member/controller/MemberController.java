@@ -159,7 +159,7 @@ public class MemberController extends HttpServlet {
 		
 	}
 
-
+	//유진 10/1 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		memberService.insertMember((Member) session.getAttribute("persistUser"));
@@ -191,13 +191,7 @@ public class MemberController extends HttpServlet {
 		
 		String birth = year + "-" + month + "-" + day;
 
-		
-		//SimpleDateFormat formatting = new SimpleDateFormat("yyyy-mm-dd");		
-		//Date date = formatting.parse(birth);
 		Date date = Date.valueOf(birth);
-		
-		System.out.println(date);
-
 		
 		Member member = new Member();
 		member.setUserId(userId);
@@ -214,7 +208,7 @@ public class MemberController extends HttpServlet {
 		memberService.authenticateEmail(member, persistToken);
 
 		request.setAttribute("msg", "회원가입을 위한 이메일이 발송되었습니다.");
-		request.setAttribute("url", "/member/login-form");
+		request.setAttribute("url", "/member/login-page");
 		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 			

@@ -63,7 +63,7 @@ public class ScheduleDao {
 		}
 		
 	}
-	//필요한 이유 고민
+	//승인된 스케줄 조회
 	public List<Schedule> selectSchedules(Connection conn) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
