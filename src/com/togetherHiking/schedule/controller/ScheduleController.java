@@ -227,7 +227,7 @@ public class ScheduleController extends HttpServlet {
 
 	}
 
-	// jsp파일 상에서 host에게만 브라우저에 표시해서 거르므로 validation필요없음
+	//모임글 삭제
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String scIdx = request.getParameter("scIdx");

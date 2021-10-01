@@ -189,7 +189,7 @@ public class ScheduleService {
 			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
+			throw e;
 		} finally {
 			template.close(conn);
 		}

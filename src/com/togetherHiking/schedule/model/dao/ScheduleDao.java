@@ -170,14 +170,19 @@ public class ScheduleDao {
 
 	//스케줄 삭제
 	public void deleteSchedule(String scIdx, Connection conn) {
-		String sql = "update schedule set is_del = '1' where sc_idx = ? "; //exception : is_del null값???
-		
 		PreparedStatement pstm = null;
+		String sql = "update schedule set is_del = 1 where sc_idx = ? "; //exception : is_del null값???
 		
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
-			pstm.executeUpdate();
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("모임글 삭제 성공");
+			}else {
+				System.out.println("모임글 삭제 실패");
+			}
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
