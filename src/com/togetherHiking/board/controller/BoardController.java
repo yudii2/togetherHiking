@@ -116,12 +116,13 @@ public class BoardController extends HttpServlet {
 
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//post메서드로 받아온 사용자 작성게시글 정보 받아와
-		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
+		//String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 		FileUtil fileUtil = new FileUtil();
 		MultiPartParams multiPartParams = (MultiPartParams) request.getAttribute("com.kh.file.multipart");
 
 		Board board = new Board();
-		board.setUserId(userId);
+		//board.setUserId(userId);
+		board.setUserId("게스트");
 		board.setTitle(multiPartParams.getParameter("title"));
 		board.setSubject(multiPartParams.getParameter("subject"));
 		board.setContent(multiPartParams.getParameter("content"));

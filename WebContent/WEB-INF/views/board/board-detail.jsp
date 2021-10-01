@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="/resources/css/board/board-detail.css">
-<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard-all/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -101,9 +101,7 @@
 							CKEDITOR.replace( 'editor1', {
 								readOnly: true,
 								width: '100%',
-								height: 200,
 								language: 'ko',
-								removePlugins: 'resize',
 								removeButtons: 'PasteFromWord'
 							} );
 						</script>

@@ -189,8 +189,7 @@ public class BoardDao {
 		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
 				+ " from (select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
 				+ " from file_info_view"
-				+ " where type_idx = ?"
-				+ " order by reg_date desc)"
+				+ " where type_idx = ?)"
 				+ " where rownum = 1";
 		
 		try {
@@ -315,15 +314,19 @@ public class BoardDao {
 	
 	private Board convertRowToBoard(Connection conn, ResultSet rset) throws SQLException {
 		Board board = new Board();
+		FileDTO file = new FileDTO();
+		String userId = rset.getString("user_id");
+		file = selectFile(conn, userId);
+
+		board.setUserId(userId);
 		board.setBdIdx(rset.getString("bd_idx"));
-		board.setUserId(rset.getString("user_id"));
 		board.setTitle(rset.getString("title"));
 		board.setSubject(rset.getString("subject"));
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setViewCnt(rset.getInt("view_cnt"));
-		board.setProfileRenameFileName(selectFile(conn, board.getUserId()).getRenameFileName());
-		board.setProfileSavePath(selectFile(conn, board.getUserId()).getSavePath());
+		board.setProfileRenameFileName(file.getRenameFileName());
+		board.setProfileSavePath(file.getSavePath());
 		
 		return board;
 	}

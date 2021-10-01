@@ -11,6 +11,7 @@ import java.util.List;
 import com.togetherHiking.board.model.dao.BoardDao;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
+import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.reply.model.dto.Reply;
 
 public class ReplyDao {
@@ -96,14 +97,18 @@ public class ReplyDao {
 
 	private Reply convertRowToReply(Connection conn,ResultSet rset) throws SQLException {
 		Reply reply = new Reply();
+		FileDTO file = new FileDTO();
+		String userId = rset.getString("user_id");
+		file = boardDao.selectFile(conn, userId);
+
+		reply.setUserId(userId);
 		reply.setRpIdx(rset.getString("rp_idx"));
 		reply.setBdIdx(rset.getString("bd_idx"));
-		reply.setUserId(rset.getString("user_id"));
 		reply.setContent(rset.getString("content"));
 		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setRegDate(rset.getDate("reg_date"));
-		reply.setProfileRenameFileName(boardDao.selectFile(conn, reply.getUserId()).getRenameFileName());
-		reply.setProfileSavePath(boardDao.selectFile(conn, reply.getUserId()).getSavePath());
+		reply.setProfileRenameFileName(file.getRenameFileName());
+		reply.setProfileSavePath(file.getSavePath());
 		
 		return reply;
 	}

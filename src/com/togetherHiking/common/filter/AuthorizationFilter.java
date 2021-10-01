@@ -102,7 +102,7 @@ public class AuthorizationFilter implements Filter {
 					adminAuthorize(httpRequest, httpResponse, uriArr);
 					break;
 				case "board":
-					boardAuthorize(httpRequest, httpResponse, uriArr);
+					//boardAuthorize(httpRequest, httpResponse, uriArr);
 					break;
 				case "reply":
 					replyAuthorize(httpRequest, httpResponse, uriArr);
