@@ -103,7 +103,7 @@ public class MemberController extends HttpServlet {
 			  deleteReply(request,response);	//유진 10/01
 			break;
 
-		default: throw new PageNotFoundException();
+		default: /* throw new PageNotFoundException(); */
 
 		}
 	}

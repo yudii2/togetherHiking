@@ -63,10 +63,10 @@
 						</div>
 						<div class="writer_info">
 							<div class="writer_thumb">
-								<c:if test="${empty reply.profileRenameFileName }">
+								<c:if test="${empty board.profileRenameFileName }">
 									<img alt="프로필이미지" src="/resources/img/user.png"> 								
 								</c:if>
-								<c:if test="${not empty reply.profileRenameFileName }">
+								<c:if test="${not empty board.profileRenameFileName }">
 									<img alt="프로필이미지" src="http://localhost:7070/file/${board.profileSavePath}${board.profileRenameFileName}"> 								
 								</c:if>
 							</div>
