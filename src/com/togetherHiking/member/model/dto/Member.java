@@ -14,7 +14,7 @@ public class Member {
 	private Date joinDate;
 	private String email;
 	private String grade;
-	private String isHost;
+	private int isHost;
 	private int isLeave;
 	private int postCnt;
 	private int replyCnt;
@@ -99,13 +99,12 @@ public class Member {
 		this.grade = grade;
 	}
 
-
-	public String getIsHost() {
+	public int getIsHost() {
 		return isHost;
 	}
 
 
-	public void setIsHost(String isHost) {
+	public void setIsHost(int isHost) {
 		this.isHost = isHost;
 	}
 

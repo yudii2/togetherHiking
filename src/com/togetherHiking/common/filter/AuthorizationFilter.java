@@ -196,7 +196,7 @@ public class AuthorizationFilter implements Filter {
 	private void hostAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 		//로그인 시 session 객체에 authentication 속성을 부여하고 value값으로 member객체 담아옴.
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
-		if(member.getIsHost().equals("Y")){
+		if(member.getIsHost() != 0){
 			throw new HandleableException(ErrorCode.NO_MORE_HOSTING);
 		}
 		

@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
+form{
+	width: 100%;
 
+}
 table{
-
-	width:60%;
-	
+	width:40%;	
 	display: table; 
 	margin-top: 50px;
 	margin-left: auto; 
 	margin-right: auto;
- 
-	
+ 	border: 1px solid #ddd;
 }
 
 .table{
@@ -19,25 +19,45 @@ table{
 	/* border-collapse: separate; */
 }
 
-.table th, .table td{
-	border:1px solid black;
-}
+tr{
+	
+	height: 80px;
 
-th, td{
+}
+input, select{
+	width: 300px;
+	padding: 5px 0 ;
+}
+.age{
+	width: 10px;
+}
+select{
+	
+}
+td{
 	vertical-align: middle;
+	
+}
+.label{
+	text-align: right;
+}
+.wrap_btn{ 
+	position:absolute;
+	left:50%;
+	transform:translateX(-50%);
+	display:flex;	
+  	width:40%;
+  	margin-top: 20px;
 }
 
-button{ 
-  width:40%;
-  background-color: var(--point-color);
-  padding: 10px;
-  color: #fff;
-  border-radius: 10px;
-  position:relative;
-  left: 300px;
-  top: 20px;
-  /* margin-top: 20px;
-  margin-left: 200px; */
-
+.wrap_btn button{
+	width: 50%;
+	padding: 10px;
+  	color: #fff;
+  	background-color: var(--point-color);
+  	border-radius: 10px;
 }
 
+#btn1{
+	margin-right: 10px;
+}

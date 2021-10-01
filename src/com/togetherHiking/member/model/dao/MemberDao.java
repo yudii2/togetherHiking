@@ -418,7 +418,7 @@ public class MemberDao {
 		member.setBirth(rset.getDate("birth"));
 		member.setNickname(rset.getString("nickname"));
 		member.setJoinDate(rset.getDate("join_date"));
-		member.setIsHost(rset.getString("is_host"));
+		member.setIsHost(rset.getInt("is_host"));
 		member.setIsLeave(rset.getInt("is_leave"));
 		return member;
 	}
@@ -436,7 +436,7 @@ public class MemberDao {
 			case "birth":member.setBirth(rset.getDate("birth"));break;
 			case "nickname":member.setNickname(rset.getString("nickname"));break;
 			case "join_date":member.setJoinDate(rset.getDate("join_date"));break;
-			case "is_host":member.setIsHost(rset.getString("is_host"));
+			case "is_host":member.setIsHost(rset.getInt("is_host"));
 			case "is_leave":member.setIsLeave(rset.getInt("is_leave"));break;
 
 			}
