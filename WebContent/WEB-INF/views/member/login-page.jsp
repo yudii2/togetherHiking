@@ -36,14 +36,52 @@
 	       
 	        <button type="submit">로그인</button>
 	       
-	        <a href="/member/login-kakao"><img src="/resources/img/kakao_login_large_wide.png" width="300px"></a>
-
+  <a href="javascript:loginFormWithKakao()"><img src="/resources/img/kakao_login_large_wide.png" width="300px"></a>
 
    		</form>
 
 	</div>
 
 </section>
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+Kakao.init('b48910cb5f06aa478cc2184431f97be9');
+function loginFormWithKakao() {
+    Kakao.Auth.loginForm({
+             success : function(authObj) {
+                Kakao.Auth.login({
+                         scope : 'profile_nickname,account_email,gender',
+                         success : function(e) {
+                            console.dir(e)
+                            Kakao.API.request({
+                                     url : '/v2/user/me',
+                                     success : function(res) {
+                                        console.dir(res)
+                                        
+                                     },fail : function(error) {
+                                        alert('login success, but failed to request user information: '
+                                              + JSON.stringify(error))
+                                     }
+                                  })
+                         },fail : function(error) {
+                            console.dir(error)
+                         },
+
+                      })
+
+             },fail : function(err) {
+                showResult(JSON.stringify(err))
+             },
+          })
+ }
+
+
+
+</script>
+
+
+
+
 
 </body>
 </html>
