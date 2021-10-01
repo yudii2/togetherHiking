@@ -179,6 +179,23 @@ public class ScheduleService {
 	}
 
 
+	public void cancleParticipant(String plIdx, String scIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.cancleParticipant(conn, plIdx, scIdx);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
+		} finally {
+			template.close(conn);
+		}
+	}
+
+
 
 	
 	/*

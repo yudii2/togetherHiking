@@ -161,7 +161,7 @@
     });
     
     $('#btn_cancel').on('click',function(){
-    	location.href = '/schedule/cancle?scIdx='+$('#scid').val();
+    	location.href = '/schedule/participant?scIdx='+$('#scid').val();
     });
     
     $('#part_action').on('click', function(){

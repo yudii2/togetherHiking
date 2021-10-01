@@ -300,6 +300,36 @@ public class ScheduleDao {
 		}
 		
 	}
+
+
+	public void cancleParticipant(Connection conn, String plIdx, String scIdx) {
+		PreparedStatement pstm = null;
+		String sql = "update participant_history set is_leave = 1 where pl_idx = ?";		
+			/*		"update is_leave = 1 " + 
+					"from participant_history H " + 
+					"join participant_list L using(pl_idx) " + 
+					"where H.pl_idx = L.pl_idx = ? ";
+			*/
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, plIdx);
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("동행 취소 성공");
+			}else {
+				System.out.println("동행 취소 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+	
+		
+	}
 	
 	
 
