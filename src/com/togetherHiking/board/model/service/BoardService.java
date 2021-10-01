@@ -47,12 +47,11 @@ public class BoardService {
 		
 	}
 
-	public int insertBoard(Board board, List<FileDTO> fileDTOs) {
+	public void insertBoard(Board board, List<FileDTO> fileDTOs) {
 		Connection conn = template.getConnection();
-		int res = 0;
 		
 		try {
-			res = boardDao.insertBoard(board, conn);
+			boardDao.insertBoard(board, conn);
 			
 			if(fileDTOs != null) {
 				for (FileDTO fileDTO : fileDTOs) {
@@ -68,7 +67,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-		return res;
 	}
 	
 	public String getPrevIdx(String bdIdx) {

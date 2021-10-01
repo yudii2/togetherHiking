@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Board {
 	private String bdIdx;
 	private String userId;
+	private String nickname;
 	private String title;
 	private String subject;
 	private String content;
@@ -12,7 +13,6 @@ public class Board {
 	private int viewCnt;
 	private String profileSavePath;
 	private String profileRenameFileName;
-	
 	public String getBdIdx() {
 		return bdIdx;
 	}
@@ -24,6 +24,12 @@ public class Board {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getTitle() {
 		return title;
@@ -69,9 +75,9 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", title=" + title + ", subject=" + subject
-				+ ", content=" + content + ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", profileSavePath="
-				+ profileSavePath + ", profileRenameFileName=" + profileRenameFileName + "]";
+		return "Board [bdIdx=" + bdIdx + ", userId=" + userId + ", nickname=" + nickname + ", title=" + title
+				+ ", subject=" + subject + ", content=" + content + ", regDate=" + regDate + ", viewCnt=" + viewCnt
+				+ ", profileSavePath=" + profileSavePath + ", profileRenameFileName=" + profileRenameFileName + "]";
 	}
 	
 }

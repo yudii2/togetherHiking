@@ -71,7 +71,7 @@
 								</c:if>
 							</div>
 							<div class="writer_profile">
-								<div>작성자: ${board.userId }</div>
+								<div>닉네임: ${board.nickname }</div>
 								<div>작성일: ${board.regDate }</div>
 							</div>
 							<div class="writer_board_info">
@@ -99,6 +99,11 @@
 						</div>
 						 <script>
 							CKEDITOR.replace( 'editor1', {
+								extraPlugins: 'autogrow',
+								autoGrow_minHeight: 200,
+								autoGrow_maxHeight: 600,
+								autoGrow_bottomSpace: 50,
+								removePlugins: 'resize',
 								readOnly: true,
 								width: '100%',
 								language: 'ko',
@@ -111,8 +116,8 @@
 								<span>
 									${(fn:length(replys) == null)? 0 : fn:length(replys) }개의 댓글
 								</span>
-								<span>등록순</span>
-								<span>최신순</span>
+								<!-- <span>등록순</span>
+								<span>최신순</span> -->
 							</div>
 							
 							<%-- 댓글이 존재할 경우 --%>
@@ -129,7 +134,7 @@
 									</div>
 									<div>
 										<div class="cmt_info">
-											<div>${reply.userId }
+											<div>${reply.nickname }
 												<c:if test="${authentication.userId eq reply.userId }">
 												<a href="/reply/delete-reply?rp_idx=${reply.rpIdx }&bd_idx=${board.bdIdx }" style="margin-left: 10px;"><i class="fas fa-times"></i></a>
 												</c:if>
@@ -148,7 +153,7 @@
 						<form class="frm_write_cmt" action="/reply/add-reply?bd_idx=${board.bdIdx }" method="POST">
 							<div class="cmt_write_box">
 								<c:if test="${not empty authentication.userId }">
-									<div class="cmt_writer_id">${authentication.userId }</div>
+									<div class="cmt_writer_id">${authentication.nickname }</div>
 									<textarea name="content" placeholder="댓글을 입력하세요" required="required"></textarea>
 									<button class="cmt_write_btn">등록</button>
 								</c:if>

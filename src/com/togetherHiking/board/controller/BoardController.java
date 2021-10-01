@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.board.model.service.BoardService;
+import com.togetherHiking.common.exception.PageNotFoundException;
 import com.togetherHiking.common.file.FileDTO;
-import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.common.file.MultiPartParams;
 import com.togetherHiking.member.model.dto.Member;
 
@@ -59,8 +59,7 @@ public class BoardController extends HttpServlet {
 			break;
 		
 		default: 
-			boardPage(request,response);
-			break;
+			throw new PageNotFoundException();
 		
 		}
 	}
@@ -116,28 +115,22 @@ public class BoardController extends HttpServlet {
 
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//post메서드로 받아온 사용자 작성게시글 정보 받아와
-		//String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
-		FileUtil fileUtil = new FileUtil();
+		Member member = (Member) request.getSession().getAttribute("authentication");
 		MultiPartParams multiPartParams = (MultiPartParams) request.getAttribute("com.kh.file.multipart");
 
 		Board board = new Board();
-		//board.setUserId(userId);
-		board.setUserId("게스트");
+		board.setUserId(member.getUserId());
+		board.setNickname(member.getNickname());
 		board.setTitle(multiPartParams.getParameter("title"));
 		board.setSubject(multiPartParams.getParameter("subject"));
 		board.setContent(multiPartParams.getParameter("content"));
 		
 		List<FileDTO> fileDTOs = multiPartParams.getFilesInfo();
-		int res = boardService.insertBoard(board,fileDTOs);
+		boardService.insertBoard(board,fileDTOs);
 		
-		if(res <= 0) {
-			System.out.println("업로드 중 에러 발생");
-		}
-		if(res > 0) {
-			System.out.println("업로드 성공");
-		}
 		//자신이 작성한 게시글로 리디렉트 하려면 bd_idx가 필요함
-		response.sendRedirect("/board/board-page");
+		response.setHeader("bd_idx", board.getBdIdx());
+		response.sendRedirect("/board/board-detail");
 	}
 
 	/**

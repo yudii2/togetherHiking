@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.togetherHiking.common.exception.PageNotFoundException;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.reply.model.dto.Reply;
 import com.togetherHiking.reply.model.service.ReplyService;
@@ -40,20 +41,21 @@ public class ReplyController extends HttpServlet {
 		case "delete-reply":
 			deleteReply(request,response);
 			break;
-		default:/* throw new PageNotFoundException(); */
-			break;
+		default: 
+			throw new PageNotFoundException();
 		}
 	}
 	
 	private void addReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
+		Member member = (Member) request.getSession().getAttribute("authentication");
 		String bdIdx = request.getParameter("bd_idx");
 		String content = request.getParameter("content");
 		
 		Reply reply = new Reply();
 		reply.setBdIdx(bdIdx);
-		reply.setUserId(userId);
+		reply.setUserId(member.getUserId());
 		reply.setContent(content);
+		reply.setNickname(member.getNickname());
 		
 		replyService.insertReply(reply);
 		

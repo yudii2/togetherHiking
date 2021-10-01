@@ -31,7 +31,7 @@
 								<th style="width: 10%">글번호</th>
 								<th style="width: 10%">말머리</th>
 								<th style="width: 40%">제목</th>
-								<th style="width: 20%">작성자</th>
+								<th style="width: 20%">닉네임</th>
 								<th style="width: 10%">작성일</th>
 								<th style="width: 10%">조회수</th>
 							</tr>
@@ -45,7 +45,7 @@
 									<td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${board.bdIdx }">${board.title}</a>
 										<span>[${board.replyCnt }]</span>
 									</td>
-									<td><a href="/board/board-page?p=1&f=user_id&q=${board.userId }">${board.userId}</a></td>
+									<td><a href="/board/board-page?p=1&f=nickname&q=${board.nickname }">${board.nickname}</a></td>
 									<td>${board.regDate}</td>
 									<td>${board.viewCnt }</td>
 								</tr>
@@ -77,7 +77,7 @@
 					<form class="search_bar_wrap">
 						<select class='search_subject' name='f'>
 							<option ${(param.f == "title")? "selected" : "" } value='title'>제목</option>
-							<option ${(param.f == "user_id")? "selected" : "" } value='user_id'>작성자</option>
+							<option ${(param.f == "nickname")? "selected" : "" } value='nickname'>닉네임</option>
 						</select>
 						<input type="text" name="q" value="${param.q }" placeholder="검색어를 입력하세요."/>
 						<button onclick="location.href='?p=${param.p }&f=${param.f}&q=${param.q }'">검색</button>

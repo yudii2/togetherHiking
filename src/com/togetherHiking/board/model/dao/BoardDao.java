@@ -82,7 +82,7 @@ public class BoardDao {
 		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select bd_idx, user_id, title, subject, content, reg_date, view_cnt"
+		String sql = "select *"
 				+ " from board_view"
 				+ " where bd_idx = ?";
 		
@@ -160,7 +160,7 @@ public class BoardDao {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
+		String sql = "select *"
 				+ " from file_info_view"
 				+ " where type_idx = ?";
 		
@@ -186,8 +186,8 @@ public class BoardDao {
 		FileDTO fileDTO = new FileDTO();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
-				+ " from (select fl_idx, type_idx, origin_file_name, rename_file_name, save_path, reg_date"
+		String sql = "select *"
+				+ " from (select *"
 				+ " from file_info_view"
 				+ " where type_idx = ?)"
 				+ " where rownum = 1";
@@ -209,11 +209,10 @@ public class BoardDao {
 		return fileDTO;
 	}
 	
-	public int insertBoard(Board board, Connection conn) {
-		String sql = "insert into board(bd_idx,user_id,title,content,subject) "
-				+ "values(sc_bd_idx.nextval,?,?,?,?)";
+	public void insertBoard(Board board, Connection conn) {
+		String sql = "insert into board(bd_idx, user_id, title, content, subject, nickname) "
+				+ "values(sc_bd_idx.nextval, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = null;
-		int res = 0;
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -221,14 +220,14 @@ public class BoardDao {
 			pstm.setString(2, board.getTitle());
 			pstm.setString(3, board.getContent());
 			pstm.setString(4, board.getSubject());
-			res = pstm.executeUpdate();
+			pstm.setString(5, board.getNickname());
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(pstm);
 		}
-		return res;
 	}
 	
 	public void insertFile(FileDTO fileDTO, Connection conn) {
@@ -259,13 +258,7 @@ public class BoardDao {
 		try {
 			cstm = conn.prepareCall(sql);
 			cstm.setString(1,bdIdx);
-			int res = cstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("게시글 삭제 성공");
-			}else {
-				System.out.println("게시글 삭제 실패");
-			}
+			cstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -314,17 +307,17 @@ public class BoardDao {
 	
 	private Board convertRowToBoard(Connection conn, ResultSet rset) throws SQLException {
 		Board board = new Board();
-		FileDTO file = new FileDTO();
-		String userId = rset.getString("user_id");
-		file = selectFile(conn, userId);
-
-		board.setUserId(userId);
+		board.setUserId(rset.getString("user_id"));
+		board.setNickname(rset.getString("nickname"));
 		board.setBdIdx(rset.getString("bd_idx"));
 		board.setTitle(rset.getString("title"));
 		board.setSubject(rset.getString("subject"));
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setViewCnt(rset.getInt("view_cnt"));
+		
+		FileDTO file = new FileDTO();
+		file = selectFile(conn, board.getUserId());
 		board.setProfileRenameFileName(file.getRenameFileName());
 		board.setProfileSavePath(file.getSavePath());
 		
@@ -340,6 +333,7 @@ public class BoardDao {
 		boardView.setRegDate(rset.getDate("reg_date"));
 		boardView.setViewCnt(rset.getInt("view_cnt"));
 		boardView.setReplyCnt(rset.getInt("reply_cnt"));
+		boardView.setNickname(rset.getString("nickname"));
 		
 		return boardView;
 	}

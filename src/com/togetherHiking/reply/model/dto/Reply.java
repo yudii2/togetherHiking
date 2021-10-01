@@ -11,7 +11,7 @@ public class Reply {
 	private Date regDate;
 	private String profileSavePath;
 	private String profileRenameFileName;
-	
+	private String nickname;
 	public String getRpIdx() {
 		return rpIdx;
 	}
@@ -60,12 +60,17 @@ public class Reply {
 	public void setProfileRenameFileName(String profileRenameFileName) {
 		this.profileRenameFileName = profileRenameFileName;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	@Override
 	public String toString() {
 		return "Reply [rpIdx=" + rpIdx + ", bdIdx=" + bdIdx + ", userId=" + userId + ", content=" + content
 				+ ", codeIdx=" + codeIdx + ", regDate=" + regDate + ", profileSavePath=" + profileSavePath
-				+ ", profileRenameFileName=" + profileRenameFileName + "]";
+				+ ", profileRenameFileName=" + profileRenameFileName + ", nickname=" + nickname + "]";
 	}
-	
 	
 }

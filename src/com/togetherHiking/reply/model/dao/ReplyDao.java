@@ -26,7 +26,7 @@ public class ReplyDao {
 		List<Reply> replyList = new ArrayList<Reply>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select rp_idx, bd_idx, user_id, content, code_idx, reg_date"
+		String sql = "select *"
 				+ " from reply_view"
 				+ " where bd_idx = ? order by reg_date desc";
 		
@@ -50,21 +50,16 @@ public class ReplyDao {
 	
 	public void insertReply(Connection conn, Reply reply) {
 		PreparedStatement pstm = null;
-		String sql = "INSERT INTO REPLY(RP_IDX, BD_IDX, USER_ID, CONTENT)"
-				+ " VALUES(SC_RP_IDX.NEXTVAL, ?, ?, ?)";
+		String sql = "INSERT INTO REPLY(RP_IDX, BD_IDX, USER_ID, CONTENT, nickname)"
+				+ " VALUES(SC_RP_IDX.NEXTVAL, ?, ?, ?, ?)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, reply.getBdIdx());
 			pstm.setString(2, reply.getUserId());
 			pstm.setString(3, reply.getContent());
-			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("댓글 추가 성공");
-			}else {
-				System.out.println("댓글 추가 실패");
-			}
+			pstm.setString(4, reply.getNickname());
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -80,13 +75,7 @@ public class ReplyDao {
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, rpIdx);
-			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("댓글 삭제 성공");
-			}else {
-				System.out.println("댓글 삭제 실패");
-			}
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -97,16 +86,15 @@ public class ReplyDao {
 
 	private Reply convertRowToReply(Connection conn,ResultSet rset) throws SQLException {
 		Reply reply = new Reply();
-		FileDTO file = new FileDTO();
-		String userId = rset.getString("user_id");
-		file = boardDao.selectFile(conn, userId);
-
-		reply.setUserId(userId);
+		reply.setUserId(rset.getString("user_id"));
 		reply.setRpIdx(rset.getString("rp_idx"));
 		reply.setBdIdx(rset.getString("bd_idx"));
 		reply.setContent(rset.getString("content"));
 		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setRegDate(rset.getDate("reg_date"));
+		
+		FileDTO file = new FileDTO();
+		file = boardDao.selectFile(conn, reply.getUserId());
 		reply.setProfileRenameFileName(file.getRenameFileName());
 		reply.setProfileSavePath(file.getSavePath());
 		
