@@ -262,9 +262,8 @@ public class ScheduleController extends HttpServlet {
 			response.sendRedirect("/schedule/calendar");
 			return;
 		} else {
-			String plIdx = request.getParameter("plIdx");
 			String scIdx = request.getParameter("scIdx");
-			scheduleService.cancleParticipant(plIdx, scIdx);
+			scheduleService.cancleParticipant(scIdx, member);
 		}
 		response.sendRedirect("/schedule/calendar");
 	}

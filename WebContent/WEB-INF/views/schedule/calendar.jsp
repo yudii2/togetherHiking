@@ -169,7 +169,7 @@
     });
     
     $('#btn_cancel').on('click',function(){
-       location.href = '/schedule/participant?scIdx='+$('#scid').val();
+       location.href = '/schedule/cancel?scIdx='+$('#scid').val();
     });
     
     $('#part_action').on('click', function(){
@@ -300,17 +300,16 @@
                                    return;
                              }
                              if(json.userIdx.userId == sh.userId){
-                               $('#btnNotHost').hide();
-                                   $('#btnHost').show();
+                               	 $('#btnNotHost').hide();
+                                 $('#btnHost').show();
                              } else {   //호스트가 아닐때
-                                for (var i = 0; i < pa.length; i++) {
-                           if(pa[i].userId == json.userIdx.userId){
-                              $('#btn_parti').hide();
-                           }
-                        }
-                                $('#btnHost').hide();
+                            	 $('#btnHost').hide();
+                              	 $('#btnNotHost').show();
+                            }
+                        
                                 
-                             }
+                                
+                             
                              $('#scid').val(info.event.id);
                             }
                      }   //success끝 

@@ -179,11 +179,11 @@ public class ScheduleService {
 	}
 
 	//dao에 맞춰 수정 필요
-	public void cancleParticipant(String plIdx, String scIdx) {
+	public void cancleParticipant(String scIdx, Member member) {
 		Connection conn = template.getConnection();
 		
 		try {
-			//scheduleDao.cancleParticipant(conn, plIdx, scIdx);
+			scheduleDao.cancleParticipant(scIdx,member, conn);
 			
 			template.commit(conn);
 			
