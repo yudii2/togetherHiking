@@ -246,7 +246,7 @@
                         /*  var pa = json.participants; */
                          if(sh){
                        	  // 받아온 schedule 정보를 모달에 등록한다.
-                       	  $('#tit_schedule').text(sh.mountainName);
+                       	  	 $('#tit_schedule').text(sh.mountainName);
                              $('#tit_content').text(sh.info);
                              $('#dDay').text(sh.dDay);
                              $('#mointainName').text(sh.mountainName);
@@ -255,10 +255,10 @@
                              $('#age').text(sh.age + '대');
                          
                          	// 참가동행자가 있을 경우 화면에 표시
-	                         if(pa){
+/*  	                         if(pa){
 	                        	 for (var i = 0; i < pa.length; i++) {
-	                        		 /* console.dir($('#paProfile')); */
- 	                        		 if(!pa[i].profile){
+	                        		 console.dir($('#paProfile')); 
+	                        		 if(!pa[i].profile){
 	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
 	                        		 }else{
 	 	                        		$('#paProfile')[0].src += pa[i].profile;
@@ -266,8 +266,10 @@
 									$('.paNickname').text(pa[i].nickname);
 									$('.paInfo').text(pa[i].info);  
 	                        	 }
+	                        	 
+ 	                         }; */
 									
-									    
+							    
 	                             // 참가동행자가 있을 경우 화면에 표시
 	                         if(json.pa){
 
@@ -275,7 +277,7 @@
 	                        	 var bottom = '';
 	                        	 
 	                        	 for (var i = 0; i < json.pa.length; i++) {
-	                        		 /* console.dir($('#paProfile')); */
+	                        		  console.dir($('#paProfile'));
 	                        		 if(!json.pa[i].profile){
 	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
 	                        		 }else{
@@ -285,41 +287,44 @@
 									$('.paInfo').text(json.pa[i].info);
 									
 									//클래스 <div class="desc_user"> 추가
-/* 									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ json.pa[i].nickname + '</span></div>'
+									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ json.pa[i].nickname + '</span></div>'
 									bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+json.pa[i].nickname+'</h1><span>'+json.pa[i].info+'</span></div></div>';
 	                        	 }
-	                        	 $('.part_action').before(top);
-                           	  $('.desc_tit_content').after(bottom); */
-	                         } 
-                             
+	                        	 	$('.part_action').before(top);
+                           	  		$('.desc_tit_content').after(bottom);  
+	                         }  
                              
                              // 접속 사용자와 작성자가 동일하면 버튼을 노출하고, 아니면 숨긴다
                              if(!json.userIdx){
-	                           	  $('#btnNotHost').hide();
+	                           	 $('#btnNotHost').hide();
 	                           	 $('#btnHost').hide();
-                           	  return;
+                           	  	return;
                              }
                              if(json.userIdx.userId == sh.userId){
-                            	 $('#btnNotHost').hide();
+                            	$('#btnNotHost').hide();
                            	  	$('#btnHost').show();
                              } else {
                            	  $('#btnHost').hide();
                              }
                              $('#scid').val(info.event.id);
-                         }
-                     }/* ,
+                         	}
+                     }	//success끝 
+                     /* ,
                      error:function(){
                          alert("error");
                      } */
-                 });
-           	  
+                         
+                 }); //ajax끝
+                     
          	    document.querySelector('.modal').style.display='flex';
-       	   	document.querySelector('.overlay').style.display='flex';
-             }
-       });
+       	   		document.querySelector('.overlay').style.display='flex';
+           	  }	//eventClick 끝
+       		});	
+           
       
        calendar.render();
      });
+        
    </script>
 
 </body>

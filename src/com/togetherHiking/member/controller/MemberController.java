@@ -103,7 +103,7 @@ public class MemberController extends HttpServlet {
 			  deleteReply(request,response);	//유진 10/01
 			break;
 
-		default: /* throw new PageNotFoundException(); */
+		default: throw new PageNotFoundException();
 
 		}
 	}
@@ -296,7 +296,7 @@ public class MemberController extends HttpServlet {
 			response.getWriter().print("disable");
 		}
 	}
-
+	//유진 10/01
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member sessionMember = (Member) request.getSession().getAttribute("authentication");
 		String userId = sessionMember.getUserId();
@@ -314,7 +314,7 @@ public class MemberController extends HttpServlet {
 		//서비스단에게 멤버정보수정 요청
 		if(memberService.updateMember(member) != 0) {
 			request.setAttribute("msg", "회원정보 수정을 완료하였습니다.");
-			request.setAttribute("url", "/member/mypage");
+			request.setAttribute("url", "/member/modify-page");
 		}else {
 			request.setAttribute("msg", "회원정보 수정에 실패하였습니다.");
 			request.setAttribute("back", "1");
@@ -345,7 +345,13 @@ public class MemberController extends HttpServlet {
 		
 	}
 
+	//유진 10/01
 	private void modifyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member session = (Member) request.getSession().getAttribute("authentication");
+		
+		//수정된 정보 다시 세션에 저장
+		Member member = memberService.getMemberDetail(session);
+		request.getSession().setAttribute("authentication", member);
 		request.getRequestDispatcher("/member/modify-page").forward(request, response);
 		
 	}

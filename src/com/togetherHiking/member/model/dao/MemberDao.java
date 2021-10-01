@@ -283,7 +283,7 @@ public class MemberDao {
 	}
 
 	public Map<String,List> selectMyReply(String userId, Connection conn) {
-		List<Reply> replyList = new ArrayList<>();
+		List<Reply> replyList = new ArrayList<Reply>();
 		List<Board> boardList = new ArrayList<Board>();
 		Map<String, List> myReply = new HashMap<String, List>();
 		PreparedStatement pstm = null;

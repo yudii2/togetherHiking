@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
 
 public class ModifyForm {
@@ -33,9 +34,9 @@ public class ModifyForm {
 	public boolean test() {
 		boolean isFailed = false;
 
-		//String userId = request.getSession().getAttribute("authentication").getUserId();
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
-		String userId = "USER1";	//테스트 종료 후 삭제
 		//현재세션객체에 담긴 userId로 받아온 member의 비밀번호와 동일한지 확인
 		if(password.equals("") || !password.equals(memberService.selectMemberById(userId).getPassword())) {
 			failedAttrubute.put("password",password);
@@ -56,31 +57,24 @@ public class ModifyForm {
 		
 		// **** 닉네임 검증
 		//null이면 기존 닉네임 대입(authentication속성 만들어진 후 테스트할 것)
-		if(nickname.equals("")) {
-			//nickname = request.getSession().getAttribute("authentication").getNickname();
-			nickname = "기존닉넴";
+		if(nickname.equals("") || nickname == null) {
+			nickname = member.getNickname();
 		}
 		
 		//기존 세션객체 닉네임과 동일하지 않으면서 다른 유저닉네임과 중복된다면 fail
-		//if(!nickname.equals(request.getSession().getAttribute("authentication").getNickname()) && memberService.selectByNickname(nickname) != null) {
-		if(memberService.selectByNickname(nickname) != null) {
+		if(!nickname.equals(member.getNickname()) && memberService.selectByNickname(nickname) != null) {
 			failedAttrubute.put("nickname",nickname);
 			isFailed = true;
 		}
 		
-		//자기소개 15자-50자 이내
-//		if(!Pattern.matches("([a-zA-Z0-9ㄱ-힣]{15,50})", info)) {
-//			failedAttrubute.put("info",info);
-//			isFailed = true;
-//		}
 		
 		if(isFailed) {
-			request.getSession().setAttribute("joinValid", failedAttrubute);	//joinFailed에 검증실패한 값 저장
-			request.getSession().setAttribute("joinForm", this);	//사용자 입력 파라미터값 재사용 위함
+			request.getSession().setAttribute("modifyValid", failedAttrubute);	//joinFailed에 검증실패한 값 저장
+			request.getSession().setAttribute("modifyForm", this);	//사용자 입력 파라미터값 재사용 위함
 			return false;
 		}else {
-			request.getSession().removeAttribute("joinForm");
-			request.getSession().removeAttribute("joinValid");
+			request.getSession().removeAttribute("modifyForm");
+			request.getSession().removeAttribute("modifyValid");
 			return true;
 		}
 	}

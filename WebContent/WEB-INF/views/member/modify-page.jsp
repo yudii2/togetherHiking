@@ -150,7 +150,8 @@
 		  /* 사용자 닉네임이 기존 닉네임과 동일하다면 중복검사 패스 */
 		  /* null인 경우에도 닉네임 변경의도가 없음으로 간주하고 중복검사 패스 */
 		  /* if(nickname != ${authentication.nickname} && confirmNick != nickname){ */
-		  if(nickname != null && nickname != '닉넴' && confirmNick != nickname){	  
+
+		  if(nickname != null && !nickname.equals('${authentication.nickname}') && confirmNick != nickname){	  
 			  console.dir(confirmNick);
 			  document.querySelector('#alert_nick').innerHTML = '닉네임 중복 검사를 하지 않았습니다.';
 			  document.querySelector('#alert_nick').focus();
