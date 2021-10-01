@@ -76,13 +76,13 @@ public class MountainController extends HttpServlet {
 		
 	}
 
-	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String seoulparamPage = request.getParameter("spage");
-		String gyeonggiparamPage = request.getParameter("gpage");
-		
+	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		int spage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
 		int gpage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
 		
+		String seoulparamPage = request.getParameter("sp");
+		String gyeonggiparamPage = request.getParameter("gp");
+
 		if(seoulparamPage != null && !seoulparamPage.equals("")) {
 			spage = Integer.parseInt(seoulparamPage);
 		}
@@ -92,9 +92,12 @@ public class MountainController extends HttpServlet {
 
 		List<Mountain> seoulMountain = mountainService.getSeoulMountainList(spage);
 		List<Mountain> gyeonggiMountain = mountainService.getGyeonggiMountainList(gpage);
-			
+		
 		request.setAttribute("seoulMountain", seoulMountain);
 		request.setAttribute("gyeonggiMountain", gyeonggiMountain);
+		
+		request.setAttribute("currPage", gyeonggiparamPage==null?1:gyeonggiparamPage);
+		request.setAttribute("lastPage", 11);
 		
 		request.getRequestDispatcher("/mountain/mountain-search").forward(request, response);
 		

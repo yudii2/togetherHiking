@@ -70,9 +70,10 @@ public class MountainDao {
 		ResultSet rset = null;
 		List<Mountain> seoulMountain = new ArrayList<Mountain>();	
 		
-		String sql = "select rownum, M_Name from " 
-				+ "(select rownum,M_Name from mountain where M_LOC like '서울%')"
-				+ "where rownum BETWEEN ? and ?";
+		String sql = "SELECT M_Name " + 
+				"FROM(SELECT ROWNUM RNUM, M_Name " + 
+				"FROM(SELECT M_Name FROM mountain where M_LOC like '서울%')) " + 
+				"WHERE RNUM BETWEEN ? AND ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -101,13 +102,14 @@ public class MountainDao {
 		ResultSet rset = null;
 		List<Mountain>  gyeonggiMountain = new ArrayList<Mountain>();	
 		
-		String sql = "select rownum, M_Name from " 
-				+ "(select rownum,M_Name from mountain where M_LOC like '경기%')"
-				+ "where rownum BETWEEN ? and ?";
+		String sql = "SELECT M_Name " + 
+				"FROM(SELECT ROWNUM RNUM, M_Name " + 
+				"FROM(SELECT M_Name FROM mountain where M_LOC like '경기%')) " + 
+				"WHERE RNUM BETWEEN ? AND ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, (gpage-1)*9+1);		
+			pstm.setInt(1, 1+(gpage-1)*9);		
 			pstm.setInt(2, gpage*9);	
 			rset = pstm.executeQuery();
 			
