@@ -41,11 +41,11 @@
 								<c:forEach items="${boardList}" var="board">
 								<tr style="height: 30px; line-height: 30px;">
 									<td>${board.bdIdx}</td>
-									<td>${board.subject}</td>
+									<td><a href="/board/board-page?f=subject&q=${board.subject }">${board.subject}</a></td>
 									<td><a href="/board/board-detail?p=${param.p }&f=${param.f}&q=${param.q }&bd_idx=${board.bdIdx }">${board.title}</a>
 										<span>[${board.replyCnt }]</span>
 									</td>
-									<td><a href="/board/board-page?p=1&f=nickname&q=${board.nickname }">${board.nickname}</a></td>
+									<td><a href="/board/board-page?f=nickname&q=${board.nickname }">${board.nickname}</a></td>
 									<td>${board.regDate}</td>
 									<td>${board.viewCnt }</td>
 								</tr>
@@ -78,6 +78,7 @@
 						<select class='search_subject' name='f'>
 							<option ${(param.f == "title")? "selected" : "" } value='title'>제목</option>
 							<option ${(param.f == "nickname")? "selected" : "" } value='nickname'>닉네임</option>
+							<option ${(param.f == "subject")? "selected" : ""} value='subject'>말머리</option>
 						</select>
 						<input type="text" name="q" value="${param.q }" placeholder="검색어를 입력하세요."/>
 						<button onclick="location.href='?p=${param.p }&f=${param.f}&q=${param.q }'">검색</button>

@@ -100,10 +100,9 @@
 						 <script>
 							CKEDITOR.replace( 'editor1', {
 								extraPlugins: 'autogrow',
-								autoGrow_minHeight: 200,
-								autoGrow_maxHeight: 600,
+								autoGrow_minHeight: 300,
+								autoGrow_maxHeight: 1000,
 								autoGrow_bottomSpace: 50,
-								removePlugins: 'resize',
 								readOnly: true,
 								width: '100%',
 								language: 'ko',

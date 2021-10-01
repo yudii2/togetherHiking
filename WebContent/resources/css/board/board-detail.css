@@ -41,6 +41,9 @@
 	margin-left: 10px;
 	color: black;
 }
+.btn_area>a>span{
+	font-size: 15px;
+}
 .section_content_box{
 	padding: 0px 20px 0 20px;
 	border: 1px solid #dddddd;

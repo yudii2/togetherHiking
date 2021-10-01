@@ -25,10 +25,10 @@ public class BoardDao {
 		List<BoardView> boardList = new ArrayList<BoardView>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select *"
-				+ " from (select rownum NUM, N.*"
-				+ " from (select * from board_list_view where " + field + " like ? order by reg_date desc) N)"
-				+ " where NUM between ? and ? order by reg_date desc";
+		String sql = "select * from"
+				+ " (select rownum NUM, N.* from"
+				+ " (select * from board_list_view where " + field + " like ? order by reg_date desc) N)"
+				+ " where NUM between ? and ?";
 		
 		// ? 사용시 'field' (앞.뒤로 싱글쿼테이션 잡힘)
 		// 1, 11, 21, 31 => an = 1 + (page - 1) * 10
@@ -57,9 +57,8 @@ public class BoardDao {
 		int count = 0;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select count(bd_idx) COUNT"
-				+ " from (select bd_idx from board_view"
-				+ " where " + field + " like ?)";
+		String sql = "select count(bd_idx) COUNT from"
+				+ " (select bd_idx from board_view where " + field + " like ?)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -82,9 +81,7 @@ public class BoardDao {
 		Board board = new Board();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select *"
-				+ " from board_view"
-				+ " where bd_idx = ?";
+		String sql = "select * from board_view where bd_idx = ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -107,8 +104,8 @@ public class BoardDao {
 		String nextIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select bd_idx"
-				+ " from (select bd_idx from board_view where reg_date >"
+		String sql = "select bd_idx from"
+				+ " (select bd_idx from board_view where reg_date >"
 				+ " (select reg_date from board_view where bd_idx = ?)"
 				+ " order by reg_date asc)"
 				+ " where rownum = 1";
@@ -134,8 +131,8 @@ public class BoardDao {
 		String prevIdx = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select bd_idx"
-				+ " from (select bd_idx from board_view where reg_date <"
+		String sql = "select bd_idx from"
+				+ " (select bd_idx from board_view where reg_date <"
 				+ " (select reg_date from board_view where bd_idx = ?)"
 				+ " order by reg_date desc)"
 				+ " where rownum = 1";
@@ -160,9 +157,7 @@ public class BoardDao {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select *"
-				+ " from file_info_view"
-				+ " where type_idx = ?";
+		String sql = "select * from file_info_view where type_idx = ?";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -186,10 +181,8 @@ public class BoardDao {
 		FileDTO fileDTO = new FileDTO();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select *"
-				+ " from (select *"
-				+ " from file_info_view"
-				+ " where type_idx = ?)"
+		String sql = "select * from"
+				+ " (select * from file_info_view where type_idx = ? order by reg_date desc)"
 				+ " where rownum = 1";
 		
 		try {
@@ -269,7 +262,8 @@ public class BoardDao {
 
 	public void updateBoardViewCnt(Connection conn, String bdIdx) {
 		PreparedStatement pstm = null;
-		String sql = "update board set view_cnt = view_cnt + 1 where bd_idx = ? and is_del = 0";
+		String sql = "update board set view_cnt = view_cnt + 1"
+				+ " where bd_idx = ? and is_del = 0";
 		try {
 			pstm = conn.prepareCall(sql);
 			pstm.setString(1, bdIdx);
@@ -286,7 +280,9 @@ public class BoardDao {
 		String res = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String sql = "select user_id from " + table + " where " + (table.equals("board")? "bd_idx" : "rp_idx") + " = ? and is_del = 0";
+		String sql = "select user_id"
+				+ " from " + table
+				+ " where " + (table.equals("board")? "bd_idx" : "rp_idx") + " = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -300,7 +296,32 @@ public class BoardDao {
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
-			template.close(pstm);
+			template.close(rset,pstm);
+		}
+		return res;
+	}
+	
+	public String selectNewBdIdx(Connection conn, String userId) {
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String res = "";
+		String sql = "select bd_idx from"
+				+ " (select bd_idx from board_view where user_id = ? order by reg_date desc)"
+				+ " where rownum = 1";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				res = rset.getString("bd_idx");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset,pstm);
 		}
 		return res;
 	}
@@ -308,13 +329,13 @@ public class BoardDao {
 	private Board convertRowToBoard(Connection conn, ResultSet rset) throws SQLException {
 		Board board = new Board();
 		board.setUserId(rset.getString("user_id"));
-		board.setNickname(rset.getString("nickname"));
 		board.setBdIdx(rset.getString("bd_idx"));
 		board.setTitle(rset.getString("title"));
 		board.setSubject(rset.getString("subject"));
 		board.setContent(rset.getString("content"));
 		board.setRegDate(rset.getDate("reg_date"));
 		board.setViewCnt(rset.getInt("view_cnt"));
+		board.setNickname(rset.getString("nickname"));
 		
 		FileDTO file = new FileDTO();
 		file = selectFile(conn, board.getUserId());

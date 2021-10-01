@@ -129,8 +129,8 @@ public class BoardController extends HttpServlet {
 		boardService.insertBoard(board,fileDTOs);
 		
 		//자신이 작성한 게시글로 리디렉트 하려면 bd_idx가 필요함
-		response.setHeader("bd_idx", board.getBdIdx());
-		response.sendRedirect("/board/board-detail");
+		String bdIdx = boardService.getNewBdIdx(board.getUserId());
+		response.sendRedirect("/board/board-detail?bd_idx=" + bdIdx);
 	}
 
 	/**

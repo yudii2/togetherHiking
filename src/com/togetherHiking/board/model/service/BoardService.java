@@ -135,7 +135,6 @@ public class BoardService {
 		
 		try {
 			res = boardDao.selectBoardCount(conn, field, query);
-			
 		} finally {
 			template.close(conn);
 		}
@@ -144,7 +143,6 @@ public class BoardService {
 
 	public int getBoardCount() {
 		return getBoardCount("title","");
-		
 	}
 
 	public void deleteBoard(String bdIdx) {
@@ -152,9 +150,7 @@ public class BoardService {
 		
 		try {
 			boardDao.deleteBoard(conn, bdIdx);
-			
 			template.commit(conn);
-			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
 			throw new HandleableException(ErrorCode.FAILED_BOARD_ACCESS_ERROR);
@@ -169,7 +165,18 @@ public class BoardService {
 		
 		try {
 			res = boardDao.selectWriter(conn, table, idx);
-			
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
+	
+	public String getNewBdIdx(String userId) {
+		Connection conn = template.getConnection();
+		String res = "";
+		
+		try {
+			res = boardDao.selectNewBdIdx(conn, userId);
 		} finally {
 			template.close(conn);
 		}

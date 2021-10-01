@@ -28,7 +28,8 @@ public class ReplyDao {
 		ResultSet rset = null;
 		String sql = "select *"
 				+ " from reply_view"
-				+ " where bd_idx = ? order by reg_date desc";
+				+ " where bd_idx = ?"
+				+ " order by reg_date desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -92,6 +93,7 @@ public class ReplyDao {
 		reply.setContent(rset.getString("content"));
 		reply.setCodeIdx(rset.getString("code_idx"));
 		reply.setRegDate(rset.getDate("reg_date"));
+		reply.setNickname(rset.getString("nickname"));
 		
 		FileDTO file = new FileDTO();
 		file = boardDao.selectFile(conn, reply.getUserId());
