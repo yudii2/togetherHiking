@@ -81,27 +81,25 @@
 				</div>
 				<div class="desc_content">
 					<h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
-					 <div class="desc_user"><img id="paProfile" src="http://localhost:7070/file/" alt=""><h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
-	                <img src="/resources/img/user.png" alt=""><a id="part_action">+</a>  
-	                
-	       
-
 
 
 					<%-- <c:forEach items="${participants}" var="participant">--%>
+					
+					
 					<div class="desc_user">
-						<%--  				  <c:if test="${empty participant.profile}">
-				  	<img id="target_img" src="/resources/img/user.png">
-				  </c:if> --%>
-						<%--  <c:if test="${not empty participant.profile}"> --%>
-						<img id="paProfile" src="http://localhost:7070/file/" alt="">
+<%--  				  	<c:if test="${empty participant.profile}">
+				  			<img id="target_img" src="/resources/img/user.png">
+				  		</c:if> 
+					  	<c:if test="${not empty participant.profile}"> --%>
+							<img id="paProfile" src="http://localhost:7070/file/" alt="">
 						<%-- </c:if> --%>
 						<div class="info">
 							<h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
-							<!-- <h2>29살</h2> -->
 							<span class="paInfo">${participant.info}</span>
 						</div>
 					</div>
+					
+					
 					<%-- </c:forEach>--%>
 
 
