@@ -241,6 +241,7 @@ public class ScheduleController extends HttpServlet {
 	// 동행버튼 이벤트
 	private void participant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
+
 		// 로그인 하지 않았을 경우
 		if (member == null) {
 			response.sendRedirect("/schedule/calendar");
