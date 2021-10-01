@@ -33,13 +33,13 @@
         <div class="nickname">
           <span class="tit_form">닉네임</span>
           <input type="text" name="nickname" id="nickname" value="${authentication.nickname}"
-          <c:if test="${not empty param.err and empty joinValid.nickname}">
-          	value = ${joinForm.nickname}
+          <c:if test="${not empty param.err and empty modifyValid.nickname}">
+          	value = ${modifyForm.nickname}
           </c:if>
           />
           <input type="submit" name="check_nick" id="check_nick" value="중복확인">
           <em id="alert_nick" class="alert_auth">
-          	<c:if test="${not empty param.err and not empty joinValid.nickname}">
+          	<c:if test="${not empty param.err and not empty modifyValid.nickname}">
           		닉네임을 사용하실 수 없습니다.
           	</c:if>
           </em>             	
@@ -48,7 +48,7 @@
           <span class="tit_form">자기소개</span>
           <textarea name="info" rows="5" minlength="15" maxlength="50" required>${authentication.info}</textarea>
           <em id="alert_info" class="alert_auth">
-          	<c:if test="${not empty param.err and not empty joinValid.info}">
+          	<c:if test="${not empty param.err and not empty modifyValid.info}">
           		15자 이상 50자 이하로 작성하세요.
           	</c:if>
           </em>        
@@ -57,38 +57,38 @@
           <span class="tit_form">비밀번호</span>											<!-- 패스워드가 null이면(카카오회원) disabled처리 -->
           <label for="password" class="tit_pw_label">현재 비밀번호</label>
           <em id="alert_pw" class="alert_auth">
-          	<c:if test="${not empty param.err and not empty joinValid.password}">
+          	<c:if test="${not empty param.err and not empty modifyValid.password}">
           		현재 비밀번호와 일치하지 않습니다.
           	</c:if>
           </em>
           <input type="password" name="password" id="password" 
-          <c:if test="${not empty param.err and empty joinValid.password}">
-          	value = ${joinForm.password}
+          <c:if test="${not empty param.err and empty modifyValid.password}">
+          	value = ${modifyForm.password}
           </c:if>
           <c:if test="${empty authentication.password}">disabled</c:if>
           required/>
           
           <label for="new_pw" class="tit_pw_label tit_new_pw">새 비밀번호</label>
           <em id="alert_new_pw" class="alert_auth">
-          	<c:if test="${not empty param.err and not empty joinValid.newPw}">
+          	<c:if test="${not empty param.err and not empty modifyValid.newPw}">
           		영문,숫자,특수문자 포함 8~15자를 입력하세요.
           	</c:if>          
           </em>
           <input type="password" name="new_pw" id="new_pw" 
-          <c:if test="${not empty param.err and empty joinValid.newPw}">
-          	value = ${joinForm.newPw}
+          <c:if test="${not empty param.err and empty modifyValid.newPw}">
+          	value = ${modifyForm.newPw}
           </c:if>
           <c:if test="${empty authentication.password}">disabled</c:if>
           required/>
           
           <label for="new_pw_confirm" class="tit_pw_label tit_new_pw">새 비밀번호 확인</label>
           <em id="alert_check_pw" class="alert_auth">
-          	<c:if test="${not empty param.err and not empty joinValid.confirmPw}">
+          	<c:if test="${not empty param.err and not empty modifyValid.confirmPw}">
           		비밀번호가 일치하지 않습니다
           	</c:if>           
           </em>          
           <input type="password" name="new_pw_confirm" id="new_pw_confirm" 
-          <c:if test="${not empty param.err and empty joinValid.confirmPw}">
+          <c:if test="${not empty param.err and empty modifyValid.confirmPw}">
           	value = ""
           </c:if>          
           <c:if test="${empty authentication.password}">disabled</c:if>

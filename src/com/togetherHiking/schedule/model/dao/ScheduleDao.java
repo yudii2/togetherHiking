@@ -29,70 +29,6 @@ public class ScheduleDao {
 		public ArrayList<Calendar> calendar();
 	}
 	
-	public List<Schedule> selectSchedules(Connection conn) {
-		List<Schedule> schedules = new ArrayList<Schedule> ();
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age,reg_date,exp_date"
-				+ " from schedule where is_del = 0 and status = 1";
-		
-		
-		try {
-			pstm = conn.prepareStatement(sql);
-			rset = pstm.executeQuery();
-			
-			while(rset.next()) {
-				Schedule schedule = convertRowToSchedule(rset);
-				schedules.add(schedule);
-			}
-			
-		} catch (Exception e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(rset, pstm);
-		}
-		
-		return schedules;
-	}
-
-	
-	//쿼리문 피드백 필요..
-	//member에 있는 유저의 닉네임과 아이디를 조인해서 가져오려고 하는데 이렇게 하는게 맞는 방식인지..
-	
-	//ScheduleDetail가져오기
-	public Schedule selectSchedule(Connection conn, String scIdx) {
-		Schedule schedule = new Schedule();
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-		String sql = "select a.sc_idx, a.user_id, a.d_day, a.mountain_name, a.allowed_num, a.info, a.openchat, a.age, a.reg_date, a.exp_date, b.nickname as nickname, b.info as user_info"
-				+ " from schedule a join member b on a.user_id = b.user_id "
-				+ " where a.sc_idx = ? and a.is_del = 0";
-		
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, scIdx);
-			rset = pstm.executeQuery();
-			
-			if(rset.next()) {
-				schedule = convertRowToSchedule(rset);
-			}
-			if(rset.getString("nickname") != null) {
-				schedule.setNickName(rset.getString("nickname"));
-			}
-			if(rset.getString("user_info") != null) {
-				schedule.setUserInfo(rset.getString("user_info"));
-			}
-			
-		} catch (Exception e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(rset, pstm);
-		}
-		
-		return schedule;
-	}
-	
-	
 	
 	//스케줄 등록
 	public void insertSchedule(Schedule schedule, Connection conn) {
@@ -127,71 +63,64 @@ public class ScheduleDao {
 		}
 		
 	}
-
-	private Schedule convertRowToSchedule(ResultSet rset) throws SQLException {
-		Schedule schedule = new Schedule();
-		schedule.setScIdx(rset.getString("sc_idx"));
-		schedule.setUserId(rset.getString("user_id"));
-		schedule.setdDay(rset.getDate("d_day"));
-		schedule.setMountainName(rset.getString("mountain_name"));
-		schedule.setRegDate(rset.getDate("reg_date"));
-		schedule.setExpDate(rset.getDate("exp_date"));
-		schedule.setAllowedNum(rset.getInt("allowed_num"));		
-		schedule.setInfo(rset.getString("info"));
-		schedule.setOpenChat(rset.getString("openchat"));
-		schedule.setAge(rset.getInt("age"));
-		return schedule;
-	}
-
-	//스케줄 수정
-	public void updateSchedule(Schedule schedule, Connection conn) {
-		String sql = "update schedule set mountain_name = ?, allowed_num = ?,  info = ?, openChat = ?, age = ?, d_day = ?  where sc_idx = ? ";
-				
+	//필요한 이유 고민
+	public List<Schedule> selectSchedules(Connection conn) {
+		List<Schedule> schedules = new ArrayList<Schedule> ();
 		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String sql = "select sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age,reg_date,exp_date"
+				+ " from schedule where is_del = 0 and status = 1";
+		
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, schedule.getMountainName());
-			pstm.setInt(2, schedule.getAllowedNum());
-			pstm.setString(3, schedule.getInfo());
-			pstm.setString(4, schedule.getOpenChat());
-			pstm.setInt(5, schedule.getAge());
-			pstm.setDate(6, schedule.getdDay());
-			pstm.setString(7, schedule.getScIdx());
-			pstm.executeUpdate();
+			rset = pstm.executeQuery();
 			
-		} catch (SQLException e) {
+			while(rset.next()) {
+				Schedule schedule = convertRowToSchedule(rset);
+				schedules.add(schedule);
+			}
+			
+		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
-			template.close(pstm);
+			template.close(rset, pstm);
 		}
 		
+		return schedules;
 	}
 
-	//스케줄 삭제
-	public void deleteSchedule(String scIdx, Connection conn) {
+	
+	//쿼리문 피드백 필요..
+	//member에 있는 유저의 닉네임과 아이디를 조인해서 가져오려고 하는데 이렇게 하는게 맞는 방식인지..
+	
+	//ScheduleDetail가져오기 (일정 정보만 조회)
+	public Schedule selectSchedule(Connection conn, String scIdx) {
+		Schedule schedule = new Schedule();
 		PreparedStatement pstm = null;
-		String sql = "update schedule set is_del = 1 where sc_idx = ? "; //exception : is_del null값???
+		ResultSet rset = null;
+		String sql = "select a.sc_idx, a.user_id, a.d_day, a.mountain_name, a.allowed_num, a.info, a.openchat, a.age, a.reg_date, a.exp_date "
+				+ " from schedule a  "
+				+ " where a.sc_idx = ? and a.is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
-			int res = pstm.executeUpdate();
+			rset = pstm.executeQuery();
 			
-			if(res>0) {
-				System.out.println("모임글 삭제 성공");
-			}else {
-				System.out.println("모임글 삭제 실패");
+			if(rset.next()) {
+				schedule = convertRowToSchedule(rset);
 			}
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
-			template.close(pstm);
+			template.close(rset, pstm);
 		}
 		
+		return schedule;
 	}
-
+	
 	//팝업 참가자 리스트
 	//참가자 리스트 가져오기(참가자목록 번호, 일정번호, 유저아이디, 닉네임, 자기소개, (나이는 보류))
 	public List<Member> selectParticipantList(Connection conn, String scIdx) {
@@ -227,14 +156,63 @@ public class ScheduleDao {
 		return ParticipantList;
 	}
 	
+	
+
+
+	//스케줄 수정
+	public void updateSchedule(Schedule schedule, Connection conn) {
+		String sql = "update schedule set mountain_name = ?, allowed_num = ?,  info = ?, openChat = ?, age = ?, d_day = ?  where sc_idx = ? ";
+				
+		PreparedStatement pstm = null;
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, schedule.getMountainName());
+			pstm.setInt(2, schedule.getAllowedNum());
+			pstm.setString(3, schedule.getInfo());
+			pstm.setString(4, schedule.getOpenChat());
+			pstm.setInt(5, schedule.getAge());
+			pstm.setDate(6, schedule.getdDay());
+			pstm.setString(7, schedule.getScIdx());
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
+
+	//스케줄 삭제(호스트)
+	public void deleteSchedule(String scIdx, Connection conn) {
+		PreparedStatement pstm = null;
+		String sql = "update schedule set is_del = 1 where sc_idx = ? "; //exception : is_del null값???
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, scIdx);
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("모임글 삭제 성공");
+			}else {
+				System.out.println("모임글 삭제 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
+
+
+	
 	//참가자 리스트 넣기
 	public void insertParticipant(String scIdx, Member member, Connection conn) {
-		/*
-		 * String sql =
-		 * "insert into participant_history (ph_idx,pl_idx, sc_idx, user_id) " +
-		 * "values(sc_ph_idx.nextval, SC_PL_IDX.currval,?,?) " +
-		 * "where pl_idx = (select pl_idx from participant_list)";
-		 */
+
 		CallableStatement cstm = null;
 		String sql  = "{call sp_insert_participant(?,?)}";
 		
@@ -251,6 +229,34 @@ public class ScheduleDao {
 		}
 		
 	} 
+	
+
+	public void cancleParticipant(String scIdx, Member member, Connection conn  ) {
+		CallableStatement cstm = null;
+		String sql = "{call sp_leave_participant(?,?)}";		
+		int res = 0;
+
+		try {
+			cstm = conn.prepareCall(sql);
+			cstm.setString(1, scIdx);
+			cstm.setString(2, member.getUserId());
+			res = cstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("동행 취소 성공");
+			}else {
+				System.out.println("동행 취소 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(cstm);
+		}
+	
+		
+	}
+	
 
 	
 	//ADMIN
@@ -307,35 +313,22 @@ public class ScheduleDao {
 	}
 
 
-	public void cancleParticipant(Connection conn, String plIdx, String scIdx) {
-		PreparedStatement pstm = null;
-		String sql = "update participant_history set is_leave = 1 where pl_idx = ?";		
-			/*		"update is_leave = 1 " + 
-					"from participant_history H " + 
-					"join participant_list L using(pl_idx) " + 
-					"where H.pl_idx = L.pl_idx = ? ";
-			*/
-		
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, plIdx);
-			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("동행 취소 성공");
-			}else {
-				System.out.println("동행 취소 실패");
-			}
-			
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(pstm);
-		}
-	
-		
+
+	private Schedule convertRowToSchedule(ResultSet rset) throws SQLException {
+		Schedule schedule = new Schedule();
+		schedule.setScIdx(rset.getString("sc_idx"));
+		schedule.setUserId(rset.getString("user_id"));
+		schedule.setdDay(rset.getDate("d_day"));
+		schedule.setMountainName(rset.getString("mountain_name"));
+		schedule.setRegDate(rset.getDate("reg_date"));
+		schedule.setExpDate(rset.getDate("exp_date"));
+		schedule.setAllowedNum(rset.getInt("allowed_num"));		
+		schedule.setInfo(rset.getString("info"));
+		schedule.setOpenChat(rset.getString("openchat"));
+		schedule.setAge(rset.getInt("age"));
+
+		return schedule;
 	}
-	
 	
 
 }

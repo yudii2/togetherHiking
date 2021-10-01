@@ -53,8 +53,8 @@
             <span>닉넴3</span>
           </div> -->
 				<div class="parti part_action">
-					<img src="/resources/img/user.png" alt=""> <a
-						id="part_action">+</a> <span></span>
+					<img src="/resources/img/user.png" alt=""> 
+					<a id="part_action">+</a> <span></span>
 				</div>
 			</div>
 			<div class="desc">
@@ -81,10 +81,10 @@
 				</div>
 				<div class="desc_content">
 					<h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
-					<%--   <div class="desc_user"><img id="paProfile" src="http://localhost:7070/file/" alt=""><h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
+					 <div class="desc_user"><img id="paProfile" src="http://localhost:7070/file/" alt=""><h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
 	                <img src="/resources/img/user.png" alt=""><a id="part_action">+</a>  
 	                
-	           --%>
+	       
 
 
 
@@ -254,7 +254,7 @@
                              $('#openChat').text(sh.openChat);
                              $('#age').text(sh.age + '대');
                          
-<%--                             // 참가동행자가 있을 경우 화면에 표시
+                         	// 참가동행자가 있을 경우 화면에 표시
 	                         if(pa){
 	                        	 for (var i = 0; i < pa.length; i++) {
 	                        		 /* console.dir($('#paProfile')); */
@@ -265,7 +265,7 @@
 	                        		 } 
 									$('.paNickname').text(pa[i].nickname);
 									$('.paInfo').text(pa[i].info);  
---%>
+	                        	 }
 									
 									    
 	                             // 참가동행자가 있을 경우 화면에 표시
@@ -285,11 +285,11 @@
 									$('.paInfo').text(json.pa[i].info);
 									
 									//클래스 <div class="desc_user"> 추가
-									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+json.pa[i].nickname+'</span></div>'
+/* 									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ json.pa[i].nickname + '</span></div>'
 									bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+json.pa[i].nickname+'</h1><span>'+json.pa[i].info+'</span></div></div>';
 	                        	 }
 	                        	 $('.part_action').before(top);
-                           	  $('.desc_tit_content').after(bottom);
+                           	  $('.desc_tit_content').after(bottom); */
 	                         } 
                              
                              
