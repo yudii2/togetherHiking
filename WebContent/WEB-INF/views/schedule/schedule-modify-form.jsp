@@ -83,7 +83,7 @@
 		
 			<button type="button" onclick="location.href='calendar'" >캘린더로 돌아가기</button >
 		
-			<button type="button" onclick="upload()">모임글 등록하기</button >
+			<button type="button" onclick="upload()">모임글 수정하기</button >
 			
 		
 	
@@ -93,6 +93,7 @@
 			let upload = () => {
 				
 				if(document.form.checkValidity()){
+					alert('수정되었습니다.');
 					document.form.submit();
 				} else {
 					document.form.reportValidity()

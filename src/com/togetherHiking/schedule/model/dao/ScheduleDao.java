@@ -170,7 +170,7 @@ public class ScheduleDao {
 
 	//스케줄 삭제
 	public void deleteSchedule(String scIdx, Connection conn) {
-		String sql = "update schedule set is_del = '1' where sc_idx = ? ";
+		String sql = "update schedule set is_del = '1' where sc_idx = ? "; //exception : is_del null값???
 		
 		PreparedStatement pstm = null;
 		

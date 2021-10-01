@@ -48,9 +48,9 @@
             <img src="/resources/img/mail-template/img_travel_03.png" alt="">
             <span>닉넴3</span>
           </div> -->
-          <div class="parti part-action">
+          <div class="parti part_action">
             <img src="/resources/img/user.png" alt="">
-            <a id="part-action">+</a>
+            <a id="part_action">+</a>
             <span></span>
           </div> 
         </div>
@@ -73,7 +73,14 @@
           </div>
           <div class="desc_content">
             <h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
-           <%-- <c:forEach items="${participants}" var="participant">--%>
+		<%--   <div class="desc_user"><img id="paProfile" src="http://localhost:7070/file/" alt=""><h1 class="paNickname">닉넴1 ${participant.nickname}</h1>
+	                <img src="/resources/img/user.png" alt=""><a id="part_action">+</a>  
+	                
+	           --%>
+	           
+	           
+	                
+	                   <%-- <c:forEach items="${participants}" var="participant">--%>
 				<div class="desc_user">
 <%--  				  <c:if test="${empty participant.profile}">
 				  	<img id="target_img" src="/resources/img/user.png">
@@ -88,7 +95,9 @@
 	              </div>
 	            </div>            
            <%-- </c:forEach>--%>
-            
+
+           
+         
             
             
           </div>
@@ -125,12 +134,16 @@
 	function participant(){
     	
     	const allow = $('#allowedNum').text();
-    	const child = $('#participants').children().length;
-    	if(child - 1 >= allow){
+    	const member = $('#participants').members().length;
+    	if(member - 1 >= allow){
     		alert('초과하였습니다.');
     		return;
     	}
     	location.href = '/schedule/participant?scIdx='+$('#scid').val();
+    }
+    
+
+    
     
     
     $(document).ready(function(){	// DOM 객체가 로드되면 #btn을 숨긴다.
@@ -147,7 +160,11 @@
     	location.href = '/schedule/delete?scIdx='+$('#scid').val();
     });
     
-    $('#part-action').on('click', function(){
+    $('#btn_cancel').on('click',function(){
+    	location.href = '/schedule/cancle?scIdx='+$('#scid').val();
+    });
+    
+    $('#part_action').on('click', function(){
     	participant();
     })
     	
@@ -215,7 +232,7 @@
                      success:function(json){
                          console.log(json);   
                          var sh = json.schedule;
-                         var pa = json.participants;
+                        /*  var pa = json.participants; */
                          if(sh){
                        	  // 받아온 schedule 정보를 모달에 등록한다.
                        	  $('#tit_schedule').text(sh.mountainName);
@@ -226,21 +243,43 @@
                              $('#openChat').text(sh.openChat);
                              $('#age').text(sh.age + '대');
                          
-	                             // 참가동행자가 있을 경우 화면에 표시
+<%--                             // 참가동행자가 있을 경우 화면에 표시
 	                         if(pa){
 	                        	 for (var i = 0; i < pa.length; i++) {
-	                        		 console.dir($('#paProfile'));
-	                        		 if(!pa[i].profile){
+	                        		 /* console.dir($('#paProfile')); */
+ 	                        		 if(!pa[i].profile){
 	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
 	                        		 }else{
 	 	                        		$('#paProfile')[0].src += pa[i].profile;
 	                        		 } 
 									$('.paNickname').text(pa[i].nickname);
-									$('.paInfo').text(pa[i].info);
+									$('.paInfo').text(pa[i].info);  
+--%>
+									
+									    
+	                             // 참가동행자가 있을 경우 화면에 표시
+	                         if(json.pa){
+
+	                        	 var top = '';
+	                        	 var bottom = '';
+	                        	 
+	                        	 for (var i = 0; i < json.pa.length; i++) {
+	                        		 /* console.dir($('#paProfile')); */
+	                        		 if(!json.pa[i].profile){
+	                        			 $('#paProfile')[0].src = '/resources/img/user.png';
+	                        		 }else{
+	 	                        		$('#paProfile')[0].src += json.pa[i].profile;
+	                        		 } 
+									$('.paNickname').text(json.pa[i].nickname);
+									$('.paInfo').text(json.pa[i].info);
 									
 									//클래스 <div class="desc_user"> 추가
+									top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+json.pa[i].nickname+'</span></div>'
+									bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+json.pa[i].nickname+'</h1><span>'+json.pa[i].info+'</span></div></div>';
 	                        	 }
-	                         }
+	                        	 $('.part_action').before(top);
+                           	  $('.desc_tit_content').after(bottom);
+	                         } 
                              
                              
                              // 접속 사용자와 작성자가 동일하면 버튼을 노출하고, 아니면 숨긴다

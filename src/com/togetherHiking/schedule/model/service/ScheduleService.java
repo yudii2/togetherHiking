@@ -177,6 +177,9 @@ public class ScheduleService {
 		
 		
 	}
+
+
+
 	
 	/*
 	 * //참가자 리스트 가져오기 public List<Member> getParticipants(String scIdx) {
