@@ -215,9 +215,12 @@ public class MemberService {
 		Member member = null;
 		try {
 			member = memberDao.memberAuthenticate(userId, password, conn);
-			member.setReplyCnt(countMyReply(userId));
-			member.setPostCnt(countMyPost(userId));
-			member.setProfile(selectProfile(userId));
+			if(member != null) {
+				member.setReplyCnt(countMyReply(userId));
+				member.setPostCnt(countMyPost(userId));
+				member.setProfile(selectProfile(userId));				
+			}
+
 		}finally {
 			template.close(conn);
 		}

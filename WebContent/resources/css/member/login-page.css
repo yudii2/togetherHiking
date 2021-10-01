@@ -60,3 +60,7 @@ button{
     border:none;
     margin:10px 0;
 }
+.valid-msg{
+	color:crimson;
+	font-size: 13px;
+}
