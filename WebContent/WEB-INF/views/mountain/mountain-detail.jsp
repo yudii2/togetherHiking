@@ -35,8 +35,8 @@
 							<option value="" selected disabled>등산로를 선택하세요</option>
 							<option value="1">등산로1</option>
 							<option value="2">등산로2</option>
-						</select> -->
-					</form>
+						</select>
+					</form>-->
 				</div>
 				<p>
 					${mountainInfo.mInfo}

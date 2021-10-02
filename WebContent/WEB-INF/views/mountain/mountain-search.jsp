@@ -26,7 +26,8 @@
  
 		<%-- 경기도 산  --%>
 	   <div class = loc id= "Gyeonggi">
-		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>			    
+		    <img id="loc_map" src ="/resources/img/경기도지도.PNG"/>	
+
 			    <div class="arrows" >
 			        <c:if test="${currPage > 1}">	<!-- 이전페이지로 넘기기-->
 				      <a href="?gp=${currPage-1}"><i class="fas fa-chevron-left leftArrow"></i></a>
@@ -44,13 +45,14 @@
 				 </div>	
 				 			 
 		    <div class="mountain_group">		    	
-			<c:if test="${not empty gyeonggiMountain}">
-				<c:forEach items="${gyeonggiMountain}" var="gyeonggiMountain">
-		    		<a class="mountain" href="/mountain/detail?mName=${gyeonggiMountain.mName}">${gyeonggiMountain.mName}</a>
-		   		</c:forEach>
-			</c:if>				 	   
-		 </div>
-		</div>
+				<c:if test="${not empty gyeonggiMountain}">
+					<c:forEach items="${gyeonggiMountain}" var="gyeonggiMountain">
+			    		<a class="mountain" href="/mountain/detail?mName=${gyeonggiMountain.mName}">${gyeonggiMountain.mName}</a>
+			   		</c:forEach>
+				</c:if>				 	   
+		    </div>
+
+		</div>		
 	    	    
 	     <%--  서울 산 --%>
 	    <div class = loc id= "Seoul">

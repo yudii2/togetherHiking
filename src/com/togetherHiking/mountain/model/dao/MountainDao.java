@@ -7,11 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.togetherHiking.board.model.dto.Board;
-import com.togetherHiking.board.model.dto.BoardView;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
-import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.mountain.model.dto.Mountain;
 
 public class MountainDao {
@@ -128,30 +125,7 @@ public class MountainDao {
 		return gyeonggiMountain;		
 	}
 	
-	
-//	public Mountain mountainButtonPage(int page, Connection conn) {
-//		Mountain mountainButton = new Mountain();
-//		PreparedStatement pstm = null;
-//		ResultSet rset = null;
-//		
-//		String sql = "select M_NAME from mountain where M_LOC like '경기%'";
-//		
-//		try {
-//			pstm = conn.prepareStatement(sql);
-//			pstm.setInt(1, (page-1)*9+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
-//			pstm.setInt(2, page*9);			//8, 16, 24, 	 -> page * 8
-//			rset = pstm.executeQuery();
-//
-//		} catch (SQLException e) {
-//			throw new DataAccessException(e);
-//		}finally {
-//			template.close(rset,pstm);
-//		}
-//		
-//		return mountainButton;
-//	
-//	}
-	
+
 	private Mountain convertRowToMountain(ResultSet rset) throws SQLException {
 		Mountain mountain = new Mountain();
 		mountain.setmHeight(rset.getString("m_height"));
@@ -163,10 +137,5 @@ public class MountainDao {
 		return mountain;
 	}
 
-
-	
-
-
-	
 
 }	

@@ -50,10 +50,20 @@
 	margin-top: 50px;
 }
 
+.gyeonggiMountain{
+	display: flex;
+	line-height: 300px;
+}
+
+.arrows{
+	display: flex;
+	justify-content: space-between;
+}
+
 #loc_map{
 	width:500px;
 	height:500px;	
-    border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
+    border: 1px solid #bcbcbc; 
     float: left;
     
 }
@@ -83,8 +93,4 @@
   text-align:center;
   line-height: 80px;
 }
-
-/* .mountain:hover{
-	border: solid;
-}  */
 

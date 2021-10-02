@@ -67,25 +67,6 @@ public class MountainService {
 		
 		return gyeonggiMountain;
 	}
-	
 
-	
-//	public Mountain mountainButtonPage(int page) {
-//		Connection conn  = template.getConnection();
-//		Mountain mountainButton = new Mountain();
-//			
-//		try {
-//			mountainButton = mountainDao.mountainButtonPage(page, conn);
-//		} finally {
-//			template.close(conn);	
-//		}
-//			
-//		return mountainButton;
-//	}
-//
-//	
-	
-	
-	
 	
 }
