@@ -102,7 +102,12 @@ public class MemberController extends HttpServlet {
 		case "delete-reply":
 			  deleteReply(request,response);	//유진 10/01
 			break;
-
+		case "resetPwd":
+			resetPwd(request,response);	//창준 10/03
+			break;
+			
+			
+		
 		default: throw new PageNotFoundException();
 
 		}
@@ -246,6 +251,12 @@ public class MemberController extends HttpServlet {
 
 	private void loginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/member/login-page").forward(request, response);
+		
+	}
+	
+	
+	private void resetPwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/member/resetPwd").forward(request, response);
 		
 	}
 

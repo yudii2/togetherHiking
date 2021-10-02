@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 <section class="container con_join_form">
  
- <form class="join_page" name="login" id="frm_join" action="/member/join" method="post">
+ <form class="join_page" name="login", id="frm_join" action="/member/join" method="post">
  
 
  <img src="/resources/img/대지 1.png">
@@ -164,8 +164,8 @@
       .<br>       
         </div>
         <p>
-           <input type="checkbox" id="chk1" class="check" checked >
-           <label for="chk1">홈페이지  이용약관에 동의합니다.(필수)</label>
+           <input type="checkbox" id="chk1" class="check">
+           <label for="chk1" title="약관에 동의하셔야  회원가입이 가능합니다.">홈페이지  이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
     <br>
@@ -423,33 +423,44 @@
       <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true" required></textarea>      
    </div>
 
-      <button id="join" type="submit">가입하기</button>
+      <button id="join" type="submit" onclick="fn_check()">가입하기</button>
 
     </form>          
      <script type="text/javascript" src="/resources/js/member/joinForm.js">
      
      
+     function fn_check() {
+    	 if(document.login.chk1.checked == false ||
+    		document.login.chk2.checked == false) {
+    		 alert("약관에 동의해주세요")
+ 			return false; 	
+	
+     }
+       location = "http://localhost:7070";
+      
+     }
+     
+     
      
      
      $(function () {
-    	
-    	 chk1_CheckedChanged();
-    	 
+    	 chk1_CheckedChanged();	 
      });
      
      //체크박스 체크 선택 또는 해제시 상태 확인 업데이트
-     $("#chk1").chage(fuction(){
+     $("#chk1").chage(function() {
     	 chk1_CheckedChanged();
-     };     
+     }); 
      
      function chk1_CheckedChanged() {
  		if($("#chk1").prop("checked")){
 			closole.log("체크");	
-			$("#chk1").prop("disaled", false);
+			$("#join").prop("disabled", false);
 		}
 		else{
 			console.log("언체크");ㅣ
-			$("btn").prop("disaled", true);
+			$("#join").prop("disabled", true);
+			
 		}		
 	}
     	 
