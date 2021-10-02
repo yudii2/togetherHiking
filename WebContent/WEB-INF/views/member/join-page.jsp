@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="/resources/css/member/join-page.css" />
 </head>
 <body>
@@ -163,7 +164,7 @@
       .<br>       
         </div>
         <p>
-           <input type="checkbox" id="chk1" class="check">
+           <input type="checkbox" id="chk1" class="check" checked >
            <label for="chk1">홈페이지  이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
@@ -424,10 +425,43 @@
 
       <button id="join" type="submit">가입하기</button>
 
-    </form>      
-
-    
-     <script type="text/javascript" src="/resources/js/member/joinForm.js"></script>
+    </form>          
+     <script type="text/javascript" src="/resources/js/member/joinForm.js">
+     
+     
+     
+     
+     $(function () {
+    	
+    	 chk1_CheckedChanged();
+    	 
+     });
+     
+     //체크박스 체크 선택 또는 해제시 상태 확인 업데이트
+     $("#chk1").chage(fuction(){
+    	 chk1_CheckedChanged();
+     };     
+     
+     function chk1_CheckedChanged() {
+ 		if($("#chk1").prop("checked")){
+			closole.log("체크");	
+			$("#chk1").prop("disaled", false);
+		}
+		else{
+			console.log("언체크");ㅣ
+			$("btn").prop("disaled", true);
+		}		
+	}
+    	 
+    	 
+   
+	
+     
+     
+     
+     
+     
+     </script>
      
 </section>
 
