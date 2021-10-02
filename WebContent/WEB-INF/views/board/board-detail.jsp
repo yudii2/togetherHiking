@@ -99,6 +99,7 @@
 						</div>
 						 <script>
 							CKEDITOR.replace( 'editor1', {
+								removePlugins: 'resize',
 								extraPlugins: 'autogrow',
 								autoGrow_minHeight: 300,
 								autoGrow_maxHeight: 1000,
