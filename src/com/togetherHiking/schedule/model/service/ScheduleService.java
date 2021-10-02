@@ -162,7 +162,7 @@ public class ScheduleService {
 	public void insertParticipant(String scIdx, Member member) {
 		Connection conn = template.getConnection();
 		
-		try {
+		try {			
 			scheduleDao.insertParticipant(scIdx,member, conn);
 			
 			template.commit(conn);
@@ -193,6 +193,23 @@ public class ScheduleService {
 		} finally {
 			template.close(conn);
 		}
+	}
+
+
+	public boolean duplicationCheck(String scIdx, Member member) {
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			return scheduleDao.duplicationCheck(scIdx, member, conn);//참여자중복확인
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
 	}
 
 

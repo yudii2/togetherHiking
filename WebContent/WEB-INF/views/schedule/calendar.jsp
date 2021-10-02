@@ -129,10 +129,14 @@
 
    <script type="text/javascript">
     
+   
+   	function close_modal(){
+   		document.querySelector('.modal').style.display='none';
+        document.querySelector('.overlay').style.display='none';
+   	}
 
       document.querySelector('.close_modal').addEventListener('click',function() {
-        document.querySelector('.modal').style.display='none';
-        document.querySelector('.overlay').style.display='none';
+    	  close_modal();
       });
     
     
@@ -158,7 +162,25 @@
        $('#btn').hide();
     
     $('#btn_parti').on('click',function(){
-       location.href = '/schedule/participant?scIdx='+$('#scid').val();
+    	$.ajax({
+    		url:'/schedule/participant?scIdx='+$('#scid').val(),
+    		type:'get',
+    		dataType:'json',    		
+    		success:function(data){
+    			if(data.code == 'login'){
+    				location.href='/schedule/calendar';
+    			}else if(data.code == 'ok'){
+    				alert('참가되었습니다.');
+    				close_modal();
+    			}else if(data.code == 'full'){
+    				alert('모집이 완료된 동행입니다.');
+    			}else if(data.code == 'joined'){
+    				alert('이미 참여된 동행입니다.');
+    			}
+    		}
+    	});
+    	
+       //location.href = '/schedule/participant?scIdx='+$('#scid').val();
     });
     
     $('#btn_edit').on('click',function(){

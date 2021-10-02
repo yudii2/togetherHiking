@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
+import com.togetherHiking.schedule.model.dao.ScheduleDao;
 import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
@@ -31,7 +33,7 @@ public class ScheduleController extends HttpServlet {
 
 	private ScheduleService scheduleService = new ScheduleService();
 	private MemberService memberService = new MemberService();
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -195,7 +197,8 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	// 스케줄 등록
-	private void upload(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException, ParseException {
+	private void upload(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ParseException {
 		// authentication -> member 객체
 		Member loginMember = (Member) request.getSession().getAttribute("authentication");
 		String userId = loginMember.getUserId();
@@ -217,10 +220,10 @@ public class ScheduleController extends HttpServlet {
 		schedule.setAge(age);
 		System.out.println(schedule);
 		scheduleService.insertSchedule(schedule);
-		
-		 Member member = memberService.selectMemberById(userId);
+
+		Member member = memberService.selectMemberById(userId);
 		request.getSession().setAttribute("authentication", member);
-		
+
 		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 	}
 
@@ -229,35 +232,68 @@ public class ScheduleController extends HttpServlet {
 
 	}
 
-	//모임글 삭제
+	// 모임글 삭제
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String scIdx = request.getParameter("scIdx");
-		System.out.println(scIdx);
+		/* System.out.println(scIdx); */
 		scheduleService.deleteSchedule(scIdx);
 		response.sendRedirect("/schedule/calendar");
 	}
 
 	// 동행버튼 이벤트
-	private void participant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void participant(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out= response.getWriter();
+		
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
-		// 로그인 하지 않았을 경우
 		if (member == null) {
-			response.sendRedirect("/schedule/calendar");
+			out.write("{\"code\":\"login\"}");
+			out.flush();
 			return;
-		} else {
-			// userId, scIdx 가져오기
-			// String userId = member.getUserId();
-			String scIdx = request.getParameter("scIdx");
-			System.out.println(member.getUserId());
-			scheduleService.insertParticipant(scIdx, member);
 		}
-		response.sendRedirect("/schedule/calendar");
+		
+		// getScheduleDetail메서드를 호출 -> Map객체 불러오기
+		String scIdx = request.getParameter("scIdx");
+		Map<String, Object> datas = scheduleService.getScheduleDetail(scIdx);
+
+		// Map객체를 .get("schedule")로 받아서 allowedNum 을 getter로 부르기
+		int allowedNum = ((Schedule) datas.get("schedule")).getAllowedNum();
+		List<Member> participants = (List<Member>) datas.get("participants");
+		
+		
+		
+		if(participants.size() < allowedNum) {//인원수참여가능
+			if(scheduleService.duplicationCheck(scIdx, member)) {//참여중복확인(참여가능)
+				scheduleService.insertParticipant(scIdx, member);
+				out.write("{\"code\":\"ok\"}");
+			}else {
+				out.write("{\"code\":\"joined\"}");
+			}			
+		}else {//참여불가능(모집완료)
+			out.write("{\"code\":\"full\"}");
+		}
+		out.flush();
+
+		// 서비스단에서 countParticipants메서드 호출
+
+		// Map객체의 int값과 countParticipants를 통해 얻은 참가자 수를 비교
+		// ( selectParticipants.length == allowed_num )
+
+		/*
+		 * // 로그인 하지 않았을 경우 if (member == null) {
+		 * response.sendRedirect("/schedule/calendar"); return; } else { // userId,
+		 * scIdx 가져오기 // String userId = member.getUserId(); String scIdx =
+		 * request.getParameter("scIdx"); System.out.println(member.getUserId());
+		 * scheduleService.insertParticipant(scIdx, member); }
+		 * response.sendRedirect("/schedule/calendar");
+		 */
+
 	}
-	
-	//동행취소
-	private void cancle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+
+	// 동행취소
+	private void cancle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		if (member == null) {
 			response.sendRedirect("/schedule/calendar");

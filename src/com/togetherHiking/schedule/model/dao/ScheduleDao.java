@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
@@ -129,7 +131,6 @@ public class ScheduleDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
-		//쿼리문 작성 조인하는 법 도움 필요!
 		String sql = "select M.user_id, M.nickname as userNickName, M.info as userInfo " + 
 				"from participant_list L " + 
 				"join participant_history H using(pl_idx) " + 
@@ -329,6 +330,26 @@ public class ScheduleDao {
 		schedule.setAge(rset.getInt("age"));
 
 		return schedule;
+	}
+	public boolean duplicationCheck(String scIdx, Member member, Connection conn) {
+		Map<String, Object> data = new HashMap<>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String sql = "SELECT * FROM PARTICIPANT_HISTORY " + 
+					"WHERE PL_IDX = (SELECT PL_IDX FROM PARTICIPANT_LIST WHERE SC_IDX = ?) AND USER_ID = ?";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, scIdx);
+			pstm.setString(2, member.getUserId());
+			rset = pstm.executeQuery();
+			
+			return !rset.next();
+			
+		} catch (Exception e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
 	}
 	
 

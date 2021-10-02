@@ -12,8 +12,8 @@ public class Schedule {
 	private String mountainName;
 	private Date regDate;
 	private Date expDate;
-	private int allowedNum;
-	private int remainNum;
+	private int allowedNum; //모집 인원수
+	private int remainNum; // 남은 인원수
 	private String info; //모임 상세정보
 	private String isDel;
 	private int status;
