@@ -272,11 +272,6 @@ public class ScheduleController extends HttpServlet {
 		}
 		out.flush();
 
-		// 서비스단에서 countParticipants메서드 호출
-
-		// Map객체의 int값과 countParticipants를 통해 얻은 참가자 수를 비교
-		// ( selectParticipants.length == allowed_num )
-
 		/*
 		 * // 로그인 하지 않았을 경우 if (member == null) {
 		 * response.sendRedirect("/schedule/calendar"); return; } else { // userId,
