@@ -164,7 +164,7 @@
       .<br>       
         </div>
         <p>
-           <input type="checkbox" id="chk1" class="check">
+           <input type="checkbox" id="chk1" class="check" required>
            <label for="chk1" title="약관에 동의하셔야  회원가입이 가능합니다.">홈페이지  이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
@@ -184,7 +184,7 @@
       - 이용자는 "산행동행"에서 수집하는 개인정보 제공에 대한 동의를 거부할 권리가 있습니다. 다만, 산행동행 이용에 필요한 필수 항목의 제공에 대한 동의를 거부하시면 위의 서비스가 제한될 수 있습니다.
         </div>
         <p>
-           <input type="checkbox" id="chk2" class="check">
+           <input type="checkbox" id="chk2" class="check" required>
            <label for="chk2">개인정보 수집·이용 동의 이용약관에 동의합니다.(필수)</label>
         </p>
     </div>
