@@ -96,6 +96,7 @@ public class ScheduleController extends HttpServlet {
 
 	private void calendar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		scheduleService.updateState();
 		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 
 	}

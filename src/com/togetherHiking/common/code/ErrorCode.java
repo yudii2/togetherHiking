@@ -3,7 +3,7 @@ package com.togetherHiking.common.code;
 public enum ErrorCode {
 	//작업중
 	
-	DATABSE_ACCESS_ERROR("데이터베이스와 통신 중 에러가 발생하였습니다."),
+	DATABASE_ACCESS_ERROR("데이터베이스와 통신 중 에러가 발생하였습니다."),
 	FAILED_VALIDATED_ERROR("데이터의 양식이 적합하지 않습니다."),
 	MAIL_SEND_FAIL_ERROR("이메일 발송 중 에러가 발생하였습니다."),
 	HTTP_CONNECT_ERROR("HTTP 통신 중 에러가 발생하였습니다."),

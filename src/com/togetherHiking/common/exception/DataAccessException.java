@@ -9,6 +9,6 @@ public class DataAccessException extends HandleableException{
 	private static final long serialVersionUID = 521587827126031031L;
 
 	public DataAccessException(Exception e) {
-		super(ErrorCode.DATABSE_ACCESS_ERROR,e);
+		super(ErrorCode.DATABASE_ACCESS_ERROR,e);
 	}
 }

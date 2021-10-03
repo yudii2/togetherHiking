@@ -61,7 +61,7 @@ public class ScheduleService {
 			template.commit(conn);
 		}catch(DataAccessException e){
 			template.rollback(conn);
-			throw new HandleableException(ErrorCode.DATABSE_ACCESS_ERROR);
+			throw new HandleableException(ErrorCode.DATABASE_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -165,7 +165,7 @@ public class ScheduleService {
 			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw e;
+			throw new HandleableException(ErrorCode.DATABASE_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -185,7 +185,7 @@ public class ScheduleService {
 			
 		} catch (DataAccessException e) {
 			template.rollback(conn);
-			throw e;
+			throw new HandleableException(ErrorCode.DATABASE_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -200,8 +200,7 @@ public class ScheduleService {
 			return scheduleDao.duplicationCheck(scIdx, member, conn);//참여자중복확인
 			
 		} catch (DataAccessException e) {
-			template.rollback(conn);
-			throw e;
+			throw new HandleableException(ErrorCode.DATABASE_ACCESS_ERROR);
 		} finally {
 			template.close(conn);
 		}
@@ -227,6 +226,20 @@ public class ScheduleService {
 	
 		
 	}
-
+	
+	// 배치를 위한 메서드
+	public void updateState() {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.updateState(conn);
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+		} finally {
+			template.close(conn);
+		}
+	}
 	
 }
