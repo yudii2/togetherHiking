@@ -63,6 +63,12 @@ public class MemberController extends HttpServlet {
 		case "join":
 			  join(request,response);
 			break;
+		case "kakao-login":
+			  kakaoLogin(request,response);
+			break;
+		case "kakao-join":
+			  kakaoJoin(request,response);
+			break;
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
@@ -111,6 +117,31 @@ public class MemberController extends HttpServlet {
 		default: throw new PageNotFoundException();
 
 		}
+	}
+
+	private void kakaoJoin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String userId = (String) request.getAttribute("userId");
+		
+	}
+
+	private void kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
+			
+		//존재하면 로그인 성공
+		Member member = memberService.selectMemberById(userId);
+		if(member != null) {
+			request.getSession().setAttribute("authentication", member);
+			response.sendRedirect("/index");
+						
+		}
+		
+		//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
+
+
+		request.setAttribute("kakaoId", userId);
+		request.getRequestDispatcher("/member/kakao-join").forward(request, response);
+		
 	}
 
 	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -209,8 +240,12 @@ public class MemberController extends HttpServlet {
 		String persistToken = UUID.randomUUID().toString();
 		request.getSession().setAttribute("persistUser", member);
 		request.getSession().setAttribute("persist-token", persistToken);
+		
+		
 
 		memberService.authenticateEmail(member, persistToken);
+		
+		
 
 		request.setAttribute("msg", "회원가입을 위한 이메일이 발송되었습니다.");
 		request.setAttribute("url", "/member/login-page");

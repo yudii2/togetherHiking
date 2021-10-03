@@ -146,7 +146,9 @@ public class Member {
 
 
 	public void setProfile(FileDTO profile) {
-		this.profile = profile.getSavePath() + profile.getRenameFileName();
+		if(profile != null) {
+			this.profile = profile.getSavePath() + profile.getRenameFileName();
+		}
 	}
 
 

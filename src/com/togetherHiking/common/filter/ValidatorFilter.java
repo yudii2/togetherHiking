@@ -142,6 +142,10 @@ public class ValidatorFilter implements Filter {
 		switch (uriArr[2]) {
 		//member/join
 		case "join":
+			String password = httpRequest.getParameter("password");
+			if(password == null) {
+				redirectURI = "/index";
+			}
 			
 			if(!joinForm.test()) {  
 				redirectURI = "/member/join-page?err=1";	//err파라미터 전달(왜? 이때만 validation출력)

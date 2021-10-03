@@ -9,11 +9,10 @@ function loginFormWithKakao() {
                             Kakao.API.request({
                                      url : '/v2/user/me',
                                      success : function(res) {
-	
+										fetch("/member/kakao-join?userId="  + res.id);
 
 	
-	
-                                        console.dir(res)
+                                        console.dir(res.id)
                                         
                                      },fail : function(error) {
                                         alert('login success, but failed to request user information: '
