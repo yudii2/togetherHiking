@@ -1,6 +1,7 @@
 package com.togetherHiking.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -69,6 +70,9 @@ public class MemberController extends HttpServlet {
 		case "kakao-join":
 			  kakaoJoin(request,response);
 			break;
+		case "kakao-join-page":
+			  kakaoJoinPage(request,response);
+			break;			
 		case "join-impl":
 			  joinImpl(request,response);
 			break;
@@ -119,29 +123,54 @@ public class MemberController extends HttpServlet {
 		}
 	}
 
-	private void kakaoJoin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String userId = (String) request.getAttribute("userId");
+	private void kakaoJoinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.setAttribute("kakaoId", request.getParameter("userId"));
+		request.getRequestDispatcher("/member/kakao-join").forward(request, response);
 		
+	}
+
+	private void kakaoJoin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String userId =request.getParameter("kakaoId");
+		
+		String nickname = request.getParameter("nickname");
+		String year = request.getParameter("birth");
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		String info = request.getParameter("information");
+		
+		String birth = year + "-" + month + "-" + day;
+
+		Date date = Date.valueOf(birth);
+		
+		Member kakaomember = new Member();
+		kakaomember.setUserId(userId);
+		kakaomember.setNickname(nickname);
+		kakaomember.setBirth(date);
+		kakaomember.setInfo(info);
+		
+		memberService.insertkakaoMember(kakaomember);		
+
+		request.getRequestDispatcher("/index").forward(request, response);		
 	}
 
 	private void kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		//System.out.println(userId);
 			
 		//존재하면 로그인 성공
 		Member member = memberService.selectMemberById(userId);
-		if(member != null) {
+		if(member.getUserId() != null) {
+			System.out.println(member);
 			request.getSession().setAttribute("authentication", member);
-			response.sendRedirect("/index");
-						
+			response.getWriter().print("kakaoLogin");
+			//return;
+		}else {
+			//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
+			request.setAttribute("kakaoId", userId);
+			System.out.println(userId);
+			response.getWriter().print("kakaoJoin");			
 		}
-		
-		//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
-
-
-		request.setAttribute("kakaoId", userId);
-		request.getRequestDispatcher("/member/kakao-join").forward(request, response);
-		
+				
 	}
 
 	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

@@ -445,17 +445,23 @@ public class MemberDao {
 	}
 
 
+	public void insertkakaoMember(Member kakaomember, Connection conn) {
+		PreparedStatement pstm = null;
+		String query = "insert into member(user_id,nickname,birth,info) values(?,?,?,?)";
 
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, kakaomember.getUserId());
+			pstm.setString(2, kakaomember.getNickname());
+			pstm.setDate(3, kakaomember.getBirth());
+			pstm.setString(4, kakaomember.getInfo());
 
+			pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}		
+	}
 
-
-
-
-
-
-
-
-
-
-	
 }

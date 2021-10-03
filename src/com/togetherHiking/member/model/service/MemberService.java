@@ -301,8 +301,24 @@ public class MemberService {
 			template.close(conn);
 		}
 	}
+
+	public int insertkakaoMember(Member kakaomember) {
+		Connection conn = template.getConnection();
+		int res = 0;
 		
-	
+		try {
+			memberDao.insertkakaoMember(kakaomember, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			// 예전처럼 예외처리
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+
+		return res;
+	}
 		
 	
 }

@@ -371,6 +371,7 @@
       <textarea  name="information" id="information" style="margin-left: 0px" cols="40" rows="5"spellcheck="true" required></textarea>      
    </div>
 
+	  <input type="hidden" name="kakaoId" value="${kakaoId}">
       <button id="join" type="submit" onclick="fn_check()">가입하기</button>
 
     </form>          
