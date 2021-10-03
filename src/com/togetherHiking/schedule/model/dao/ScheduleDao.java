@@ -128,7 +128,7 @@ public class ScheduleDao {
 				"from participant_list L " + 
 				"join participant_history H using(pl_idx) " + 
 				"join member M on H.user_id = M.user_id " + 
-				"where H.user_id = M.user_id and L.sc_idx = ? ";
+				"where H.user_id = M.user_id and L.sc_idx = ? H.is_leave = 0";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
