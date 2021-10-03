@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="/resources/css/member/mypage.css">
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script defer type="text/javascript" src="/resources/js/member/profileUpdate.js"></script>
+<script defer type="text/javascript" src="/resources/js/member/mypage.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
@@ -130,11 +132,5 @@
       </div>
     </div>
   </section>
-
-
-<script type="text/javascript" src="/resources/js/member/profileUpdate.js"></script>
-<script type="text/javascript" src="/resources/js/member/mypage.js"></script>
-
-
 </body>
 </html>

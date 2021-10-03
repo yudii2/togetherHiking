@@ -259,8 +259,16 @@
                            $('.paInfo').text(pa[i].info);
                             */
                            //클래스 <div class="desc_user"> 추가
-                           top += ' <div class="parti partii"><img src="http://localhost:7070/file/" alt=""><span>'+ pa[i].nickname + '</span></div>'
-                           bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
+                           console.dir(pa[i].profile);
+                           if(pa[i].profile == 'nullnull'){
+                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
+                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
+
+                           }else{
+                               top += ' <div class="parti partii"><img src="http://localhost:7070/file/' + pa[i].profile + '"alt=""><span>'+ pa[i].nickname + '</span></div>';                               
+                               bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/' + pa[i].profile + '" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
+
+                           }
                                }
                                   $('.part_action').before(top);
                                       $('.desc_tit_content').after(bottom);  

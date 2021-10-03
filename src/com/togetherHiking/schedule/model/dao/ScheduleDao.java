@@ -369,7 +369,7 @@ public class ScheduleDao {
 	// batch를 위한 메서드
 	public void updateState(Connection conn) {
 		PreparedStatement pstm = null;
-		String sql = "update schedule set state = -2 where exp_date < sysdate";
+		String sql = "update schedule set status = -1 where d_day < sysdate";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
