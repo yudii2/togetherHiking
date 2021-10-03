@@ -34,7 +34,7 @@
 			<button class="close_modal">&times;</button>
 			<div class="participants" id="participants">
 				<div class="parti part_action">
-					<img src="/resources/img/user.png" alt=""> <a id="part_action">+</a> <span></span>
+					<!-- <img src="/resources/img/user.png" alt=""> <a id="part_action">+</a> <span></span> -->
 				</div>
 			</div>
 			<div class="desc">

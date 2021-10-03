@@ -21,7 +21,7 @@
 					focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
 						return false;
 					},
-					minLength: 1,// 최소 글자수
+					minLength: 2,// 최소 글자수
 					delay: 100,	//autocomplete 딜레이 시간(ms)
 					//disabled: true, //자동완성 기능 끄기
 				});
@@ -51,7 +51,7 @@
 				<tr>
 					<td class="label" width="150">날짜</td>
 					<td width="350" align="center">
-						<input type="date" min="2021-07-20" name="dDay" id="dDay" size="40" value="date" required="required">
+						<input type="date"  class="today" min="" name="dDay" id="dDay" size="40" value="date" required="required">
 					</td>
 				</tr>
 
@@ -92,7 +92,26 @@
 
 		</form>
 	</section>
+	
 	<script>
+	//이전 날짜 클릭 제한
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	  dd='0'+dd
+	} 
+	if(mm<10){
+	  mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	document.getElementById("dDay").setAttribute("min", today);
+	
+	</script>
+	<script>
+	
 			let upload = () => {
 				
 				if(document.form.checkValidity()){
