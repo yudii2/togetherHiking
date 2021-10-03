@@ -37,26 +37,26 @@
 		<form  action="/schedule/schedule-modify" method="post" class="schedule_form" name="form">
 		<input type="hidden" value="${param.scIdx }" name="scIdx">
 		<table class="table">
-		<tr height="50">
+		<tr>
 			<td width="150" align="center"> 산 이름 </td>
-			<td width="350" align="center"> <input type="text" class="valid_msg" name="mountainName" id="mountainName" size="40" required="required" placeholder="북한산" value="${schedule.mountainName }">
+			<td align="center"> <input type="text" class="valid_msg" name="mountainName" id="mountainName" size="40" required="required" placeholder="북한산" value="${schedule.mountainName }">
 			</td>
 		</tr>
-		<tr height="50">
+		<tr>
 			<td width="150" align="center"> 모임 설명 </td>
-			<td width="350" align="center">
+			<td align="center">
 			<textarea name="info" id="info" rows="5" cols="40" placeholder="자세한 설명을 입력해주세요" required="required" >${schedule.info }</textarea>
 			</td>
 		</tr>
-		<tr height="50">
+		<tr>
 			<td width="150" align="center"> 날짜 </td>
-			<td width="350" align="center"> <input type="date" min="2021-07-20" name="dDay" id="dDay" size="40" value="${schedule.dDay }" required="required" >
+			<td align="center"> <input type="date" min="2021-07-20" name="dDay" id="dDay" size="40" value="${schedule.dDay }" required="required" >
 			</td>
 		</tr>
 	
-		<tr height="50">
+		<tr>
 			<td width="150" align="center"> 모집 인원 </td>
-			<td width="350" align="center">
+			<td  align="center">
 			<select name="allowedNum" id="allowedNum" value="${schedule.allowedNum }">
 			<option value="2" <c:if test="${schedule.allowedNum  == 2}">selected</c:if>> 2명</option>
 			<option value="3" <c:if test="${schedule.allowedNum  == 3}">selected</c:if>>3명</option>
@@ -65,26 +65,26 @@
 			<option value="6" <c:if test="${schedule.allowedNum  == 6}">selected</c:if>>6명</option>
 			</select></td>
 			</tr>
-		<tr height="50">
+		<tr>
 			<td width="150" align="center"> 오픈 채팅방 링크 </td>
-			<td width="350" align="center"><input type="url" name="openChat" required="required"  id="openChat" placeholder="https://open.kakao.com/" size="40" value="${schedule.openChat }">
+			<td align="center"><input type="url" name="openChat" required="required"  id="openChat" placeholder="https://open.kakao.com/" size="40" value="${schedule.openChat }">
 		</td>
 
 		<tr height="50">
 			<td width="150" align="center"> 모집 연령대 </td>
-			<td width="350" align="center">
-			<input type="radio" name="age" id="age" value="10" <c:if test="${schedule.age  == 10}">checked</c:if>>10대 &nbsp;&nbsp;
-			<input type="radio" name="age" id="age" value="20" <c:if test="${schedule.age  == 20}">checked</c:if>>20대 &nbsp;&nbsp;
-			<input type="radio" name="age" id="age" value="30" <c:if test="${schedule.age  == 30}">checked</c:if>>30대 &nbsp;&nbsp;
-			<input type="radio" name="age" id="age" value="40" <c:if test="${schedule.age  == 40}">checked</c:if>>40대 &nbsp;&nbsp;
+			<td align="center">
+			<input type="radio" name="age" class="age" value="10" <c:if test="${schedule.age  == 10}">checked</c:if>>10대 &nbsp;&nbsp;
+			<input type="radio" name="age" class="age" value="20" <c:if test="${schedule.age  == 20}">checked</c:if>>20대 &nbsp;&nbsp;
+			<input type="radio" name="age" class="age" value="30" <c:if test="${schedule.age  == 30}">checked</c:if>>30대 &nbsp;&nbsp;
+			<input type="radio" name="age" class="age" value="40" <c:if test="${schedule.age  == 40}">checked</c:if>>40대 &nbsp;&nbsp;
 			</td>
 		</tr>
 		</table>
 		
-			<button type="button" onclick="location.href='calendar'" >캘린더로 돌아가기</button >
-		
-			<button type="button" onclick="upload()">모임글 수정하기</button >
-			
+		<div class="wrap_btn">
+			<button id="btn1" type="button" onclick="location.href='calendar'" >캘린더로 돌아가기</button >
+			<button id="btn2" type="button" onclick="upload()">모임글 등록하기</button >
+		</div>
 		
 	
 		</form>

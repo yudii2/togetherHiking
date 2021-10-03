@@ -9,6 +9,10 @@ function loginFormWithKakao() {
                             Kakao.API.request({
                                      url : '/v2/user/me',
                                      success : function(res) {
+	
+
+	
+	
                                         console.dir(res)
                                         
                                      },fail : function(error) {

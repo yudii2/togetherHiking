@@ -120,7 +120,7 @@ public class ScheduleDao {
 	//참가자 리스트 가져오기(참가자목록 번호, 일정번호, 유저아이디, 닉네임, 자기소개, (나이는 보류))
 	public List<Member> selectParticipantList(Connection conn, String scIdx) {
 		
-		List<Member> ParticipantList = new ArrayList<Member>();
+		List<Member> participantList = new ArrayList<Member>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
@@ -128,7 +128,7 @@ public class ScheduleDao {
 				"from participant_list L " + 
 				"join participant_history H using(pl_idx) " + 
 				"join member M on H.user_id = M.user_id " + 
-				"where H.user_id = M.user_id and L.sc_idx = ? H.is_leave = 0";
+				"where H.user_id = M.user_id and L.sc_idx = ? and H.is_leave = 0";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
@@ -139,15 +139,14 @@ public class ScheduleDao {
 				participant.setUserId(rset.getString("user_id"));
 				participant.setNickname(rset.getString("userNickName"));
 				participant.setInfo(rset.getString("userInfo"));
-				ParticipantList.add(participant);
+				participantList.add(participant);
 			}
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
 		}
-		
-		return ParticipantList;
+		return participantList;
 	}
 	
 	
