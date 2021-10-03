@@ -1,21 +1,17 @@
 package com.togetherHiking.schedule.model.service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.common.exception.HandleableException;
-import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
 import com.togetherHiking.schedule.model.dao.ScheduleDao;
-import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 
 
@@ -232,27 +228,5 @@ public class ScheduleService {
 		
 	}
 
-
-
-	
-	/*
-	 * //참가자 리스트 가져오기 public List<Member> getParticipants(String scIdx) {
-	 * List<Member> participants = null; Connection conn = template.getConnection();
-	 * 
-	 * try { participants = scheduleDao. selectParticipantList(conn, scIdx); for
-	 * (Member participant : participants) {
-	 * participant.setProfile(memberService.selectProfile(participant.getUserId()));
-	 * }
-	 * 
-	 * } finally { template.close(conn); }
-	 * 
-	 * return participants; }
-	 */
-
-	
-	
-	
-	
-	
 	
 }

@@ -1,133 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- bootstrap 4 -->
-<link rel="stylesheet"
-   href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- fullcalendar.css -->
 <link href='/resources/css/schedule/main.css' rel='stylesheet' />
 <!-- popper -->
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- bootstrap 4 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- head.jsp -->
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/schedule/calendar.css">
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/include/fixed-header.jsp"%>
+	<%@ include file="/WEB-INF/views/include/fixed-header.jsp"%>
 
-   <script>
+	<script>
   
 
     </script>
-   <section>
-      <div class="container" id="calendarBox">
-         <div id='calendar'></div>
-      </div>
-   </section>
-   <input>
-   <!-- Layer Popup -->
-   <div class="modal">
-      <div class="modal_inner">
-         <div class="tit_schedule" id="tit_schedule">이번주 일욜 불암산 가실 등린이
-            모집</div>
-         <button class="close_modal">&times;</button>
-         <div class="participants" id="participants">
-            <!--  <div class="parti">
-            <img src="/resources/img/mail-template/img_travel_01.png" alt="" id="profile">
-            <span id="nickName">닉넴1</span>
-          </div> -->
-            <!-- <div class="parti">
-            <img src="/resources/img/mail-template/img_travel_02.png" alt="">
-            <span>닉넴2</span>
-          </div>
-          <div class="parti">
-            <img src="/resources/img/mail-template/img_travel_03.png" alt="">
-            <span>닉넴3</span>
-          </div> -->
-            <div class="parti part_action">
-               <img src="/resources/img/user.png" alt=""> 
-               <a id="part_action">+</a> <span></span>
-            </div>
-         </div>
-         <div class="desc">
-            <div class="desc_content">
-               <h1 class="tit_content" id="tit_content"></h1>
-               <!-- 테이블에서 info가져오기 -->
-               <p>
-                  <%-- 일요일 불암산 가실 분 구합니다. 내려와서 간단히 식사할 계획입니다.
+	<section>
+		<div class="container" id="calendarBox">
+			<div id='calendar'></div>
+		</div>
+	</section>
+	<input>
+	<!-- Layer Popup -->
+	<div class="modal">
+		<div class="modal_inner">
+			<div class="tit_schedule" id="tit_schedule">이번주 일욜 불암산 가실 등린이 모집</div>
+			<button class="close_modal">&times;</button>
+			<div class="participants" id="participants">
+				<div class="parti part_action">
+					<img src="/resources/img/user.png" alt=""> <a id="part_action">+</a> <span></span>
+				</div>
+			</div>
+			<div class="desc">
+				<div class="desc_content">
+					<h1 class="tit_content" id="tit_content"></h1>
+					<!-- 테이블에서 info가져오기 -->
+					<p>
+						<%-- 일요일 불암산 가실 분 구합니다. 내려와서 간단히 식사할 계획입니다.
                ${schedule.info} --%>
-               </p>
-            </div>
-            <div class="desc_content sc_info" >
-               <h1 class="tit_content">안내사항</h1>
-               <h2>모임 날짜</h2>
-               <span id="dDay">${schedule.dDay}</span>
-               <h2>모임 장소</h2>
-               <span id="mointainName"> ${schedule.mountainName}</span>
-               <h2>인원수</h2>
-               <span id="allowedNum">${schedule.allowedNum}</span>
-               <h2>오픈채팅방 링크</h2>
-               <span id="openChat"> ${schedule.openChat}</span>
-               <h2>모집 연령대</h2>
-               <span id="age">${schedule.age}</span>
-            </div>
-            <div class="desc_content">
-               <h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
+					</p>
+				</div>
+				<div class="desc_content sc_info">
+					<h1 class="tit_content">안내사항</h1>
+					<h2>모임 날짜</h2>
+					<span id="dDay">${schedule.dDay}</span>
+					<h2>모임 장소</h2>
+					<span id="mointainName"> ${schedule.mountainName}</span>
+					<h2>인원수</h2>
+					<span id="allowedNum">${schedule.allowedNum}</span>
+					<h2>오픈채팅방 링크</h2>
+					<span id="openChat"> ${schedule.openChat}</span>
+					<h2>모집 연령대</h2>
+					<span id="age">${schedule.age}</span>
+				</div>
+				<div class="desc_content">
+					<h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
+					<div class="desc_user">
+					</div>
+					<!-- host가 아닐 때 -->
+					<div class="btn" id="btnNotHost">
+						<input type="submit" id="btn_parti" value="동행하러가기" onclick="participant()"> <input type="submit" id="btn_cancel" value="동행 취소">
+					</div>
+					<!-- host일 때 -->
+					<div class="btn" id="btnHost">
+						<input type="hidden" id="scid"> <input type="submit" id="btn_edit" value="수정"> <input type="submit" id="btn_del" value="삭제">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="overlay"></div>
 
-               <%-- <c:forEach items="${participants}" var="participant">--%>
-               
-               
-               <div class="desc_user">
-<%--                   <c:if test="${empty participant.profile}">
-                       <img id="target_img" src="/resources/img/user.png">
-                    </c:if> 
-                    <c:if test="${not empty participant.profile}"> --%>
-<%--                      <img id="paProfile" src="http://localhost:7070/file/" alt="">
-                  </c:if>
-                  <div class="info">
-                     <h1 class="paNickname">${participant.nickname}</h1>
-                     <span class="paInfo">${participant.info}</span>
-                  </div>
-               </div> --%>
-               
-               
-               <%-- </c:forEach>--%>
-
-
-
-
-
-            </div>
-            <!-- host가 아닐 때 -->
-            <div class="btn" id="btnNotHost">
-               <input type="submit" id="btn_parti" value="동행하러가기"
-                  onclick="participant()"> <input type="submit"
-                  id="btn_cancel" value="동행 취소">
-            </div>
-            <!-- host일 때 -->
-            <div class="btn" id="btnHost">
-               <input type="hidden" id="scid"> <input type="submit"
-                  id="btn_edit" value="수정"> <input type="submit"
-                  id="btn_del" value="삭제">
-            </div>
-
-         </div>
-      </div>
-   </div>
-   </div>
-
-   <div class="overlay"></div>
-
-   <script type="text/javascript">
+	<script type="text/javascript">
     
    
    	function close_modal(){
@@ -141,7 +92,7 @@
     
     
     </script>
-   <script type="text/javascript">
+	<script type="text/javascript">
     //동행하러가기 버튼 이벤트
    function participant(){
        
@@ -210,10 +161,10 @@
             datatype:"json",
             async:false,
             success:function(json){
-                console.log(json);   
+               /*  console.log(json); */   
                 // data를 성공적으로 가져오면, schedule 배열에 object를 생성하여 push한다.
                 for (var i = 0; i < json.length; i++){
-                   console.log(new Date(json[i].dDay));
+                   /* console.log(new Date(json[i].dDay)); */
                    var object = {
                          'title' : json[i].mountainName,   // title : 산이름
                          'start' :json[i].dDay,   // start : 날짜
@@ -227,7 +178,7 @@
                 return;
             } */
         });
-       console.log(schedule);
+       /* console.log(schedule); */
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           locale: 'ko',
@@ -262,7 +213,7 @@
                      datatype:"json",
                      async:false,
                      success:function(json){
-                         console.log(json);   
+                         /* console.log(json); */   
                          var sh = json.schedule;
                          var pa = json.participants; 
                          if(sh){
@@ -327,11 +278,7 @@
                              } else {   //호스트가 아닐때
                             	 $('#btnHost').hide();
                               	 $('#btnNotHost').show();
-                            }
-                        
-                                
-                                
-                             
+                            }                         
                              $('#scid').val(info.event.id);
                             }
                      }   //success끝 
@@ -345,12 +292,9 @@
                 document.querySelector('.modal').style.display='flex';
                    document.querySelector('.overlay').style.display='flex';
                 }   //eventClick 끝
-             });   
-           
-      
+             });       
        calendar.render();
-     });
-        
+     });       
    </script>
 
 </body>

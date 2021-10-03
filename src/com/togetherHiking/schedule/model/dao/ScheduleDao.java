@@ -5,17 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.togetherHiking.board.model.dto.Board;
 import com.togetherHiking.common.db.JDBCTemplate;
 import com.togetherHiking.common.exception.DataAccessException;
 import com.togetherHiking.member.model.dto.Member;
-import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 
 public class ScheduleDao {
@@ -329,7 +326,7 @@ public class ScheduleDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String sql = "SELECT * FROM PARTICIPANT_HISTORY " + 
-					"WHERE PL_IDX = (SELECT PL_IDX FROM PARTICIPANT_LIST WHERE SC_IDX = ?) AND USER_ID = ?";
+					"WHERE PL_IDX = (SELECT PL_IDX FROM PARTICIPANT_LIST WHERE SC_IDX = ?) AND USER_ID = ? and is_leave = 0";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);

@@ -15,12 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.togetherHiking.board.model.dto.Board;
-import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
-import com.togetherHiking.schedule.model.dao.ScheduleDao;
-import com.togetherHiking.schedule.model.dto.Participant;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
 
