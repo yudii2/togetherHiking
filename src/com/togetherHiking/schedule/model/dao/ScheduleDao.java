@@ -31,40 +31,33 @@ public class ScheduleDao {
 		public ArrayList<Calendar> calendar();
 	}
 	
-	
 	//스케줄 등록
-	public void insertSchedule(Schedule schedule, Connection conn) {
-		String sql = "insert into schedule (sc_idx,user_id,d_day,mountain_name,allowed_num,info,openchat,age) "
-				+ "values(sc_sc_idx.nextval,?,?,?,?,?,?,?)";
-		PreparedStatement pstm = null;
-		//ResultSet rset = null;
-		//String field = null;
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, schedule.getUserId());
-			pstm.setDate(2, schedule.getdDay());
-			pstm.setString(3, schedule.getMountainName());
-			pstm.setInt(4, schedule.getAllowedNum());
-			pstm.setString(5, schedule.getInfo());
-			pstm.setString(6, schedule.getOpenChat());
-			pstm.setInt(7, schedule.getAge());
-			pstm.executeUpdate();
-			//template.close(pstm);
-			
-			//sql = "select sc_sc_idx.currval from dual";
-			//pstm = conn.prepareStatement(sql);
-//			rset = pstm.executeQuery();
-//			if(rset.next()) {
-//				field = rset.getString(1);
-//			}
-			
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		} finally {
-			template.close(pstm);
-		}
-		
-	}
+	   public void insertSchedule(Schedule schedule, Connection conn) {
+		      String sql = "insert into schedule (sc_idx,user_id,d_day,mountain_name,allowed_num,remain_num, info,openchat,age) "
+		            + "values(sc_sc_idx.nextval,?,?,?,?,?,?,?,?)";
+		      PreparedStatement pstm = null;
+		      //ResultSet rset = null;
+		      //String field = null;
+		      try {
+		         pstm = conn.prepareStatement(sql);
+		         pstm.setString(1, schedule.getUserId());
+		         pstm.setDate(2, schedule.getdDay());
+		         pstm.setString(3, schedule.getMountainName());
+		         pstm.setInt(4, schedule.getAllowedNum());
+		         pstm.setInt(5, schedule.getAllowedNum());
+		         pstm.setString(6, schedule.getInfo());
+		         pstm.setString(7, schedule.getOpenChat());
+		         pstm.setInt(8, schedule.getAge());
+		         pstm.executeUpdate();
+		         //template.close(pstm);
+		         
+		      } catch (SQLException e) {
+		         throw new DataAccessException(e);
+		      } finally {
+		         template.close(pstm);
+		      }
+		      
+		   }
 	//승인된 스케줄 조회
 	public List<Schedule> selectSchedules(Connection conn) {
 		List<Schedule> schedules = new ArrayList<Schedule> ();
@@ -233,7 +226,7 @@ public class ScheduleDao {
 	} 
 	
 
-	public void cancleParticipant(String scIdx, Member member, Connection conn  ) {
+	public void cancelParticipant(String scIdx, Member member, Connection conn  ) {
 		CallableStatement cstm = null;
 		String sql = "{call sp_leave_participant(?,?)}";		
 		int res = 0;
