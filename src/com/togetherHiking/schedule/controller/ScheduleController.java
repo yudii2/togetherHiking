@@ -90,8 +90,8 @@ public class ScheduleController extends HttpServlet {
 			participant(request, response);
 			break;
 		// 동행버튼 이벤트
-		case "cancle":
-			cancle(request, response);
+		case "cancel":
+			cancel(request, response);
 			break;
 		default:/* throw new PageNotFoundException(); */
 
@@ -293,14 +293,14 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	// 동행취소
-	private void cancle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		if (member == null) {
 			response.sendRedirect("/schedule/calendar");
 			return;
 		} else {
 			String scIdx = request.getParameter("scIdx");
-			scheduleService.cancleParticipant(scIdx, member);
+			scheduleService.cancelParticipant(scIdx, member);
 		}
 		response.sendRedirect("/schedule/calendar");
 	}
