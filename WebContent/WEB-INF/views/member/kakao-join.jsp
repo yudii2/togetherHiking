@@ -197,7 +197,7 @@
       <input type="text" name="nickname" id="nickname"  required />
       <button class="btn" id="checkNickname">닉네임확인</button>
        <h1 class="valid-msg" id="nickname2" style="text-align: left;">
-       <c:if test="${not empty param.err and not empty joinValid.nickname}">
+       <c:if test="${not empty param.err and not empty kakaojoinValid.nickname}">
        이미 존재하는 닉네임 입니다.
         </c:if>
         </h1>

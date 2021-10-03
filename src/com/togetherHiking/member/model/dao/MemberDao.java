@@ -246,41 +246,41 @@ public class MemberDao {
 		return boardList;
 	}
 	
-	public List<Board> selectPostByPage(String userId, int page, Connection conn) {
-		List<Board> boardList = new ArrayList<Board>();
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-				
-		String sql = "select * from (select rownum num, b.* "
-				+ "from (select * from board where is_del = 0 order by reg_date desc) b "
-				+ ") where (num between ? and ? ) and (user_id = ?) ";
+	   public List<Board> selectPostByPage(String userId, int page, Connection conn) {
+		      List<Board> boardList = new ArrayList<Board>();
+		      PreparedStatement pstm = null;
+		      ResultSet rset = null;
+		            
+		      String sql = "select * from (select rownum num, b.* "
+		            + "from (select * from board where is_del = 0 and user_id = ? order by reg_date desc) b "
+		            + ") where (num between ? and ? ) ";
 
-		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, (page-1)*8+1);				//1, 9, 17, 23,, -> (page-1) * 8 + 1 
-			pstm.setInt(2, page*8);			//8, 16, 24, 	 -> page * 8
-			pstm.setString(3, userId);
-			rset = pstm.executeQuery();
-			
-			while(rset.next()) {
-				Board board = new Board();
-				board.setUserId(rset.getString("user_id"));
-				board.setBdIdx(rset.getString("bd_idx"));
-				board.setContent(rset.getString("content"));
-				board.setRegDate(rset.getDate("reg_date"));
-				board.setSubject(rset.getString("subject"));
-				board.setTitle(rset.getString("title"));
-				board.setViewCnt(rset.getInt("view_cnt"));
-				boardList.add(board);
-			}
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		}finally {
-			template.close(rset,pstm);
-		}
-		
-		return boardList;
-	}
+		      try {
+		         pstm = conn.prepareStatement(sql);
+		         pstm.setString(1, userId);
+		         pstm.setInt(2, (page-1)*8+1);            //1, 9, 17, 23,, -> (page-1) * 8 + 1 
+		         pstm.setInt(3, page*8);         //8, 16, 24,     -> page * 8
+		         rset = pstm.executeQuery();
+		         
+		         while(rset.next()) {
+		            Board board = new Board();
+		            board.setUserId(rset.getString("user_id"));
+		            board.setBdIdx(rset.getString("bd_idx"));
+		            board.setContent(rset.getString("content"));
+		            board.setRegDate(rset.getDate("reg_date"));
+		            board.setSubject(rset.getString("subject"));
+		            board.setTitle(rset.getString("title"));
+		            board.setViewCnt(rset.getInt("view_cnt"));
+		            boardList.add(board);
+		         }
+		      } catch (SQLException e) {
+		         throw new DataAccessException(e);
+		      }finally {
+		         template.close(rset,pstm);
+		      }
+		      
+		      return boardList;
+		   }
 
 	public Map<String,List> selectMyReply(String userId, Connection conn) {
 		List<Reply> replyList = new ArrayList<Reply>();

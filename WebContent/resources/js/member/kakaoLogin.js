@@ -33,9 +33,7 @@ function loginFormWithKakao() {
 											alert(error + '응답에 실패하였습니다.');
 										})
 										
-	
-                                        console.dir(res.id)
-                                        
+	                                        
                                      },fail : function(error) {
                                         alert('login success, but failed to request user information: '
                                               + JSON.stringify(error))

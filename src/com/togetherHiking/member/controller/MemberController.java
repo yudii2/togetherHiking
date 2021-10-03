@@ -155,22 +155,23 @@ public class MemberController extends HttpServlet {
 
 	private void kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String userId = request.getParameter("userId");
-		//System.out.println(userId);
+		System.out.println(userId);
 			
 		//존재하면 로그인 성공
 		Member member = memberService.selectMemberById(userId);
-		if(member.getUserId() != null) {
-			System.out.println(member);
-			request.getSession().setAttribute("authentication", member);
-			response.getWriter().print("kakaoLogin");
-			//return;
-		}else {
+		//System.out.println(member.getUserId());
+		System.out.println(member);
+		if(member == null || member.getUserId().equals("")) {
 			//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
 			request.setAttribute("kakaoId", userId);
 			System.out.println(userId);
-			response.getWriter().print("kakaoJoin");			
+			response.getWriter().print("kakaoJoin");
+			return;
 		}
-				
+		System.out.println(member);
+		request.getSession().setAttribute("authentication", member);
+		response.getWriter().print("kakaoLogin");
+			
 	}
 
 	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
