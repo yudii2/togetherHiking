@@ -51,7 +51,7 @@
 				<tr>
 					<td width="150" align="center">날짜</td>
 					<td align="center">
-						<input type="date" min="2021-07-20" name="dDay" id="dDay" size="40" value="${schedule.dDay }" required="required">
+						<input type="date"  class="today" min="" name="dDay" id="dDay" size="40" value="${schedule.dDay }" required="required">
 					</td>
 				</tr>
 
@@ -70,7 +70,7 @@
 				<tr>
 					<td width="150" align="center">오픈 채팅방 링크</td>
 					<td align="center">
-						<input type="url" name="openChat" required="required" id="openChat" placeholder="https://open.kakao.com/" size="40" value="${schedule.openChat }">
+						<input type="url" name="openChat" id="openChat" placeholder="https://open.kakao.com/" size="40" value="${schedule.openChat }">
 					</td>
 				<tr height="50">
 					<td width="150" align="center">모집 연령대</td>
@@ -91,6 +91,23 @@
 
 		</form>
 	</section>
+	<script>
+	//이전 날짜 클릭 제한
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	  dd='0'+dd
+	} 
+	if(mm<10){
+	  mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	document.getElementById("dDay").setAttribute("min", today);
+	
+	</script>
 	<script>
 			let upload = () => {
 				
