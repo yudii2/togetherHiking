@@ -7,7 +7,7 @@
       <a class="logo" href="/index"><img src="/resources/img/산행동행로고.gif" alt=""></a>
       <ul class="gnb">
         <li><a href="/index" class="gnb_menu" data-gnb="1">HOME</a></li>
-        <li><a href="/mountain/search" class="gnb_menu" data-gnb="2">등산로검색</a></li>
+        <li><a href="/mountain/search-seoul" class="gnb_menu" data-gnb="2">등산로검색</a></li>
         <li><a href="/schedule/calendar" class="gnb_menu" data-gnb="3">모임캘린더</a></li>
         <li><a href="/board/board-page" class="gnb_menu" data-gnb="4">자유게시판</a></li>
       </ul>

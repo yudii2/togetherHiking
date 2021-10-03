@@ -18,8 +18,9 @@
 			<input type="text" class="search_bar" name= mName value="${param.mName}" />  
 	 		
 	    	<div id="loc_bnt_wrap">
-	    		<a type="button" class="loc_bnt" href="/mountain/search">지역 선택하러 가기</a>
-			</div>  
+	  			<a type="button" class="loc_bnt" href="/mountain/search-gyeonggi" data-div-id='#Gyeonggi'>경기도</a>  
+	  			<a type="button" class="loc_bnt" href="/mountain/search-seoul" data-div-id='#Seoul'>서울</a>  
+			</div>   
 	    </form>
     
 	    <div id="weather">날씨api</div>			<%-- 등산호 api로 가져 온 산의 주소에 해당하는 날씨 반환 --%>
@@ -105,7 +106,7 @@
     var map;
     var X = ${mountainInfo.xCoor};
     var Y = ${mountainInfo.yCoor};
-    var 산이름 = ${mountainInfo.mName};
+    var 산이름 = "${mountainInfo.mName}";
     
     function initMap() {
       var seoul = { lat: X ,lng: Y };

@@ -57,7 +57,7 @@ public class MountainService {
 	
 	public List<Mountain> getGyeonggiMountainList(int gpage) {
 		Connection conn = template.getConnection();
-		List<Mountain>gyeonggiMountain = new ArrayList<Mountain>();	
+		List<Mountain> gyeonggiMountain = new ArrayList<Mountain>();	
 		
 		try {
 			gyeonggiMountain = mountainDao.getGyeonggiMountainList(gpage,conn);
