@@ -226,6 +226,7 @@ public class ScheduleDao {
 	} 
 	
 
+	
 	public void cancelParticipant(String scIdx, Member member, Connection conn  ) {
 		CallableStatement cstm = null;
 		String sql = "{call sp_leave_participant(?,?)}";		
