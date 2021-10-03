@@ -72,6 +72,30 @@ public class MemberDao {
 		return member;
 	}
 	
+	public Member selectMemberByEmail(String email, Connection conn) {
+		Member member = null;			
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String query = "select * from member where email = ?";
+		
+		try {			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, email);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
+	
 	//유진 10/3
 	public Member selectMemberBySearching(String userId, String email, Connection conn) {
 		Member member = null;			
@@ -490,5 +514,8 @@ public class MemberDao {
 			template.close(pstm);
 		}		
 	}
+
+
+
 
 }

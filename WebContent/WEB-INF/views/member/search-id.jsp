@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 
 <section class="container con_searchId">
-	<form action="/member/search-id" method= "post">
+	<form action="/member/match-id" method= "post">
 		<img src="/resources/img/대지 1.png">
 		<h1 style="color: #008840;">아이디 찾기</h1>
 		<h3>아래 정보를 입력하시면 아이디 찾을 수 있습니다.</h3>

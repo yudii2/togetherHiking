@@ -107,6 +107,18 @@ public class MemberService {
 		}
 		return member;
 	}
+	
+	public Member selectMemberByEmail(String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			member = memberDao.selectMemberByEmail(email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
 	//닉네임 중복확인용	
 	public Member selectByNickname(String nickname) {
 		Connection conn = template.getConnection();
@@ -334,6 +346,8 @@ public class MemberService {
 		}
 		return member;
 	}
+
+
 		
 	
 }

@@ -82,6 +82,9 @@ public class MemberController extends HttpServlet {
 		case "search-id":
 			searchId(request,response);
 			break;
+		case "match-id":
+			matchId(request,response);
+			break;			
 		case "search-password":
 			searchPassword(request,response);
 			break;
@@ -126,6 +129,18 @@ public class MemberController extends HttpServlet {
 		}
 	}
 
+	private void matchId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		Member member = memberService.selectMemberByEmail(email);
+		if(member == null) {
+			request.setAttribute("msg", "회원이 존재하지 않습니다.");
+			request.setAttribute("back", "1");
+			request.getRequestDispatcher("/common/result").forward(request, response);		
+		}
+		request.setAttribute("member", member);
+		request.getRequestDispatcher("/member/match-id").forward(request, response);
+	}
+
 	private void kakaoJoinPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		request.setAttribute("kakaoId", request.getParameter("userId"));
 		request.getRequestDispatcher("/member/kakao-join").forward(request, response);
@@ -133,7 +148,7 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void kakaoJoin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String userId =request.getParameter("kakaoId");
+		String userId = request.getParameter("kakaoId");
 		
 		String nickname = request.getParameter("nickname");
 		String year = request.getParameter("birth");
@@ -158,7 +173,6 @@ public class MemberController extends HttpServlet {
 
 	private void kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
 			
 		//존재하면 로그인 성공
 		Member member = memberService.selectMemberById(userId);
