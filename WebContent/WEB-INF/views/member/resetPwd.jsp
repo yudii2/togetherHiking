@@ -13,19 +13,19 @@
 <section class="container con_searchPw">
 	<form action="/member/checkpassword">
 		<img src="/resources/img/대지 1.png">
-		<h1 style="color: #008840;">비밀번호 찾기</h1>
-		<h3>아래 정보를 입력하시면 임시 비밀번호를 메일로 발송해 드립니다.</h3>
+		<h1 style="color: #008840;">새로운 비밀번호 설정</h1>
+		<h3>아래 정보를 입력하시면 새로운 비밀번호를 발급 받을 수 있습니다.</h3>
 		
 		<br>
 		
 		
 		<div class="int-area">
-			<input type="text"  id="username" name="username" required placeholder="아이디를 입력하세요.">
+			<input type="password"  id="reset1" name="reset1" required placeholder="새로운 비밀번호를 입력하세요.">
 		</div>
 		
 		<p>
 		<div class="int-area">
-			<input type="email" id="email" name="email" required placeholder="이메일을 입력하세요..">
+			<input type="password" id="reset2" name="reset2" required placeholder="새로운 비밀번호 동일하게 입력하세요.">
 		</div>
 		
 		
