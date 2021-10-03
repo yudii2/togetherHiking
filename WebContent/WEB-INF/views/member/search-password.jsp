@@ -11,16 +11,16 @@
 <body>
 <%@ include file="/WEB-INF/views/include/fixed-header.jsp" %>
 <section class="container con_searchPw">
-	<form action="/member/checkpassword">
+	<form action="/member/reset-pwd" method="post">
 		<img src="/resources/img/대지 1.png">
 		<h1 style="color: #008840;">비밀번호 찾기</h1>
-		<h3>아래 정보를 입력하시면 임시 비밀번호를 메일로 발송해 드립니다.</h3>
+		<h3>아래 정보를 입력하시면 비밀번호를 초기화할 수 있습니다.</h3>
 		
 		<br>
 		
 		
 		<div class="int-area">
-			<input type="text"  id="username" name="username" required placeholder="아이디를 입력하세요.">
+			<input type="text"  id="username" name="userId" required placeholder="아이디를 입력하세요.">
 		</div>
 		
 		<p>

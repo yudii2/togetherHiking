@@ -193,12 +193,15 @@ public class MemberService {
 	}
 
 
-	public int updateMember(Member member) {
+	public int updateMember(Member member, String password) {
 		Connection conn = template.getConnection();
 		int res = 0;
 		
 		try {
-			res = memberDao.updateMember(member, conn);
+			if(password == null || password.equals("")) {
+				password = member.getPassword();
+			}
+			res = memberDao.updateMember(member,password, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -318,6 +321,18 @@ public class MemberService {
 		}
 
 		return res;
+	}
+	
+	public Member selectMemberBySearching(String userId, String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			member = memberDao.selectMemberBySearching(userId, email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
 	}
 		
 	

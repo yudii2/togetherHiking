@@ -16,6 +16,7 @@ import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.code.member.MemberGrade;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.model.dto.Member;
+import com.togetherHiking.member.model.service.MemberService;
 import com.togetherHiking.schedule.model.dto.Schedule;
 import com.togetherHiking.schedule.model.service.ScheduleService;
 
@@ -275,6 +276,19 @@ public class AuthorizationFilter implements Filter {
 			if(serverToken == null || !serverToken.equals(clientToken)) {
 				//같지않으면,
 				throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
+		case "reset-pwd":
+			if(httpRequest.getParameter("err") == null) {
+				MemberService memberService = new MemberService();
+				String userId = httpRequest.getParameter("userId");
+				String email = httpRequest.getParameter("email");
+				Member member = memberService.selectMemberBySearching(userId,email);
+				
+				if(member == null) {
+					throw new HandleableException(ErrorCode.UNEXIST_USER_ERROR);
+				}
+				httpRequest.setAttribute("member", member);
 			}
 			break;
 		//비로그인or 세션 유효하지 않은 유저가 마이페이지 요청시

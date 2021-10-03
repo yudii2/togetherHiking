@@ -112,8 +112,11 @@ public class MemberController extends HttpServlet {
 		case "delete-reply":
 			  deleteReply(request,response);	//유진 10/01
 			break;
-		case "resetPwd":
+		case "reset-pwd":
 			resetPwd(request,response);	//창준 10/03
+			break;
+		case "update-pwd":
+			updatePwd(request,response);
 			break;
 			
 			
@@ -172,6 +175,32 @@ public class MemberController extends HttpServlet {
 		request.getSession().setAttribute("authentication", member);
 		response.getWriter().print("kakaoLogin");
 			
+	}
+	
+	//유진 10/3
+	private void resetPwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		Member member = (Member) request.getAttribute("member");
+		System.out.println("나 resetPwd컨트롤러 : " + member);
+		request.setAttribute("member", member);
+		request.getRequestDispatcher("/member/reset-pwd").forward(request, response);
+		
+	}
+
+	private void updatePwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{		
+
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("reset1");
+		Member member = memberService.selectMemberById(userId);		
+		int res = memberService.updateMember(member, password);
+		if(res == 0) {
+			request.setAttribute("msg", "비밀번호 수정이 완료되지 않았습니다.");
+			request.setAttribute("back", "1");
+			request.getRequestDispatcher("/common/result").forward(request, response);		
+		};
+		System.out.println(member);
+		response.sendRedirect("/index");
+		
 	}
 
 	private void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -319,11 +348,7 @@ public class MemberController extends HttpServlet {
 		
 	}
 	
-	
-	private void resetPwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/member/resetPwd").forward(request, response);
-		
-	}
+
 
 
 	//유진 09/30
@@ -382,7 +407,7 @@ public class MemberController extends HttpServlet {
 		member.setInfo(info);
 		
 		//서비스단에게 멤버정보수정 요청
-		if(memberService.updateMember(member) != 0) {
+		if(memberService.updateMember(member,"") != 0) {
 			request.setAttribute("msg", "회원정보 수정을 완료하였습니다.");
 			request.setAttribute("url", "/member/modify-page");
 		}else {

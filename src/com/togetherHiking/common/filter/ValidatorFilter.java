@@ -16,6 +16,7 @@ import com.togetherHiking.common.code.ErrorCode;
 import com.togetherHiking.common.exception.HandleableException;
 import com.togetherHiking.member.validator.JoinForm;
 import com.togetherHiking.member.validator.ModifyForm;
+import com.togetherHiking.member.validator.UpdatePwdForm;
 import com.togetherHiking.reply.validator.ReplyForm;
 import com.togetherHiking.schedule.validator.ScheduleForm;
 
@@ -63,7 +64,7 @@ public class ValidatorFilter implements Filter {
 				case "reply":
 					redirectURI = replyValidation(httpRequest, httpResponse, uriArr);
 					break;
-				//
+				
 				default:
 					break;
 			}
@@ -103,7 +104,6 @@ public class ValidatorFilter implements Filter {
 			/*
 			 * if(!scheduleForm.test()) { redirectURI = "/schedule/calendar"; }
 			 */break;
-		//edit완료 버튼
 		case "edit":
 			if(!scheduleForm.test()) {
 				redirectURI = "/schedule/calendar";
@@ -138,9 +138,9 @@ public class ValidatorFilter implements Filter {
 		String redirectURI = null;
 		JoinForm joinForm = new JoinForm(httpRequest);;
 		ModifyForm modifyForm = new ModifyForm(httpRequest);
+		UpdatePwdForm updatePwdForm = new UpdatePwdForm(httpRequest);
 		
 		switch (uriArr[2]) {
-		//member/join
 		case "join":
 			String password = httpRequest.getParameter("password");
 			if(password == null) {
@@ -148,16 +148,18 @@ public class ValidatorFilter implements Filter {
 			}
 			
 			if(!joinForm.test()) {  
-				redirectURI = "/member/join-page?err=1";	//err파라미터 전달(왜? 이때만 validation출력)
+				redirectURI = "/member/join-page?err=1";	
 			}break;
-		//가입시 이메일 인증절차 : 발송된 이메일 form에서 사이트로 돌아가는 버튼(가입완료)을 클릭하면 거쳐야하는 절차 
-		//				--> 우리가 우리사이트에서 외부로 넘어갈때 토큰(유니크한값)을 발생시켜 세션에 저장
-		//				--> 뷰단에 저장된 토큰값이 일치하는지를 비교 
+
 		case "join-impl":
-			String persistToken = httpRequest.getParameter("persist-token");	//뷰단에 저장된 토큰
-			if(!persistToken.equals(httpRequest.getSession().getAttribute("persist-token"))) {	//우리사이트에서 외부로 넘어갈때 토큰(유니크한값)을 발생시켜 세션에 저장
-				//같지않으면,
+			String persistToken = httpRequest.getParameter("persist-token");	
+			if(!persistToken.equals(httpRequest.getSession().getAttribute("persist-token"))) {	
 				throw new HandleableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
+		case "update-pwd":
+			if(!updatePwdForm.test()) {
+				redirectURI = "/member/reset-pwd?err=1";
 			}
 			break;
 		case "modify":

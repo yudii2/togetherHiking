@@ -68,7 +68,7 @@
           <fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy.MM.dd"/>
           
           <c:if test="${empty mySchedule}">
-          	<div>새로운 모임 일정을 등록해 주세요</div>        
+          	<div class="nonSchedule">새로운 모임 일정을 등록해 주세요</div>        
           </c:if>
           <c:if test="${not empty mySchedule}">
           	<c:forEach items="${mySchedule}" var="schedule">

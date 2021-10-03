@@ -71,6 +71,33 @@ public class MemberDao {
 
 		return member;
 	}
+	
+	//유진 10/3
+	public Member selectMemberBySearching(String userId, String email, Connection conn) {
+		Member member = null;			
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String query = "select * from member where user_Id = ? and email = ?";
+		
+		try {			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			pstm.setString(2, email);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
+
 
 	//profile img 등록 메서드
 	public void insertProfile(String userId, FileDTO file, Connection conn) {
@@ -186,7 +213,7 @@ public class MemberDao {
 	
 
 	
-	public int updateMember(Member member, Connection conn) {
+	public int updateMember(Member member,String password, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
 		
@@ -198,7 +225,7 @@ public class MemberDao {
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, member.getNickname());
-			pstm.setString(2, member.getPassword());
+			pstm.setString(2, password);
 			pstm.setString(3, member.getInfo());
 			pstm.setString(4, member.getUserId());
 			res = pstm.executeUpdate();

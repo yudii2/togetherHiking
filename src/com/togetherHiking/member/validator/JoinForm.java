@@ -49,7 +49,6 @@ public class JoinForm {
 		
 		if(!confirmPassword.equals(password) ) {
 			failedAttrubute.put("confirmPassword",confirmPassword); 
-			System.out.println('하');
 			isFailed = true;
 		}
 		
