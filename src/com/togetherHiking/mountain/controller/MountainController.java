@@ -36,8 +36,11 @@ public class MountainController extends HttpServlet {
 		String[] uriArr = request.getRequestURI().split("/");
 		
 		switch (uriArr[uriArr.length-1]) {
-		case "search":
-			search(request,response);
+		case "search-seoul":
+			seoul(request,response);
+			break;
+		case "search-gyeonggi":
+			gyeonggi(request,response);
 			break;
 		case "detail":
 			detail(request,response);
@@ -45,7 +48,6 @@ public class MountainController extends HttpServlet {
 		default:/* throw new PageNotFoundException(); */
 		}
 	}
-
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
 		String inputmName = request.getParameter("mName");
@@ -64,31 +66,40 @@ public class MountainController extends HttpServlet {
 		
 	}
 
-	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	private void seoul(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		int spage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
-		int gpage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
 		
 		String seoulparamPage = request.getParameter("sp");
-		String gyeonggiparamPage = request.getParameter("gp");
-
+			
 		if(seoulparamPage != null && !seoulparamPage.equals("")) {
 			spage = Integer.parseInt(seoulparamPage);
 		}
+		
+		List<Mountain> seoulMountain = mountainService.getSeoulMountainList(spage);
+				
+		request.setAttribute("seoulMountain", seoulMountain);
+		
+		request.getRequestDispatcher("/mountain/mountain-search-seoul").forward(request, response);
+		
+	}
+	
+	private void gyeonggi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int gpage = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		
+		String gyeonggiparamPage = request.getParameter("gp");
+		
 		if(gyeonggiparamPage != null && !gyeonggiparamPage.equals("")) {
 			gpage = Integer.parseInt(gyeonggiparamPage);
 		}
-
-		List<Mountain> seoulMountain = mountainService.getSeoulMountainList(spage);
+		
 		List<Mountain> gyeonggiMountain = mountainService.getGyeonggiMountainList(gpage);
 		
-		request.setAttribute("seoulMountain", seoulMountain);
 		request.setAttribute("gyeonggiMountain", gyeonggiMountain);
 		
 		request.setAttribute("currPage", gyeonggiparamPage==null?1:gyeonggiparamPage);
 		request.setAttribute("lastPage", 11);
 		
-		request.getRequestDispatcher("/mountain/mountain-search").forward(request, response);
-		
+		request.getRequestDispatcher("/mountain/mountain-search-gyeonggi").forward(request, response);
 	}
 
 	/**

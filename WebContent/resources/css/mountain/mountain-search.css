@@ -44,15 +44,11 @@
   background:#fff;
   color:var(--point-color);
 }
+
 .loc{
 	display: flex;
 	justify-content: space-around;
 	margin-top: 50px;
-}
-
-.gyeonggiMountain{
-	display: flex;
-	line-height: 300px;
 }
 
 .arrows{
@@ -72,15 +68,6 @@
 	
 }
 
-.mountain_group{
-	width:500px;
-	display: grid;
-	grid-template-columns:1fr 1fr 1fr;
-	justify-content: center;
-	align-items:center;
-
-}
-
 .mountain { 
   width:80px;
   height:80px; 
@@ -94,3 +81,12 @@
   line-height: 80px;
 }
 
+.mountain_group{
+	width:500px;
+	height:500px;
+	display: grid;
+	grid-template-columns:1fr 1fr 1fr;
+	justify-content: center;
+	align-items:center;
+	line-height: 80px;
+}
