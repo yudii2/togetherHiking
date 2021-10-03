@@ -21,10 +21,8 @@
 	  			<a type="button" class="loc_bnt" href="/mountain/search-gyeonggi" data-div-id='#Gyeonggi'>경기도</a>  
 	  			<a type="button" class="loc_bnt" href="/mountain/search-seoul" data-div-id='#Seoul'>서울</a>  
 			</div>   
-	    </form>
-    
-	    <div id="weather">날씨api</div>			<%-- 등산호 api로 가져 온 산의 주소에 해당하는 날씨 반환 --%>
-			
+	    </form><br><br><br>
+    	   
 	    <div id="mountain_detail">
 		    <div id="mountain_loc-map"></div>
 			<div id="mountain_info">

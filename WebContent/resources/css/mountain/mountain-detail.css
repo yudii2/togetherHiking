@@ -44,13 +44,6 @@
   color:var(--point-color);
 }	
 
-#weather{
-	border: 1px solid #bcbcbc;    /* 영역나누느라 설정. 나중에 지우고 쓰기 */
-	height: 50px;
-	text-align : right;
-	color: red;				/* api연결 */
-	
-}
 #mountain_detail{
 	margin-left: 40px;
 	display: flex;
@@ -58,14 +51,13 @@
 }
 #mountain_loc-map{
 	width:500px;
-	height:500px;
+	height:600px;
 	border: 1px solid #bcbcbc;
 }
 .desc_mountain h2{
 	padding-bottom: 10px;
 	
 }
-
 #mountain_info{
 	width:500px;
 	height:470px;
@@ -75,6 +67,7 @@
 }
 #mountain_info p{
 	padding: 15px 0;
+	line-height: 20px;
 }
 
 .tit_mountain{
@@ -89,12 +82,12 @@
 	padding-top: 20px 0;
 }
 
-.mountain_trail{
+/* .mountain_trail{
 	padding: 5px;
 }
 
 
-  /* Layer Popup */
+  Layer Popup
   .modal {
     position: fixed;
     z-index: 99999;
@@ -189,6 +182,6 @@
     z-index: 9999;
     display: none;
   }
-
+ */
 
 
