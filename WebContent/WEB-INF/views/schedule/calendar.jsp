@@ -63,14 +63,15 @@
 					<h1 class="tit_content desc_tit_content">함께 동행할 유저 소개</h1>
 					<div class="desc_user">
 					</div>
-					<!-- host가 아닐 때 -->
-					<div class="btn" id="btnNotHost">
-						<input type="submit" id="btn_parti" value="동행하러가기" onclick="participant()"> <input type="submit" id="btn_cancel" value="동행 취소">
-					</div>
-					<!-- host일 때 -->
-					<div class="btn" id="btnHost">
-						<input type="hidden" id="scid"> <input type="submit" id="btn_edit" value="수정"> <input type="submit" id="btn_del" value="삭제">
-					</div>
+
+				</div>
+								<!-- host가 아닐 때 -->
+				<div class="btn" id="btnNotHost">
+					<input type="submit" id="btn_parti" value="동행하러가기" onclick="participant()"> <input type="submit" id="btn_cancel" value="동행 취소">
+				</div>
+				<!-- host일 때 -->
+				<div class="btn" id="btnHost">
+					<input type="hidden" id="scid"> <input type="submit" id="btn_edit" value="수정"> <input type="submit" id="btn_del" value="삭제">
 				</div>
 			</div>
 		</div>
@@ -131,7 +132,6 @@
     		}
     	});
     	
-       //location.href = '/schedule/participant?scIdx='+$('#scid').val();
     });
     
     $('#btn_edit').on('click',function(){
@@ -161,10 +161,8 @@
             datatype:"json",
             async:false,
             success:function(json){
-               /*  console.log(json); */   
                 // data를 성공적으로 가져오면, schedule 배열에 object를 생성하여 push한다.
                 for (var i = 0; i < json.length; i++){
-                   /* console.log(new Date(json[i].dDay)); */
                    var object = {
                          'title' : json[i].mountainName,   // title : 산이름
                          'start' :json[i].dDay,   // start : 날짜
@@ -226,52 +224,30 @@
                              $('#openChat').text(sh.openChat);
                              $('#age').text(sh.age + '대');
                          
-                            // 참가동행자가 있을 경우 화면에 표시
-/*                              if(pa){
-                               for (var i = 0; i < pa.length; i++) {
-                                  console.dir($('#paProfile')); 
-                                  if(!pa[i].profile){
-                                     $('#paProfile')[0].src = '/resources/img/user.png';
-                                  }else{
-                                     $('#paProfile')[0].src += pa[i].profile;
-                                  } 
-                           $('.paNickname').text(pa[i].nickname);
-                           $('.paInfo').text(pa[i].info);  
-                               }
-                               
-                             }; */
                            
                          
-                                // 참가동행자가 있을 경우 화면에 표시
+                            // 참가동행자가 있을 경우 화면에 표시
                             if(pa){
 
                                var top = '';
                                var bottom = '';
                                
                                for (var i = 0; i < pa.length; i++) {
-                                   /* console.dir($('#paProfile')); */
-/*                                   if(!pa[i].profile){
-                                     $('#paProfile')[0].src = '/resources/img/user.png';
-                                  }else{
-                                     $('#paProfile')[0].src += pa[i].profile;
-                                  } 
-                           $('.paNickname').text(pa[i].nickname);
-                           $('.paInfo').text(pa[i].info);
-                            */
-                           //클래스 <div class="desc_user"> 추가
-                           console.dir(pa[i].profile);
-                           if(pa[i].profile == 'nullnull'){
-                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
-                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
-
-                           }else{
-                               top += ' <div class="parti partii"><img src="http://localhost:7070/file/' + pa[i].profile + '"alt=""><span>'+ pa[i].nickname + '</span></div>';                               
-                               bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/' + pa[i].profile + '" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
-
-                           }
+		
+		                           //클래스 <div class="desc_user"> 추가
+		                           console.dir(pa[i].profile);
+		                           if(pa[i].profile == 'null'){
+		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
+		                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
+		
+		                           }else{
+		                               top += ' <div class="parti partii"><img src="http://localhost:7070/file/' + pa[i].profile + '"alt=""><span>'+ pa[i].nickname + '</span></div>';                               
+		                               bottom += '<div class="desc_user desc_uuser"><img src="http://localhost:7070/file/' + pa[i].profile + '" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
+		
+		                           }
                                }
-                                  $('.part_action').before(top);
-                                      $('.desc_tit_content').after(bottom);  
+                                $('.part_action').before(top);
+                                $('.desc_tit_content').after(bottom);  
                             }  
                              
                              // 접속 사용자와 작성자가 동일하면 버튼을 노출하고, 아니면 숨긴다
@@ -297,8 +273,8 @@
                          
                  }); //ajax끝
                      
-                document.querySelector('.modal').style.display='flex';
-                   document.querySelector('.overlay').style.display='flex';
+                 document.querySelector('.modal').style.display='flex';
+                 document.querySelector('.overlay').style.display='flex';
                 }   //eventClick 끝
              });       
        calendar.render();

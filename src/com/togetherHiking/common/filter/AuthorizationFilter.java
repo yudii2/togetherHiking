@@ -197,7 +197,9 @@ public class AuthorizationFilter implements Filter {
 	private void hostAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 		//로그인 시 session 객체에 authentication 속성을 부여하고 value값으로 member객체 담아옴.
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
-		if(member.getIsHost() != 0){
+		MemberService memberService = new MemberService();
+		
+		if(memberService.selectMemberById(member.getUserId()).getIsHost() != 0){
 			throw new HandleableException(ErrorCode.NO_MORE_HOSTING);
 		}
 		
@@ -259,6 +261,9 @@ public class AuthorizationFilter implements Filter {
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
 		
+		if(member == null) {
+			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);
+		}
 		MemberGrade grade = MemberGrade.valueOf(member.getGrade());
 		if(!grade.ROLE.equals("admin")) {
 			throw new HandleableException(ErrorCode.UNAUTHORIZED_PAGE);

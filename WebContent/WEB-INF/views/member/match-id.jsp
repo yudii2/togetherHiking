@@ -19,9 +19,6 @@
  
 		<div class="match_id">
 			<h2>${member.userId}</h2>
-		<!-- 컨트롤러에서 파라미터로 이메일 값받아와서 서비스단으로 넘겨->
-		서비스는 다오에게 멤버 조회하라고 명령 -> 컨트롤러에서 리퀘스트객체에 멤버 저장해  -> 
-		제이에스피에서 멤버 아이디 뿌려주면 됨   서브밋안된다. 기능구현아직안함.-->
 		</div>
 	    <a href ='/member/login-page' class="btn gotoLogin" >로그인하기</a>  
 	    <a href ='/member/search-password' class="btn gotoSearchPw">비밀번호찾기</a>

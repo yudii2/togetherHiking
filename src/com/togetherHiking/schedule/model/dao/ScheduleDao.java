@@ -288,13 +288,7 @@ public class ScheduleDao {
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
-			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("승인성공");
-			}else {
-				System.out.println("승인 실패");
-			}
+			pstm.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);

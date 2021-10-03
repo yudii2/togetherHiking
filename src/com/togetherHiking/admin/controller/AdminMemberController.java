@@ -33,7 +33,6 @@ public class AdminMemberController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] uriArr = request.getRequestURI().split("/");
-		System.out.println(uriArr[uriArr.length -1]);
 		switch (uriArr[uriArr.length -1]) {
 		case "home":
 			home(request,response);
@@ -65,7 +64,6 @@ public class AdminMemberController extends HttpServlet {
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
 		//getNonApproveScheduleDTOs 미승인된 스케줄
 		scheduleList = scheduleService.getNonApproveScheduleDTOs();
-		System.out.println(scheduleList);
 		request.setAttribute("scheduleList", scheduleList);
 		request.getRequestDispatcher("/admin/new-schedule-page").forward(request, response);
 	}

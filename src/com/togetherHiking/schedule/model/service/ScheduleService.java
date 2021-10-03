@@ -49,7 +49,7 @@ public class ScheduleService {
 		Schedule schedule = null;
 		
 		try {
-			schedule = scheduleDao. selectSchedule(conn, scIdx);  // dao단 selectSchedule 때문에 오류남ㅠ
+			schedule = scheduleDao. selectSchedule(conn, scIdx);  
 			participants = scheduleDao. selectParticipantList(conn, scIdx);
 			
 			for (Member participant : participants) {

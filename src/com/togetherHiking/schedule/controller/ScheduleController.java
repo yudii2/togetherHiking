@@ -94,16 +94,17 @@ public class ScheduleController extends HttpServlet {
 		}
 	}
 
-	private void calendar(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void calendar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginMember = (Member) request.getSession().getAttribute("authentication");
 		scheduleService.updateState();
+		Member member = memberService.getMemberDetail(loginMember);
+		request.getSession().setAttribute("authentication",member);
 		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 
 	}
 
 	// calendar 리스트를 조회
-	private void calendarList(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void calendarList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Schedule> scheduleList = new ArrayList<Schedule>();
 		// 승인된 calendar 리스트를 조회
 		scheduleList = scheduleService.getScheduleDTOs();
@@ -150,15 +151,13 @@ public class ScheduleController extends HttpServlet {
 
 	}
 
-	private void scheduleForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void scheduleForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/schedule/schedule-form").forward(request, response);
 
 	}
 
 	// 수정폼에 상세내용 불러오기
-	private void scheduleModifyForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void scheduleModifyForm(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		String scIdx = request.getParameter("scIdx");
 		Map<String, Object> schedule = scheduleService.getScheduleDetail(scIdx);
 		request.setAttribute("schedule", schedule.get("schedule"));
@@ -194,8 +193,7 @@ public class ScheduleController extends HttpServlet {
 	}
 
 	// 스케줄 등록
-	private void upload(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, ParseException {
+	private void upload(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException, ParseException {
 		// authentication -> member 객체
 		Member loginMember = (Member) request.getSession().getAttribute("authentication");
 		String userId = loginMember.getUserId();
@@ -215,13 +213,15 @@ public class ScheduleController extends HttpServlet {
 		schedule.setInfo(info);
 		schedule.setOpenChat(openChat);
 		schedule.setAge(age);
-		System.out.println(schedule);
 		scheduleService.insertSchedule(schedule);
 
 		Member member = memberService.selectMemberById(userId);
 		request.getSession().setAttribute("authentication", member);
+		System.out.println("upload테스트" + member);
+		
+		response.sendRedirect("/schedule/calendar");
 
-		request.getRequestDispatcher("/schedule/calendar").forward(request, response);
+		//request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
