@@ -345,5 +345,29 @@ public class ScheduleDao {
 		}
 	}
 	
+	// admin 거절시 status = -1
+	public void rejectSchedule(Connection conn, String scIdx) {
+		PreparedStatement pstm = null;
+		String sql = "update schedule set status = -1 where sc_idx = ? ";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, scIdx);
+			int res = pstm.executeUpdate();
+			
+			if(res>0) {
+				System.out.println("거절 성공");
+			}else {
+				System.out.println("거절 실패");
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+	}
 
+	
 }

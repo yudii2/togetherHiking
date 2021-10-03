@@ -10,6 +10,7 @@
         <li><a href="/mountain/search-seoul" class="gnb_menu" data-gnb="2">등산로검색</a></li>
         <li><a href="/schedule/calendar" class="gnb_menu" data-gnb="3">모임캘린더</a></li>
         <li><a href="/board/board-page" class="gnb_menu" data-gnb="4">자유게시판</a></li>
+        <li><a href="/admin/home" class="gnb_menu" data-gnb="5">관리자페이지</a></li>
       </ul>
       <div class="user">
       <c:if test="${empty authentication}">

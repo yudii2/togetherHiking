@@ -191,11 +191,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+        
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="/index">메인페이지로 돌아가기</a>
         </div>
       </div>
 
@@ -333,6 +331,7 @@
 								<th style="width: 20%">작성자</th>
 								<th style="width: 10%">작성일</th>
 								<th style="width: 10%">승인</th>
+								<th style="width: 10%">거절</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -344,6 +343,7 @@
 									<td>${schedule.userId}</td>
 									<td>${schedule.regDate}</td>
 									<td><a href="/admin/approve-schedule?scIdx=${schedule.scIdx}">승인</a></td>
+									<td><a href="/admin/reject-schedule?scIdx=${schedule.scIdx}">거절</a></td>
 								</tr>
 								</c:forEach>
 							</c:if>

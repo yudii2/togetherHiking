@@ -213,6 +213,26 @@ public class ScheduleService {
 	}
 
 
+	public void rejectSchedule(String scIdx) {
+		Connection conn = template.getConnection();
+		
+		try {
+			scheduleDao.rejectSchedule(conn, scIdx);
+			
+			template.commit(conn);
+			
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+	
+		
+	}
+
+
 
 	
 	/*

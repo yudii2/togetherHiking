@@ -46,10 +46,14 @@ public class AdminMemberController extends HttpServlet {
 		case "approve-schedule":
 			approveSchedule(request,response);
 			break;
+		case "reject-schedule":
+			rejectSchedule(request,response);
+			break;
 		default:
 			break;
 		}
 	}
+
 
 	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/admin/admin-page").forward(request, response);
@@ -72,6 +76,13 @@ public class AdminMemberController extends HttpServlet {
 		String scIdx = request.getParameter("scIdx");
 		scheduleService.approveSchedule(scIdx);
 		response.sendRedirect("/admin/new-schedule");	
+	}
+	// 새로 등록된 스케줄 거절처리
+	private void rejectSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String scIdx = request.getParameter("scIdx");
+		scheduleService.rejectSchedule(scIdx);
+		response.sendRedirect("/admin/new-schedule");	
+		
 	}
 
 	/**
