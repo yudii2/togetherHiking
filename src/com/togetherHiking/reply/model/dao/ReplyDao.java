@@ -29,7 +29,7 @@ public class ReplyDao {
 		String sql = "select *"
 				+ " from reply_view"
 				+ " where bd_idx = ?"
-				+ " order by reg_date desc";
+				+ " order by reg_date";
 		
 		try {
 			pstm = conn.prepareStatement(sql);

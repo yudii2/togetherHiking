@@ -5,7 +5,7 @@ CKEDITOR.addCss('figure[class*=easyimage-gradient]::before { content: ""; positi
   '.easyimage-gradient-2::before { background-image: linear-gradient( 135deg, rgba( 115, 110, 254, 0 ) 0%, rgba( 228, 66, 234, .72 ) 100% ); }');
 
 CKEDITOR.replace('editor1', {
-  extraPlugins: 'easyimage,autogrow',
+  extraPlugins: 'easyimage',
   removePlugins: 'image,resize',
   removeDialogTabs: 'link:advanced',
   toolbar: [{
@@ -75,8 +75,6 @@ noGradient: {
 'EasyImageAlt'
   ],
 	height: 600,
-	autoGrow_maxHeight: 1000,
-	autoGrow_bottomSpace: 50,
 	width: '100%',
 language: 'ko',
 removeButtons: 'PasteFromWord'

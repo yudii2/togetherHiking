@@ -52,8 +52,6 @@
 				
 				<%-- 게시글이 존재할 경우 datas 속성에 담겨져서 넘어온다. --%>
 				<c:set var="board" value="${datas.board }"/>
-				<c:set var="files" value="${datas.files }"/>
-				<c:set var="replys" value="${datas.replys }"/>
 				
 				<div class="section_content_box">
 					<div class="section_header">
@@ -79,10 +77,10 @@
 								
 								<ul class="dep1">
 									<li>
-										<c:if test="${not empty files}">
+										<c:if test="${not empty datas.files}">
 										<a>첨부파일</a>
 										<ul class="dep2">
-										<c:forEach items="${files }" var="file" varStatus="status">
+										<c:forEach items="${datas.files }" var="file" varStatus="status">
 											<li><a href="${file.downloadURL }">${file.originFileName }</a></li>
 										</c:forEach>
 										</ul>
@@ -100,10 +98,7 @@
 						 <script>
 							CKEDITOR.replace( 'editor1', {
 								removePlugins: 'resize',
-								extraPlugins: 'autogrow',
 								height: 600,
-								autoGrow_maxHeight: 1000,
-								autoGrow_bottomSpace: 50,
 								readOnly: true,
 								width: '100%',
 								language: 'ko',
@@ -111,6 +106,7 @@
 							} );
 						</script>
 						
+						<c:set var="replys" value="${datas.replys }"/>
 						<div class="comment_area">
 							<div class="line_btns">
 								<span>

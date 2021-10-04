@@ -20,15 +20,15 @@ import com.togetherHiking.reply.model.dto.Reply;
 
 public class MemberDao {
 	
-	JDBCTemplate template = JDBCTemplate.getInstance();
+	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
 	public Member memberAuthenticate(String userId, String password, Connection conn) {
-		Member member = null;
+		Member member = new Member();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
+		String query = "select * from member where user_id = ? and password = ? ";	
 		
-		try {
-			String query = "select * from member where user_id = ? and password = ? ";			
+		try {		
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
 			pstm.setString(2, password);
