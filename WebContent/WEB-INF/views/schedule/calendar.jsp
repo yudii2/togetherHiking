@@ -137,8 +137,9 @@
     $('#btn_edit').on('click',function(){
        location.href = '/schedule/schedule-modify-form?scIdx='+$('#scid').val();
     });
-    $('#btn_del').on('click',function(){
-       location.href = '/schedule/delete?scIdx='+$('#scid').val();
+    $('#btn_del').on('click',function(){    
+    	alert('삭제되었습니다.')
+    	location.href = '/schedule/delete?scIdx='+$('#scid').val();
     });
     
     $('#btn_cancel').on('click',function(){
