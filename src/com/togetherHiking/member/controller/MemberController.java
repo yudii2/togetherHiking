@@ -342,7 +342,7 @@ public class MemberController extends HttpServlet {
 		//유저 정보와 프로필
 		Member member = memberService.memberAuthenticate(userId,password);
 		
-		if(member == null) {
+		if(member.getUserId() == null) {
 			response.sendRedirect("/member/login-page?err=1");
 			return;
 		}
