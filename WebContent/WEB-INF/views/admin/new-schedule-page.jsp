@@ -199,8 +199,9 @@
 									<thead>
 										<tr style="height: 30px">
 											<th style="width: 10%">글번호</th>
-											<th style="width: 40%">산이름</th>
-											<th style="width: 20%">작성자</th>
+											<th style="width: 10%">산이름</th>
+											<th style="width: 40%">상세정보</th>
+											<th style="width: 10%">작성자</th>
 											<th style="width: 10%">작성일</th>
 											<th style="width: 10%">승인</th>
 											<th style="width: 10%">거절</th>
@@ -212,6 +213,7 @@
 												<tr style="height: 30px; line-height: 30px;">
 													<td>${schedule.scIdx}</td>
 													<td>${schedule.mountainName}</td>
+													<td>${schedule.info}</td>
 													<td>${schedule.userId}</td>
 													<td>${schedule.regDate}</td>
 													<td>
