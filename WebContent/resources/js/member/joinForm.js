@@ -23,7 +23,7 @@
                document.querySelector('#id-check').innerHTML = '사용 가능한 아이디 입니다.';
             }else{
                
-               document.querySelector('#id-check').innerHTML = '사용 불가능한 아이디 입니다.';
+               document.querySelector('#id-check').innerHTML = '이미 존재하는 아이디 입니다.';
             }
          })
 		.catch(error=>{
@@ -55,7 +55,7 @@
                document.querySelector('#nickname2').innerHTML = '사용 가능한 닉네임 입니다.';
             }else{
                
-               document.querySelector('#nickname2').innerHTML = '사용 불가능한 닉네임 입니다.';
+               document.querySelector('#nickname2').innerHTML = '이미 존재하는 닉네임 입니다.';
             }
          })
 		.catch(error=>{

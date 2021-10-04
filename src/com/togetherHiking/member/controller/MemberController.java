@@ -178,15 +178,12 @@ public class MemberController extends HttpServlet {
 		//존재하면 로그인 성공
 		Member member = memberService.selectMemberById(userId);
 		//System.out.println(member.getUserId());
-		System.out.println(member);
 		if(member == null || member.getUserId().equals("")) {
 			//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
 			request.setAttribute("kakaoId", userId);
-			System.out.println(userId);
 			response.getWriter().print("kakaoJoin");
 			return;
 		}
-		System.out.println(member);
 		request.getSession().setAttribute("authentication", member);
 		response.getWriter().print("kakaoLogin");
 			

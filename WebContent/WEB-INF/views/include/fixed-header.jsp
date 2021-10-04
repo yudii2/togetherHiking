@@ -10,7 +10,6 @@
         <li><a href="/mountain/search-seoul" class="gnb_menu" data-gnb="2">등산로검색</a></li>
         <li><a href="/schedule/calendar" class="gnb_menu" data-gnb="3">모임캘린더</a></li>
         <li><a href="/board/board-page" class="gnb_menu" data-gnb="4">자유게시판</a></li>
-        <li><a href="/admin/home" class="gnb_menu" data-gnb="5">관리자페이지</a></li>
       </ul>
       <div class="user">
       <c:if test="${empty authentication}">
@@ -35,7 +34,7 @@
 		<div><a href="/member/modify-page">내 정보</a></div>
 		<div><a href="/member/mypage">작성글 관리</a></div>
 		<div><a href="/member/my-schedule">신청내역 관리</a></div>
-		<c:if test="${authentication.grade == 'admin' }">
+		<c:if test="${authentication.grade == 'ADMIN' }">
 			<div><a href="/admin/home">관리자 페이지</a></div>		
 		</c:if>
     </div>

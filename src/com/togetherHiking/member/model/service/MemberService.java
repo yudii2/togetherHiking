@@ -341,8 +341,6 @@ public class MemberService {
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
-			// 예전처럼 예외처리
-			throw e;
 		} finally {
 			template.close(conn);
 		}
