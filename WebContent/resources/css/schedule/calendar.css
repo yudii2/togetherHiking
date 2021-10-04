@@ -4,9 +4,12 @@
 	   margin-top: 30px;
    }
    .fc-event-title.fc-sticky{
-   		padding:1px;
+   		padding:5px;
    }
-
+.fc-toolbar-title{
+	font-size: 22px !important;
+	font-weight: 700;
+}
    
    
 /* Layer Popup */

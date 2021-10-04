@@ -27,10 +27,7 @@
 	        <img id="target_img" src="/resources/img/user.png">
 	    </div>    
 	  </c:if>
-
-
       </div>
-
     </div>
     <div class="tab_mypage">
       	<em></em>
@@ -38,6 +35,9 @@
 		<div><a href="/member/modify-page">내 정보</a></div>
 		<div><a href="/member/mypage">작성글 관리</a></div>
 		<div><a href="/member/my-schedule">신청내역 관리</a></div>
+		<c:if test="${authentication.grade == 'admin' }">
+			<div><a href="/admin/home">관리자 페이지</a></div>		
+		</c:if>
     </div>
     <script type="text/javascript">
     

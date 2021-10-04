@@ -431,19 +431,30 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/common/result").forward(request, response);
 		
 	}
-	//유진 09/30
+	//유진 10/4
 	private void mySchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
+		String selector = request.getParameter("schedule_filter");
 		String userId = member.getUserId();
 		
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
 		Map<String,List> reply = memberService.selectMyReply(userId);
 		
+		if(selector != null) {
+			if(selector.equals("ing")) {
+				request.setAttribute("ingSchedule", myPosts);
+			}else if(selector.equals("end")) {
+				request.setAttribute("endSchedule", myPosts);
+			}
+		};
 		
-		List<Schedule> schedule = memberService.selectMySchedule(userId);
 		
+		List<Schedule> scheduleList = memberService.selectMySchedule(userId);
+		for (Schedule schedule : scheduleList) {
+			System.out.println(schedule.getStatus());
+		}
 		
-		request.setAttribute("mySchedule", schedule);
+		request.setAttribute("mySchedule", scheduleList);
 
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);		

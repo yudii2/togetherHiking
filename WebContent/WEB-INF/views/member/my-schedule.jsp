@@ -77,10 +77,10 @@
 	            	<div class="date">${schedule.dDay }</div>
 	            	<div class="hiking_info">
 	            		<span class="heigth">해발 : ${schedule.mHeight} m</span>
-	            		<c:if test="${schedule.status == 1}">	
+	            		<c:if test="${schedule.status == 0}">	
 	            			<span class="status">대기중</span>	            		
 	            		</c:if>
-	            		<c:if test="${schedule.status == 0}">
+	            		<c:if test="${schedule.status == 1}">
 	            			<span class="status" style="background-color: #ff8080">승인</span>	            		
 	            		</c:if>
 	            	</div>

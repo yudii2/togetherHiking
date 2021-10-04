@@ -146,14 +146,12 @@ public class Member {
 
 
 	public void setProfile(FileDTO profile) {
-		System.out.println("여긴 setProfile() : " + profile);
 		if(profile.getSavePath() == null) {
 			this.profile = null;
 		}else {
 			this.profile = profile.getSavePath() + profile.getRenameFileName();
 
 		}
-		System.out.println("결론 프로필" + this.profile);
 	}
 
 

@@ -20,7 +20,7 @@
 					<h2>자유게시판</h2>
 					<div class='btn_area'>
 						<a href="/board/board-page" class="btn">목록</a>
-						<a href="/board/board-form" class="btn">글쓰기</a>
+						<a href="/board/board-form" class="btn" id="btnWrite">글쓰기</a>
 					</div>
 				</div>
 				

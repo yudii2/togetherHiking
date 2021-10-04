@@ -217,9 +217,8 @@ public class ScheduleController extends HttpServlet {
 
 		Member member = memberService.selectMemberById(userId);
 		request.getSession().setAttribute("authentication", member);
-		System.out.println("upload테스트" + member);
 		
-		response.sendRedirect("/schedule/calendar");
+		response.sendRedirect("/member/my-schedule");
 
 		//request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 	}

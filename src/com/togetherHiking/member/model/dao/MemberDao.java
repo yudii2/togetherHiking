@@ -405,7 +405,7 @@ public class MemberDao {
 		
 		String sql = "select mountain_name, d_day,status from schedule S "
 				+ "join participant_list L using(sc_idx) "
-				+ "join participant_history H using (pl_idx) where H.user_id = ?";
+				+ "join participant_history H using (pl_idx) where H.user_id = ? and (status = 0 or status = 1)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -416,7 +416,7 @@ public class MemberDao {
 				Schedule schedule = new Schedule();
 				schedule.setMountainName(rset.getString("mountain_name"));
 				schedule.setdDay(rset.getDate("d_day"));
-				
+				schedule.setStatus(rset.getInt("status"));
 				scheduleList.add(schedule);
 			}
 			
