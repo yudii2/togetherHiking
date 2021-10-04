@@ -51,7 +51,7 @@
 }
 #mountain_loc-map{
 	width:500px;
-	height:600px;
+	height:500px;
 	border: 1px solid #bcbcbc;
 }
 .desc_mountain h2{
@@ -67,7 +67,7 @@
 }
 #mountain_info p{
 	padding: 15px 0;
-	line-height: 20px;
+	line-height: 23px;
 }
 
 .tit_mountain{

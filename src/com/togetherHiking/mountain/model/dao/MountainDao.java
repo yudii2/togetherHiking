@@ -69,7 +69,7 @@ public class MountainDao {
 		
 		String sql = "SELECT M_Name " + 
 				"FROM(SELECT ROWNUM RNUM, M_Name " + 
-				"FROM(SELECT M_Name FROM mountain where M_LOC like '서울%')) " + 
+				"FROM(SELECT M_Name FROM mountain where M_LOC like '서울%' order by M_Name)) " + 
 				"WHERE RNUM BETWEEN ? AND ?";
 		
 		try {
@@ -101,7 +101,7 @@ public class MountainDao {
 		
 		String sql = "SELECT M_Name " + 
 				"FROM(SELECT ROWNUM RNUM, M_Name " + 
-				"FROM(SELECT M_Name FROM mountain where M_LOC like '경기%')) " + 
+				"FROM(SELECT M_Name FROM mountain where M_LOC like '경기%' order by M_Name)) " + 
 				"WHERE RNUM BETWEEN ? AND ?";
 		
 		try {
