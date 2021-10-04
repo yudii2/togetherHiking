@@ -171,6 +171,20 @@ public class MemberService {
 		return boardList;
 	}
 	
+	
+	public List<Reply> selectReplyByPage(String userId, int page) {
+		Connection conn  = template.getConnection();
+		List<Reply> replyList = new ArrayList<Reply>();
+		
+		try {
+			replyList = memberDao.selectReplyByPage(userId, page, conn);
+		} finally {
+			template.close(conn);	
+		}
+		
+		return replyList;
+	}
+	
 	public int countMyPost(String userId) {
 		Connection conn  = template.getConnection();
 		List<Board> boardList = new ArrayList<Board>();
@@ -288,6 +302,7 @@ public class MemberService {
 		return replyList;
 	}
 
+
 	//유진 10/01
 	public void deletePost(String bdIdx) {
 		Connection conn = template.getConnection();
@@ -346,6 +361,8 @@ public class MemberService {
 		}
 		return member;
 	}
+
+
 
 
 		

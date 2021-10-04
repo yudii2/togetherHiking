@@ -21,6 +21,7 @@ import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.common.file.FileUtil;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.member.model.service.MemberService;
+import com.togetherHiking.reply.model.dto.Reply;
 import com.togetherHiking.schedule.model.dto.Schedule;
 
 /**
@@ -507,6 +508,17 @@ public class MemberController extends HttpServlet {
 
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
+		
+		//Pagination
+		String paramPage = request.getParameter("p");
+		int page = 1;	//parameter가 null일 경우를 대비해 초기값 1로 선언
+		
+		if(paramPage != null && !paramPage.equals("")) {
+			page = Integer.parseInt(paramPage);	
+		}
+
+		List<Reply> replyByPage = memberService.selectReplyByPage(userId, page);
+		request.setAttribute("replyByPage", replyByPage);
 
 		request.getRequestDispatcher("/member/my-reply").forward(request, response);
 	}

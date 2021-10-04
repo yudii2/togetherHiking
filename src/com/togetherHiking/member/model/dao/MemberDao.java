@@ -332,6 +332,39 @@ public class MemberDao {
 		      
 		      return boardList;
 		   }
+	   
+	   
+	public List<Reply> selectReplyByPage(String userId, int page, Connection conn) {
+		  List<Reply> replyList = new ArrayList<Reply>();
+	      PreparedStatement pstm = null;
+	      ResultSet rset = null;
+	            
+	      String sql = "select rp_idx,content,reg_date from (select rownum num, b.* "
+	            + "from (select * from reply where is_del = 0 and user_id = ? order by reg_date desc) b "
+	            + ") where (num between ? and ? ) ";
+
+	      try {
+	         pstm = conn.prepareStatement(sql);
+	         pstm.setString(1, userId);
+	         pstm.setInt(2, (page-1)*8+1);            //1, 9, 17, 23,, -> (page-1) * 8 + 1 
+	         pstm.setInt(3, page*8);         //8, 16, 24,     -> page * 8
+	         rset = pstm.executeQuery();
+	         
+	         while(rset.next()) {
+	            Reply reply = new Reply();
+	            reply.setRpIdx(rset.getString("rp_idx"));
+	            reply.setContent(rset.getString("content"));
+	            reply.setRegDate(rset.getDate("reg_date"));
+	            replyList.add(reply);
+	         }
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      }finally {
+	         template.close(rset,pstm);
+	      }
+	      
+	      return replyList;
+	   }
 
 	public Map<String,List> selectMyReply(String userId, Connection conn) {
 		List<Reply> replyList = new ArrayList<Reply>();
@@ -373,6 +406,9 @@ public class MemberDao {
 		return myReply;
 	}
 	
+	
+
+
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
@@ -514,6 +550,8 @@ public class MemberDao {
 			template.close(pstm);
 		}		
 	}
+
+
 
 
 
