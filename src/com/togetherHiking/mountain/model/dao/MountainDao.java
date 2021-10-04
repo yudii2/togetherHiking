@@ -82,7 +82,7 @@ public class MountainDao {
 				Mountain mountain = new Mountain();
 				mountain.setmName(rset.getString("m_name"));
 				seoulMountain.add(mountain);
-			}
+			} 
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);

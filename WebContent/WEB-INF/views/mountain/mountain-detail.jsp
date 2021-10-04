@@ -10,7 +10,7 @@
 <body>
 <%@ include file = "/WEB-INF/views/include/fixed-header.jsp"%>
 
-  <section>
+  <section> 
     <div class="container con_mountain">							
 	    <form id="search_mountain" name="search" method = "get"  action="?mName=${param.mName}" onsubmit="return keyword_check()">
 			<h1>지역 또는 산 이름 검색</h1>           
