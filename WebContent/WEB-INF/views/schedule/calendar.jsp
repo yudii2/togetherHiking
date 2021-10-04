@@ -137,9 +137,8 @@
     $('#btn_edit').on('click',function(){
        location.href = '/schedule/schedule-modify-form?scIdx='+$('#scid').val();
     });
-    $('#btn_del').on('click',function(){    
-    	alert('삭제되었습니다.')
-    	location.href = '/schedule/delete?scIdx='+$('#scid').val();
+    $('#btn_del').on('click',function(){
+       location.href = '/schedule/delete?scIdx='+$('#scid').val();
     });
     
     $('#btn_cancel').on('click',function(){
@@ -238,7 +237,7 @@
 		                           //클래스 <div class="desc_user"> 추가
 		                           console.dir(pa[i].profile);
 		                           if(pa[i].profile == 'null'){
-		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
+		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt="" onerror="onErrorImage(this)"><span>'+ pa[i].nickname + '</span></div>'
 		                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
 		
 		                           }else{
@@ -281,7 +280,19 @@
        calendar.render();
      });       
    </script>
-
+<script>
+function onErrorImage(_img) {
+	// 처음 에러가 나면 data-load-num에 0부여
+	var loadNum = $(_img).attr('data-load-num') == undefined ? 0 : $(_img).attr('data-load-num');
+    
+	if (loadNum < 3){		// 이미지를 3번 불러옴
+		$(_img).attr('data-load-num', ++loadNum);
+		$(_img).attr('src', "http://localhost:7070/file/");
+	} else {			// 이미지 없음 표시
+		$(_img).attr('src', "/resources/img/user.png");
+	}
+}
+</script>
 </body>
 </html>
 
