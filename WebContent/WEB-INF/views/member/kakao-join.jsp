@@ -375,7 +375,7 @@
       <button id="join" type="submit" onclick="fn_check()">가입하기</button>
 
     </form>          
-     <script type="text/javascript" src="/resources/js/member/joinForm.js">
+     <script type="text/javascript" src="/resources/js/member/kakaojoinForm.js">
      
      
      function fn_check() {
