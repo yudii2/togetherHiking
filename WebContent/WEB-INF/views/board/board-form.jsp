@@ -35,7 +35,6 @@
 				
 				<div class='frm_content_area'>
 					<textarea id="editor1" name="content" placeholder="내용을 입력하세요" data-sample-short></textarea>
-					<script type="text/javascript" src="/resources/js/board/ckeditor.js"></script>
 
 				</div>
 				<div class="add_file_box">파일 : <input type="file" name="files" id="contract_file" multiple/></div>
@@ -44,5 +43,6 @@
 	
 	</div>
   </section>
+<script type="text/javascript" src="/resources/js/board/ckeditor.js"></script>
 </body>
 </html>

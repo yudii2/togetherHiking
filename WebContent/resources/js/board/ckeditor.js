@@ -74,7 +74,7 @@ noGradient: {
 'EasyImageNoGradient',
 'EasyImageAlt'
   ],
-	autoGrow_minHeigh: 300,
+	height: 600,
 	autoGrow_maxHeight: 1000,
 	autoGrow_bottomSpace: 50,
 	width: '100%',

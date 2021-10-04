@@ -101,7 +101,7 @@
 							CKEDITOR.replace( 'editor1', {
 								removePlugins: 'resize',
 								extraPlugins: 'autogrow',
-								autoGrow_minHeight: 300,
+								height: 600,
 								autoGrow_maxHeight: 1000,
 								autoGrow_bottomSpace: 50,
 								readOnly: true,

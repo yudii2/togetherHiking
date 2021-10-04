@@ -241,5 +241,4 @@ public class ScheduleService {
 			template.close(conn);
 		}
 	}
-	
 }
