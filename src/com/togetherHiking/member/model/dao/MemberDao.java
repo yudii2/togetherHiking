@@ -405,7 +405,7 @@ public class MemberDao {
 		
 		String sql = "select mountain_name, d_day,status from schedule S "
 				+ "join participant_list L using(sc_idx) "
-				+ "join participant_history H using (pl_idx) where H.user_id = ? and (status = 0 or status = 1)";
+				+ "join participant_history H using (pl_idx) where H.user_id = ? order by d_day desc";
 		
 		try {
 			pstm = conn.prepareStatement(sql);

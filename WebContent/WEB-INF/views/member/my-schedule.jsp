@@ -33,7 +33,7 @@
       </div>
       <div class="wrap_my_contents">
         <div class="profile">
-          <div class="profile_img">
+          <div class="profile_img" style="z-index:1">
 		  <c:if test="${not empty authentication and not empty authentication.profile}">
 	      	<img id="target_img" src="http://localhost:7070/file/${authentication.profile}">
 	      </c:if>
@@ -83,6 +83,9 @@
 	            		<c:if test="${schedule.status == 1}">
 	            			<span class="status" style="background-color: #ff8080">승인</span>	            		
 	            		</c:if>
+	            		<c:if test="${schedule.status == -1}">
+	            			<span class="status" style="background-color: #eee; color:#555555">거절</span>	            		
+	            		</c:if>
 	            	</div>
 	            	<c:if test="${schedule.dDay < today}">
 	   		         	<div class="end">등반완료!</div>
@@ -97,4 +100,6 @@
       </div>
     </div>
   </section>
+<script type="text/javascript" src="/resources/js/member/profileUpdate.js"></script>
+  
 </body>

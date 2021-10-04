@@ -195,7 +195,6 @@ public class MemberController extends HttpServlet {
 	private void resetPwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		Member member = (Member) request.getAttribute("member");
-		System.out.println("나 resetPwd컨트롤러 : " + member);
 		request.setAttribute("member", member);
 		request.getRequestDispatcher("/member/reset-pwd").forward(request, response);
 		
@@ -212,7 +211,6 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("back", "1");
 			request.getRequestDispatcher("/common/result").forward(request, response);		
 		};
-		System.out.println(member);
 		response.sendRedirect("/index");
 		
 	}
@@ -450,9 +448,6 @@ public class MemberController extends HttpServlet {
 		
 		
 		List<Schedule> scheduleList = memberService.selectMySchedule(userId);
-		for (Schedule schedule : scheduleList) {
-			System.out.println(schedule.getStatus());
-		}
 		
 		request.setAttribute("mySchedule", scheduleList);
 
