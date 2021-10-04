@@ -85,7 +85,7 @@ public class ReplyDao {
 		}
 	}
 
-	private Reply convertRowToReply(Connection conn,ResultSet rset) throws SQLException {
+	public Reply convertRowToReply(Connection conn,ResultSet rset) throws SQLException {
 		Reply reply = new Reply();
 		reply.setUserId(rset.getString("user_id"));
 		reply.setRpIdx(rset.getString("rp_idx"));

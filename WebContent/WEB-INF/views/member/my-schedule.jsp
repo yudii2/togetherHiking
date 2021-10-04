@@ -49,7 +49,7 @@
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
             <h2 class="cnt" >내 게시글 수 <span id="postCnt">${fn:length(myPosts)}</span> 개</h2>
-            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply.reply)}</span> 개</h2>
+            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply)}</span> 개</h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>
@@ -57,11 +57,11 @@
           <span class="tab_my_schedule">내 모임</span>
         </div>
         <div class="my_posts">
-          <select name="schedule_filter" id="filter">
+<!--           <select name="schedule_filter" id="filter">
           	<option value="">전체</option>
           	<option value="ing">예정</option>
           	<option value="end">완료</option>
-          </select>
+          </select> -->
           <div class="wrap_post">
 
           <c:set var="today" value="<%=new java.util.Date()%>"/>

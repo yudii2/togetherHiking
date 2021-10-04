@@ -16,6 +16,7 @@ import com.togetherHiking.common.file.FileDTO;
 import com.togetherHiking.member.model.dto.Member;
 import com.togetherHiking.mountain.model.dto.Mountain;
 import com.togetherHiking.schedule.model.dto.Schedule;
+import com.togetherHiking.reply.model.dao.ReplyDao;
 import com.togetherHiking.reply.model.dto.Reply;
 
 public class MemberDao {
@@ -339,7 +340,7 @@ public class MemberDao {
 	      PreparedStatement pstm = null;
 	      ResultSet rset = null;
 	            
-	      String sql = "select rp_idx,content,reg_date from (select rownum num, b.* "
+	      String sql = "select bd_idx, rp_idx,content,reg_date from (select rownum num, b.* "
 	            + "from (select * from reply where is_del = 0 and user_id = ? order by reg_date desc) b "
 	            + ") where (num between ? and ? ) ";
 
@@ -352,6 +353,7 @@ public class MemberDao {
 	         
 	         while(rset.next()) {
 	            Reply reply = new Reply();
+	            reply.setBdIdx(rset.getString("bd_idx"));
 	            reply.setRpIdx(rset.getString("rp_idx"));
 	            reply.setContent(rset.getString("content"));
 	            reply.setRegDate(rset.getDate("reg_date"));
@@ -366,16 +368,15 @@ public class MemberDao {
 	      return replyList;
 	   }
 
-	public Map<String,List> selectMyReply(String userId, Connection conn) {
+	public List<Reply> selectMyReply(String userId, Connection conn) {
 		List<Reply> replyList = new ArrayList<Reply>();
-		List<Board> boardList = new ArrayList<Board>();
-		Map<String, List> myReply = new HashMap<String, List>();
+		ReplyDao replyDao = new ReplyDao();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
-		String sql = "select rp_idx, b.title, r.content, code_idx, r.reg_date "
-				+ "from reply r join board b using (bd_idx) "
-				+ "where r.user_id = ? and r.is_del = 0";
+		String sql = "select * "
+				+ "from reply "
+				+ "where user_id = ? and is_del = 0";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -383,27 +384,16 @@ public class MemberDao {
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				Reply reply = new Reply();
-				Board board = new Board();
-				reply.setRpIdx(rset.getString("rp_idx"));
-				reply.setContent(rset.getString("content"));
-				reply.setCodeIdx(rset.getString("code_idx"));
-				reply.setRegDate(rset.getDate("reg_date"));
-				board.setTitle(rset.getString("title"));
-				replyList.add(reply);
-				boardList.add(board);
-
+				replyList.add(replyDao.convertRowToReply(conn, rset));
 			}
 			
-			myReply.put("reply", replyList);
-			myReply.put("boardTitle", boardList);
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		}finally {
 			template.close(rset,pstm);
 		}
-		return myReply;
+		return replyList;
 	}
 	
 	

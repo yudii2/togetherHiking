@@ -432,7 +432,7 @@ public class MemberController extends HttpServlet {
 		String userId = member.getUserId();
 		
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
-		Map<String,List> reply = memberService.selectMyReply(userId);
+		List<Reply> reply = memberService.selectMyReply(userId);
 		
 		if(selector != null) {
 			if(selector.equals("ing")) {
@@ -473,7 +473,7 @@ public class MemberController extends HttpServlet {
 		String userId = member.getUserId();
 
 		List<Board> myPosts = memberService.selectMyPostById(userId);	//전체 게시글 조회
-		Map<String,List> reply = memberService.selectMyReply(userId);
+		List<Reply> reply = memberService.selectMyReply(userId);
 
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);
@@ -499,7 +499,7 @@ public class MemberController extends HttpServlet {
 		String userId = member.getUserId();
 		
 		List<Board> myPosts = memberService.selectMyPostById(userId);	
-		Map<String,List> reply = memberService.selectMyReply(userId);	//boardList객체와 reply객체가 같이 담김. but, jsp에서는 하나의 객체를 꺼내야만 사용할 수 있다.
+		List<Reply> reply = memberService.selectMyReply(userId);	//boardList객체와 reply객체가 같이 담김. but, jsp에서는 하나의 객체를 꺼내야만 사용할 수 있다.
 
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("myReply",reply);

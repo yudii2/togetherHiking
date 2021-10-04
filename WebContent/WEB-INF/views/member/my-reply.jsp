@@ -46,7 +46,7 @@
           <div class="profile_desc">
             <h1 class="nickname">${authentication.nickname}</h1>
             <h2 class="cnt">내 게시글 수 <span>${fn:length(myPosts)} 개</span></h2>
-            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply.reply)} 개</span></h2>
+            <h2 class="cnt">내 댓글 수 <span>${fn:length(myReply)} 개</span></h2>
             <span class="info">${authentication.info }</span>
           </div>
         </div>
@@ -74,7 +74,7 @@
             <c:forEach items="${replyByPage}" var="myReply">
 	            <tr class="contents" id="myReply">
 	              <td><input type="checkbox" class="checkbox" name="chk" value="${myReply.rpIdx}"><span>${myReply.rpIdx}</span></td>
-	              <td>${myReply.content}</td>
+	              <td><a href='/board/board-detail?bd_idx=${myReply.bdIdx}'>${myReply.content}</a></td>
 	              <td>${myReply.regDate}</td>
 	            </tr>
 			</c:forEach>
@@ -93,7 +93,7 @@
         </div>
         <c:set var="currPage" value="${(empty param.p)? 1 : param.p}" ></c:set>	<!-- 현재 페이지 -->
         <c:set var="startNum" value="${currPage-(currPage-1)%5}" ></c:set>	<!-- 페이지넘버링 처음 번호(1,5,9,,,) -->
-        <c:set var="lastPage" value="${empty myReply.reply ? 1 : Math.ceil(fn:length(myReply.reply)/8)}" ></c:set>	<!-- 총 페이지수 -->
+        <c:set var="lastPage" value="${empty myReply ? 1 : Math.ceil(fn:length(myReply)/8)}" ></c:set>	<!-- 총 페이지수 -->
 	    <div class="arrows" >
 	        <c:if test="${startNum > 1}">	
 		      <a href="?p=${startNum-1}"><i class="fas fa-chevron-left leftArrow"></i></a>

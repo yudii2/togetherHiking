@@ -191,9 +191,7 @@ public class MemberService {
 		
 		try {
 			boardList = memberDao.selectMyPostById(userId, conn);
-			for (Board board : boardList) {
-				cnt ++;
-			}
+			cnt = boardList.size();
 		} finally {
 			template.close(conn);	
 		}
@@ -202,15 +200,12 @@ public class MemberService {
 	
 	private int countMyReply(String userId) {
 		Connection conn  = template.getConnection();
-		Map<String,List> replyList = new HashMap<String, List>();
+		List<Reply> replyList = new ArrayList<Reply>();
 		int cnt = 0;
 		
 		try {
 			replyList = memberDao.selectMyReply(userId, conn);
-			List<Reply> myReply = replyList.get("reply");
-			for (Reply reply : myReply) {
-				cnt++;
-			}
+			cnt = replyList.size();
 		} finally {
 			template.close(conn);	
 		}
@@ -244,9 +239,9 @@ public class MemberService {
 		try {
 			member = memberDao.memberAuthenticate(userId, password, conn);
 			if(member != null) {
-				member.setReplyCnt(countMyReply(userId));
-				member.setPostCnt(countMyPost(userId));
-				member.setProfile(selectProfile(userId));				
+				member.setReplyCnt(memberDao.selectMyReply(userId, conn).size());
+				member.setPostCnt(memberDao.selectMyPostById(userId, conn).size());
+				member.setProfile(memberDao.selectProfile(userId, conn));				
 			}
 
 		}finally {
@@ -262,9 +257,9 @@ public class MemberService {
 		
 		try {
 			memberDetail = memberDao.selectMemberById(member.getUserId(), conn);
-			memberDetail.setReplyCnt(countMyReply(member.getUserId()));
-			memberDetail.setPostCnt(countMyPost(member.getUserId()));
-			memberDetail.setProfile(selectProfile(member.getUserId()));
+			member.setReplyCnt(memberDao.selectMyReply(member.getUserId(), conn).size());
+			member.setPostCnt(memberDao.selectMyPostById(member.getUserId(), conn).size());
+			memberDetail.setProfile(memberDao.selectProfile(member.getUserId(), conn));
 			
 		}finally {
 			template.close(conn);
@@ -290,9 +285,9 @@ public class MemberService {
 	}
 	
 	
-	public Map<String,List> selectMyReply(String userId) {
+	public List<Reply> selectMyReply(String userId) {
 		Connection conn  = template.getConnection();
-		Map<String,List> replyList = new HashMap<String, List>();
+		List<Reply> replyList = new ArrayList<Reply>();
 		try {
 			replyList = memberDao.selectMyReply(userId,conn);
 		} finally {
