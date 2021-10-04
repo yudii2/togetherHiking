@@ -183,13 +183,7 @@ public class ScheduleDao {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, scIdx);
 			int res = pstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("모임글 삭제 성공");
-			}else {
-				System.out.println("모임글 삭제 실패");
-			}
-			
+
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -233,13 +227,7 @@ public class ScheduleDao {
 			cstm.setString(1, scIdx);
 			cstm.setString(2, member.getUserId());
 			res = cstm.executeUpdate();
-			
-			if(res>0) {
-				System.out.println("동행 취소 성공");
-			}else {
-				System.out.println("동행 취소 실패");
-			}
-			
+
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -346,11 +334,6 @@ public class ScheduleDao {
 			pstm.setString(1, scIdx);
 			int res = pstm.executeUpdate();
 			
-			if(res>0) {
-				System.out.println("거절 성공");
-			}else {
-				System.out.println("거절 실패");
-			}
 			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);

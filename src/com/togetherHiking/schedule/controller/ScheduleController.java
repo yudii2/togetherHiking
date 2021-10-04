@@ -118,8 +118,7 @@ public class ScheduleController extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.write(gson);
-		// request.getRequestDispatcher("/admin/new-schedule-page").forward(request,
-		// response);
+
 	}
 
 	// 스케줄 디테일 조회
@@ -138,16 +137,12 @@ public class ScheduleController extends HttpServlet {
 
 		// Map에 userIdx 사용자인증정보 put
 		datas.put("userIdx", request.getSession().getAttribute("authentication"));
-		System.out.println(datas);
 
 		// Map 데이터를 json 타입으로 리턴
 		String gson = new Gson().newBuilder().setDateFormat("yyyy-MM-dd").create().toJson(datas);
 		PrintWriter out = response.getWriter();
 		out.write(gson);
-		// request.setAttribute("schedule", datas.get("schedule"));
-		// System.out.println(datas.get("schedule"));
-		// request.getRequestDispatcher("/schedule/calendar").forward(request,
-		// response);
+
 
 	}
 
@@ -232,14 +227,12 @@ public class ScheduleController extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String scIdx = request.getParameter("scIdx");
-		/* System.out.println(scIdx); */
 		scheduleService.deleteSchedule(scIdx);
 		response.sendRedirect("/schedule/calendar");
 	}
 
 	// 동행버튼 이벤트
-	private void participant(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void participant(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		PrintWriter out= response.getWriter();
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
@@ -272,14 +265,6 @@ public class ScheduleController extends HttpServlet {
 		}
 		out.flush();
 
-		/*
-		 * // 로그인 하지 않았을 경우 if (member == null) {
-		 * response.sendRedirect("/schedule/calendar"); return; } else { // userId,
-		 * scIdx 가져오기 // String userId = member.getUserId(); String scIdx =
-		 * request.getParameter("scIdx"); System.out.println(member.getUserId());
-		 * scheduleService.insertParticipant(scIdx, member); }
-		 * response.sendRedirect("/schedule/calendar");
-		 */
 
 	}
 
