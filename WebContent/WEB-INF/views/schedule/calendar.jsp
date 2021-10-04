@@ -236,8 +236,8 @@
 		
 		                           //클래스 <div class="desc_user"> 추가
 		                           console.dir(pa[i].profile);
-		                           if(pa[i].profile == 'null'){
-		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt="" onerror="onErrorImage(this)"><span>'+ pa[i].nickname + '</span></div>'
+		                           if(pa[i].profile == 'null'){											/* onerror="onErrorImage(this) */
+		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
 		                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
 		
 		                           }else{
@@ -280,7 +280,7 @@
        calendar.render();
      });       
    </script>
-<script>
+<!-- <script>
 function onErrorImage(_img) {
 	// 처음 에러가 나면 data-load-num에 0부여
 	var loadNum = $(_img).attr('data-load-num') == undefined ? 0 : $(_img).attr('data-load-num');
@@ -292,7 +292,7 @@ function onErrorImage(_img) {
 		$(_img).attr('src', "/resources/img/user.png");
 	}
 }
-</script>
+</script> -->
 </body>
 </html>
 
