@@ -50,7 +50,6 @@ public class MemberService {
 			// 방금 가입한 회원의 정보를 다시 조회
 			Member m = memberDao.selectMemberById(member.getUserId(), conn);
 			// 다오를 통해 사용자 정보를 받아서 해당 정보로 로그인 처리 진행
-			System.out.println(member.getUserId() + "의 로그인처리 로직이 동작했습니다.");
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);

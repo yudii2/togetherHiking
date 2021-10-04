@@ -35,7 +35,6 @@ public class UpdatePwdForm {
 		}
 		
 		if(isFailed) {
-			System.out.println(failedAttrubute);
 			request.getSession().setAttribute("updatePwdValid", failedAttrubute);	
 			request.getSession().setAttribute("updatePwdForm", this);	
 			return false;

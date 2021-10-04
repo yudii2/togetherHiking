@@ -142,8 +142,6 @@ public class ScheduleController extends HttpServlet {
 		String gson = new Gson().newBuilder().setDateFormat("yyyy-MM-dd").create().toJson(datas);
 		PrintWriter out = response.getWriter();
 		out.write(gson);
-
-
 	}
 
 	private void scheduleForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

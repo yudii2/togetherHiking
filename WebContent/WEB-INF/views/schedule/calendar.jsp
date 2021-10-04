@@ -235,8 +235,8 @@
                                for (var i = 0; i < pa.length; i++) {
 		
 		                           //클래스 <div class="desc_user"> 추가
-		                           console.dir(pa[i].profile);
-		                           if(pa[i].profile == 'null'){											/* onerror="onErrorImage(this) */
+		                           console.dir(pa[i]);
+		                           if(pa[i].profile == 'undefined' || pa[i].profile == 'null' ){											/* onerror="onErrorImage(this) */
 		                               top += ' <div class="parti partii"><img src="/resources/img/user.png" alt=""><span>'+ pa[i].nickname + '</span></div>'
 		                               bottom += '<div class="desc_user desc_uuser"><img src="/resources/img/user.png" alt=""><div class="info"><h1>'+pa[i].nickname+'</h1><span>'+pa[i].info+'</span></div></div>';
 		

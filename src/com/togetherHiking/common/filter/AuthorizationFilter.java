@@ -154,6 +154,11 @@ public class AuthorizationFilter implements Filter {
 			}
 			hostAuthorize(httpRequest, httpResponse);
 			break;
+		case "calendar":
+			if(httpRequest.getSession().getAttribute("authentication") == null) {
+				throw new HandleableException(ErrorCode.REDIRECT_LOGIN_PAGE);
+			}
+			break;
 		//세션 인증하면 접근가능
 		case "upload":
 			if(httpRequest.getSession().getAttribute("authentication") == null) {

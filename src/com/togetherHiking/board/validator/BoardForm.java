@@ -35,23 +35,19 @@ public class BoardForm {
 		if(title == null || title.isEmpty()) {
 			faildValidation.put("title", title);
 			isFailed = true;
-			System.out.println("title");
 		}
 		// 말머리가 "잡담" 또는 "후기" 가 아니라면
 		if(subject == null || !(subject.equals("잡담") || subject.equals("후기"))) {
 			faildValidation.put("subject", subject);
 			isFailed = true;
-			System.out.println("subject");
 		}
 		// 내용이 비어있다면
 		if(content == null || content.isEmpty()) {
 			faildValidation.put("content", content);
 			isFailed = true;
-			System.out.println("content");
 		}
 		
 		if(isFailed) {
-			System.out.println("BoardForm.java 에러 발생");
 			request.getSession().setAttribute("boardValid",faildValidation);
 			request.getSession().setAttribute("boardForm",this);
 			return false;

@@ -177,7 +177,6 @@ public class MemberController extends HttpServlet {
 			
 		//존재하면 로그인 성공
 		Member member = memberService.selectMemberById(userId);
-		//System.out.println(member.getUserId());
 		if(member == null || member.getUserId().equals("")) {
 			//멤버테이블에서 아이디를 조회해서 존재하지 않으면 계속 진행
 			request.setAttribute("kakaoId", userId);
@@ -393,7 +392,6 @@ public class MemberController extends HttpServlet {
 	
 	private void checkNickname(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nickname = request.getParameter("nickname");
-		System.out.println(nickname);
 		Member member = memberService.selectByNickname(nickname);
 		if(member == null) {
 			response.getWriter().print("available");	//js에게 전달
