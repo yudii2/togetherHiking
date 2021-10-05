@@ -74,9 +74,6 @@ public class ScheduleController extends HttpServlet {
 			}
 			break;
 		// host한테만 허용되는 수정,삭제 기능
-		case "edit":
-			edit(request, response);
-			break;
 		// 스케줄 삭제 작업을 진행한다.
 		case "delete":
 			delete(request, response);
@@ -208,18 +205,16 @@ public class ScheduleController extends HttpServlet {
 		schedule.setAge(age);
 		scheduleService.insertSchedule(schedule);
 
+		
 		Member member = memberService.selectMemberById(userId);
 		request.getSession().setAttribute("authentication", member);
 		
 		response.sendRedirect("/member/my-schedule");
 
+		
 		//request.getRequestDispatcher("/schedule/calendar").forward(request, response);
 	}
 
-	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-	}
 
 	// 모임글 삭제
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
