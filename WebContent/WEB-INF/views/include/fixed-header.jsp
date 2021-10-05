@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
   <header>
     <div class="container con_header">
-      <a class="logo" href="/index"><img src="/resources/img/산행동행로고.gif" alt=""></a>
+      <a class="logo" href="/index"><img src="/resources/img/logo4.jpg" alt=""></a>
       <ul class="gnb">
         <li><a href="/index" class="gnb_menu" data-gnb="1">HOME</a></li>
         <li><a href="/mountain/search-seoul" class="gnb_menu" data-gnb="2">등산로검색</a></li>
