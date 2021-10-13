@@ -49,7 +49,6 @@ public class FileUtil {
 				}else if(part.isParam()) {
 					ParamPart paramPart = (ParamPart) part;
 					setParameterMap(paramPart, res);
-					
 				}
 			}
 			

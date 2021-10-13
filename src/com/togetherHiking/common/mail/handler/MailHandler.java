@@ -27,8 +27,7 @@ public class MailHandler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//MailHandler에 mail-template을 요청할 때, 원하는 template 이름을 요청 파라미터로 전송
-		//MailHandler는 해당 template으로 요청을 재지정
+
 		String template = request.getParameter("mail-template");
 		request.getRequestDispatcher("/mail-template/" + template).forward(request, response);
 		
