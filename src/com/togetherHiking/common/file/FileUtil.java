@@ -24,8 +24,6 @@ public class FileUtil {
 	
 	private static final int MAX_SIZE = 1024*1024*10;
 	
-	//multipart 요청 도착 
-	// -> multipartParser를 사용해 파일업로드 + 요청파라미터 저장 + FileDTO 생성
 	public MultiPartParams fileUpload(HttpServletRequest request){
 		
 		Map<String,List> res = new HashMap<String, List>();
@@ -75,7 +73,7 @@ public class FileUtil {
 				if(part.isFile()) {
 					FilePart filePart = (FilePart) part;
 					fileDTO = createFileDTO(filePart);
-					filePart.writeTo(new File(getSavePath() + fileDTO.getRenameFileName())); //파일저장
+					filePart.writeTo(new File(getSavePath() + fileDTO.getRenameFileName())); //�뙆�씪���옣
 				}
 			}
 					
@@ -92,8 +90,8 @@ public class FileUtil {
 
 	private String getSavePath() {
 		
-		//2. 저장경로를 웹어플리케이션 외부로 지정
-		//		 저장경로를  외부경로 + /연/월/일 형태로 작성
+		//2. ���옣寃쎈줈瑜� �쎒�뼱�뵆由ъ��씠�뀡 �쇅遺�濡� 吏��젙
+		//		 ���옣寃쎈줈瑜�  �쇅遺�寃쎈줈 + /�뿰/�썡/�씪 �삎�깭濡� �옉�꽦
 		String subPath = getSubPath();
 		String savePath = Config.UPLOAD_PATH.DESC + subPath;
 		

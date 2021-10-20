@@ -13,6 +13,7 @@ public class Board {
 	private int viewCnt;
 	private String profileSavePath;
 	private String profileRenameFileName;
+	
 	public String getBdIdx() {
 		return bdIdx;
 	}
