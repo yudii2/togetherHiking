@@ -17,15 +17,19 @@ public class Board {
 	public String getBdIdx() {
 		return bdIdx;
 	}
+	
 	public void setBdIdx(String bdIdx) {
 		this.bdIdx = bdIdx;
 	}
+	
 	public String getUserId() {
 		return userId;
 	}
+	
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
 	public String getNickname() {
 		return nickname;
 	}
