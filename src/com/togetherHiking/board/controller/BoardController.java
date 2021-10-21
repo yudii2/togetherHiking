@@ -76,12 +76,12 @@ public class BoardController extends HttpServlet {
 		Map<String,Object> datas = boardService.getBoardDetail(bdIdx);
 		
 		request.setAttribute("datas", datas);
+		
 		request.getRequestDispatcher("/board/board-detail").forward(request, response);
 	}
 
 	private void boardForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/board/board-form").forward(request, response);
-		
 	}
 
 	private void boardPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,9 +107,10 @@ public class BoardController extends HttpServlet {
 		List<BoardView> boardList = new ArrayList<BoardView>();
 		boardList = boardService.getBoardList(field, query, page);
 		int count = boardService.getBoardCount(field, query);
-		
+
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("count", count);
+		
 		request.getRequestDispatcher("/board/board-page").forward(request, response);
 	}
 
