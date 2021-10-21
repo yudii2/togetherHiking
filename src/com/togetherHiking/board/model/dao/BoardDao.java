@@ -370,5 +370,48 @@ public class BoardDao {
 		
 		return fileDTO;
 	}
+	private Board convertRowToBoard1(Connection conn, ResultSet rset) throws SQLException {
+		Board board = new Board();
+		board.setUserId(rset.getString("user_id"));
+		board.setBdIdx(rset.getString("bd_idx"));
+		board.setTitle(rset.getString("title"));
+		board.setSubject(rset.getString("subject"));
+		board.setContent(rset.getString("content"));
+		board.setRegDate(rset.getDate("reg_date"));
+		board.setViewCnt(rset.getInt("view_cnt"));
+		board.setNickname(rset.getString("nickname"));
+		
+		FileDTO file = new FileDTO();
+		file = selectFile(conn, board.getUserId());
+		board.setProfileRenameFileName(file.getRenameFileName());
+		board.setProfileSavePath(file.getSavePath());
+		
+		return board;
+	}
 	
+	private BoardView convertRowToBoardView1(ResultSet rset) throws SQLException {
+		BoardView boardView = new BoardView();
+		boardView.setBdIdx(rset.getString("bd_idx"));
+		boardView.setUserId(rset.getString("user_id"));
+		boardView.setTitle(rset.getString("title"));
+		boardView.setSubject(rset.getString("subject"));
+		boardView.setRegDate(rset.getDate("reg_date"));
+		boardView.setViewCnt(rset.getInt("view_cnt"));
+		boardView.setReplyCnt(rset.getInt("reply_cnt"));
+		boardView.setNickname(rset.getString("nickname"));
+		
+		return boardView;
+	}
+	
+	private FileDTO convertRowToFileDTO1(ResultSet rset) throws SQLException {
+		FileDTO fileDTO = new FileDTO();
+		fileDTO.setFlIdx(rset.getString("fl_idx"));
+		fileDTO.setTypeIdx(rset.getString("type_idx"));
+		fileDTO.setOriginFileName(rset.getString("origin_file_name"));
+		fileDTO.setRenameFileName(rset.getString("rename_file_name"));
+		fileDTO.setRegDate(rset.getDate("reg_date"));
+		fileDTO.setSavePath(rset.getString("save_path"));
+		
+		return fileDTO;
+	}
 }
